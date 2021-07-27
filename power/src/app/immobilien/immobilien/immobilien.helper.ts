@@ -4,8 +4,7 @@ export class ImmobilienHelper {
      * source: https://stackoverflow.com/a/42769683
      *
      * @param rem size in rem
-     *
-     * @return size in px
+     * @returns size in px
      */
     static convertRemToPixels(rem: number): number {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -17,7 +16,7 @@ export class ImmobilienHelper {
      * Source: https://stackoverflow.com/a/5624139
      *
      * @param {int} c Color Component
-     * @return {string} Hex Component
+     * @returns {string} Hex Component
      */
     static componentToHex(c) {
         const hex = c.toString(16);
@@ -30,8 +29,7 @@ export class ImmobilienHelper {
      * @param {int} r red color
      * @param {int} g green color
      * @param {int} b blue coor
-     *
-     * @return {string} Hex-Color
+     * @returns {string} Hex-Color
      */
     static rgbToHex(r, g, b) {
         return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
@@ -46,8 +44,7 @@ export class ImmobilienHelper {
      * - Hex:   #rrggbb
      *
      * @param color Input Color
-     *
-     * @return HexColor (#rrggbb)
+     * @returns HexColor (#rrggbb)
      */
     static convertColor(color) {
         if (color !== undefined && color !== null) {
@@ -71,8 +68,7 @@ export class ImmobilienHelper {
      *
      * @param color Input Color (Choose Format accepted by convertColor)
      * @param percent lighten or darken -1<=0<=1
-     *
-     * @return Modified color
+     * @returns Modified color
      */
     static modifyColor(color, percent) {
 
@@ -101,8 +97,7 @@ export class ImmobilienHelper {
      * Appending zeros
      *
      * @param n number
-     *
-     * @return zero padding number
+     * @returns zero padding number
      */
     static appendLeadingZeroes(n) {
         if (n <= 9) {
@@ -114,7 +109,7 @@ export class ImmobilienHelper {
     /**
      * get the current Daten with leading zeroes
      *
-     * @return Date
+     * @returns Date
      */
     static getDate() {
         const dt = new Date();
@@ -126,8 +121,7 @@ export class ImmobilienHelper {
      * parse String as Flaot
      *
      * @param value String or float
-     *
-     * @return float
+     * @returns float
      */
     static parseStringAsFloat(value: any) {
         if (typeof value === 'string') {
@@ -142,6 +136,8 @@ export class ImmobilienHelper {
      *
      * @param data Data for Download
      * @param filename Filename for the Data to download
+     * @param filetype
+     * @param isurl
      */
     static downloadFile(data, filename, filetype = 'text/csv', isurl = false): any {
         let url = data;
@@ -183,8 +179,7 @@ export class ImmobilienHelper {
      * @param path Path of the Property
      * @param obj Object
      * @param separator Separator used in path
-     *
-     * @return Resolved Property
+     * @returns Resolved Property
      */
     static resolve(path, obj: any = self, separator = '.') {
         const properties = Array.isArray(path) ? path : path.split(separator);
@@ -197,8 +192,9 @@ export class ImmobilienHelper {
      *
      * @param array Array with th data which should converted
      * @param keys Keys which data should be used
-     *
-     * @return CSV String
+     * @param split
+     * @param feld
+     * @returns CSV String
      */
     static convertArrayToCSV(array, keys, split = ';', feld = '"') {
         const tmp = [];
@@ -230,8 +226,7 @@ export class ImmobilienHelper {
      *
      * @param data GeoJSON Data
      * @param feature Feature which should be extracted
-     *
-     * @return Feature if found, empty object if not found
+     * @returns Feature if found, empty object if not found
      */
     static getSingleFeature(data, feature) {
 
@@ -251,8 +246,7 @@ export class ImmobilienHelper {
      *
      * @param data GeoJSON Data
      * @param features Array of Features for the Collection
-     *
-     * @return GeometryCollection Object (Empty geometries property if no feature were found)
+     * @returns GeometryCollection Object (Empty geometries property if no feature were found)
      */
     static getGeometryArray(data, features) {
 

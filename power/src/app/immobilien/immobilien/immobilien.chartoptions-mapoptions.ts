@@ -1,3 +1,6 @@
+/**
+ * @param position
+ */
 function getScatter(position) {
     return {
         'type': 'effectScatter',

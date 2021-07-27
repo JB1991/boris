@@ -45,7 +45,12 @@ export class ImmobilienComponent implements OnInit {
     /**
      * Constructor:
      *
+     * @param platformId
+     * @param route
+     * @param location
      * @param http Inject HttpClient
+     * @param cdr
+     * @param seo
      */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
@@ -172,6 +177,7 @@ export class ImmobilienComponent implements OnInit {
      * Format CSV; Seperator: Semikolon;
      * Fields: AGS, Geme_Bezeichnung, WOMA_ID
      *
+     * @param url
      * @params {string} url Url to Gemeinnde CSV
      */
     loadGemeinden(url) {
@@ -188,6 +194,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * parseURLTimeRange
+     * @param params
      */
     parseURLTimeRange(params) {
         if (params['t1']) {
@@ -216,6 +223,8 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * parseURLAggr
+     * @param selectionId
+     * @param params
      */
     parseURLAggr(selectionId, params) {
 
@@ -246,6 +255,8 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * parseURLSingle
+     * @param selectionId
+     * @param params
      */
     parseURLSingle(selectionId, params) {
 
@@ -266,6 +277,8 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * parse URLMultiSelect
+     * @param selectionId
+     * @param params
      */
     parseURLMultiSelect(selectionId, params) {
 
@@ -300,6 +313,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Query URL Params
+     * @param params
      */
     queryURL(params) {
 
@@ -389,6 +403,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Set Map Options
+     * @param selectType
      */
     setMapOptions(selectType: any = 'multiple') {
 
@@ -459,6 +474,9 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Toggle the Selection of an Subitem
+     * @param category
+     * @param name
+     * @param typ
      */
     toggleMapSelect(category, name, typ = 'undefined') {
         this.nipixRuntime.resetHighlight();
@@ -492,6 +510,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Update the Selectiopn of the Map aware of the activer Draw Item
+     * @param id
      */
     updateMapSelect(id = null) {
         this.nipixRuntime.updateMapSelect(id);
@@ -500,6 +519,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Gets chart element for map
+     * @param ec
      */
     onChartInit(ec) {
         this.nipixRuntime.map.obj = ec;
@@ -511,6 +531,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Gets chart element for Chart
+     * @param ec
      */
     onChartChartInit(ec) {
         this.nipixRuntime.chart.obj = ec;
@@ -522,6 +543,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Finish Randering
+     * @param ec
      */
     onChartFinished(ec) {
         this.nipixRuntime.export.chartRenderFinished();
@@ -555,6 +577,8 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Change between NiPix Category (Eigenheime, Wohnungen)
+     * @param index
+     * @param cat
      */
     onChangeCat(index, cat) {
         if (Array.isArray(index)) {
@@ -581,6 +605,8 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Manually change Quartal
+     * @param start
+     * @param end
      */
     onChangeQuartal(start, end) {
         if (start !== null) {
@@ -599,6 +625,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Switch between multiple Draw Items
+     * @param name
      */
     onClickDrawRoot(name) {
         // this.selectedTreeItem = name;
@@ -608,6 +635,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Toggle Show of Draw Item
+     * @param name
      */
     onToggleDrawRoot(name) {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -623,6 +651,8 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Update Chart
+     * @param start
+     * @param end
      */
     updateChart(start = null, end = null) {
         let range_start = this.chart_range['data'][2][0];
@@ -658,6 +688,10 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Update Chart
+     * @param range_start
+     * @param range_end
+     * @param subAdd
+     * @param range_text
      */
     updateChartMerge(range_start, range_end, subAdd, range_text) {
         const chartOptionMerge = ImmobilienChartOptions.getChartOptionsMerge({
@@ -689,6 +723,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Handle Chart DataZoom
+     * @param event
      */
     onDataZoom(event) {
         this.chart_range['data'][2] = [event.start, -1];
@@ -704,6 +739,7 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Focus single ChartLine
+     * @param event
      */
     chartClicked(event) {
         if ((event.componentType === 'series') && (event.seriesType === 'line')) {
@@ -794,8 +830,8 @@ export class ImmobilienComponent implements OnInit {
      * Handle found WoMaReg.
      *
      * @param WoMa Region ID
-     *
-     * @return WoMaReg Name
+     * @param id
+     * @returns WoMaReg Name
      */
     regionName(id) {
         if ((id !== undefined) && (this.nipixStatic.data.regionen.hasOwnProperty(id))) {
@@ -814,8 +850,7 @@ export class ImmobilienComponent implements OnInit {
      * Get custom color
      *
      * @param name draw name
-     *
-     * @return color Color
+     * @returns color Color
      */
     getCustomColor(name) {
         const draw = this.nipixRuntime.getDrawPreset(name);

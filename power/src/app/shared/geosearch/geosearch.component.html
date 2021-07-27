@@ -13,11 +13,12 @@
                type="text"
                class="form-control"
                placement="bottom"
-               placeholder="Bitte Adresse eingeben..."
                i18n-placeholder
+               placeholder="Bitte Adresse eingeben..."
+               i18n-aria-label
                aria-label="Suche"
-               aria-placeholder="Bitte geben Sie eine Adresse ein."
                i18n-aria-placeholder
+               aria-placeholder="Bitte geben Sie eine Adresse ein."
                [(ngModel)]="model"
                [ngbTypeahead]="search"
                [inputFormatter]="inputFormatter"

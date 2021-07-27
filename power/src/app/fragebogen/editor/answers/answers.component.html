@@ -119,6 +119,7 @@
                        *ngIf="!item.imageLink.startsWith('data:image')"
                        id="answer-image-{{ i }}{{ uniqId }}"
                        name="answer-image-{{ i }}{{ uniqId }}"
+                       i18n-placeholder
                        placeholder="https://..."
                        required>
                 <div *ngIf="item.imageLink.startsWith('data:image')">

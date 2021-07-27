@@ -7,8 +7,7 @@ export class ImmobilienUtils {
      *
      * @param lastYear Year of the last available NIPIX Data
      * @param lastPeriod Period of the last available NIPIX Data
-     *
-     * @return DateArray array
+     * @returns DateArray array
      */
     static getDateArray(lastYear: number, lastPeriod: number) {
 
@@ -54,8 +53,7 @@ export class ImmobilienUtils {
      * @param myregion FindMyRegion Region
      * @param selectionList List of selected Regions
      * @param lighten (default false) Lighten the areaColor
-     *
-     * @return MapRegionen array
+     * @returns MapRegionen array
      */
     static getMyMapRegionen(regionen, myregion = null, selectionList = null, lighten = false) {
         const res = [];
@@ -132,10 +130,10 @@ export class ImmobilienUtils {
      * @param labelFormatter Custom labelFormatter function
      * @param selectedChartLine Name of the selected chart line (for highlghting)
      * @param zIndex xAxisIndex (degfault 0) (see echarts api)
+     * @param xIndex
      * @param yIndex yAxisIndex (Default 0) (see echarts api)
      * @param seriesType SeriesTyp (default line) (see echarts api)
-     *
-     * @return echarts Series Object
+     * @returns echarts Series Object
      */
     static generateSeries(
         name,
@@ -179,9 +177,9 @@ export class ImmobilienUtils {
      * @param data raw Series Data
      * @param date date arry for data
      * @param field Data array field
+     * @param offset
      * @offset Offset for ercentage calculation
-     *
-     * @return Data array
+     * @returns Data array
      */
     static generateDrawSeriesData(data, date = [], field = null, offset = 100) {
 

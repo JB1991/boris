@@ -12,6 +12,8 @@ export class ImmobilienChartOptions {
 
     /**
      * Configuration Option for the Map
+     * @param opt
+     * @param selectType
      */
     static getMapOptions(
         opt: any = { 'text': {} },
@@ -47,6 +49,7 @@ export class ImmobilienChartOptions {
 
     /**
      * Configuration Option for the Chart
+     * @param opt
      */
     static getChartOptions(opt: any = { 'text': {} }): echarts.EChartOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptions));
@@ -70,6 +73,7 @@ export class ImmobilienChartOptions {
 
     /**
      * Configuration Option for the Chart
+     * @param opt
      */
     static getChartOptionsMerge(opt: any = { 'text': {} }): echarts.EChartOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptionsMerge));
