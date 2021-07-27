@@ -138,7 +138,10 @@
 
                                 <span class="check custom-radio"
                                       [style.background-color]="getCustomColor(itm)"
+                                      role="button"
+                                      tabindex="0"
                                       (click)="toggleNipixCategory(itm)"
+                                      (keydown.enter)="toggleNipixCategory(itm)"
                                       *ngIf="nipixRuntime.getDrawPreset(itm).show">
 
                                     <input type="radio"
@@ -294,12 +297,18 @@
                                 <label for="{{itm}}"
                                        class="custom-control-label"></label>
                             </span>
-                            <span (click)="onClickDrawRoot(itm)"
+                            <span role="button"
+                                  tabindex="0"
+                                  (click)="onClickDrawRoot(itm)"
+                                  (keydown.enter)="onClickDrawRoot(itm)"
                                   class="dot">
                                 <span style="display: inline-block; border-radius: 10px; width: 10px; height: 10px;"
                                       [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
                             </span>
-                            <span (click)="onClickDrawRoot(itm)"
+                            <span role="button"
+                                  tabindex="0"
+                                  (click)="onClickDrawRoot(itm)"
+                                  (keydown.enter)="onClickDrawRoot(itm)"
                                   class="dotlabel">
                                 {{ nipixRuntime.translate(itm) }}
                                 <i class="bi bi-house-fill"
