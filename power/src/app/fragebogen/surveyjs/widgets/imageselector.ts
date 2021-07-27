@@ -230,8 +230,7 @@ export function init(): void {
             question.valueChangedCallback = null;
             question.readOnlyChangedCallback = null;
             question.visibleChoicesChangedCallback = null;
-        },
-        pdfRender: function (_, options) { }
+        }
     };
 
     CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');
