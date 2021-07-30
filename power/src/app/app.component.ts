@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
-            this.httpClient.get('/assets/version.json').subscribe(data => {
+            this.httpClient.get('/assets/version.json?cache-bust=' + Math.random()).subscribe(data => {
                 if (data && data['version']) {
                     this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
