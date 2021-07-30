@@ -49,20 +49,23 @@ describe('AppComponent', () => {
     }));
 
     it('should load version', () => {
+        spyOn(Math, 'random').and.returnValue(0.1);
         app.ngOnInit();
-        answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
+        answerHTTPRequest('/assets/version.json?cache-bust=0.1', 'GET', { version: '123456', branch: 'prod' });
         expect(app.appVersion).toEqual({ version: '123456', branch: 'prod' });
     });
 
     it('should fail load version', () => {
+        spyOn(Math, 'random').and.returnValue(0.1);
         app.ngOnInit();
-        answerHTTPRequest('/assets/version.json', 'GET', null, { status: 404, statusText: 'Not Found' });
+        answerHTTPRequest('/assets/version.json?cache-bust=0.1', 'GET', null, { status: 404, statusText: 'Not Found' });
         expect(app.appVersion).toEqual({ version: 'cache', branch: 'offline' });
     });
 
     it('should fail load version 2', () => {
+        spyOn(Math, 'random').and.returnValue(0.1);
         app.ngOnInit();
-        answerHTTPRequest('/assets/version.json', 'GET', { branch: 'toast' });
+        answerHTTPRequest('/assets/version.json?cache-bust=0.1', 'GET', { branch: 'toast' });
         expect(app.appVersion).toEqual({ version: 'dev', branch: 'local' });
     });
 
