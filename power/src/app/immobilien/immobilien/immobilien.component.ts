@@ -137,6 +137,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     chart_range = ImmobilienChartOptions.chartRange();
 
     ngAfterViewInit() {
+        if (!this.isBrowser) {
+            return;
+        }
+
         if (this.echartsMap) {
             this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
             this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));

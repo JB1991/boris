@@ -139,6 +139,10 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit() {
+        if (!this.isBrowser) {
+            return;
+        }
+
         if (this.mode === 'gmb') {
             if (this.echartsMap) {
                 this.map = echarts.init(this.echartsMap.nativeElement);
