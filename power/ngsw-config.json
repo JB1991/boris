@@ -42,6 +42,7 @@
         "!/geoserver/**",
         "!/vector-tiles/**",
         "!/download/**",
+        "!/boris-umdatei/**",
         "!/formapi/**",
         "!/feedback-rss/**"
     ],

@@ -12,6 +12,7 @@
         "no-inline-style": "warn",
         "input-missing-label": "warn",
         "missing-doctype": "off",
-        "no-missing-references": "off"
+        "no-missing-references": "off",
+        "attribute-allowed-values": "off"
     }
 }
