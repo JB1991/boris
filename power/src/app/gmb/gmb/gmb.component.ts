@@ -140,14 +140,15 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngAfterViewInit() {
         if (this.mode === 'gmb') {
-            this.map = echarts.init(this.echartsMap.nativeElement);
-            this.map.on('selectchanged', this.onMapSelectChange.bind(this));
+            if (this.echartsMap) {
+                this.map = echarts.init(this.echartsMap.nativeElement);
+                this.map.on('selectchanged', this.onMapSelectChange.bind(this));
 
-            this.resizeSub = new ResizeObserver(() => {
-                this.animationFrameID = window.requestAnimationFrame(() => this.resize());
-            });
-            this.resizeSub.observe(this.echartsMap.nativeElement);
-
+                this.resizeSub = new ResizeObserver(() => {
+                    this.animationFrameID = window.requestAnimationFrame(() => this.resize());
+                });
+                this.resizeSub.observe(this.echartsMap.nativeElement);
+            }
             if (this.selectedKreis !== undefined) {
                 this.updateMapSelect();
             }
