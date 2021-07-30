@@ -30,8 +30,5 @@ import { FormAPIService } from './formapi.service';
     ]
 })
 
-export class FragebogenModule {
-    constructor() {
-    }
-}
+export class FragebogenModule { }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

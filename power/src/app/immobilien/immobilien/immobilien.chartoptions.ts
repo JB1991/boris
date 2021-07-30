@@ -12,6 +12,9 @@ export class ImmobilienChartOptions {
 
     /**
      * Configuration Option for the Map
+     * @param opt Options
+     * @param selectType Select type
+     * @returns Map options
      */
     static getMapOptions(
         opt: any = { 'text': {} },
@@ -47,6 +50,8 @@ export class ImmobilienChartOptions {
 
     /**
      * Configuration Option for the Chart
+     * @param opt Options
+     * @returns Chart options
      */
     static getChartOptions(opt: any = { 'text': {} }): echarts.EChartsOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptions));
@@ -70,6 +75,8 @@ export class ImmobilienChartOptions {
 
     /**
      * Configuration Option for the Chart
+     * @param opt Options
+     * @returns Chart options
      */
     static getChartOptionsMerge(opt: any = { 'text': {} }): echarts.EChartsOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptionsMerge));
@@ -84,7 +91,7 @@ export class ImmobilienChartOptions {
         ret.series = opt.series;
         ret.dataZoom[0].start = opt.datastart;
         ret.dataZoom[0].end = opt.dataend;
-        ret.legend.top += ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage)*1.25;
+        ret.legend.top += ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage) * 1.25;
 
         return ret;
     }

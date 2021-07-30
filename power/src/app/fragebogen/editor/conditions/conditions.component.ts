@@ -66,7 +66,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
         // convert condition to form
         this.struct = [];
-        const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm; // /[^\s"']+|"([^"]*)"|'([^']*)'/gm;
+        const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm;
         const split = this.data.match(regex);
 
         for (let i = 0; i < split.length; i++) {

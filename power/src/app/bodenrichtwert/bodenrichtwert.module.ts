@@ -11,8 +11,10 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenri
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
 import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
+import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
+import { BodenrichtwertKarteService } from './bodenrichtwert-karte/bodenrichtwert-karte.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
@@ -21,7 +23,6 @@ import { EntwicklungszustandPipe } from './pipes/entwicklungszustand.pipe';
 import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
 import { ObjectIdPipe } from './pipes/object-id.pipe';
 import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
-import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
 import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
@@ -43,6 +44,7 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         BodenrichtwertNavigationComponent,
+        BodenrichtwertPdfComponent,
         UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
@@ -51,7 +53,6 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         EntwicklungszusatzPipe,
         ObjectIdPipe,
         EinflussgroessePipe,
-        ArtDerBebauungPipe,
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,
@@ -65,7 +66,21 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         AlertModule.forRoot(),
         CollapseModule.forRoot()
     ],
-    providers: [BodenrichtwertService, DatePipe, DecimalPipe]
+    providers: [
+        BodenrichtwertService,
+        BodenrichtwertKarteService,
+        DatePipe,
+        DecimalPipe,
+        EntwicklungszustandPipe,
+        VerfahrensartPipe,
+        EntwicklungszusatzPipe,
+        BeitragPipe,
+        NutzungPipe,
+        BauweisePipe,
+        BodenartPipe,
+        UmlautCorrectionPipe,
+        EinflussgroessePipe
+    ]
 })
 export class BodenrichtwertModule {
 }

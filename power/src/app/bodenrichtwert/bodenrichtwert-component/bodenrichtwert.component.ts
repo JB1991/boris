@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { Feature, FeatureCollection } from 'geojson';
-import proj4 from 'proj4';
 
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
@@ -16,6 +15,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { SEOService } from '@app/shared/seo/seo.service';
+import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -167,6 +167,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         private geosearchService: GeosearchService,
+        public mapService: BodenrichtwertKarteService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
         private cdr: ChangeDetectorRef,
@@ -175,8 +176,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private seo: SEOService
     ) {
         this.seo.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
-        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
+        this.seo.updateTag({ name: 'description', content: $localize`Bodenrichtwerte für Bauland und landwirtschaftliche Nutzflächen werden flächendeckend in BORIS.NI für das Land Niedersachsen und Bremen kostenfrei zur Verfügung gestellt.` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwertinformationssystem, Bodenrichtwert, BORIS.NI, BORIS, Bauland, Landwirtschaft, Nutzfläche, Bo­den­richt­wert­zo­ne, Bremen` });
 
         this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.address = adr;
@@ -352,75 +353,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * printURL builds the url for the current location
-     * @returns the url for the current location
-     */
-    public printURL(): string {
-        let url = '/boris-print/?';
-
-        // coordinates
-        const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
-        const utm = '+proj=utm +zone=32';
-        const utm_coords = proj4(wgs84, utm, [Number(this.latLng.lng), Number(this.latLng.lat)]);
-        url += 'east=' + encodeURIComponent(utm_coords[0].toFixed(0));
-        url += '&north=' + encodeURIComponent(utm_coords[1].toFixed(0));
-
-        // year
-        url += '&year=' + encodeURIComponent(parseInt(this.stichtag.substring(0, 4), 10) + 1);
-
-        // submarket
-        url += '&submarket=';
-        switch (this.teilmarkt.text) {
-            case this.TEILMAERKTE[0].text: {
-                url += encodeURIComponent('Bauland');
-                break;
-            }
-            case this.TEILMAERKTE[1].text: {
-                url += encodeURIComponent('Landwirtschaft');
-                break;
-            }
-            default: {
-                throw new Error('Unknown teilmarkt');
-            }
-        }
-
-        // zoom
-        url += '&zoom=';
-        const zoom = this.zoom;
-        if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
-            // Bauland
-            if (zoom >= 16) {
-                url += '2500';
-            } else if (zoom >= 15) {
-                url += '5000';
-            } else if (zoom >= 14) {
-                url += '10000';
-            } else if (zoom >= 13) {
-                url += '25000';
-            } else {
-                url += '50000';
-            }
-        } else {
-            // Landwirtschaft
-            if (zoom >= 10.5) {
-                url += '100000';
-            } else {
-                url += '200000';
-            }
-        }
-
-        // return url
-        return url;
-    }
-
-    /**
-     * Opens print modal
-     */
-    public openPrintModal() {
-        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
-    }
-
-    /**
      * changeURL updates the URL if stichtag, teilmarkt or latLng changed
      */
     public changeURL() {
@@ -462,5 +394,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         }
 
     }
+
+    /**
+     * Opens print modal
+     */
+    public openPrintModal() {
+        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
+    }
+
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

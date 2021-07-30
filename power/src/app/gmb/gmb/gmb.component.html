@@ -1,6 +1,7 @@
 <div class="container-xl">
 
     <div class="row title justify-content-center m-0 p-2 p-lg-3 text-center">
+        <!-- [html-validate-disable-next heading-level] -->
         <h1 *ngIf="mode === 'gmb'"
             i18n>Grund&shy;stücks&shy;markt&shy;berichte</h1>
         <h1 *ngIf="mode === 'lmb'"
@@ -36,6 +37,9 @@
             <span i18n>Berichte für den Landkreis</span> "{{kreise[selectedKreis]}}"
         </h2>
         <div class="col-md-12 dropdown">
+            <label class="sr-only"
+                   for="landkreise"
+                   i18n>Landkreisauswahl</label>
             <select id="landkreise"
                     class="form-select"
                     i18n-aria-label
@@ -63,13 +67,13 @@
              role="rowgroup">
             <div class="row"
                  role="row">
-                <h5 class="col-md-12 mb-0"
-                    role="columnheader">
+                <div class="h5 col-md-12 mb-0"
+                     role="columnheader">
                     <strong *ngIf="rd.name !== 'Niedersachsen'"
                             class="mr-1"
                             i18n>Gutachterausschuss</strong>
                     <strong>{{rd.name}}</strong>
-                </h5>
+                </div>
             </div>
         </div>
         <div class="card-body"
@@ -79,6 +83,7 @@
                 role="row">
                 <div class="col-md-12 p-0">
                     <!-- Bodenrichtwert (brz) -->
+                    <!-- [html-validate-disable-next input-missing-label] -->
                     <input type="checkbox"
                            [checked]="berichteOpened.indexOf(bj.value['file'].split('.')[0]) !== -1"
                            (change)="checkValue($event)"
@@ -91,8 +96,10 @@
                                [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)">
                             <span>
                                 <i class="bi bi-plus-circle remove-check"
+                                   role="img"
                                    aria-hidden="true"></i>
                                 <i class="bi bi-dash-circle display-check"
+                                   role="img"
                                    aria-hidden="true"></i>
                             </span>
                             <span>
@@ -109,6 +116,7 @@
                         <div class="dl">
                             <span class="tc">
                                 <i class="bi bi-download"
+                                   role="img"
                                    aria-hidden="true"></i>
                             </span>
                             <span class="tc">

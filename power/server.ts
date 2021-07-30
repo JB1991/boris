@@ -93,7 +93,7 @@ function run(): void {
     server.use('/de-simple', appDESIMPLE);
     server.use('/en', appEN);
     server.listen(port, () => {
-        console.log(`Node Express server listening on http://localhost:${port}`);
+        console.info(`Node Express server listening on http://localhost:${port}`);
     });
 }
 

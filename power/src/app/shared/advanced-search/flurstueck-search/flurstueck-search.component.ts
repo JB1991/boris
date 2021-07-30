@@ -60,6 +60,7 @@ export class FlurstueckSearchComponent {
     /**
      * Return the text property
      * @param feature GeoJSON feature
+     * @returns Text
      */
     public inputFormatter = (feature: Feature) =>
         feature.properties.gemarkung + ' (' +
@@ -117,6 +118,7 @@ export class FlurstueckSearchComponent {
     /**
      * Pass the search input to the Geosearch service
      * @param text$ Input as Observable
+     * @returns Search Observable
      */
     public search = (text$: Observable<string>) =>
         text$.pipe(

@@ -130,13 +130,10 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 
-    /* TODO: Test defekt
     it('onFlurstueckChange should emit latLng', () => {
-        spyOn(component, 'pointOnPolygon').and.callThrough();
         component.onFlurstueckChange(flurstueck);
-        expect(component.pointOnPolygon).toHaveBeenCalledTimes(1);
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
-    });*/
+    });
 
     it('resetMap should emit changes to reset the map', () => {
         spyOn(component.featuresChange, 'emit');

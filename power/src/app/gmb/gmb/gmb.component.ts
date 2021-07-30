@@ -104,11 +104,6 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         'color': ['#000000']
     };
 
-    /**
-     * Constructor:
-     *
-     * @param http Inject HttpClient
-     */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -129,12 +124,12 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     changeTitle() {
         if (this.mode === 'gmb') {
             this.seo.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
-            this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
-            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
+            this.seo.updateTag({ name: 'description', content: $localize`Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen und Preisniveau in den Teilmärkten.` });
+            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktbericht, Landkreis, Download, Grundstücksmarkt, Grundstück, Entwicklung, Umsatz, Bauland, Bodenrichtwert, Haus, Wohnung, Miete` });
         } else if (this.mode === 'lmb') {
             this.seo.setTitle($localize`Landesgrundstücksmarktberichte - Immobilienmarkt.NI`);
-            this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
-            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
+            this.seo.updateTag({ name: 'description', content: $localize`Der Landesgrundstücksmarktbericht gibt einen Überblick über Immobilienverkäufe in Niedersachsen. Er ist das Ergebnis der Auswertung sämtlicher Grundstückskaufverträge durch die Gutachterausschüsse für Grundstückswerte.` });
+            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktbericht, Download, Grundstücksmarkt, Grundstück, Entwicklung, Umsatz, Bauland, Bodenrichtwert, Haus, Wohnung, Miete` });
         }
     }
 
@@ -252,6 +247,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     /**
      * Generate Map Regionen
+     * @returns Array of regions
      */
     getRegionen() {
         const res = [];
@@ -305,6 +301,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     /**
      * generate Kreisliste
+     * @param arr Array
+     * @returns Kreisliste
      */
     generateKreisliste(arr) {
         if (arr === undefined) {
@@ -387,6 +385,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     /**
      * Filter Berichte based on selection
+     * @param lmb True if LBM
      */
     filterBerichte(lmb = false) {
         if (this.selectedKreis === undefined && !lmb) {
@@ -406,6 +405,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     /**
      * Handle the Change of an Selection in the Map
+     * @param param Map param
      */
     onMapSelectChange(param) {
         const selectedlist = [];
@@ -531,8 +531,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * source: https://stackoverflow.com/a/42769683
      *
      * @param rem size in rem
-     *
-     * @return size in px
+     * @returns size in px
      */
     convertRemToPixels(rem: number): number {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);

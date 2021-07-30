@@ -13,7 +13,6 @@ describe('AppModule', () => {
             ]
         });
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         appModule = new AppModule();
     }));

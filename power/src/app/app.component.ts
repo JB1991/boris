@@ -45,8 +45,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         public seo: SEOService
     ) {
         this.seo.setTitle($localize`Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
-        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+        this.seo.updateTag({ name: 'description', content: $localize`Das Immobilienmarkt Portal Niedersachsen stellt gebührenfrei die Bodenrichtwerte, Grundstücksmarktdaten und den Immobilienpreisindex für Niedersachsen bereit.` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwertinformationssystem, Bodenrichtwert, BORIS.NI, BORIS, Bauland, Landwirtschaft, Grundstücksmarktbericht, Landesgrundstücksmarktbericht, Landesgrundstücksmarktdaten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK, OGC, Geodienste, Geodatendienste` });
 
         // check for updates
         this.us.checkForUpdates();
@@ -73,6 +73,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
 
         // set baseurl
+        /* istanbul ignore next */
         if (location.origin.startsWith('https://demo-')) {
             environment.baseurl = 'https://dev.power.niedersachsen.dev';
             environment.borisOws = environment.baseurl + environment.borisOws;
@@ -85,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
-            this.httpClient.get('/assets/version.json').subscribe(data => {
+            this.httpClient.get('/assets/version.json?cache-bust=' + Math.random()).subscribe(data => {
                 if (data && data['version']) {
                     this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
@@ -110,6 +111,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             /* eslint-disable-next-line */
             const isIE = /*@cc_on!@*/false || !!document['documentMode'];
             const isEdge = !isIE && !!window.StyleMedia;
+            /* istanbul ignore next */
             if (isIE || isEdge) {
                 this.showIENotice = true;
             }

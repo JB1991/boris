@@ -13,7 +13,7 @@ export class BodenrichtwertDetailComponent implements OnChanges {
         'brz': $localize`Bodenrichtwertzone`,
         'umwert': $localize`Umrechnungstabelle`,
         'umdatei': $localize`Umrechnungsdatei`,
-        'state': $localize`Beitragsabgabenrechtlicher Zustand`,
+        'state': $localize`Beitrags- und abgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
         'flae': $localize`Grundstücksfläche`,
@@ -48,6 +48,17 @@ export class BodenrichtwertDetailComponent implements OnChanges {
         if (changes.features || changes.stichtag || changes.teilmarkt) {
             this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
         }
+    }
+
+    /**
+     * rewriteUmrechnungstabURL rewrites the url of the boris alt umrechnungstabellen/dateien
+     * @param url url of boris alt
+     * @returns rewritedURL for the new location
+     */
+    public rewriteUmrechnungstabURL(url: string): string {
+        const path = url.replace('http://boris.niedersachsen.de', '');
+        const rewritedURL = location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
+        return rewritedURL;
     }
 }
 

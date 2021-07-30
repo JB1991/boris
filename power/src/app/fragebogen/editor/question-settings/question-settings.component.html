@@ -13,7 +13,9 @@
                 <div class="form-group">
                     <label for="question-name"
                            (click)="questionsettingsmodal.scrollToFooter()"
+                           (keydown.enter)="questionsettingsmodal.scrollToFooter()"
                            role="button"
+                           tabindex="0"
                            i18n>Fragen ID *</label>
                     <input type="text"
                            class="form-control"
@@ -37,7 +39,9 @@
                 <div class="form-group">
                     <label for="question-title"
                            (click)="questionsettingsmodal.scrollToFooter()"
+                           (keydown.enter)="questionsettingsmodal.scrollToFooter()"
                            role="button"
+                           tabindex="0"
                            i18n>Fragen Titel *</label>
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
                                                     eid="question-title"
@@ -199,6 +203,7 @@
                            [(ngModel)]="model.pages[page].elements[question].width"
                            name="question-width"
                            id="question-width"
+                           i18n-placeholder
                            placeholder="200px">
                 </div>
 
@@ -250,17 +255,6 @@
                                name="question-step2"
                                id="question-step2">
                     </div>
-
-                    <!--<span i18n>Minimaler Wert</span>
-                        <power-forms-editor-value [question]="model.pages[page].elements[question]"
-                                                  [(value)]="model.pages[page].elements[question].min">
-                        </power-forms-editor-value>
-
-                        <hr>
-                        <span i18n>Maximaler Wert</span>
-                        <power-forms-editor-value [question]="model.pages[page].elements[question]"
-                                                  [(value)]="model.pages[page].elements[question].max">
-                        </power-forms-editor-value>-->
                 </div>
 
                 <!-- question-rows -->
@@ -383,7 +377,7 @@
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
-                               i18n>Skala Schrittinterval</label>
+                               i18n>Skala Schrittintervall</label>
                         <input type="number"
                                class="form-control"
                                step="0.01"
@@ -420,7 +414,7 @@
                         <small id="question-decimalsHelp"
                                *ngIf="model.pages[page].elements[question].step % 1 !== 0 && model.pages[page].elements[question].decimals === 0"
                                class="form-text text-danger"
-                               i18n>Der Schrittinterval erlaubt Nachkommastellen, Sie müssen zur Anzeige von
+                               i18n>Das Schrittintervall erlaubt Nachkommastellen. Sie müssen zur Anzeige von
                             Nachkommastellen diesen Wert hochstellen.</small>
                     </div>
 
@@ -892,34 +886,6 @@
                 </power-forms-editor-conditions>
             </accordion-group>
 
-            <!-- conditions -->
-            <!-- <accordion-group i18n-heading
-                             heading="Bedingungen"
-                             class="mb-1 mb-lg-3">
-                <span i18n>Sichtbarkeitsbedingung für die Frage</span>
-                <hr>
-                <power-forms-editor-conditions [model]="model"
-                                               [(data)]="model.pages[page].elements[question].visibleIf">
-                </power-forms-editor-conditions>
-
-                <hr>
-                <span i18n>Aktivierungsbedingung für alle Antworten</span>
-                <br>
-                <small class="text-muted"
-                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
-                <hr>
-                <power-forms-editor-conditions [model]="model"
-                                               [(data)]="model.pages[page].elements[question].enableIf">
-                </power-forms-editor-conditions>
-
-                <hr>
-                <span i18n>Pflichtbedingung</span>
-                <hr>
-                <power-forms-editor-conditions [model]="model"
-                                               [(data)]="model.pages[page].elements[question].requiredIf">
-                </power-forms-editor-conditions>
-            </accordion-group> -->
-
             <!-- validators -->
             <accordion-group i18n-heading
                              heading="Validatoren"
@@ -944,6 +910,7 @@
                  class="bi bi-hdd"
                  fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg"
+                 role="img"
                  focusable="false"
                  aria-hidden="true">
                 <path fill-rule="evenodd"

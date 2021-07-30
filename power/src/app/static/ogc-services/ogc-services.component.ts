@@ -14,6 +14,6 @@ export class OgcServicesComponent {
     ) {
         this.seo.setTitle($localize`OGC Dienste - Immobilienmarkt.NI`);
         this.seo.updateTag({ name: 'description', content: $localize`Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS Schnittstellen bereit` });
-        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, LGLN, OGC, WMS, WFS, Geodatendienste` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, OGC, Geodienste, Geodatendienste, LGLN, WMS, WFS` });
     }
 }

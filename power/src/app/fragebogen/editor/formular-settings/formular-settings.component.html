@@ -13,7 +13,9 @@
                 <div class="form-group">
                     <label for="form-title"
                            (click)="formsettingsmodal.scrollToFooter()"
+                           (keydown.enter)="formsettingsmodal.scrollToFooter()"
                            role="button"
+                           tabindex="0"
                            i18n>Formular Titel *</label>
                     <power-forms-editor-localeinput [(locale)]="model.title"
                                                     eid="form-title"
@@ -69,9 +71,8 @@
                     </select>
                     <small id="form-localeHelp"
                            class="form-text text-muted"
-                           i18n>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die
-                        Möglichkeit
-                        die Sprache zu wechseln.</small>
+                           i18n>Die Standardsprache, welche der nutzenden Person angezeigt wird. Die nutzende Person hat
+                        die Möglichkeit die Sprache zu wechseln.</small>
                 </div>
 
                 <!-- form-showQuestionNumbers-->
@@ -125,12 +126,14 @@
                            [(ngModel)]="model.navigateToUrl"
                            name="form-navigateToUrl"
                            id="form-navigateToUrl"
+                           i18n-placeholder
                            placeholder="https://..."
                            aria-describedby="form-navigateToUrlHelp"
                            autocomplete="off">
                     <small id="form-navigateToUrlHelp"
                            class="form-text text-muted"
-                           i18n>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</small>
+                           i18n>Die nutzenden Person wird nach Abschluss des Formulars an diese Adresse
+                        weitergeleitet.</small>
                 </div>
             </accordion-group>
 
@@ -147,6 +150,7 @@
                            [(ngModel)]="model.logo"
                            name="form-logo"
                            id="form-logo"
+                           i18n-placeholder
                            placeholder="https://..."
                            aria-describedby="form-logoHelp"
                            autocomplete="off">
@@ -292,8 +296,8 @@
                     </select>
                     <small id="form-showPreviewBeforeCompleteHelp"
                            class="form-text text-muted"
-                           i18n>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular
-                        final absendet.</small>
+                           i18n>Der nutzenden Person kann eine Vorschau der Antworten angezeigt werden, bevor das
+                        Formular final absendet wird.</small>
                 </div>
 
                 <!-- form-showProgressBar-->
@@ -353,7 +357,8 @@
                             <span class="pull-left float-left">
                                 <span i18n>Seite</span> {{ i + 1 }}</span>
                             <span class="float-right pull-right"
-                                  (click)="$event.stopPropagation()">
+                                  (click)="$event.stopPropagation()"
+                                  (keydown.enter)="$event.stopPropagation()">
                                 <button type="button"
                                         class="btn btn-sm btn-light mr-2"
                                         i18n-title
@@ -366,6 +371,7 @@
                                          class="bi bi-caret-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -387,6 +393,7 @@
                                          class="bi bi-caret-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -429,6 +436,7 @@
                         <div class="form-group">
                             <label for="page-questionsOrder-{{ i }}"
                                    i18n>Fragen Reihenfolge</label>
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <select class="custom-select"
                                     [(ngModel)]="page.questionsOrder"
                                     id="page-questionsOrder-{{ i }}"
@@ -448,6 +456,7 @@
 
                         <!-- page-visible -->
                         <div class="custom-control custom-checkbox mb-3">
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="checkbox"
                                    class="custom-control-input"
                                    [(ngModel)]="page.visible"
@@ -464,6 +473,7 @@
 
                         <!-- page-readOnly -->
                         <div class="custom-control custom-checkbox mb-3">
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="checkbox"
                                    class="custom-control-input"
                                    [(ngModel)]="page.readOnly"
@@ -482,6 +492,7 @@
                         <div class="form-group">
                             <label for="page-maxTimeToFinish-{{ i }}"
                                    i18n>Zeitlimit in Sekunden für die Seite</label>
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="number"
                                    class="form-control"
                                    [(ngModel)]="page.maxTimeToFinish"
@@ -513,13 +524,6 @@
                     </accordion-group>
                 </accordion>
             </accordion-group>
-
-            <!-- calculated values -->
-            <!--<accordion-group i18n-heading
-                             heading="Variabeln"
-                             class="mb-1 mb-lg-3">
-                This content is straight in the template.
-            </accordion-group>-->
 
             <!-- timer/quiz -->
             <accordion-group i18n-heading
@@ -601,6 +605,7 @@
                  class="bi bi-hdd"
                  fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg"
+                 role="img"
                  focusable="false"
                  aria-hidden="true">
                 <path fill-rule="evenodd"

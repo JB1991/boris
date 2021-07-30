@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { LngLat, Map, MapMouseEvent, Marker } from 'maplibre-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature } from 'geojson';
+import { BodenrichtwertKarteService } from './bodenrichtwert-karte.service';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
     const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
@@ -30,6 +31,9 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 BsDropdownModule.forRoot(),
                 SharedModule,
                 RouterModule.forRoot([]),
+            ],
+            providers: [
+                BodenrichtwertKarteService
             ]
         }).compileComponents();
     }));
@@ -187,38 +191,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.marker.getLngLat().lng).toBe(0);
         expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
         expect(component.resetMapFiredChange.emit).toHaveBeenCalledTimes(1);
-    });
-
-    it('onMoveEnd should process the dynamic labelling', () => {
-        component.map.addSource('landwirtschaftSource', {
-            type: 'geojson',
-            data: {
-                type: 'Feature',
-                properties: {},
-                geometry: feature.geometry
-            }
-        });
-        spyOn(component.map, 'getSource').and.callThrough();
-        spyOn(component, 'dynamicLabelling');
-        component.teilmarkt.value = ['B'];
-        component.onMoveEnd();
-        expect(component.map.getSource).toHaveBeenCalledTimes(1);
-        expect(component.map.getSource).toHaveBeenCalledWith('landwirtschaftSource');
-        expect(component.dynamicLabelling).toHaveBeenCalledTimes(1);
-
-        component.teilmarkt.value = ['LF'];
-        component.map.addSource('baulandSource', {
-            type: 'geojson',
-            data: {
-                type: 'Feature',
-                properties: {},
-                geometry: feature.geometry
-            }
-        });
-        component.onMoveEnd();
-        expect(component.map.getSource).toHaveBeenCalledTimes(2);
-        expect(component.map.getSource).toHaveBeenCalledWith('baulandSource');
-        expect(component.dynamicLabelling).toHaveBeenCalledTimes(2);
     });
     */
 });

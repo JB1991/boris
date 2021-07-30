@@ -12,13 +12,13 @@ export class NotfoundComponent implements OnDestroy {
         private seo: SEOService
     ) {
         this.seo.setTitle($localize`Seite nicht gefunden - Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'robots', content: 'noindex,follow' });
-        this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
-        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+        this.seo.setAllowRobots(false);
+        this.seo.updateTag({ name: 'description', content: $localize`Das Immobilienmarkt Portal Niedersachsen stellt gebührenfrei die Bodenrichtwerte, Grundstücksmarktdaten und den Immobilienpreisindex für Niedersachsen bereit.` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwertinformationssystem, Bodenrichtwert, BORIS.NI, BORIS, Bauland, Landwirtschaft, Grundstücksmarktbericht, Landesgrundstücksmarktbericht, Landesgrundstücksmarktdaten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK, OGC, Geodienste, Geodatendienste` });
     }
 
     ngOnDestroy(): void {
         // reset robots
-        this.seo.updateTag({ name: 'robots', content: 'index,follow' });
+        this.seo.setAllowRobots(true);
     }
 }

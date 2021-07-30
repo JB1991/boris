@@ -25,7 +25,8 @@ export class AlkisWfsService {
     }
 
     /**
-     * Returns the features as an Observable
+     * Returns Features
+     * @returns Features as an Observable
      */
     public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
@@ -64,7 +65,7 @@ export class AlkisWfsService {
             'xmlns:wfs="http://www.opengis.net/wfs" ' +
             'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
             'service="WFS" version="1.1.0" outputFormat="JSON">' +
-            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:3857">' +
+            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:4326">' +
             '<ogc:Filter>' +
             '<ogc:PropertyIsEqualTo>' +
             '<ogc:PropertyName>flurstueckskennzeichen</ogc:PropertyName>' +
@@ -83,9 +84,9 @@ export class AlkisWfsService {
 
     /**
      * Use geo coordinates to get Flurstueck feature
-     * @param lng
+     * @param lng Longitude
      * @param lat Latitude
-     * @param lon Longitude
+     * @returns observable feature collection
      */
     public getFlurstueckfromCoordinates(lng: number, lat: number): Observable<FeatureCollection> {
         const filter = '<wfs:GetFeature ' +
@@ -93,7 +94,7 @@ export class AlkisWfsService {
             'xmlns:wfs="http://www.opengis.net/wfs" ' +
             'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
             'service="WFS" version="1.1.0" outputFormat="JSON">' +
-            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:3857">' +
+            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:4326">' +
             '<ogc:Filter>' +
             '<ogc:Intersects>' +
             '<ogc:PropertyName>wkb_geometry</ogc:PropertyName>' +
@@ -115,6 +116,7 @@ export class AlkisWfsService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
+     * @returns observable error
      */
     private static handleError(error: HttpErrorResponse) {
         return throwError(error);

@@ -18,14 +18,14 @@ export class GlobalErrorHandler implements ErrorHandler {
         public alerts: AlertsService,
         public platform: Platform,
         public us: UpdateService,
-	private http: HttpClient) { }
+        public http: HttpClient) { }
 
     handleError(error: Error): void {
         // check if app needs reload
         console.error(error);
         if (error.message.indexOf('Loading chunk') !== -1) {
             console.error(error);
-            this.us.cleanupServiceWorker();
+            this.us.cleanupServiceWorker(true);
             this.reload();
             return;
         }
@@ -34,10 +34,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         // craft error
         let msgStr = location.href + '\n' + navigator.userAgent + '\n' + environment.config.version.branch + '/' + environment.config.version.version;
         for (const err of this.errorList) {
-            msgStr += '\n\n' + err.toString() + '\n' + err?.stack;
+            msgStr += '\n\n' + err.toString() + '\n' + /* istanbul ignore next */ err?.stack;
         }
 
         // Post data to Bakend
+        
+        /* istanbul ignore next */
         this.http.post<any>('/report', msgStr).pipe(
             catchError(err => throwError(err))
         ).subscribe(

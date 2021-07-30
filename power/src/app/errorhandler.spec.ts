@@ -15,6 +15,7 @@ describe('GlobalErrorHandler', () => {
 
         handler = new GlobalErrorHandler('de', alerts, Platform.prototype, new MockUpdateService() as UpdateService, HttpClient.prototype);
         spyOn(handler, 'reload');
+        spyOn(handler.http, 'post');
     });
 
     it('should be created', () => {
@@ -26,6 +27,13 @@ describe('GlobalErrorHandler', () => {
         expect(handler.reload).toHaveBeenCalledTimes(0);
     });
 
+    it('should handle error 2', () => {
+        handler.container = document.createElement('div');
+        document.body.append(handler.container);
+        handler.handleError(new Error('Fatal error: Out of pizza (allocated 8 pieces) (tried to allocate 1 more piece)'));
+        expect(handler.reload).toHaveBeenCalledTimes(0);
+    });
+
     it('should reload on chunk error', () => {
         handler.handleError(new Error('Loading chunk 0 failed'));
         expect(handler.reload).toHaveBeenCalledTimes(1);
@@ -33,6 +41,6 @@ describe('GlobalErrorHandler', () => {
 });
 
 class MockUpdateService {
-    public cleanupServiceWorker() { }
+    public cleanupServiceWorker(del: boolean) { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

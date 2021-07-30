@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit {
                         this.formSortDesc = true;
                         this.formSort = 'created';
                         this.updateForms(false);
-                        this.alerts.NewAlert('success', $localize`Import erfolgreich`, $localize`Der Fragebogen wurde erfolgreich importiert`);
+                        this.alerts.NewAlert('success', $localize`Import erfolgreich`, $localize`Der Fragebogen wurde erfolgreich importiert.`);
                     }).catch((error) => {
                         console.error(error);
                         this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));

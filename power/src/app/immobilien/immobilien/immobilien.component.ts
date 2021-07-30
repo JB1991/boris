@@ -65,7 +65,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         private seo: SEOService
     ) {
         this.seo.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
+        this.seo.updateTag({ name: 'description', content: $localize`Zur Darstellung der Preisentwicklung von Eigenheimen und Eigentumswohnungen leitet der obere Gutachterausschuss den niedersächsischen Immobilienpreisindex (NIPIX) ab.` });
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
 
         if (!isPlatformBrowser(this.platformId)) {
@@ -218,7 +218,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Format CSV; Seperator: Semikolon;
      * Fields: AGS, Geme_Bezeichnung, WOMA_ID
      *
-     * @params {string} url Url to Gemeinnde CSV
+     * @param {string} url Url to Gemeinnde CSV
      */
     loadGemeinden(url) {
         // Load nipix
@@ -234,6 +234,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * parseURLTimeRange
+     * @param params
      */
     parseURLTimeRange(params) {
         if (params['t1']) {
@@ -262,6 +263,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * parseURLAggr
+     * @param selectionId
+     * @param params
      */
     parseURLAggr(selectionId, params) {
 
@@ -292,6 +295,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * parseURLSingle
+     * @param selectionId
+     * @param params
      */
     parseURLSingle(selectionId, params) {
 
@@ -312,6 +317,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * parse URLMultiSelect
+     * @param selectionId
+     * @param params
      */
     parseURLMultiSelect(selectionId, params) {
 
@@ -346,6 +353,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Query URL Params
+     * @param params
      */
     queryURL(params) {
 
@@ -373,6 +381,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 this.parseURLMultiSelect(selectionId, params);
             }
         }
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         setTimeout(this.staticChange.bind(this), 50, selectionId, true);
 
         this.cdr.detectChanges();
@@ -435,6 +444,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Set Map Options
+     * @param selectType
      */
     setMapOptions(selectType: any = 'multiple') {
 
@@ -453,6 +463,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         this.nipixRuntime.map.obj.setOption(this.nipixRuntime.map.options);
 
         // Update Map Selection; Wait a little time for browser to render
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         setTimeout(this.updateMapSelect.bind(this), 100);
 
     }
@@ -505,6 +516,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Toggle the Selection of an Subitem
+     * @param category
+     * @param name
+     * @param typ
      */
     toggleMapSelect(category, name, typ = 'undefined') {
         console.log('toggle', category, name, typ);
@@ -539,6 +553,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Update the Selectiopn of the Map aware of the activer Draw Item
+     * @param id
      */
     updateMapSelect(id = null) {
         this.nipixRuntime.updateMapSelect(id);
@@ -547,6 +562,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Gets chart element for map
+     * @param ec
      */
     onChartInit(ec) {
         this.nipixRuntime.map.obj = ec;
@@ -558,6 +574,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Gets chart element for Chart
+     * @param ec
      */
     onChartChartInit(ec) {
         this.nipixRuntime.chart.obj = ec;
@@ -569,6 +586,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Finish Randering
+     * @param ec
      */
     onChartFinished(ec) {
         this.nipixRuntime.export.chartRenderFinished();
@@ -602,6 +620,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Change between NiPix Category (Eigenheime, Wohnungen)
+     * @param index
+     * @param cat
      */
     onChangeCat(index, cat) {
         if (Array.isArray(index)) {
@@ -628,6 +648,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Manually change Quartal
+     * @param start
+     * @param end
      */
     onChangeQuartal(start, end) {
         if (start !== null) {
@@ -646,6 +668,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Switch between multiple Draw Items
+     * @param name
      */
     onClickDrawRoot(name) {
         // this.selectedTreeItem = name;
@@ -655,6 +678,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Toggle Show of Draw Item
+     * @param name
      */
     onToggleDrawRoot(name) {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -670,6 +694,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Update Chart
+     * @param start
+     * @param end
      */
     updateChart(start = null, end = null) {
         let range_start = this.chart_range['data'][2][0];
@@ -705,6 +731,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Update Chart
+     * @param range_start
+     * @param range_end
+     * @param subAdd
+     * @param range_text
      */
     updateChartMerge(range_start, range_end, subAdd, range_text) {
         const chartOptionMerge = ImmobilienChartOptions.getChartOptionsMerge({
@@ -736,6 +766,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Handle Chart DataZoom
+     * @param event
      */
     onDataZoom(event) {
         this.chart_range['data'][2] = [event.start, -1];
@@ -751,6 +782,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     /**
      * Focus single ChartLine
+     * @param event
      */
     chartClicked(event) {
         if ((event.componentType === 'series') && (event.seriesType === 'line')) {
@@ -840,9 +872,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Get the Region Name for "Find My WoMaReg".
      * Handle found WoMaReg.
      *
-     * @param WoMa Region ID
-     *
-     * @return WoMaReg Name
+     * @param id
+     * @returns WoMaReg Name
      */
     regionName(id) {
         if ((id !== undefined) && (this.nipixStatic.data.regionen.hasOwnProperty(id))) {
@@ -861,8 +892,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Get custom color
      *
      * @param name draw name
-     *
-     * @return color Color
+     * @returns color Color
      */
     getCustomColor(name) {
         const draw = this.nipixRuntime.getDrawPreset(name);
@@ -934,6 +964,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Check Static Expand
      *
      * @param id id of the tab
+     * @returns True if expanded
      */
     staticExpand(id) {
         if (this.accOpen[id] === true) {

@@ -40,7 +40,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         fixture = TestBed.createComponent(FilloutComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');

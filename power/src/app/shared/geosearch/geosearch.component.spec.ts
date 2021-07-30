@@ -68,10 +68,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
         expect(component.inputFormatter(feature)).toEqual('Podbielskistraße 331, 30659 Hannover - Bothfeld');
     });
 
-    it('formatter should return the text property', () => {
-        expect(component.resultFormatter(feature)).toEqual('Podbielskistraße 331, 30659 Hannover - Bothfeld');
-    });
-
     it('search should successfully call the Geosearch service', () => {
         spyOn(component.geosearchService, 'search').and.returnValue(of(featureCollection));
 

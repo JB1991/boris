@@ -4,14 +4,23 @@ import { BodenrichtwertComponent } from './bodenrichtwert.component';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertNavigationComponent } from '../bodenrichtwert-navigation/bodenrichtwert-navigation.component';
+import { BodenrichtwertPdfComponent } from '../bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
 import { LngLat } from 'maplibre-gl';
+import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
+import { VerfahrensartPipe } from '../pipes/verfahrensart.pipe';
+import { EntwicklungszusatzPipe } from '../pipes/entwicklungszusatz.pipe';
+import { NutzungPipe } from '../pipes/nutzung.pipe';
+import { BeitragPipe } from '../pipes/beitrag.pipe';
+import { BauweisePipe } from '../pipes/bauweise.pipe';
+import { BodenartPipe } from '../pipes/bodenart.pipe';
+import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -26,7 +35,8 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 BodenrichtwertComponent,
                 BodenrichtwertKarteComponent,
                 BodenrichtwertVerlaufComponent,
-                BodenrichtwertNavigationComponent
+                BodenrichtwertNavigationComponent,
+                BodenrichtwertPdfComponent
             ],
             imports: [
                 CommonModule,
@@ -36,6 +46,18 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 SharedModule,
                 CollapseModule.forRoot(),
                 AlertModule.forRoot()
+            ],
+            providers: [
+                DatePipe,
+                DecimalPipe,
+                EntwicklungszustandPipe,
+                VerfahrensartPipe,
+                EntwicklungszusatzPipe,
+                BeitragPipe,
+                NutzungPipe,
+                BauweisePipe,
+                BodenartPipe,
+                UmlautCorrectionPipe
             ]
         }).compileComponents();
     }));
@@ -72,23 +94,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
 
         component.stichtag = '2017-12-31';
         expect(component.getStichtag()).toEqual('2016-12-31');
-    });
-
-    it('printURL should return an URL for the printing service ALT-Boris', () => {
-        component.zoom = 15;
-        component.stichtag = '2020-12-31';
-        component.latLng = new LngLat(9.832944728398047, 52.38253373875585);
-        // component.teilmarkt = {
-        //     value: ['B', 'SF', 'R', 'E'],
-        //     text: $localize`Teilmarkt`,
-        //     hexColor: '#c4153a'
-        // };
-        // expect(component.printURL()).toThrow(new Error('Unknown teilmarkt'));
-        component.teilmarkt = component.TEILMAERKTE[0];
-        expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Bauland&zoom=5000');
-
-        component.teilmarkt = component.TEILMAERKTE[1];
-        expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Landwirtschaft&zoom=100000');
     });
 
     it('changeURL should change the current URL params if changes are applied', () => {
