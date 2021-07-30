@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
+import { ResizeObserver } from '@juggle/resize-observer';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -15,7 +16,7 @@ import * as kreise_raw from './kreise.json';
     styleUrls: ['./gmb.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GmbComponent implements OnInit, AfterViewInit {
+export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     //echarts Components
     @ViewChild('echartsMap') echartsMap: ElementRef;
 
@@ -31,6 +32,9 @@ export class GmbComponent implements OnInit, AfterViewInit {
     berichteFiltered = [];
     berichteOpened = [];
     isBrowser = true;
+
+    animationFrameID = null;
+    resizeSub: ResizeObserver;
 
     /**
      * MapOptions
@@ -138,6 +142,11 @@ export class GmbComponent implements OnInit, AfterViewInit {
             this.map = echarts.init(this.echartsMap.nativeElement);
             this.map.on('selectchanged', this.onMapSelectChange.bind(this));
 
+            this.resizeSub = new ResizeObserver(() => {
+                this.animationFrameID = window.requestAnimationFrame(() => this.resize());
+            });
+            this.resizeSub.observe(this.echartsMap.nativeElement);
+
             if (this.selectedKreis !== undefined) {
                 this.updateMapSelect();
             }
@@ -171,6 +180,18 @@ export class GmbComponent implements OnInit, AfterViewInit {
             this.cdr.detectChanges();
 
         });
+    }
+
+
+    resize() {
+        this.map.resize();
+    }
+
+    ngOnDestroy() {
+        if (this.resizeSub) {
+            this.resizeSub.unobserve(this.echartsMap.nativeElement);
+            window.cancelAnimationFrame(this.animationFrameID);
+        }
     }
 
 

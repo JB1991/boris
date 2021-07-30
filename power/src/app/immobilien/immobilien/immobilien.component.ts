@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Inject, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { ResizeObserver } from '@juggle/resize-observer';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +23,7 @@ declare const require: any;
     styleUrls: ['./immobilien.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImmobilienComponent implements OnInit, AfterViewInit {
+export class ImmobilienComponent implements OnInit, OnDestroy, AfterViewInit {
 
     //echarts Components
     @ViewChild('echartsMap') echartsMap: ElementRef;
@@ -45,6 +46,9 @@ export class ImmobilienComponent implements OnInit, AfterViewInit {
 
     // URL
     urlIndex = null;
+
+    animationFrameID = [null, null];
+    resizeSub = [null, null];
 
     /**
      * Constructor:
@@ -144,12 +148,42 @@ export class ImmobilienComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
         this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));
+
+        this.resizeSub[0] = new ResizeObserver(() => {
+            this.animationFrameID[0] = window.requestAnimationFrame(() => this.resize(0));
+        });
+        this.resizeSub[0].observe(this.echartsMap.nativeElement);
+
         this.nipixRuntime.chart.obj = echarts.init(this.echartsChart.nativeElement);
         this.nipixRuntime.chart.obj.on('click', this.chartClicked.bind(this));
         this.nipixRuntime.chart.obj.on('datazoom', this.onDataZoom.bind(this));
+
+        this.resizeSub[1] = new ResizeObserver(() => {
+            this.animationFrameID[1] = window.requestAnimationFrame(() => this.resize(1));
+        });
+        this.resizeSub[1].observe(this.echartsChart.nativeElement);
+
         this.initNipix();
     }
 
+    resize(itm) {
+        switch (itm) {
+            case 0: this.nipixRuntime.map.obj.resize(); break;
+            case 1: this.nipixRuntime.chart.obj.resize(); break;
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.resizeSub[0]) {
+            this.resizeSub[0].unobserve(this.echartsMap.nativeElement);
+            window.cancelAnimationFrame(this.animationFrameID[0]);
+        }
+
+        if (this.resizeSub[1]) {
+            this.resizeSub[1].unobserve(this.echartsChart.nativeElement);
+            window.cancelAnimationFrame(this.animationFrameID[1]);
+        }
+    }
     /**
      * Init the Application.
      * Load external Config File
