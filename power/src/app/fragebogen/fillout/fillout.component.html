@@ -16,11 +16,6 @@
                     (change)="setLanguage()"
                     id="language"
                     name="language">
-                <!--<option *ngFor="let lang of languages | keyvalue; index as i"
-                        [ngValue]="lang.key"
-                        [lang]="lang.key">
-                    {{ lang.value }}
-                </option>-->
                 <option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
                         [ngValue]="lang"
                         [lang]="lang">

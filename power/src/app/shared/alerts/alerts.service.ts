@@ -9,8 +9,6 @@ import { Injectable } from '@angular/core';
 export class AlertsService {
     public alertslist = [];
 
-    constructor() { }
-
     /**
      * Adds new alert to view
      * @param type Display type [success, danger, info, warning]

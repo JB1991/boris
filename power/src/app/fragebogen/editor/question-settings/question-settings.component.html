@@ -255,17 +255,6 @@
                                name="question-step2"
                                id="question-step2">
                     </div>
-
-                    <!--<span i18n>Minimaler Wert</span>
-                        <power-forms-editor-value [question]="model.pages[page].elements[question]"
-                                                  [(value)]="model.pages[page].elements[question].min">
-                        </power-forms-editor-value>
-
-                        <hr>
-                        <span i18n>Maximaler Wert</span>
-                        <power-forms-editor-value [question]="model.pages[page].elements[question]"
-                                                  [(value)]="model.pages[page].elements[question].max">
-                        </power-forms-editor-value>-->
                 </div>
 
                 <!-- question-rows -->
@@ -896,34 +885,6 @@
                                                [(data)]="model.pages[page].elements[question].columnsVisibleIf">
                 </power-forms-editor-conditions>
             </accordion-group>
-
-            <!-- conditions -->
-            <!-- <accordion-group i18n-heading
-                             heading="Bedingungen"
-                             class="mb-1 mb-lg-3">
-                <span i18n>Sichtbarkeitsbedingung für die Frage</span>
-                <hr>
-                <power-forms-editor-conditions [model]="model"
-                                               [(data)]="model.pages[page].elements[question].visibleIf">
-                </power-forms-editor-conditions>
-
-                <hr>
-                <span i18n>Aktivierungsbedingung für alle Antworten</span>
-                <br>
-                <small class="text-muted"
-                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
-                <hr>
-                <power-forms-editor-conditions [model]="model"
-                                               [(data)]="model.pages[page].elements[question].enableIf">
-                </power-forms-editor-conditions>
-
-                <hr>
-                <span i18n>Pflichtbedingung</span>
-                <hr>
-                <power-forms-editor-conditions [model]="model"
-                                               [(data)]="model.pages[page].elements[question].requiredIf">
-                </power-forms-editor-conditions>
-            </accordion-group> -->
 
             <!-- validators -->
             <accordion-group i18n-heading

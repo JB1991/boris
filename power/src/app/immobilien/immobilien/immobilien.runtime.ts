@@ -133,7 +133,6 @@ export class NipixRuntime {
         if (this.locale && this.locale.hasOwnProperty(defaultID)) {
             return this.locale[defaultID];
         } else {
-            // console.log('Missing translation: ' + defaultID);
             return defaultID;
         }
     }
