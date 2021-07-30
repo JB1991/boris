@@ -17,7 +17,8 @@ import * as kreise_raw from './kreise.json';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
-    //echarts Components
+
+    // echarts Components
     @ViewChild('echartsMap') echartsMap: ElementRef;
 
     downloadPath = '/download';
@@ -188,7 +189,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        if (this.resizeSub) {
+        if (this.resizeSub && this.echartsMap) {
             this.resizeSub.unobserve(this.echartsMap.nativeElement);
             window.cancelAnimationFrame(this.animationFrameID);
         }
@@ -234,7 +235,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.http.get(url)
             .subscribe(
                 geoJson => {
-                    echarts.registerMap('NDS', <any>geoJson);
+                    echarts.registerMap('NDS', geoJson as any);
                     if (this.map) {
                         this.map.setOption(this.myMapOptions);
                     }
@@ -402,7 +403,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Handle the Change of an Selection in the Map
      */
     onMapSelectChange(param) {
-        let selectedlist = [];
+        const selectedlist = [];
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
              param['fromAction'] === 'unselect') &&

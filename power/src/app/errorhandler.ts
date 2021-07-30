@@ -39,14 +39,11 @@ export class GlobalErrorHandler implements ErrorHandler {
 
         // Post data to Bakend
         this.http.post<any>('/report', msgStr).pipe(
-            catchError(err => {
-                return throwError(err);
-            })
-        )
-        .subscribe(
+            catchError(err => throwError(err))
+        ).subscribe(
             res => {},
-                err => {},
-                () => {}
+            err => {},
+            () => {}
         );
 
         // Encode Error Message

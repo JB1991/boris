@@ -137,9 +137,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * onChartInit initializes the chart
      * @param event event for initializing the chart
      */
-    /*public onChartInit(event: any): void {
+    /* public onChartInit(event: any): void {
         this.echartsInstance = event;
-    }*/
+    } */
 
     /**
      * clearChart clears the chartOptions

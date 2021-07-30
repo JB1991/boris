@@ -14,7 +14,6 @@ import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
 import { ImmobilienUtils } from './immobilien.utils';
 
-import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -58,7 +57,16 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             'obj': null
         };
         niRuntime.map = {
-            'obj': null
+            'obj': null,
+            'options': {
+                'series': [
+                    {
+                        'data': [
+                            {}, {}, {}, {}, {}
+                        ]
+                    }
+                ]
+            }
         };
         niRuntime.state = {
             'initState': 0
@@ -85,7 +93,6 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 BsDropdownModule.forRoot(),
                 RouterTestingModule.withRoutes([]),
                 RouterTestingModule,
-                NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [
                 ImmobilienUtils,
@@ -171,13 +178,13 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         niStatic.procMap = function () { return { 'map': {}, 'la': [2000, 2] }; };
 
         spyOn(window, 'setTimeout');
-        spyOn(echarts, 'registerMap').and.callFake(function (par1, par2) { });
+        // spyOn(echarts, 'registerMap').and.callFake(function (par1, par2) { });
 
         component.loadGeoMap('geomap.fake');
 
         answerHTTPRequest('geomap.fake', 'GET', { 'features': [] });
 
-        expect(echarts.registerMap).toHaveBeenCalled();
+        // expect(echarts.registerMap).toHaveBeenCalled();
         expect(niRuntime.updateAvailableNipixCategories).toHaveBeenCalled();
         expect(setTimeout).toHaveBeenCalled();
         expect(niRuntime.resetDrawPresets).toHaveBeenCalled();
@@ -188,7 +195,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('setMapOptions works', () => {
         spyOn(window, 'setTimeout');
-        spyOn(ImmobilienChartOptions, 'getMapOptions').and.callFake(function (par) { });
+        spyOn(ImmobilienChartOptions, 'getMapOptions').and.callFake(function (par, type) { return {}; });
         spyOn(component, 'updateMapSelect').and.callFake(function () { });
 
         component.setMapOptions();
@@ -201,10 +208,13 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         niRuntime.drawPresets = [{ 'values': [] }];
         spyOn(component, 'updateChart').and.callFake(function () { });
 
-        component.onMapSelectChange({ 'type': 'mapselectchanged', 'selected': 'foobar' });
-        expect(component.updateChart).toHaveBeenCalled();
-
-        component.onMapSelectChange({ 'type': 'mapselectchanged', 'batch': [{ 'selected': { 'foobar': true } }] });
+        component.onMapSelectChange({
+            'type': 'selectchanged',
+            'fromAction': 'select',
+            'selected': [
+                { 'dataIndex': [1] }
+            ]
+        });
         expect(component.updateChart).toHaveBeenCalled();
 
     });

@@ -23,6 +23,11 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                     'borderColor': '#333333',
                     'borderWidth': 1
                 }
+            },
+            'select': {
+                'itemStyle': {
+                    'areaColor': '#000000'
+                }
             }
         }]);
     });
@@ -41,6 +46,11 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                     'areaColor': '#000000',
                     'borderColor': '#ffffff',
                     'borderWidth': 4
+                }
+            },
+            'select': {
+                'itemStyle': {
+                    'areaColor': '#000000'
                 }
             }
         }]);
@@ -62,6 +72,11 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                     'borderColor': '#333333',
                     'borderWidth': 1
                 }
+            },
+            'select': {
+                'itemStyle': {
+                    'areaColor': '#000000'
+                }
             }
         }]);
     });
@@ -81,6 +96,11 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                     'areaColor': '#ffffff',
                     'borderColor': '#333333',
                     'borderWidth': 1
+                }
+            },
+            'select': {
+                'itemStyle': {
+                    'areaColor': '#ffffff'
                 }
             }
         }]);
@@ -108,11 +128,9 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                 }
             },
             label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    formatter: null
-                },
+                show: true,
+                position: 'right',
+                formatter: null
             },
             'data': []
         });
@@ -140,11 +158,9 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                 'itemStyle': { 'color': '#ffffff' }
             },
             label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    formatter: 'bar'
-                },
+                show: true,
+                position: 'right',
+                formatter: 'bar'
             },
             'data': []
         });

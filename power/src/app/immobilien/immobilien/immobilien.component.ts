@@ -23,9 +23,9 @@ declare const require: any;
     styleUrls: ['./immobilien.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImmobilienComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
-    //echarts Components
+    // echarts Components
     @ViewChild('echartsMap') echartsMap: ElementRef;
     @ViewChild('echartsChart') echartsChart: ElementRef;
 
@@ -136,15 +136,6 @@ export class ImmobilienComponent implements OnInit, OnDestroy, AfterViewInit {
      */
     chart_range = ImmobilienChartOptions.chartRange();
 
-    /**
-     * Init the Application.
-     */
-    ngOnInit() {
-       // if (isPlatformBrowser(this.platformId)) {
-       //     this.initNipix();
-       // }
-    }
-
     ngAfterViewInit() {
         this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
         this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));
@@ -174,12 +165,12 @@ export class ImmobilienComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        if (this.resizeSub[0]) {
+        if (this.resizeSub[0] && this.echartsMap) {
             this.resizeSub[0].unobserve(this.echartsMap.nativeElement);
             window.cancelAnimationFrame(this.animationFrameID[0]);
         }
 
-        if (this.resizeSub[1]) {
+        if (this.resizeSub[1] && this.echartsChart) {
             this.resizeSub[1].unobserve(this.echartsChart.nativeElement);
             window.cancelAnimationFrame(this.animationFrameID[1]);
         }
@@ -450,7 +441,7 @@ export class ImmobilienComponent implements OnInit, OnDestroy, AfterViewInit {
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
         this.nipixRuntime.state.mapWidth = 10000;
-        
+
         this.nipixRuntime.map.obj.setOption(this.nipixRuntime.map.options);
 
         // Update Map Selection; Wait a little time for browser to render
@@ -468,7 +459,7 @@ export class ImmobilienComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         console.log('select', param);
         const sdata = this.nipixRuntime.map.options.series[0]['data'];
-        let selectedlist = [];
+        const selectedlist = [];
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
              param['fromAction'] === 'unselect') &&
