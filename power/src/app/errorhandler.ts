@@ -38,9 +38,8 @@ export class GlobalErrorHandler implements ErrorHandler {
         }
 
         // Post data to Bakend
-        
         /* istanbul ignore next */
-        this.http.post<any>('/report', msgStr).pipe(
+        this.http.post<any>('/report', msgStr)?.pipe(
             catchError(err => throwError(err))
         ).subscribe(
             res => {},

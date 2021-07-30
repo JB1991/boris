@@ -476,7 +476,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         if (param.isFromClick === false) {
             return;
         }
-        console.log('select', param);
+        // console.log('select', param);
         const sdata = this.nipixRuntime.map.options.series[0]['data'];
         const selectedlist = [];
         if (param['type'] === 'selectchanged' &&
@@ -521,7 +521,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param typ
      */
     toggleMapSelect(category, name, typ = 'undefined') {
-        console.log('toggle', category, name, typ);
+        // console.log('toggle', category, name, typ);
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i].name === category) {
