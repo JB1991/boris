@@ -137,22 +137,26 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     chart_range = ImmobilienChartOptions.chartRange();
 
     ngAfterViewInit() {
-        this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
-        this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));
+        if (this.echartsMap) {
+            this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
+            this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));
 
-        this.resizeSub[0] = new ResizeObserver(() => {
-            this.animationFrameID[0] = window.requestAnimationFrame(() => this.resize(0));
-        });
-        this.resizeSub[0].observe(this.echartsMap.nativeElement);
+            this.resizeSub[0] = new ResizeObserver(() => {
+                this.animationFrameID[0] = window.requestAnimationFrame(() => this.resize(0));
+            });
+            this.resizeSub[0].observe(this.echartsMap.nativeElement);
+        }
 
-        this.nipixRuntime.chart.obj = echarts.init(this.echartsChart.nativeElement);
-        this.nipixRuntime.chart.obj.on('click', this.chartClicked.bind(this));
-        this.nipixRuntime.chart.obj.on('datazoom', this.onDataZoom.bind(this));
+        if (this.echartsChart) {
+            this.nipixRuntime.chart.obj = echarts.init(this.echartsChart.nativeElement);
+            this.nipixRuntime.chart.obj.on('click', this.chartClicked.bind(this));
+            this.nipixRuntime.chart.obj.on('datazoom', this.onDataZoom.bind(this));
 
-        this.resizeSub[1] = new ResizeObserver(() => {
-            this.animationFrameID[1] = window.requestAnimationFrame(() => this.resize(1));
-        });
-        this.resizeSub[1].observe(this.echartsChart.nativeElement);
+            this.resizeSub[1] = new ResizeObserver(() => {
+                this.animationFrameID[1] = window.requestAnimationFrame(() => this.resize(1));
+            });
+            this.resizeSub[1].observe(this.echartsChart.nativeElement);
+        }
 
         this.initNipix();
     }
