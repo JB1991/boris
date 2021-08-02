@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Polygon } from 'geojson';
 import { DynamicLabellingService } from './dynamic-labelling.service';
+import { BodenrichtwertKarteService } from './bodenrichtwert-karte.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 /* eslint-disable max-lines */
@@ -153,6 +154,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     constructor(
         public alerts: AlertsService,
         private dynamicLabellingService: DynamicLabellingService,
+        private mapService: BodenrichtwertKarteService
     ) { }
 
     /* eslint-disable-next-line complexity */
@@ -237,8 +239,11 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 bounds: this.bounds,
                 maxZoom: 18,
                 minZoom: 5,
-                trackResize: true
+                trackResize: true,
+                preserveDrawingBuffer: true
             });
+            this.mapService.map = this.map;
+            this.mapService.marker = this.marker;
 
             // add load handler
             this.map.on('load', () => {
@@ -495,6 +500,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         });
         this.map.addControl(geolocateControl, 'top-right');
         geolocateControl.on('geolocate', (evt) => {
+            if (this.zoom < this.determineZoomFactor()) {
+                this.zoomChange.emit(this.determineZoomFactor());
+            }
             this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
         });
 

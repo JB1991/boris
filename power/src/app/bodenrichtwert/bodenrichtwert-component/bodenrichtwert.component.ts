@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { Feature, FeatureCollection } from 'geojson';
-import proj4 from 'proj4';
 
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
@@ -16,6 +15,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { SEOService } from '@app/shared/seo/seo.service';
+import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -49,6 +49,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
     public features: FeatureCollection = null;
+    public filteredFeatures: Array<Feature>;
+    public hasUmrechnungsdateien = false;
 
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
@@ -167,6 +169,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         private geosearchService: GeosearchService,
+        public mapService: BodenrichtwertKarteService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
         private cdr: ChangeDetectorRef,
@@ -185,6 +188,22 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
+            this.hasUmrechnungsdateien = false;
+
+            // filter features
+            if (this.features || this.stichtag || this.teilmarkt) {
+                this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
+            }
+
+            // check for umrechnungsdateien
+            for (const feature of this.filteredFeatures) {
+                if (feature.properties.umrechnungstabellendatei
+                    && feature.properties.umrechnungstabellendatei.length > 0) {
+                    this.hasUmrechnungsdateien = true;
+                    break;
+                }
+            }
+
             this.isCollapsed = false;
             this.cdr.detectChanges();
         });
@@ -352,75 +371,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * printURL builds the url for the current location
-     * @returns the url for the current location
-     */
-    public printURL(): string {
-        let url = '/boris-print/?';
-
-        // coordinates
-        const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
-        const utm = '+proj=utm +zone=32';
-        const utm_coords = proj4(wgs84, utm, [Number(this.latLng.lng), Number(this.latLng.lat)]);
-        url += 'east=' + encodeURIComponent(utm_coords[0].toFixed(0));
-        url += '&north=' + encodeURIComponent(utm_coords[1].toFixed(0));
-
-        // year
-        url += '&year=' + encodeURIComponent(parseInt(this.stichtag.substring(0, 4), 10) + 1);
-
-        // submarket
-        url += '&submarket=';
-        switch (this.teilmarkt.text) {
-            case this.TEILMAERKTE[0].text: {
-                url += encodeURIComponent('Bauland');
-                break;
-            }
-            case this.TEILMAERKTE[1].text: {
-                url += encodeURIComponent('Landwirtschaft');
-                break;
-            }
-            default: {
-                throw new Error('Unknown teilmarkt');
-            }
-        }
-
-        // zoom
-        url += '&zoom=';
-        const zoom = this.zoom;
-        if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
-            // Bauland
-            if (zoom >= 16) {
-                url += '2500';
-            } else if (zoom >= 15) {
-                url += '5000';
-            } else if (zoom >= 14) {
-                url += '10000';
-            } else if (zoom >= 13) {
-                url += '25000';
-            } else {
-                url += '50000';
-            }
-        } else {
-            // Landwirtschaft
-            if (zoom >= 10.5) {
-                url += '100000';
-            } else {
-                url += '200000';
-            }
-        }
-
-        // return url
-        return url;
-    }
-
-    /**
-     * Opens print modal
-     */
-    public openPrintModal() {
-        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
-    }
-
-    /**
      * changeURL updates the URL if stichtag, teilmarkt or latLng changed
      */
     public changeURL() {
@@ -461,6 +411,23 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return false;
         }
 
+    }
+
+    /**
+     * Opens print modal
+     */
+    public openPrintModal() {
+        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
+    }
+
+    /**
+     * rewriteUmrechnungstabURL rewrites the url of the boris alt umrechnungstabellen/dateien
+     * @param url url of boris alt
+     * @returns rewritedURL for the new location
+     */
+    public rewriteUmrechnungstabURL(url: string): string {
+        const path = url.replace('http://boris.niedersachsen.de', '');
+        return location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

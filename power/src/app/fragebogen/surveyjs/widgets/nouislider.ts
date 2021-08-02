@@ -273,10 +273,7 @@ export function init(): void {
             }
             question.valueChangedCallback = null;
             question.readOnlyChangedCallback = null;
-        },
-        pdfRender: function (_, options) {
-            // TODO
-        },
+        }
     };
 
     CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');

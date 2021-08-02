@@ -41,6 +41,6 @@ describe('GlobalErrorHandler', () => {
 });
 
 class MockUpdateService {
-    public cleanupServiceWorker() { }
+    public cleanupServiceWorker(del: boolean) { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

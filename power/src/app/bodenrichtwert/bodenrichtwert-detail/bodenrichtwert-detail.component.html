@@ -11,12 +11,13 @@
                 </div>
                 <div class="row"
                      role="row">
-                    <h5 class="col-md-5 mb-0"
-                        role="rowheader"><strong>{{brzStrings.brz | hyphenate}}</strong>
+                    <div class="h5 col-md-5 mb-0"
+                         role="rowheader"><strong>{{brzStrings.brz | hyphenate}}</strong>
                         <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
                              viewBox="0 0 20 22"
                              width="24"
                              height="20"
+                             role="img"
                              focusable="false"
                              aria-hidden="true">
                             <g transform="translate(0,0) scale(0.4,0.4)">
@@ -29,6 +30,7 @@
                             <svg viewBox="0 0 20 22"
                                  width="24"
                                  height="20"
+                                 role="img"
                                  focusable="false"
                                  aria-hidden="true">
                                 <g transform="translate(0,0) scale(0.4,0.4)">
@@ -38,10 +40,10 @@
                                 </g>
                             </svg>
                         </ng-template>
-                    </h5>
-                    <h5 class="col-md-7 mb-0"
-                        role="cell">{{feature.properties.wnum}}
-                    </h5>
+                    </div>
+                    <div class="h5 col-md-7 mb-0"
+                         role="cell">{{feature.properties.wnum}}
+                    </div>
                 </div>
             </div>
             <div class="card-body"
@@ -270,7 +272,7 @@
                         <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
                                                                 [table]="umrechnung"
                                                                 [brw]="feature.properties.brw"
-                                                                [actualValue]="umrechnung.text === 'Art der Bebauung' ? feature.properties.nutzung[0]['enuta'] : feature.properties[umrechnung.text.toLowerCase()]">
+                                                                [actualValue]="feature.properties[umrechnung.text.toLowerCase()]"
                         </power-bodenrichtwert-detail-umrechnung>
                     </dd>
                 </ng-container>
@@ -281,19 +283,18 @@
                         <!-- [html-validate-disable-next element-permitted-content] -->
                         <dt class="col-md-5"
                             role="rowheader">
-                            {{brzStrings.umdatei | hyphenate}}
+                            {{ brzStrings.umdatei | hyphenate }}
                         </dt>
                         <!-- [html-validate-disable-next element-permitted-content] -->
                         <dd class="col-md-7"
                             role="cell">
                             <a class="btn-link"
                                role="button"
-                               title="Umrechnungsdatei"
-                               i18n-title
-                               [href]="umrechnung.dateiname.substr(0, umrechnung.dateiname.lastIndexOf('.')).replace('http://', 'https://') + '.pdf'"
+                               title="{{ umrechnung.text | einflussgroesse }}"
+                               [href]="rewriteUmrechnungstabURL(umrechnung.dateiname)"
                                target="_blank"
                                rel="noopener noreferrer nofollow">
-                                {{umrechnung.text | einflussgroesse}}
+                                {{ umrechnung.text | einflussgroesse }}
                             </a>
                         </dd>
                     </ng-container>
@@ -307,9 +308,9 @@
         <div class="card-header">
             <div class="row"
                  role="row">
-                <h5 class="col-12 mb-0"
-                    role="columnheader"><strong i18n>Herausgeber</strong>
-                </h5>
+                <div class="h5 col-12 mb-0"
+                     role="columnheader"><strong i18n>Herausgegeben von</strong>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -320,13 +321,13 @@
                     <img width="200px"
                          height="75px"
                          i18n-alt
-                         alt="Freie Hansestadt Bremen"
+                         alt="Freie Hansestadt Bremen Wappen"
                          src="./assets/logos/bremen_wappen.svg"
                          *ngIf="features?.features[0].properties.gema === 'Bremerhaven' || features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen'">
                     <img width="200px"
                          height="50px"
                          i18n-alt
-                         alt="Niedersachsen"
+                         alt="Niedersachsen Wappen"
                          src="./assets/logos/niedersachsen.png"
                          *ngIf="features?.features[0].properties.gema !== 'Bremerhaven' && features?.features[0].properties.gabe !== 'Gutachterausschuss für Grundstückswerte in Bremen'">
                     <br><br>
@@ -336,8 +337,8 @@
                        target="_blank"
                        rel="noopener noreferrer nofollow"
                        i18n-alt
-                       alt="Herausgeber"
-                       title="Herausgeber"
+                       alt="Herausgegeben von"
+                       title="Herausgegeben von"
                        i18n-title>{{ filteredFeatures[0]?.properties.gabe }}</a>
                 </dd>
             </dl>

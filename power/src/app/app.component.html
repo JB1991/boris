@@ -1,11 +1,9 @@
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white"
-         style="z-index: 1000;">
-        <a class="navbar-brand"
+    <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white">
+        <a class="navbar-brand lgln-black"
            i18n-title
            title="Zur Startseite"
-           [routerLink]="['/']"
-           style="color: #343a40;">
+           [routerLink]="['/']">
             <img src="./assets/logos/gag-mini.png"
                  class="mr-2 align-top"
                  aria-hidden="true"
@@ -15,13 +13,12 @@
                  alt="LGLN Logo">
             <strong class="d-inline">
                 <span i18n>Immobilienmarkt</span>
-                <span style="color: #c4153a;"
+                <span class="lgln-red"
                       i18n>.NI</span>
             </strong>
         </a>
 
-        <button class="navbar-toggler"
-                style="border: none; padding-right: 0;"
+        <button class="navbar-toggler border-0 pr-0"
                 type="button"
                 (click)="isCollapsed = !isCollapsed"
                 i18n-aria-label
@@ -46,7 +43,9 @@
                 </li>
 
                 <li class="nav-item dropdown"
-                    (click)="isCollapsedBRW = true; isCollapsedAcc = true;">
+                    role="button"
+                    (click)="isCollapsedBRW = true; isCollapsedAcc = true;"
+                    (keydown.enter)="isCollapsedBRW = true; isCollapsedAcc = true;">
                     <a class="nav-link dropdown-toggle clickable"
                        href=""
                        id="navbarImmo"
@@ -136,7 +135,9 @@
                 </li>
 
                 <li class="nav-item dropdown"
+                    role="button"
                     (click)="isCollapsedImmo = true; isCollapsedBRW = true;"
+                    (keydown.enter)="isCollapsedImmo = true; isCollapsedBRW = true;"
                     *ngIf="config.modules.includes('login') && auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
                     <a class="nav-link dropdown-toggle clickable"
                        href=""
@@ -151,6 +152,7 @@
                              class="bi bi-file-person"
                              fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg"
+                             role="img"
                              focusable="false"
                              aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -212,6 +214,7 @@
                      fill="currentColor"
                      class="bi bi-exclamation-triangle"
                      viewBox="0 0 16 16"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path
@@ -250,6 +253,7 @@
                      fill="currentColor"
                      class="bi bi-exclamation-triangle"
                      viewBox="0 0 16 16"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path
@@ -288,6 +292,7 @@
                      fill="currentColor"
                      class="bi bi-exclamation-triangle"
                      viewBox="0 0 16 16"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path
@@ -319,7 +324,9 @@
                        target="_blank"
                        rel="noopener noreferrer nofollow">
                         <i class="bi bi-youtube align-middle"
-                           style="font-size: 1.5rem;"></i>
+                           style="font-size: 1.5rem;"
+                           role="img"
+                           aria-hidden="true"></i>
                         <span class="ml-1"
                               i18n>How to - Fragebogen Online</span>
                     </a>

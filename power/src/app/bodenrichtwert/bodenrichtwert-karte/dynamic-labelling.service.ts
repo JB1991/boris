@@ -63,7 +63,7 @@ export class DynamicLabellingService {
     }
 
     /**
-     *
+     * Returns multiPolygon
      * @param mp multiPolygon
      * @returns array of polygons
      */
@@ -75,7 +75,7 @@ export class DynamicLabellingService {
     }
 
     /**
-     *
+     * Returns largest polygon
      * @param mp multiPolygon
      * @returns largest polygon
      */
@@ -105,7 +105,7 @@ export class DynamicLabellingService {
     }
 
     /**
-     *
+     * Intersects polygons
      * @param p polygon or multiPolygon
      * @param intersec polygon
      * @returns array of polygons

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { LngLat, Map, MapMouseEvent, Marker } from 'maplibre-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature } from 'geojson';
+import { BodenrichtwertKarteService } from './bodenrichtwert-karte.service';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
     const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
@@ -30,6 +31,9 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 BsDropdownModule.forRoot(),
                 SharedModule,
                 RouterModule.forRoot([]),
+            ],
+            providers: [
+                BodenrichtwertKarteService
             ]
         }).compileComponents();
     }));

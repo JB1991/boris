@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         private seo: SEOService
     ) {
         this.seo.setTitle($localize`Login - Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'description', content: $localize`Einloggen am Immobilienmarkt.NI Portal` });
+        this.seo.updateTag({ name: 'description', content: $localize`Einloggen im Immobilienmarkt.NI Portal` });
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Login` });
     }
 

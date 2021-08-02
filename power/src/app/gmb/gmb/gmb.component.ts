@@ -102,11 +102,6 @@ export class GmbComponent implements OnInit {
         'color': ['#000000']
     };
 
-    /**
-     * Constructor:
-     *
-     * @param http Inject HttpClient
-     */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -195,6 +190,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Gets chart element for map
+     * @param ec Chart
      */
     onChartInit(ec) {
         this.map = ec;
@@ -225,6 +221,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Generate Map Regionen
+     * @returns Array of regions
      */
     getRegionen() {
         const res = [];
@@ -274,6 +271,8 @@ export class GmbComponent implements OnInit {
 
     /**
      * generate Kreisliste
+     * @param arr Array
+     * @returns Kreisliste
      */
     generateKreisliste(arr) {
         if (arr === undefined) {
@@ -356,6 +355,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Filter Berichte based on selection
+     * @param lmb True if LBM
      */
     filterBerichte(lmb = false) {
         if (this.selectedKreis === undefined && !lmb) {
@@ -373,6 +373,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Handle the Change of an Selection in the Map
+     * @param param Map param
      */
     onMapSelectChange(param) {
 
@@ -496,8 +497,7 @@ export class GmbComponent implements OnInit {
      * source: https://stackoverflow.com/a/42769683
      *
      * @param rem size in rem
-     *
-     * @return size in px
+     * @returns size in px
      */
     convertRemToPixels(rem: number): number {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);

@@ -32,11 +32,9 @@ export class GeosearchComponent implements OnChanges {
     /**
      * Return the text property
      * @param feature GeoJSON feature
+     * @returns Text
      */
     public inputFormatter = (feature: Feature) => feature.properties.text;
-
-
-    public resultFormatter = (feature: Feature) => feature.properties.text;
 
     /**
      * Initialization of the search form
@@ -72,6 +70,7 @@ export class GeosearchComponent implements OnChanges {
     /**
      * Pass the search input to the Geosearch service
      * @param text$ Input as Observable
+     * @returns Observable
      */
     public search = (text$: Observable<string>) =>
         text$.pipe(

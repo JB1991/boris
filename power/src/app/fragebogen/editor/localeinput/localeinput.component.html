@@ -3,6 +3,7 @@
         <label for="localeInput-{{ eid }}"
                class="sr-only"
                i18n>Sprache</label>
+        <!-- [html-validate-disable-next input-missing-label] -->
         <select class="custom-select"
                 id="localeInput-{{ eid }}"
                 name="localeInput-{{ eid }}"
@@ -17,7 +18,7 @@
 
     <div class="form-group col-12 col-md-10 mt-1 mt-md-0 mb-0"
          *ngIf="!textarea">
-        <!-- [html-validate-disable-next element-required-attributes] -->
+        <!-- [html-validate-disable-next element-required-attributes, input-missing-label] -->
         <input [type]="type"
                class="form-control"
                [(ngModel)]="locale[displayLang]"
@@ -33,6 +34,7 @@
 
     <div class="form-group col-12 mt-1 mt-md-2 mb-0"
          *ngIf="textarea">
+        <!-- [html-validate-disable-next input-missing-label] -->
         <textarea class="form-control"
                   rows="5"
                   [(ngModel)]="locale[displayLang]"

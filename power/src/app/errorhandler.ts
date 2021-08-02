@@ -22,7 +22,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         console.error(error);
         if (error.message.indexOf('Loading chunk') !== -1) {
             console.error(error);
-            this.us.cleanupServiceWorker();
+            this.us.cleanupServiceWorker(true);
             this.reload();
             return;
         }

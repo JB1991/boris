@@ -19,8 +19,14 @@
                     "baseHref": ""
                 },
                 "locales": {
-                    "de-simple": "src/locales/messages.de-simple.xlf",
-                    "en": "src/locales/messages.en.xlf"
+                    "de-simple": {
+                        "baseHref": "/de-simple/",
+                        "translation": "src/locales/messages.de-simple.xlf"
+                    },
+                    "en": {
+                        "baseHref": "/en/",
+                        "translation": "src/locales/messages.en.xlf"
+                    }
                 }
             },
             "architect": {
@@ -48,7 +54,8 @@
                             "echarts",
                             "hyphen",
                             "showdown",
-                            "rbush"
+                            "rbush",
+                            "polylabel"
                         ],
                         "vendorChunk": true,
                         "extractLicenses": false,

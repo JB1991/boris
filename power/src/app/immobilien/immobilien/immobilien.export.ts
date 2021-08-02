@@ -101,6 +101,7 @@ export class ImmobilienExport {
 
     /**
      * Export GeoJSON with Nipix
+     * @param geoJSON True for geoJSON export, otherwise CSV
      */
     public exportNiPixGeoJson(geoJSON = true) {
         if (this.nipixRuntime.chart.obj === null) {
@@ -209,9 +210,7 @@ export class ImmobilienExport {
      * @param region region to get timeslot
      * @param tstart Timeslot start date
      * @param tend Timeslot end date
-     * @param hiddendate Hiddendata (Sales) for the series
-     *
-     * @return Timeslot array or empty array if region not found
+     * @returns Timeslot array or empty array if region not found
      */
     private getNiPixTimeslot(date, series, region, tstart: number, tend: number) {
         let data = null;

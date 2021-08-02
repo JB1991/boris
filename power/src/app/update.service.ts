@@ -16,7 +16,7 @@ export class UpdateService {
             /* istanbul ignore next */
             updates.unrecoverable.subscribe(event => {
                 console.error(event);
-                this.cleanupServiceWorker();
+                this.cleanupServiceWorker(true);
                 window.location.reload();
             });
         }
@@ -34,7 +34,7 @@ export class UpdateService {
                 // do update
                 this.updates.activateUpdate().then(() => {
                     console.warn('Reloading to complete update');
-                    // this.cleanupServiceWorker();
+                    this.cleanupServiceWorker(false);
                     window.location.reload();
                 });
             });
@@ -43,19 +43,20 @@ export class UpdateService {
 
     /**
      * Deletes cache and unregisters service worker
+     * @param del Unregister service worker
      */
     /* istanbul ignore next */
-    public cleanupServiceWorker(): void {
-        console.warn('Deleting cache and service workers');
-
+    public cleanupServiceWorker(del: boolean): void {
         // delete cache
         if ('caches' in window) {
+            console.warn('Deleting cache');
             caches.keys().then(keyList => Promise.all(keyList.map(key => caches.delete(key))));
         }
 
         // unregister service worker
-        if (window.navigator && navigator.serviceWorker) {
+        if (del && window.navigator && navigator.serviceWorker) {
             navigator.serviceWorker.getRegistrations().then(registrations => {
+                console.warn('Deleting service workers');
                 for (const registration of registrations) {
                     registration.unregister();
                 }

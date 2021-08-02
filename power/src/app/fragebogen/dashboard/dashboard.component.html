@@ -12,6 +12,7 @@
                      class="bi bi-list-ul"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -22,9 +23,12 @@
             </div>
             <div class="d-inline-block w-50 float-right"
                  style="min-width: 150px; max-width: 200px;">
+                <label class="sr-only"
+                       for="filter-task-status"
+                       i18n>Antworten filtern nach Status</label>
                 <select class="browser-default custom-select"
-                        (change)="taskStatus = $event.target.value; updateTasks(false)"
-                        aria-roledescription="Antworten filtern nach Status.">
+                        id="filter-task-status"
+                        (change)="taskStatus = $event.target.value; updateTasks(false)">
                     <option value="all"
                             selected
                             i18n>Status: Alle</option>
@@ -68,6 +72,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -86,6 +91,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -117,6 +123,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -135,6 +142,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -166,6 +174,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -184,6 +193,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -215,6 +225,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -233,6 +244,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -264,6 +276,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -282,6 +295,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -313,6 +327,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -331,6 +346,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -373,7 +389,11 @@
                 <div class="form-inline">
                     <div class="form-group m-0 mr-2"
                          *ngIf="taskTotal > taskPerPage">
+                        <label class="sr-only"
+                               for="pagination-tasks"
+                               i18n>Anzahl von Antworten pro Seite</label>
                         <select class="custom-select"
+                                id="pagination-tasks"
                                 (change)="taskPerPage = $event.target.value; updateTasks(false)">
                             <option *ngFor=" let size of taskPageSizes">
                                 {{ size }}
@@ -426,6 +446,7 @@
                      class="bi bi-file-earmark-medical"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path
@@ -454,7 +475,11 @@
                 </div>
                 <div class="d-inline-block w-50"
                      style="min-width: 100px; max-width: 200px;">
+                    <label class="sr-only"
+                           for="filter-form-status"
+                           i18n>Formulare filtern nach Status</label>
                     <select class="browser-default custom-select"
+                            id="filter-form-status"
                             (change)="formStatus = $event.target.value; updateForms(false)">
                         <option value="all"
                                 selected
@@ -495,6 +520,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -510,6 +536,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -538,6 +565,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -553,6 +581,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -581,6 +610,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -596,6 +626,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -624,6 +655,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -639,6 +671,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -667,6 +700,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -682,6 +716,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -710,6 +745,7 @@
                                              class="bi bi-arrow-up"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -725,6 +761,7 @@
                                              class="bi bi-arrow-down"
                                              fill="currentColor"
                                              xmlns="http://www.w3.org/2000/svg"
+                                             role="img"
                                              focusable="false"
                                              aria-hidden="true">
                                             <path
@@ -778,6 +815,7 @@
                          class="bi bi-plus"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         role="img"
                          focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -802,6 +840,7 @@
                          class="bi bi-cloud-arrow-up"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         role="img"
                          focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -819,9 +858,11 @@
                 <div class="form-inline">
                     <div class="form-group m-0 mr-2"
                          *ngIf="formTotal > formPerPage">
+                        <label class="sr-only"
+                               for="pagination-forms"
+                               i18n>Anzahl von Formularen pro Seite</label>
                         <select class="custom-select"
-                                i18n-aria-label
-                                aria-label="Formularanzahl pro Seite"
+                                id="pagination-forms"
                                 (change)="formPerPage = $event.target.value; updateForms(false)">
                             <option *ngFor=" let size of formPageSizes">
                                 {{ size }}

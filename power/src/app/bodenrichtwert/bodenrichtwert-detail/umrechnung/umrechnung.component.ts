@@ -20,7 +20,7 @@ export class UmrechnungComponent implements OnInit {
         'koef': $localize`Umrechnungskoeffizient`,
     };
 
-    public discrete: Array<string> = ['BEIT', 'NUTA', 'Art der Bebauung', 'BAUW', 'BOD', 'HINW', 'GEZ'];
+    public discrete: Array<string> = ['BEIT', 'NUTA', 'BAUW', 'BOD', 'HINW', 'GEZ'];
     public continuous: Array<string> = ['WGFZ', 'GRZ', 'BMZ', 'FLAE', 'GTIE', 'GBREI', 'ACZA', 'GRZA'];
 
     public einflussgroesse: string;
@@ -109,16 +109,7 @@ export class UmrechnungComponent implements OnInit {
      * @returns returns the UmrechnungsItem for discrete values
      */
     public handleDiscreteValues(values: Array<UmrechnungsItem>): UmrechnungsItem {
-        let item: UmrechnungsItem;
-        if (this.table.text === 'Art der Bebauung') {
-            if (this.actualValue.toString() === 'EFH') {
-                item = values.find(i => i.bzwt === 1);
-            } else if (this.actualValue.toString() === 'MFH') {
-                item = values.find(i => i.bzwt === 2);
-            }
-        } else {
-            item = values.find(i => i.bzwt.toString() === this.actualValue);
-        }
+        const item: UmrechnungsItem = values.find(i => i.bzwt.toString() === this.actualValue);
         return item;
     }
 

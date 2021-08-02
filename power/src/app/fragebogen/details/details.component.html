@@ -11,6 +11,7 @@
              class="bi bi-file-earmark-medical"
              fill="currentColor"
              xmlns="http://www.w3.org/2000/svg"
+             role="img"
              focusable="false"
              aria-hidden="true">
             <path
@@ -31,6 +32,7 @@
                  class="bi bi-backspace"
                  fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg"
+                 role="img"
                  focusable="false"
                  aria-hidden="true">
                 <path fill-rule="evenodd"
@@ -93,6 +95,7 @@
                      class="bi bi-pencil-square"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path
@@ -114,6 +117,7 @@
                      class="bi bi-arrows-fullscreen"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -141,6 +145,7 @@
                      class="bi bi-cloud-arrow-down"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -163,6 +168,7 @@
                      class="bi bi-gear"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -185,6 +191,7 @@
                      class="bi bi-globe2"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -205,6 +212,7 @@
                      class="bi bi-archive-fill"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -225,6 +233,7 @@
                      class="bi bi-trash-fill"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -246,6 +255,7 @@
                  class="bi bi-list-ul"
                  fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg"
+                 role="img"
                  focusable="false"
                  aria-hidden="true">
                 <path fill-rule="evenodd"
@@ -255,9 +265,12 @@
                   i18n>Antworten</span>
             <div class="float-md-right row">
                 <div class="col-sm">
+                    <label class="sr-only"
+                           for="filter-task-status"
+                           i18n>Antworten filtern nach Status</label>
                     <select class="browser-default custom-select"
-                            (change)="taskStatus = $event.target.value; this.updateTasks()"
-                            aria-roledescription="Antworten filtern nach Status.">
+                            id="filter-task-status"
+                            (change)="taskStatus = $event.target.value; this.updateTasks()">
                         <option value="all"
                                 selected
                                 i18n>Status: Alle</option>
@@ -302,6 +315,7 @@
                                          class="bi bi-arrow-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path
@@ -320,6 +334,7 @@
                                          class="bi bi-arrow-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path
@@ -351,6 +366,7 @@
                                          class="bi bi-arrow-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path
@@ -369,6 +385,7 @@
                                          class="bi bi-arrow-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path
@@ -400,6 +417,7 @@
                                          class="bi bi-arrow-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path
@@ -418,6 +436,7 @@
                                          class="bi bi-arrow-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path
@@ -442,8 +461,8 @@
                                          class="bi bi-arrow-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
-                                         role="button"
                                          aria-hidden="true">
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
@@ -458,8 +477,8 @@
                                          class="bi bi-arrow-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
-                                         role="button"
                                          aria-hidden="true">
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
@@ -483,8 +502,8 @@
                                          class="bi bi-arrow-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
-                                         role="button"
                                          aria-hidden="true">
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
@@ -499,8 +518,8 @@
                                          class="bi bi-arrow-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
-                                         role="button"
                                          aria-hidden="true">
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
@@ -526,6 +545,7 @@
                                      class="bi bi-link-45deg"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     role="img"
                                      focusable="false"
                                      aria-hidden="true">
                                     <path
@@ -555,6 +575,7 @@
                                      class="bi bi-pencil-square"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     role="img"
                                      focusable="false"
                                      aria-hidden="true">
                                     <path
@@ -583,6 +604,7 @@
                                      class="bi bi-binoculars-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     role="img"
                                      focusable="false"
                                      aria-hidden="true">
                                     <path
@@ -603,6 +625,7 @@
                                      class="bi bi-arrow-clockwise"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     role="img"
                                      focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
@@ -625,6 +648,7 @@
                                      class="bi bi-arrow-clockwise"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     role="img"
                                      focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
@@ -647,6 +671,7 @@
                                      class="bi bi-trash-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     role="img"
                                      focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
@@ -668,7 +693,7 @@
             <button type="button"
                     class="btn btn-success btn-sm mr-2"
                     i18n-title
-                    title="Neue PIN erstellen"
+                    title="Neue PIN generieren"
                     (click)="maketask.open()"
                     *ngIf="form.status === 'published' && form.access !== 'public' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)">
                 <svg width="1em"
@@ -677,6 +702,7 @@
                      class="bi bi-plus"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -687,7 +713,7 @@
                           d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
                 </svg>
                 <span class="d-none d-sm-inline ml-1"
-                      i18n>Neue PIN erstellen</span>
+                      i18n>Neue PIN generieren</span>
             </button>
 
             <button *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
@@ -702,6 +728,7 @@
                      class="bi bi-cloud-arrow-down"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -717,7 +744,11 @@
             <div class="float-lg-right mt-2 mt-lg-0">
                 <div class="form-inline">
                     <div class="form-group m-0 mr-2">
+                        <label class="sr-only"
+                               for="pagination-tasks"
+                               i18n>Anzahl von Antworten pro Seite</label>
                         <select class="custom-select"
+                                id="pagination-tasks"
                                 (change)="taskPerPage = $event.target.value; updateTasks()">
                             <option *ngFor=" let size of taskPageSizes ">
                                 {{ size }}

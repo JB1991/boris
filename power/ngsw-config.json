@@ -23,7 +23,6 @@
                 "files": [
                     "/assets/**",
                     "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
-                    "!/assets/config/config.json",
                     "!/assets/version.json"
                 ],
                 "urls": [
@@ -42,9 +41,9 @@
         "!/geoserver/**",
         "!/vector-tiles/**",
         "!/download/**",
+        "!/boris-umdatei/**",
         "!/formapi/**",
-        "!/feedback-rss/**",
-        "!/boris-print/**"
+        "!/feedback-rss/**"
     ],
     "navigationRequestStrategy": "freshness"
 }

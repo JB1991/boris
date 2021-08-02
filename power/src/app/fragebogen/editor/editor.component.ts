@@ -717,7 +717,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.favorites.push(data);
             this.cdr.detectChanges();
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
-                $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
+                $localize`Die Frage wurde erfolgreich zu den Favoriten hinzugefügt.`);
         }).catch((error) => {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, this.formapi.getErrorMessage(error));
