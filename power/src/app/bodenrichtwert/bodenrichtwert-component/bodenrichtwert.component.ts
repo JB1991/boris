@@ -50,6 +50,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public features: FeatureCollection = null;
     public filteredFeatures: Array<Feature>;
+    public hasUmrechnungsdateien = false;
 
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
@@ -187,9 +188,22 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
+            this.hasUmrechnungsdateien = false;
+
+            // filter features
             if (this.features || this.stichtag || this.teilmarkt) {
                 this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
             }
+
+            // check for umrechnungsdateien
+            for (const feature of this.filteredFeatures) {
+                if (feature.properties.umrechnungstabellendatei
+                    && feature.properties.umrechnungstabellendatei.length > 0) {
+                    this.hasUmrechnungsdateien = true;
+                    break;
+                }
+            }
+
             this.isCollapsed = false;
             this.cdr.detectChanges();
         });

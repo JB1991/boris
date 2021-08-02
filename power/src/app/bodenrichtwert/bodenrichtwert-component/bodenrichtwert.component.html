@@ -293,7 +293,7 @@
         <strong i18n>Ihr Ausdruck wurde erzeugt und steht jetzt zum herunterladen bereit.</strong>
     </div>
 
-    <div *ngIf="filteredFeatures?.length > 0">
+    <div *ngIf="filteredFeatures?.length > 0 && hasUmrechnungsdateien">
         <span i18n>Umrechnungsdateien für wert­re­le­van­te Einflussgrößen herunterladen</span>:
         <ul class="m-0">
             <ng-container *ngFor="let feature of filteredFeatures">
