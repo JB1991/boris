@@ -218,7 +218,7 @@ export class BodenrichtwertPdfComponent {
                             margin: [0, 10, 0, 0]
                         },
                         {
-                            text: $localize`Bodenrichtwerte werden gemäß § 193 Absatz 5 BauGB vom zuständigen Gutachterausschuss für Grundstückswerte nach den Bestimmungen des BauGB und der ImmoWertV ermittelt. Die Bodenrichtwerte wurden zum oben angegebenen Stichtag ermittelt.`,
+                            text: $localize`Bodenrichtwerte werden gemäß § 193 Absatz 5 Baugesetzbuch (BauGB) vom zuständigen Gutachterausschuss für Grundstückswerte nach den Bestimmungen des BauGB und der Immobilienwertermittlungsverordnung (ImmoWertV) ermittelt. Die Bodenrichtwerte wurden zum oben angegebenen Stichtag ermittelt.`,
                             alignment: 'justify'
                         },
                         {
@@ -229,7 +229,7 @@ export class BodenrichtwertPdfComponent {
                         },
                         {
                             text: [
-                                $localize`Der Bodenrichtwert (§ 196 Absatz 1 BauGB ) ist der durchschnittliche Lagewert des Bodens für die Mehrheit von Grundstücken innerhalb eines abgegrenzten Gebiets (Bodenrichtwertzone), die nach ihren Grundstücksmerkmalen, insbesondere nach Art und Maß der Nutzbarkeit weitgehend übereinstimmen und für die im Wesentlichen gleiche allgemeine Wertverhältnisse vorliegen. Er ist bezogen auf den Quadratmeter Grundstücksfläche eines Grundstücks mit den dargestellten Grundstücksmerkmalen (Bodenrichtwertgrundstück).`,
+                                $localize`Der Bodenrichtwert (§ 196 Absatz 1 BauGB) ist der durchschnittliche Lagewert des Bodens für die Mehrheit von Grundstücken innerhalb eines abgegrenzten Gebiets (Bodenrichtwertzone), die nach ihren Grundstücksmerkmalen, insbesondere nach Art und Maß der Nutzbarkeit weitgehend übereinstimmen und für die im Wesentlichen gleiche allgemeine Wertverhältnisse vorliegen. Er ist bezogen auf den Quadratmeter Grundstücksfläche eines Grundstücks mit den dargestellten Grundstücksmerkmalen (Bodenrichtwertgrundstück).`,
                                 '\n',
                                 $localize`Der Bodenrichtwert enthält keine Wertanteile für Aufwuchs, Gebäude, bauliche und sonstige Anlagen. Bei bebauten Grundstücken ist der Bodenrichtwert ermittelt worden, der sich ergeben würde, wenn der Boden unbebaut wäre (§ 196 Absatz 1 Satz 2 BauGB).`,
                                 '\n',
@@ -246,18 +246,47 @@ export class BodenrichtwertPdfComponent {
                             margin: [0, 10, 0, 0]
                         },
                         {
-                            text: $localize`Der Bodenrichtwert wird mit seiner Begrenzungslinie (Bodenrichtwertzone) sowie mit seinen wertbeeinflussenden Grundstücksmerkmalen dargestellt.`,
+                            text: $localize`Der Bodenrichtwert wird im Kartenausschnitt mit seiner Begrenzungslinie (Bodenrichtwertzone) sowie mit seinem Wert in Euro pro Quadratmeter dargestellt. Im anschließenden beschreibenden Teil zur Bodenrichtwertzone werden darüber hinaus alle wertbeeinflussenden Grundstücksmerkmale mit ihren Ausprägungen genannt.`,
                             alignment: 'justify'
                         },
                         {
-                            text: $localize`Hinweis`,
+                            text: $localize`Verwendung der Daten`,
                             bold: true,
                             fontSize: 13,
                             margin: [0, 10, 0, 0]
                         },
                         {
-                            text: $localize`Diese Präsentation und die ihr zugrunde liegenden Angaben des amtlichen Vermessungswesens sind gesetzlich geschützt. Die Verwertung für nichteigene oder wirtschaftliche Zwecke und die öffentliche Wiedergabe sind nur mit Erlaubnis des Herausgebers gestattet.`,
+                            text: [
+                                $localize`Die Bodenrichtwerte`,
+                                {
+                                    text: '[1] ',
+                                    linkToDestination: 'GOTO1',
+                                    sup: true
+                                },
+                                $localize`stehen gebührenfrei im Internet zur Verfügung. Für die Bodenrichtwerte gilt die Lizenz "Datenlizenz Deutschland – Namensnennung – Version 2.0" (dl-de/by-2-0). Der Lizenztext kann unter govdata.de`,
+                                {
+                                    text: '[2] ',
+                                    linkToDestination: 'GOTO2',
+                                    sup: true
+                                },
+                                $localize`eingesehen werden. Die Bodenrichtwertanwendung kann gemäß den Nutzungsbestimmungen der Datenlizenz Deutschland – Namensnennung – Version 2.0 unter Angabe der Quelle © Oberer Gutachterausschuss für Grundstückswerte Niedersachsen [Jahr] und der Lizenz mit Verweis auf den Lizenztext genutzt werden.`
+                            ],
                             alignment: 'justify'
+                        },
+                        {
+                            ol: [
+                                {
+                                    id: 'GOTO1',
+                                    text: 'https://immobilienmarkt.niedersachsen.de/bodenrichtwerte',
+                                    link: 'https://immobilienmarkt.niedersachsen.de/bodenrichtwerte'
+                                },
+                                {
+                                    id: 'GOTO2',
+                                    text: 'https://www.govdata.de/dl-de/by-2-0',
+                                    link: 'https://www.govdata.de/dl-de/by-2-0'
+                                },
+                            ],
+                            margin: [0, 10, 0, 0]
                         }
                     ],
                     pageBreak: 'before'
@@ -384,7 +413,10 @@ export class BodenrichtwertPdfComponent {
                 if (brw.properties.umrechnungstabellendatei) {
                     const path = brw.properties.umrechnungstabellendatei[0].dateiname.replace('http://boris.niedersachsen.de', '');
                     const newUrl = location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
-                    tmp.push($localize`Umrechnungstabelle` + ': ' + newUrl);
+                    tmp.push({
+                        text: $localize`Umrechnungstabelle` + ': ' + newUrl,
+                        link: newUrl
+                    });
                 }
 
                 // add to array
