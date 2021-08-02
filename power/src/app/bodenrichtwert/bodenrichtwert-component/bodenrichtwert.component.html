@@ -289,7 +289,27 @@
 </ng-container>
 
 <power-modalmini #print>
-    <span i18n>Ihr Ausdruck wurde erzeugt und steht jetzt zum herunterladen bereit.</span>
+    <div class="mb-3">
+        <strong i18n>Ihr Ausdruck wurde erzeugt und steht jetzt zum herunterladen bereit.</strong>
+    </div>
+
+    <div *ngIf="filteredFeatures?.length > 0">
+        <span i18n>Umrechnungsdateien für wert­re­le­van­te Einflussgrößen herunterladen</span>:
+        <ul class="m-0">
+            <ng-container *ngFor="let feature of filteredFeatures">
+                <li *ngFor="let umrechnung of feature.properties.umrechnungstabellendatei">
+                    <a class="btn-link"
+                       role="button"
+                       title="{{ umrechnung.text | einflussgroesse }}"
+                       [href]="rewriteUmrechnungstabURL(umrechnung.dateiname)"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow">
+                        {{ umrechnung.text | einflussgroesse }}
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
 
     <!-- modal buttons -->
     <div class="modal-footer"

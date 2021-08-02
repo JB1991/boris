@@ -57,8 +57,7 @@ export class BodenrichtwertDetailComponent implements OnChanges {
      */
     public rewriteUmrechnungstabURL(url: string): string {
         const path = url.replace('http://boris.niedersachsen.de', '');
-        const rewritedURL = location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
-        return rewritedURL;
+        return location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
     }
 }
 
