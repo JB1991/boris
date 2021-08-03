@@ -159,72 +159,88 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
-        if (this.map) {
-            // Teilmarkt changed
-            if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
-                // update layer
-                this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-                this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-                this.map.setLayoutProperty('landwirtschaft', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
-                this.map.setLayoutProperty('bauland_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-                this.map.setLayoutProperty('sanierungsgebiet_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-                this.map.setLayoutProperty('landwirtschaft_bremen', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
-
-                this.map.easeTo({
-                    zoom: this.zoom,
-                    center: this.latLng ? [this.latLng.lng, this.latLng.lat] : this.map.getCenter()
-                });
-            }
-            // Stichtag changed
-            if (changes.stichtag && !changes.stichtag.firstChange) {
-                // update layer
-                this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
-                this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
-                this.map.setFilter('landwirtschaft', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
-                this.map.setFilter('bauland_bremen', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
-                this.map.setFilter('sanierungsgebiet_bremen', ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]);
-                this.map.setFilter('landwirtschaft_bremen', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
-
-                // needed to update labeling
-                this.map.easeTo({
-                    zoom: this.map.getZoom()
-                });
-            }
-            // latLng changed
-            if (changes.latLng && changes.latLng.currentValue !== undefined) {
-                this.marker.setLngLat(this.latLng).addTo(this.map);
-                if (this.expanded) {
-                    this.fly();
-                }
-            }
-            // collapsed
-            if (changes.collapsed) {
+        if (!this.map) {
+            return;
+        }
+        // Teilmarkt changed
+        if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
+            this.changedTeilmarkt();
+        }
+        // Stichtag changed
+        if (changes.stichtag && !changes.stichtag.firstChange) {
+            this.changedStichtag();
+        }
+        // latLng changed
+        if (changes.latLng && changes.latLng.currentValue !== undefined) {
+            this.changedLatLng();
+        }
+        // collapsed
+        if (changes.collapsed) {
+            this.changedCollapsed();
+        }
+        // expanded
+        if (changes.expanded && this.latLng
+            && changes.expanded.currentValue) {
+            this.fly();
+        }
+        // resetMapFired triggered by navigation resetMap only if details are collapsed
+        if (changes.resetMapFired && !changes.resetMapFired.firstChange) {
+            if (changes.resetMapFired.currentValue && this.collapsed) {
+                this.onResetMap();
+            } else {
+                // resizes the map canvas to full display width
                 this.map.resize();
-                // resetMap only if details was expanded
-                if (this.resetMapFired) {
-                    this.onResetMap();
-                }
             }
-            // expanded
-            if (changes.expanded && this.latLng) {
-                if (changes.expanded.currentValue) {
-                    this.fly();
-                }
-            }
-            // resetMapFired triggered by navigation resetMap only if details are collapsed
-            if (changes.resetMapFired && !changes.resetMapFired.firstChange) {
-                if (changes.resetMapFired.currentValue && this.collapsed) {
-                    this.onResetMap();
-                } else {
-                    // resizes the map canvas to full display width
-                    this.map.resize();
-                }
-            }
-            // 3D-Modus temporarly deactivated (WIP)
-            // if (changes.features && !changes.features.firstChange) {
-            //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features,
-            //         this.map, this.stichtag, this.teilmarkt);
-            // }
+        }
+        // 3D-Modus temporarly deactivated (WIP)
+        // if (changes.features && !changes.features.firstChange) {
+        //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features,
+        //         this.map, this.stichtag, this.teilmarkt);
+        // }
+    }
+
+    private changedTeilmarkt() {
+        // update layer
+        this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('landwirtschaft', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+        this.map.setLayoutProperty('bauland_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('sanierungsgebiet_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('landwirtschaft_bremen', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+
+        this.map.easeTo({
+            zoom: this.zoom,
+            center: this.latLng ? [this.latLng.lng, this.latLng.lat] : this.map.getCenter()
+        });
+    }
+
+    private changedStichtag() {
+        // update layer
+        this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
+        this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
+        this.map.setFilter('landwirtschaft', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
+        this.map.setFilter('bauland_bremen', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
+        this.map.setFilter('sanierungsgebiet_bremen', ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]);
+        this.map.setFilter('landwirtschaft_bremen', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
+
+        // needed to update labeling
+        this.map.easeTo({
+            zoom: this.map.getZoom()
+        });
+    }
+
+    private changedLatLng() {
+        this.marker.setLngLat(this.latLng).addTo(this.map);
+        if (this.expanded) {
+            this.fly();
+        }
+    }
+
+    private changedCollapsed() {
+        this.map.resize();
+        // resetMap only if details was expanded
+        if (this.resetMapFired) {
+            this.onResetMap();
         }
     }
 
@@ -508,9 +524,6 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
         const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
         this.map.addControl(pitchControl, 'top-right');
-
-        // const layerControl = new BodenrichtwertKarteLayerControl();
-        // this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng) {
