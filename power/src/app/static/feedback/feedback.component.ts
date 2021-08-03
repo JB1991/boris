@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { SEOService } from '@app/shared/seo/seo.service';
 
@@ -25,7 +24,6 @@ export class FeedbackComponent implements OnInit {
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         private httpClient: HttpClient,
-        public auth: AuthService,
         public alerts: AlertsService,
         private seo: SEOService
     ) {
@@ -55,7 +53,11 @@ export class FeedbackComponent implements OnInit {
 
         try {
             // get rss feed
-            const tmp = await this.httpClient.get(uri, this.auth.getHeaders('text', 'application/atom+xml', false)).toPromise();
+            const header = new HttpHeaders().set('Cache-Control', 'no-cache')
+                .set('Pragma', 'no-cache')
+                .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+                .set('If-Modified-Since', '0');
+            const tmp = await this.httpClient.get(uri, { headers: header, responseType: 'text' }).toPromise();
 
             // parse rss feed
             const parser = new DOMParser();

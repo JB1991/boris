@@ -11,8 +11,6 @@ export class BodenrichtwertKarteService {
     public map: Map;
     public marker: Marker;
 
-    constructor() { }
-
     /**
      * Zooms view to selection
      */

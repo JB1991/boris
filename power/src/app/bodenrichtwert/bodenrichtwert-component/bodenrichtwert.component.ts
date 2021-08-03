@@ -192,7 +192,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
             // filter features
             if (this.features || this.stichtag || this.teilmarkt) {
-                this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
+                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
             }
 
             // check for umrechnungsdateien
