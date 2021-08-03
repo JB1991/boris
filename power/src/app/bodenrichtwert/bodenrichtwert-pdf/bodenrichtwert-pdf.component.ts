@@ -372,7 +372,7 @@ export class BodenrichtwertPdfComponent {
                     tmp.push($localize`Baumassenzahl` + ': ' + this.decimalPipe.transform(brw.properties.bmz) + '\n');
                 }
                 if (brw.properties.gez) {
-                    tmp.push($localize`Geschosszahl` + ': ' + this.decimalPipe.transform(brw.properties.gez) + '\n');
+                    tmp.push($localize`Geschosszahl` + ': ' + brw.properties.gez + '\n');
                 }
                 if (brw.properties.grz) {
                     tmp.push($localize`Grundflächenzahl` + ': ' + this.decimalPipe.transform(brw.properties.grz) + '\n');
