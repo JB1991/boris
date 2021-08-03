@@ -615,11 +615,10 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
-     * Switch between multiple Draw Items
+     * Switch between multiple Draw
      * @param name
      */
     onClickDrawRoot(name) {
-        // this.selectedTreeItem = name;
         this.updateMapSelect();
         this.updateChart();
     }
