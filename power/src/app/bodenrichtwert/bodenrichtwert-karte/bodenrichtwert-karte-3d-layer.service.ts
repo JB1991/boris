@@ -67,7 +67,9 @@ export class BodenrichtwertKarte3dLayerService {
         }
     };
 
-    constructor() { }
+    constructor() {
+        // This is intentional
+    }
 
     /**
      * onFeaturesChange removes Layers depending on whether a previous feature exists or not

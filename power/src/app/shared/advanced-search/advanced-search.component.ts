@@ -28,7 +28,9 @@ export class AdvancedSearchComponent {
     @Input() flurstueckSearchActive = true;
     @Input() bodenrichtwertSearchActive = true;
 
-    constructor() { }
+    constructor() {
+        // This is intentional
+    }
 
     /**
      * onFlurstueckChange emits the current flurstueck-features
