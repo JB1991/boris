@@ -619,7 +619,6 @@ export class ImmobilienComponent implements OnInit {
      * @param name
      */
     onClickDrawRoot(name) {
-        // this.selectedTreeItem = name;
         this.updateMapSelect();
         this.updateChart();
     }
