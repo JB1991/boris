@@ -19,6 +19,10 @@ describe('Bodenrichtwert.Pipes.UmlautCorrectionPipe', () => {
         expect(pipe.transform('Verbrauchermaerkte')).toEqual('Verbrauchermärkte');
     });
 
+    it('should fix Umlaute', () => {
+        expect(pipe.transform('Check dat Ã¤ÃŸ')).toEqual('Check dat äß');
+    });
+
     it('should do nothing if the string is empty', () => {
         expect(pipe.transform('')).toEqual('');
     });
