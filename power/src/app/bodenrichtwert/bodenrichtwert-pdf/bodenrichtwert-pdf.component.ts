@@ -17,6 +17,7 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
+import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-pdf',
@@ -43,7 +44,8 @@ export class BodenrichtwertPdfComponent {
         private nutzungPipe: NutzungPipe,
         private bauweisePipe: BauweisePipe,
         private bodenartPipe: BodenartPipe,
-        private umlautCorrectionPipe: UmlautCorrectionPipe
+        private umlautCorrectionPipe: UmlautCorrectionPipe,
+        private gemarkungPipe: GemarkungPipe
     ) {
         /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
         (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -95,7 +97,7 @@ export class BodenrichtwertPdfComponent {
                     margin: [0, 20, 0, 10]
                 },
                 {
-                    text: this.getAddressFlurstueck(),
+                    text: await this.getAddressFlurstueck(),
                     margin: [0, 0, 0, 10]
                 },
                 {
@@ -341,7 +343,7 @@ export class BodenrichtwertPdfComponent {
      * Returns makepdf Array for address and flurstück info
      * @returns PDF Address and Flurstück
      */
-    public getAddressFlurstueck(): any {
+    public async getAddressFlurstueck(): Promise<any> {
         const ret: any = [];
 
         // address
@@ -353,7 +355,8 @@ export class BodenrichtwertPdfComponent {
 
         // check if Flurstück info
         if (this.flurstueck.features.length > 0) {
-            ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties.gemarkungsnummer + ', ');
+            ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties.gemarkungsnummer +
+                ' (' + await this.gemarkungPipe.transform(this.flurstueck.features[0].properties.gemarkungsnummer.toString())?.toPromise() + '), ');
             ret.push($localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties.flurnummer + ', ');
             ret.push($localize`Flurstück` + ': ' + this.flurstueck.features[0].properties.zaehler);
             if (this.flurstueck.features[0].properties.nenner) {

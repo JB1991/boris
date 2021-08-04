@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 import { SvgPipe } from './pipes/svg.pipe';
+import { GemarkungPipe } from './pipes/gemarkung.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
 import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive';
 import { FlurstueckSearchComponent } from './advanced-search/flurstueck-search/flurstueck-search.component';
@@ -29,6 +30,7 @@ import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichw
         TagboxComponent,
         MarkdownInstructionsComponent,
         SvgPipe,
+        GemarkungPipe,
         HyphenatePipe,
         ModalminiFooterDirective,
         FlurstueckSearchComponent,
@@ -45,6 +47,7 @@ import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichw
         AlertsModule,
         LoadingscreenModule,
         SvgPipe,
+        GemarkungPipe,
         HyphenatePipe,
         ModalminiFooterDirective,
         FlurstueckSearchComponent,
