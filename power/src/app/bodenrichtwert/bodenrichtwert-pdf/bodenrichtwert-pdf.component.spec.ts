@@ -14,6 +14,7 @@ import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
 
 import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf.component';
+import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
     let component: BodenrichtwertPdfComponent;
@@ -46,7 +47,8 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
                 NutzungPipe,
                 BauweisePipe,
                 BodenartPipe,
-                UmlautCorrectionPipe
+                UmlautCorrectionPipe,
+                GemarkungPipe
             ]
         }).compileComponents();
 
