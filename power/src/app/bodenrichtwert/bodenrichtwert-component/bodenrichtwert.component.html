@@ -270,6 +270,7 @@
                             ({{ flurstueck.features[0].properties.gemarkungsnummer.toString() | gemarkung | async }})
                         </small>
                     </span>
+                    <wbr>
                     <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
                           class="text-nowrap">
                         <small class="mr-2">
@@ -277,7 +278,7 @@
                             {{ flurstueck.features[0].properties.flurnummer }}
                         </small>
                     </span>
-                    &shy;
+                    <wbr>
                     <span *ngIf="flurstueck.features[0]?.properties.zaehler"
                           class="text-nowrap">
                         <small>
