@@ -262,22 +262,26 @@
                     </g>
                 </svg>
                 <span class="d-inline-block">
-                    <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
+                    <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
+                          class="text-nowrap">
                         <small class="ml-2 mr-2">
-                            <span i18n>Gemarkung:</span>
+                            <span i18n>Gemarkung</span>:
                             {{ flurstueck.features[0].properties.gemarkungsnummer }}
                             ({{ flurstueck.features[0].properties.gemarkungsnummer.toString() | gemarkung | async }})
                         </small>
                     </span>
-                    <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
+                    <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
+                          class="text-nowrap">
                         <small class="mr-2">
-                            <span i18n>Flurnummer:</span>
+                            <span i18n>Flurnummer</span>:
                             {{ flurstueck.features[0].properties.flurnummer }}
                         </small>
                     </span>
-                    <span *ngIf="flurstueck.features[0]?.properties.zaehler">
+                    &shy;
+                    <span *ngIf="flurstueck.features[0]?.properties.zaehler"
+                          class="text-nowrap">
                         <small>
-                            <span i18n>Flurstück:</span>
+                            <span i18n>Flurstück</span>:
                             {{ flurstueck.features[0].properties.zaehler }}</small>
                         <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
                             flurstueck.features[0].properties.nenner }}
