@@ -98,7 +98,20 @@
                 "@typescript-eslint/explicit-module-boundary-types": "off",
                 "@angular-eslint/component-selector": "off",
                 "@angular-eslint/directive-selector": "off",
-                "jsdoc/require-jsdoc": 1,
+                "jsdoc/require-jsdoc": [
+                    "warn",
+                    {
+                        "contexts": [
+                            "FunctionDeclaration",
+                            "TSInterfaceDeclaration",
+                            "TSMethodSignature"
+                        ],
+                        "require": {
+                            "FunctionDeclaration": true
+                        },
+                        "publicOnly": true
+                    }
+                ],
                 "jsdoc/require-description": 1,
                 "jsdoc/newline-after-description": "off",
                 "jsdoc/require-param-type": "off",
