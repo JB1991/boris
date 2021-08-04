@@ -17,10 +17,12 @@ export class BodenrichtwertKarteService {
     public zoomToSelection() {
         // update marker and andress
         const longlat = this.marker.getLngLat();
-        this.map.jumpTo({
-            center: [longlat.lng, longlat.lat],
-            zoom: this.map.getZoom()
-        });
+        if (longlat) {
+            this.map.jumpTo({
+                center: [longlat.lng, longlat.lat],
+                zoom: this.map.getZoom()
+            });
+        }
     }
 
     /**
