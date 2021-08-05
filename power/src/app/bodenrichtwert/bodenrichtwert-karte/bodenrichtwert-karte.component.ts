@@ -243,6 +243,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         }
     }
 
+    /** @inheritdoc */
     ngAfterViewInit() {
         // create Maplibre object
         try {

@@ -46,6 +46,7 @@ export class FilloutComponent implements AfterViewInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
+    /** @inheritdoc */
     ngAfterViewInit(): void {
         // get pin
         this.pin = this.route.snapshot.paramMap.get('pin');

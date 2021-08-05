@@ -26,9 +26,12 @@ export class ModalComponent implements OnDestroy {
     public isOpen = false;
     public title = '';
 
-    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
-        public cdr: ChangeDetectorRef) { }
+    constructor(
+        @Inject(UNIQ_ID_TOKEN) public uniqId: number,
+        public cdr: ChangeDetectorRef
+    ) { }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();

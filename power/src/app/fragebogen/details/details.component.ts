@@ -54,6 +54,7 @@ export class DetailsComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);

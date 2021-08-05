@@ -26,6 +26,7 @@ export class LoadingscreenService implements OnDestroy {
         });
     }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         this._subscription.unsubscribe();
     }

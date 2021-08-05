@@ -220,6 +220,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /* istanbul ignore next */
+    /** @inheritdoc */
     ngOnInit() {
         // eslint-disable-next-line complexity
         this.route.queryParams.subscribe(params => {

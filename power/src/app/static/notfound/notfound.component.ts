@@ -17,6 +17,7 @@ export class NotfoundComponent implements OnDestroy {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwertinformationssystem, Bodenrichtwert, BORIS.NI, BORIS, Bauland, Landwirtschaft, Grundstücksmarktbericht, Landesgrundstücksmarktbericht, Landesgrundstücksmarktdaten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK, OGC, Geodienste, Geodatendienste` });
     }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         // reset robots
         this.seo.setAllowRobots(true);

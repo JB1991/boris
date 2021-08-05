@@ -49,6 +49,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         this.history.resetService();
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);
@@ -62,6 +63,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         // delete auto save method
         if (this.timerHandle) {

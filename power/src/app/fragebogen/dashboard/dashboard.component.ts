@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         this.updateForms(true);
         this.updateTasks(true);

@@ -25,6 +25,7 @@ export class ModalminiComponent implements OnDestroy {
         public cdr: ChangeDetectorRef
     ) { }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();

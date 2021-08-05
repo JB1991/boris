@@ -32,6 +32,7 @@ export class FeedbackComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Feedback` });
     }
 
+    /** @inheritdoc */
     async ngOnInit(): Promise<void> {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {

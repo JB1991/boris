@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Login` });
     }
 
+    /** @inheritdoc */
     async ngOnInit(): Promise<void> {
         /* istanbul ignore else */
         if (localStorage) {

@@ -29,6 +29,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         // make question list
         this.questions = [];
