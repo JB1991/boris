@@ -157,8 +157,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         private mapService: BodenrichtwertKarteService
     ) { }
 
-    /* eslint-disable-next-line complexity */
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges) { // eslint-disable-line complexity
         if (!this.map) {
             return;
         }
@@ -272,11 +271,11 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * loadMap initializes the Maplibre GL map object
      * @param event map
      */
-    /* istanbul ignore next */
     public loadMap() {
         this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
         this.map.addSource('baulandSource', {

@@ -408,8 +408,7 @@ export class BodenrichtwertPdfComponent {
         return ret;
     }
 
-    /* eslint-disable-next-line complexity */
-    private getSingleBRW(tmp: any, brw) {
+    private getSingleBRW(tmp: any, brw) { // eslint-disable-line complexity
         if (this.teilmarkt.value.includes('B')) {
             tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties.brw, '1.0-1') + ' €/m²\n');
         } else if (this.teilmarkt.value.includes('LF')) {

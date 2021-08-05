@@ -57,8 +57,7 @@ export class ImmobilienFormatter {
      * @param params eCharts Formatter parameter (see echarts api)
      * @returns Formatted String
      */
-    /* eslint-disable-next-line complexity */
-    public formatLabel = (params) => {
+    public formatLabel = (params) => { // eslint-disable-line complexity
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
             if ((this.legendposition.length > params.seriesIndex) ||
                 (params.seriesIndex === 0)) {

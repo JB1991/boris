@@ -57,8 +57,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         this.loadChoices(null);
     }
 
-    /* eslint-disable-next-line complexity */
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || !this.data.validators || this.struct.length > 0) {
             this.loadChoices(null);
@@ -156,8 +155,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      * Handles changes to forms
      * @param event Event
      */
-    /* eslint-disable-next-line complexity */
-    public modelChanged(event: Event): void {
+    public modelChanged(event: Event): void { // eslint-disable-line complexity
         // convert form to validator object
         this.data.validators = [];
         for (const item of this.struct) {
@@ -235,8 +233,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      * @param val Value
      * @returns Surveyjs condition
      */
-    /* eslint-disable-next-line complexity */
-    public parseValue(val: any): string {
+    public parseValue(val: any): string { // eslint-disable-line complexity
         if (typeof val === 'undefined' || val === null || val === '') {
             // undefined
             return '\'\'';

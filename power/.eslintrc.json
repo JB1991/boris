@@ -107,9 +107,14 @@
                             "TSMethodSignature"
                         ],
                         "require": {
-                            "FunctionDeclaration": true
+                            "FunctionDeclaration": true,
+                            "MethodDefinition": true,
+                            "ClassDeclaration": false,
+                            "ArrowFunctionExpression": false,
+                            "FunctionExpression": false
                         },
-                        "publicOnly": true
+                        "publicOnly": true,
+                        "checkConstructors": false
                     }
                 ],
                 "jsdoc/require-description": 1,

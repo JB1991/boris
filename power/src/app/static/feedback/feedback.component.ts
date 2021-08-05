@@ -39,11 +39,11 @@ export class FeedbackComponent implements OnInit {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Loads RSS feed XML from gitlab
      * @returns Promise
      */
-    /* istanbul ignore next */
     public async loadRSSFeed(): Promise<void> {
         // craft uri
         let uri = '/feedback-rss/?state=' + encodeURIComponent(this.stateFilter);
@@ -103,10 +103,10 @@ export class FeedbackComponent implements OnInit {
         return param.replace(this.reg_email, '***@email').replace(this.reg_tel, '***');
     }
 
+    /* istanbul ignore next */
     /**
      * Copies the Email-Address to the clipboard
      */
-    /* istanbul ignore next */
     public copyEmailToClipboard(): void {
         const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';

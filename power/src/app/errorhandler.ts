@@ -83,10 +83,10 @@ export class GlobalErrorHandler implements ErrorHandler {
         document.body.className += ' overflow-hidden';
     }
 
+    /* istanbul ignore next */
     /**
      * Reloads page
      */
-    /* istanbul ignore next */
     public reload(): void {
         window.location.reload();
     }

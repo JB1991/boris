@@ -75,10 +75,10 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Imports form from JSON
      */
-    /* istanbul ignore next */
     public importForm(): void {
         const input = document.createElement('input');
         input.id = 'file-upload';

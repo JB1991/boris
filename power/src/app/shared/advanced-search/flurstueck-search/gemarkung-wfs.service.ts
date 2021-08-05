@@ -42,11 +42,11 @@ export class GemarkungWfsService {
         this.features.next(feature);
     }
 
+    /* istanbul ignore next */
     /**
      * getGemarkungByKey by given key
      * @param gemarkung gemarkungsschlüssel
      */
-    /* istanbul ignore next */
     public getGemarkungByKey(gemarkung: string): Observable<FeatureCollection> {
         const key = gemarkung.padEnd(4, '*');
 
@@ -77,11 +77,11 @@ export class GemarkungWfsService {
         ).pipe(catchError(GemarkungWfsService.handleError));
     }
 
+    /* istanbul ignore next */
     /**
      * getGemarkungBySearchtext by given search text
      * @param searchText search text (gemarkungsschluessel, gemeinde, gemarkung)
      */
-    /* istanbul ignore next */
     public getGemarkungBySearchText(searchText: string): Observable<FeatureCollection> {
 
         const regNumbers = new RegExp(/\d+/g);

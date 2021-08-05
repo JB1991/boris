@@ -70,33 +70,33 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * CTRL+Z event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.undoChanges();
         }
     }
 
+    /* istanbul ignore next */
     /**
      * CTRL+Y event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.redoChanges();
         }
     }
 
+    /* istanbul ignore next */
     /**
      * CTRL+S event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -104,11 +104,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * CTRL+V event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -116,11 +116,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * CTRL+P event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -128,11 +128,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * CTRL+D event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -140,11 +140,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Arrow left event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID !== 0) {
@@ -153,11 +153,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Arrow right event handler
      * @param event Event
      */
-    /* istanbul ignore next */
     @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
@@ -248,12 +248,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Migrates survey to newest version
      */
-    /* istanbul ignore next */
-    /* eslint-disable-next-line complexity */
-    private migration(): void {
+    private migration(): void { // eslint-disable-line complexity
         for (const page of this.storage.model.pages) {
             for (const element of page.elements) {
                 // convert imagepicker to imageselector

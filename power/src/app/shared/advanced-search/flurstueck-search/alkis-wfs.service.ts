@@ -40,6 +40,7 @@ export class AlkisWfsService {
         this.features.next(features);
     }
 
+    /* istanbul ignore next */
     /**
      * getFlurstueckByFsk returns a flurstueck by given fsk
      * @param gemarkung gemarkungsschlüssel
@@ -47,7 +48,6 @@ export class AlkisWfsService {
      * @param zaehler Flurstücksnummer - Zähler
      * @param nenner Flurstücksnummer - Nenner
      */
-    /* istanbul ignore next */
     public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
         let fsk = '03' // laenderschluessel für NDS
             + gemarkung.padStart(4, '0')

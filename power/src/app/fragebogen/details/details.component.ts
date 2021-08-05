@@ -147,11 +147,11 @@ export class DetailsComponent implements OnInit {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Downloads results as csv
      * @returns Promise
      */
-    /* istanbul ignore next */
     public async getCSV(): Promise<void> {
         try {
             alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
@@ -286,10 +286,10 @@ export class DetailsComponent implements OnInit {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Exports form to json
      */
-    /* istanbul ignore next */
     public exportForm(): void {
         // load form
         this.formapi.getForm(this.form.id, { fields: ['content'] }).then(result => {

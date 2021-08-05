@@ -417,8 +417,7 @@ export class ImmobilienComponent implements OnInit {
     /**
      * Handle the Change of an Selection in the Map
      */
-    /* eslint-disable-next-line complexity */
-    onMapSelectChange(param) {
+    onMapSelectChange(param) { // eslint-disable-line complexity
 
         // Get List of selected items in map
         let selectedlist = null;
@@ -749,8 +748,7 @@ export class ImmobilienComponent implements OnInit {
         this.updateMapSelect(this.nipixRuntime.state.selectedMyRegion);
     }
 
-    /* eslint-disable-next-line complexity */
-    onPanelChangeIndex(selection_id: number) {
+    onPanelChangeIndex(selection_id: number) { // eslint-disable-line complexity
         this.urlIndex = selection_id;
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&
