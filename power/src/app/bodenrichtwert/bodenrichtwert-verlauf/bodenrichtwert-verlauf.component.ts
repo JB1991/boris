@@ -112,6 +112,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         private datePipe: DatePipe,
         private decimalPipe: DecimalPipe
     ) { }
+
+    /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
             this.clearChart();

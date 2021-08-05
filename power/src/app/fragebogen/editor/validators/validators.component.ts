@@ -58,6 +58,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         this.loadChoices(null);
     }
 
+    /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || !this.data.validators || this.struct.length > 0) {

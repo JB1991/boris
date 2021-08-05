@@ -70,6 +70,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private datePipe: DatePipe,
         private location: Location,) { }
 
+    /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges) {
         if (this.latLng &&
             (changes.latLng || changes.teilmarkt || changes.stichtag)) {

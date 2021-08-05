@@ -157,6 +157,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         private mapService: BodenrichtwertKarteService
     ) { }
 
+    /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges) { // eslint-disable-line complexity
         if (!this.map) {
             return;

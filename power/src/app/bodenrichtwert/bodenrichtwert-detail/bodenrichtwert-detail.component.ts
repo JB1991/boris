@@ -44,6 +44,7 @@ export class BodenrichtwertDetailComponent implements OnChanges {
     public filteredFeatures: Array<Feature>;
 
     /* istanbul ignore next */
+    /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features || changes.stichtag || changes.teilmarkt) {
             this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);

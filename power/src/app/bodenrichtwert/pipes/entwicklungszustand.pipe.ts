@@ -13,6 +13,7 @@ export class EntwicklungszustandPipe implements PipeTransform {
         'SF': $localize`Sonstige Fläche`
     };
 
+    /** @inheritdoc */
     transform(value: any, ...args: any[]): any {
         return this.entw[value];
     }

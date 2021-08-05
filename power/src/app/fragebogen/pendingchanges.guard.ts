@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 
+/**
+ * Checks if the current component can be unloaded
+ */
 export interface ComponentCanDeactivate {
     canDeactivate: () => boolean | Observable<boolean>;
 }

@@ -6,6 +6,7 @@ import { hyphenateHTMLSync } from 'hyphen/de';
 })
 export class HyphenatePipe implements PipeTransform {
 
+    /** @inheritdoc */
     transform(value: unknown, ...args: unknown[]): unknown {
         return hyphenateHTMLSync(value);
     }

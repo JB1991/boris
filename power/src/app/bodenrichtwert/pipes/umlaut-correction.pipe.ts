@@ -17,7 +17,8 @@ export class UmlautCorrectionPipe implements PipeTransform {
         ['usw', 'usw.']
     ]);
 
-    public transform(value: string): string {
+    /** @inheritdoc */
+    transform(value: string): string {
         if (!value) {
             return '';
         }

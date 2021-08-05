@@ -17,6 +17,7 @@ export class BauweisePipe implements PipeTransform {
         're': $localize`Reihenendhäuser`,
     };
 
+    /** @inheritdoc */
     transform(value: any, ...args: any[]): any {
         return this.bauw[value];
     }

@@ -22,6 +22,7 @@ export class EinflussgroessePipe implements PipeTransform {
         'HINW': $localize`Hinweis`
     };
 
+    /** @inheritdoc */
     transform(value: any, ...args: any[]): any {
         if (this.einflussgroesse.hasOwnProperty(value)) {
             return this.einflussgroesse[value];

@@ -16,6 +16,7 @@ import { LoadingscreenService } from './loadingscreen.service';
     ]
 })
 export class LoadingscreenModule {
+    /* eslint-disable-next-line jsdoc/require-jsdoc */
     static forRoot(): ModuleWithProviders<LoadingscreenModule> {
         return {
             ngModule: LoadingscreenModule,

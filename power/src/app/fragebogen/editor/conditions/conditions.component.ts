@@ -57,6 +57,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
         this.loadChoices(null);
     }
 
+    /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || this.struct.length > 0) {

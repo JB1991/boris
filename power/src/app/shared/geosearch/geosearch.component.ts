@@ -39,7 +39,6 @@ export class GeosearchComponent implements OnChanges {
     /**
      * Initialization of the search form
      */
-
     public ngOnChanges(changes: SimpleChanges) {
         if (changes.address) {
             this.model = changes.address.currentValue;

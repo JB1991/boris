@@ -17,6 +17,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         public us: UpdateService,
         public http: HttpClient) { }
 
+    /** @inheritdoc */
     handleError(error: Error): void {
         // check if app needs reload
         console.error(error);

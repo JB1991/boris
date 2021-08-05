@@ -86,7 +86,7 @@ export class NutzungPipe implements PipeTransform {
         'KOH': $localize`Braunkohletagebau`,
     };
 
-
+    /** @inheritdoc */
     transform(value: any[], ...args: any[]): any {
         if (value === null) {
             return null;

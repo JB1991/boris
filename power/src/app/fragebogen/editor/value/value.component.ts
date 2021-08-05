@@ -38,6 +38,7 @@ export class ValueComponent implements OnChanges {
         this.css_style.question.formGroup = 'd-none';
     }
 
+    /** @inheritdoc */
     ngOnChanges(): void {
         this.data[this.question.name] = this.value;
     }

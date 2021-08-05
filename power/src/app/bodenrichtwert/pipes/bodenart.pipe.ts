@@ -32,6 +32,7 @@ export class BodenartPipe implements PipeTransform {
         // more expressions ...
     ];
 
+    /** @inheritdoc */
     transform(value: any, ...args: any[]): any {
 
         let res = '';
