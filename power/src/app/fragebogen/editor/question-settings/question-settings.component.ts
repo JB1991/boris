@@ -87,12 +87,11 @@ export class QuestionSettingsComponent {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Migrates element to newest version
      */
-    /* istanbul ignore next */
-    /* eslint-disable-next-line complexity */
-    private migration(): void {
+    private migration(): void { // eslint-disable-line complexity
         // add commentText
         if (['radiogroup', 'checkbox', 'imageselector', 'rating', 'file', 'nouislider']
             .includes(this.model.pages[this.page].elements[this.question].type)) {

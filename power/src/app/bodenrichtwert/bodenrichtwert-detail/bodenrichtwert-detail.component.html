@@ -283,19 +283,18 @@
                         <!-- [html-validate-disable-next element-permitted-content] -->
                         <dt class="col-md-5"
                             role="rowheader">
-                            {{brzStrings.umdatei | hyphenate}}
+                            {{ brzStrings.umdatei | hyphenate }}
                         </dt>
                         <!-- [html-validate-disable-next element-permitted-content] -->
                         <dd class="col-md-7"
                             role="cell">
                             <a class="btn-link"
                                role="button"
-                               title="Umrechnungsdatei"
-                               i18n-title
+                               title="{{ umrechnung.text | einflussgroesse }}"
                                [href]="rewriteUmrechnungstabURL(umrechnung.dateiname)"
                                target="_blank"
                                rel="noopener noreferrer nofollow">
-                                {{umrechnung.text | einflussgroesse}}
+                                {{ umrechnung.text | einflussgroesse }}
                             </a>
                         </dd>
                     </ng-container>

@@ -92,10 +92,10 @@ export class FormularSettingsComponent {
         moveItemInArray(this.model.pages, i, i + 1);
     }
 
+    /* istanbul ignore next */
     /**
      * Open page tab
      */
-    /* istanbul ignore next */
     public openPage(): void {
         (document.activeElement as HTMLElement).click();
     }

@@ -118,11 +118,11 @@ export class AnswersComponent {
         this.dataChange.emit(this.data);
     }
 
+    /* istanbul ignore next */
     /**
      * Uploads foto to formular
      * @param i Answer number
      */
-    /* istanbul ignore next */
     public uploadImage(i: number): void {
         // check data
         if (i < 0 || i >= this.data.length) {

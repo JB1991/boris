@@ -85,10 +85,15 @@ export class BodenrichtwertService {
             'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
             'service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="10">' + ogcQuery + '</wfs:GetFeature>';
 
+        const header = new HttpHeaders().set('Content-Type', 'application/xml')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
-            { 'responseType': 'json' }
+            { 'headers': header, 'responseType': 'json' }
         ).pipe(catchError(BodenrichtwertService.handleError));
     }
     /**
@@ -140,7 +145,7 @@ export class BodenrichtwertService {
          * Umrechnuntstabellendatei and Umrechnungstabellenwerte are presented as String not JSON,
          * therefore they have to be parsed manually
          */
-        const header = new HttpHeaders().set('Content-Type', 'application/json')
+        const header = new HttpHeaders().set('Content-Type', 'application/xml')
             .set('Cache-Control', 'no-cache')
             .set('Pragma', 'no-cache')
             .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')

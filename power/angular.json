@@ -54,7 +54,8 @@
                             "echarts",
                             "hyphen",
                             "showdown",
-                            "rbush"
+                            "rbush",
+                            "polylabel"
                         ],
                         "vendorChunk": true,
                         "extractLicenses": false,

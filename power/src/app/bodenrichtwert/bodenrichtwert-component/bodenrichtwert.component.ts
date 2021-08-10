@@ -49,6 +49,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
     public features: FeatureCollection = null;
+    public filteredFeatures: Array<Feature>;
+    public hasUmrechnungsdateien = false;
 
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
@@ -186,6 +188,22 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
+            this.hasUmrechnungsdateien = false;
+
+            // filter features
+            if (this.features || this.stichtag || this.teilmarkt) {
+                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
+            }
+
+            // check for umrechnungsdateien
+            for (const feature of this.filteredFeatures) {
+                if (feature.properties.umrechnungstabellendatei
+                    && feature.properties.umrechnungstabellendatei.length > 0) {
+                    this.hasUmrechnungsdateien = true;
+                    break;
+                }
+            }
+
             this.isCollapsed = false;
             this.cdr.detectChanges();
         });
@@ -202,6 +220,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /* istanbul ignore next */
+    /** @inheritdoc */
     ngOnInit() {
         // eslint-disable-next-line complexity
         this.route.queryParams.subscribe(params => {
@@ -402,5 +421,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
     }
 
+    /**
+     * rewriteUmrechnungstabURL rewrites the url of the boris alt umrechnungstabellen/dateien
+     * @param url url of boris alt
+     * @returns rewritedURL for the new location
+     */
+    public rewriteUmrechnungstabURL(url: string): string {
+        const path = url.replace('http://boris.niedersachsen.de', '');
+        return location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

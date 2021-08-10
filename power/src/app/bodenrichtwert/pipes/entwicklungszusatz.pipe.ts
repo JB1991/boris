@@ -12,6 +12,7 @@ export class EntwicklungszusatzPipe implements PipeTransform {
         'EB': $localize`Entwicklungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`
     };
 
+    /** @inheritdoc */
     transform(value: any, ...args: any[]): any {
         return this.verf[value];
     }

@@ -259,8 +259,7 @@ export class FormAPIService {
         return this.Do(Method.DELETE, 'intern/forms/' + encodeURIComponent(id), {});
     }
 
-    /* eslint-disable-next-line complexity */
-    public async getTasks(params: GetTasksParams): Promise<{
+    public async getTasks(params: GetTasksParams): Promise<{ // eslint-disable-line complexity
         tasks: Array<Task>;
         total: number;
         status: number;
@@ -551,8 +550,7 @@ export class FormAPIService {
      * Returns translatored error message
      * @param error Error
      */
-    /* eslint-disable-next-line complexity */
-    public getErrorMessage(error: Error): string {
+    public getErrorMessage(error: Error): string { // eslint-disable-line complexity
         let msg = error.toString();
         if (error['error'] && error['error']['message']) {
             msg = error['error']['message'];

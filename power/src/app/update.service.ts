@@ -41,11 +41,11 @@ export class UpdateService {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Deletes cache and unregisters service worker
      * @param del Unregister service worker
      */
-    /* istanbul ignore next */
     public cleanupServiceWorker(del: boolean): void {
         // delete cache
         if ('caches' in window) {

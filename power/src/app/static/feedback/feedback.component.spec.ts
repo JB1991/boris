@@ -4,7 +4,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 
 import { FeedbackComponent } from './feedback.component';
-import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Static.Feedback.FeedbackComponent', () => {
@@ -19,7 +18,6 @@ describe('Static.Feedback.FeedbackComponent', () => {
                 FormsModule
             ],
             providers: [
-                AuthService,
                 AlertsService
             ],
             declarations: [

@@ -12,6 +12,7 @@ export class VerfahrensartPipe implements PipeTransform {
         'StUb': $localize`Stadtumbau`
     };
 
+    /** @inheritdoc */
     transform(value: any, ...args: any[]): any {
         return this.verg[value];
     }

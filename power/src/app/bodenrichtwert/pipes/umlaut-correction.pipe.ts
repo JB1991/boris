@@ -5,26 +5,28 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class UmlautCorrectionPipe implements PipeTransform {
 
-    corrections: Map<string, string> = new Map([
+    public corrections: Map<string, string> = new Map([
         ['Buero, hochw. Dienste', 'Büro, hochw. Dienste'],
         ['Handel, Geschaefte', 'Handel, Geschäfte'],
         ['Verbrauchermaerkte', 'Verbrauchermärkte'],
-        ['QuakenbrÃ¼ck', 'Quakenbrück'],
+        ['Ã¤', 'ä'],
+        ['Ã¶', 'ö'],
+        ['Ã¼', 'ü'],
+        ['ÃŸ', 'ß'],
         ['u.ae', 'u.ä'],
         ['usw', 'usw.']
     ]);
 
-    transform(value: unknown, ...args: unknown[]): unknown {
+    /** @inheritdoc */
+    transform(value: string): string {
         if (!value) {
             return '';
         }
-
-        let result = value as string;
+        let result = value;
 
         for (const entry of this.corrections) {
             result = result.replace(entry[0], entry[1]);
         }
-
         return result;
     }
 }

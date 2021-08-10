@@ -20,6 +20,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         public us: UpdateService,
         public http: HttpClient) { }
 
+    /** @inheritdoc */
     handleError(error: Error): void {
         // check if app needs reload
         console.error(error);
@@ -91,10 +92,10 @@ export class GlobalErrorHandler implements ErrorHandler {
         document.body.className += ' overflow-hidden';
     }
 
+    /* istanbul ignore next */
     /**
      * Reloads page
      */
-    /* istanbul ignore next */
     public reload(): void {
         window.location.reload();
     }

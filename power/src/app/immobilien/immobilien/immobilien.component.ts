@@ -476,7 +476,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         if (param.isFromClick === false) {
             return;
         }
-        // console.log('select', param);
+
+        // Get List of selected items in map
         const sdata = this.nipixRuntime.map.options.series[0]['data'];
         const selectedlist = [];
         if (param['type'] === 'selectchanged' &&
@@ -667,11 +668,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     }
 
     /**
-     * Switch between multiple Draw Items
+     * Switch between multiple Draw
      * @param name
      */
     onClickDrawRoot(name) {
-        // this.selectedTreeItem = name;
         this.updateMapSelect();
         this.updateChart();
     }
@@ -802,8 +802,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         this.updateMapSelect(this.nipixRuntime.state.selectedMyRegion);
     }
 
-    /* eslint-disable-next-line complexity */
-    onPanelChangeIndex(selection_id: number) {
+    onPanelChangeIndex(selection_id: number) { // eslint-disable-line complexity
         this.urlIndex = selection_id;
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&

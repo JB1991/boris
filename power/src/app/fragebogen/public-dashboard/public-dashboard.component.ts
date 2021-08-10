@@ -39,6 +39,7 @@ export class PublicDashboardComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {

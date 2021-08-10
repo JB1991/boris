@@ -39,17 +39,16 @@ export class GeosearchComponent implements OnChanges {
     /**
      * Initialization of the search form
      */
-
     public ngOnChanges(changes: SimpleChanges) {
         if (changes.address) {
             this.model = changes.address.currentValue;
         }
     }
 
+    /* istanbul ignore next */
     /**
      * setFocus sets the focus on the geosearch input field
      */
-    /* istanbul ignore next */
     public setFocus() {
         // eslint-disable-next-line
         setTimeout(() => {

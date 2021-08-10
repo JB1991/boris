@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         this.updateForms(true);
         this.updateTasks(true);
@@ -75,10 +76,10 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Imports form from JSON
      */
-    /* istanbul ignore next */
     public importForm(): void {
         const input = document.createElement('input');
         input.id = 'file-upload';

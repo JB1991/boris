@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Feature, FeatureCollection, Geometry } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import Fuse from 'fuse.js';
@@ -42,11 +42,11 @@ export class GemarkungWfsService {
         this.features.next(feature);
     }
 
+    /* istanbul ignore next */
     /**
      * getGemarkungByKey by given key
      * @param gemarkung gemarkungsschlüssel
      */
-    /* istanbul ignore next */
     public getGemarkungByKey(gemarkung: string): Observable<FeatureCollection> {
         const key = gemarkung.padEnd(4, '*');
 
@@ -65,18 +65,23 @@ export class GemarkungWfsService {
             '</wfs:Query>' +
             '</wfs:GetFeature>';
 
+        const header = new HttpHeaders().set('Content-Type', 'application/xml')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
-            { 'responseType': 'json' }
+            { 'headers': header, 'responseType': 'json' }
         ).pipe(catchError(GemarkungWfsService.handleError));
     }
 
+    /* istanbul ignore next */
     /**
      * getGemarkungBySearchtext by given search text
      * @param searchText search text (gemarkungsschluessel, gemeinde, gemarkung)
      */
-    /* istanbul ignore next */
     public getGemarkungBySearchText(searchText: string): Observable<FeatureCollection> {
 
         const regNumbers = new RegExp(/\d+/g);
@@ -120,10 +125,15 @@ export class GemarkungWfsService {
             '</wfs:Query>' +
             '</wfs:GetFeature>';
 
+        const header = new HttpHeaders().set('Content-Type', 'application/xml')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
-            { 'responseType': 'json' }
+            { 'headers': header, 'responseType': 'json' }
         ).pipe(map(response => {
             response.features = this.fuzzySearch(response.features, searchText);
             return response;

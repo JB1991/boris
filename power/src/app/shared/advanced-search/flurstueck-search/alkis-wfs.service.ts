@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { FeatureCollection } from 'geojson';
@@ -40,6 +40,7 @@ export class AlkisWfsService {
         this.features.next(features);
     }
 
+    /* istanbul ignore next */
     /**
      * getFlurstueckByFsk returns a flurstueck by given fsk
      * @param gemarkung gemarkungsschlüssel
@@ -47,7 +48,6 @@ export class AlkisWfsService {
      * @param zaehler Flurstücksnummer - Zähler
      * @param nenner Flurstücksnummer - Nenner
      */
-    /* istanbul ignore next */
     public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
         let fsk = '03' // laenderschluessel für NDS
             + gemarkung.padStart(4, '0')
@@ -75,10 +75,15 @@ export class AlkisWfsService {
             '</wfs:Query>' +
             '</wfs:GetFeature>';
 
+        const header = new HttpHeaders().set('Content-Type', 'application/xml')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
-            { 'responseType': 'json' }
+            { 'headers': header, 'responseType': 'json' }
         ).pipe(catchError(AlkisWfsService.handleError));
     }
 
@@ -106,10 +111,15 @@ export class AlkisWfsService {
             '</wfs:Query>' +
             '</wfs:GetFeature>';
 
+        const header = new HttpHeaders().set('Content-Type', 'application/xml')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
-            { 'responseType': 'json' }
+            { 'headers': header, 'responseType': 'json' }
         ).pipe(catchError(AlkisWfsService.handleError));
     }
 

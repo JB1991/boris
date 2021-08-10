@@ -20,6 +20,7 @@ export class GagKontaktdatenPipe implements PipeTransform {
         'Gutachterausschuss für Grundstückswerte in Bremen': 'https://www.gutachterausschuss.bremen.de/aufgaben___dienste-1464'
     };
 
+    /** @inheritdoc */
     transform(value: string, ...args: unknown[]): string {
         return this.contact[value];
     }

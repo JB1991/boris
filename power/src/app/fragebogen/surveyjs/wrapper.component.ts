@@ -45,6 +45,7 @@ export class WrapperComponent implements OnChanges {
         });
     }
 
+    /** @inheritdoc */
     ngOnChanges(): void {
         StylesManager.applyTheme(this.theme);
         surveyLocalization.defaultLocale = 'de';

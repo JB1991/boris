@@ -7,6 +7,7 @@ export class ModalminiFooterDirective implements OnInit {
 
     constructor(public el: ElementRef) { }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         this.el.nativeElement.parentElement.parentElement.appendChild(this.el.nativeElement);
     }

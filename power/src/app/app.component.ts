@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inje
 import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, NavigationError, Router } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -82,11 +82,18 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
-            this.httpClient.get('/assets/version.json?cache-bust=' + Math.random()).subscribe(data => {
+            const header = new HttpHeaders().set('Cache-Control', 'no-cache')
+                .set('Pragma', 'no-cache')
+                .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+                .set('If-Modified-Since', '0');
+            this.httpClient.get('/assets/version.json?cache-bust=' + Math.random(),
+                { headers: header, responseType: 'json' }
+            ).subscribe(data => {
                 if (data && data['version']) {
                     this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
@@ -126,10 +133,12 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
     }
 
+    /** @inheritdoc */
     ngAfterViewChecked(): void {
         this.cdRef.detectChanges();
     }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

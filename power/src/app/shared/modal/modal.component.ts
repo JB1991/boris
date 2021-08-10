@@ -26,15 +26,22 @@ export class ModalComponent implements OnDestroy {
     public isOpen = false;
     public title = '';
 
-    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
-        public cdr: ChangeDetectorRef) { }
+    constructor(
+        @Inject(UNIQ_ID_TOKEN) public uniqId: number,
+        public cdr: ChangeDetectorRef
+    ) { }
 
+    /** @inheritdoc */
     ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();
         }
     }
 
+    /**
+     * Handles escape key pressed event
+     * @param event KeyboardEvent
+     */
     @HostListener('document:keyup.escape', ['$event']) onKeydownHandler(event: KeyboardEvent): void {
         /* istanbul ignore next */
         if (document.getElementsByClassName('modal-backdrop').length !== 0) {
@@ -93,10 +100,10 @@ export class ModalComponent implements OnDestroy {
         }
     }
 
+    /* istanbul ignore next */
     /**
      * Set Viewport to the footer
      */
-    /* istanbul ignore next */
     public scrollToFooter(): void {
         const footer = document.getElementById('footer-' + this.uniqId);
         footer.scrollIntoView({

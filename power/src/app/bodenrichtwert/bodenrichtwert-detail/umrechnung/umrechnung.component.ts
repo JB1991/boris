@@ -32,6 +32,7 @@ export class UmrechnungComponent implements OnInit {
         private objectIdPipe: ObjectIdPipe,
     ) { }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         this.einflussgroesse = this.einflussgroessePipe.transform(this.table.text);
         this.objectId = this.objectIdPipe.transform(this.table.objid);

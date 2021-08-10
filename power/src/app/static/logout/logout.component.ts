@@ -25,6 +25,7 @@ export class LogoutComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Logout` });
     }
 
+    /** @inheritdoc */
     ngOnInit(): void {
         /* istanbul ignore else */
         if (localStorage) {

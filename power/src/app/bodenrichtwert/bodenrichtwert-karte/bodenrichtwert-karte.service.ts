@@ -11,18 +11,18 @@ export class BodenrichtwertKarteService {
     public map: Map;
     public marker: Marker;
 
-    constructor() { }
-
     /**
      * Zooms view to selection
      */
     public zoomToSelection() {
         // update marker and andress
         const longlat = this.marker.getLngLat();
-        this.map.jumpTo({
-            center: [longlat.lng, longlat.lat],
-            zoom: this.map.getZoom()
-        });
+        if (longlat) {
+            this.map.jumpTo({
+                center: [longlat.lng, longlat.lat],
+                zoom: this.map.getZoom()
+            });
+        }
     }
 
     /**
