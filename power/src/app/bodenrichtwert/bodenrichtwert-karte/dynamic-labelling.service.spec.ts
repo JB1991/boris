@@ -83,7 +83,7 @@ describe('DynamicLabellingService', () => {
 
     it('should just work', () => {
         const features = service.dynamicLabelling(
-            [f1, f1, f2, f3, null],
+            [f1, f1, f2, f3],
             {
                 type: 'Polygon',
                 coordinates:   [[[9.743262034291547, 52.413328634053244],

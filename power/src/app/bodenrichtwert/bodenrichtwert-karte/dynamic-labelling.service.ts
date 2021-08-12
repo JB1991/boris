@@ -5,15 +5,19 @@ import intersect from '@turf/intersect';
 import union from '@turf/union';
 import { Feature } from 'geojson';
 import polylabel from 'polylabel';
-import pointInPolygon from '@turf/boolean-point-in-polygon'
+
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class DynamicLabellingService {
-    constructor() { }
 
+    /**
+     * Generate Point Features
+     * @param arr array with longitude, latitude and properties of each point feature
+     * @returns array of point features
+     */
     public generatePointFeatures(arr: {
         lng: number,
         lat: number,
@@ -34,12 +38,17 @@ export class DynamicLabellingService {
         return features;
     }
 
-    public createLineImage = (width) => {
+    /**
+     * Create line image
+     * @param width line width
+     * @returns image
+     */
+    public createLineImage(width: number): ImageData {
         const bytesPerPixel = 4; // Each pixel is 4 bytes: red, green, blue, and alpha.
 
         const height = 3;
         width += 2;
-        const data = new Uint8Array(width * height * bytesPerPixel);
+        const data = new Uint8ClampedArray(width * height * bytesPerPixel);
 
         let p = 0;
         for (let h = 0; h < height; h++) {
@@ -104,25 +113,89 @@ export class DynamicLabellingService {
         return largest;
     }
 
+
     /**
-     * Intersects polygons
-     * @param p polygon or multiPolygon
-     * @param intersec polygon
-     * @returns array of polygons
+     * unionVectorTilesFeatures unions the features of the mapbox vector tiles by a given idGetter
+     * @param fts rendered mapbox vector tile features
+     * @param idGetter identification getter
+     * @returns array of unioned vector tile features
      */
-    private intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Polygon | MultiPolygon {
-        try {
-            const i = intersect(intersec, p);
-            if (i && i.geometry) {
-                return i.geometry;
+    public unionVectorTilesFeatures(
+        fts: Feature[],
+        idGetter: (n: Feature) => string
+    ): Feature<Polygon>[] {
+
+        const unionedFts: Map<string, Feature<Polygon>> = new Map();
+
+        fts.forEach(ft => {
+            if (!(ft.geometry.type === 'MultiPolygon' || ft.geometry.type === 'Polygon')) {
+                console.error('geom', ft);
+                return;
             }
-        } catch (e) {
-            if (!environment.production) {
-                console.error(e);
+            const id = idGetter(ft);
+            const existingFt = unionedFts.get(id);
+            if (!existingFt) {
+                unionedFts.set(id, {
+                    type: 'Feature',
+                    geometry: ft.geometry.type === 'Polygon' ? ft.geometry : this.getLargestPolygon(ft.geometry),
+                    properties: ft.properties
+                });
+            } else {
+                const unionGeom = union(existingFt, ft.geometry.type === 'Polygon' ? ft.geometry : this.getLargestPolygon(ft.geometry));
+                if (unionGeom.geometry.type === 'Polygon') {
+                    existingFt.geometry = unionGeom.geometry;
+                } else {
+                    existingFt.geometry = this.getLargestPolygon(unionGeom.geometry);
+                }
             }
+        });
+        return Array.from(unionedFts.values());
+    }
+
+    /**
+     * intersectFeatureWithBBox intersects the a feature with the bbox of the current view
+     * @param ft feature to intersect
+     * @param bbox bounding box of the current view
+     * @returns intersected polygon feature
+     */
+    public intersectFeatureWithBBox(ft: Feature<Polygon>, bbox: Polygon): Feature<Polygon>[] {
+        const intersection = intersect(ft, bbox);
+        if (!intersection) {
+            return [ft];
         }
 
-        return p;
+        if (intersection.geometry.type === 'MultiPolygon') {
+            return intersection.geometry.coordinates.map(coords => ({
+                type: 'Feature',
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: coords
+                },
+                properties: ft.properties
+            }));
+        }
+        return [{
+            type: 'Feature',
+            geometry: intersection.geometry,
+            properties: ft.properties
+        }];
+    }
+
+    /**
+     * pointOnFeature calculates a point for the labeling with the polylabel function
+     * @param ft feature to polylabel
+     * @returns point feature of polylabel
+     */
+    public pointOnFeature(ft: Feature<Polygon>): Feature<Point> {
+        const point = polylabel(ft.geometry.coordinates, 0.0001, false);
+        return {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: point
+            },
+            properties: ft.properties
+        }
     }
 
     /**
@@ -132,7 +205,7 @@ export class DynamicLabellingService {
      * @param idGetter identification getter
      * @param doNotDisplayGetter get property
      * @param doNotDisplay ignore features with property from doNotDisplayGetter
-     * @param additional additional features
+     * @param output output features
      * @returns features
      */
     public dynamicLabelling(
@@ -141,112 +214,20 @@ export class DynamicLabellingService {
         idGetter: (n: Feature) => string,
         doNotDisplayGetter: (n: Feature) => string,
         doNotDisplay: string[],
-        additional: Array<Feature<Point>>): Array<Feature<Point>> {
-        const featureMap: Record<string, Feature<Polygon>[]> = {};
-        input.forEach(f => {
-            if (!f || !f.geometry) {
-                return;
-            }
+        output: Array<Feature<Point>>): Array<Feature<Point>> {
 
-            let p: Polygon;
+        if (doNotDisplay && doNotDisplayGetter) {
+            input = input.filter((ft) => !doNotDisplay.includes(doNotDisplayGetter(ft)));
+        }
 
-            switch (f.geometry.type) {
-                case 'MultiPolygon':
-                    p = this.getLargestPolygon(f.geometry);
-                    break;
-                case 'Polygon':
-                    p = f.geometry;
-                    break;
-            }
+        const unionedFts = this.unionVectorTilesFeatures(input, idGetter);
 
-            if (doNotDisplayGetter && doNotDisplay.includes(doNotDisplayGetter(f))) {
-                return;
-            }
-
-            const id = idGetter(f);
-
-            if (p && p.coordinates) {
-                if (featureMap[id]) {
-                    featureMap[id].push({
-                        type: 'Feature',
-                        geometry: p,
-                        properties: f.properties,
-                    });
-                } else {
-                    featureMap[id] = [{
-                        type: 'Feature',
-                        geometry: p,
-                        properties: f.properties,
-                    }];
-                }
-            }
+        unionedFts.forEach(ft => {
+            const intersection = this.intersectFeatureWithBBox(ft, bound);
+            output.push(...intersection.map((i) => this.pointOnFeature(i)));
         });
 
-        const features: Array<Feature<Point>> = [];
-
-        additional.forEach(a => {
-            if (pointInPolygon(a, bound)) {
-                features.push(a);
-            }
-        })
-
-        // eslint-disable-next-line complexity
-        Object.keys(featureMap).forEach(key => {
-            let p: Polygon;
-
-            featureMap[key].forEach(each => {
-                try {
-                    if (p && p.coordinates) {
-                        const unionX = union(p, each);
-                        switch (unionX.geometry.type) {
-                            case 'Polygon':
-                                p = unionX.geometry;
-                                return;
-                            case 'MultiPolygon':
-                                p = this.getLargestPolygon(unionX.geometry);
-                                return;
-                        }
-                    }
-                    p = each.geometry;
-                } catch (e) {
-                    if (!environment.production) {
-                        console.error(e);
-                    }
-                }
-            });
-
-            const i = this.intersectPolygon(p, bound);
-
-            switch (i.type) {
-                case 'Polygon':
-                    features.push({
-                        type: 'Feature',
-                        geometry: {
-                            type: 'Point',
-                            coordinates: polylabel(i.coordinates, 0.0001, false),
-                        },
-                        properties: featureMap[key][0].properties,
-                    });
-                    break;
-                case 'MultiPolygon':
-                    i.coordinates.map(f => ({
-                        type: 'Polygon',
-                        coordinates: f,
-                    })).sort((i, j) => area(i) - area(j)).forEach(c => {
-                        features.push({
-                            type: 'Feature',
-                            geometry: {
-                                type: 'Point',
-                                coordinates: polylabel(c.coordinates, 0.0001, false),
-                            },
-                            properties: featureMap[key][0].properties,
-                        });
-                    });
-                    break;
-            }
-        });
-
-        return features;
+        return output;
     }
 }
 
