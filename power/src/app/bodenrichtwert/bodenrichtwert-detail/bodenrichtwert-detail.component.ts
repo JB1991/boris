@@ -16,7 +16,10 @@ export class BodenrichtwertDetailComponent implements OnChanges {
         'state': $localize`Beitrags- und abgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
-        'flae': $localize`Grundstücksfläche`,
+        'flae': {
+            'header': $localize`Grundstücksfläche`,
+            'tooltip': $localize`Fläche des Richtwertgrundstücks`
+        },
         'gbrei': $localize`Grundstücksbreite`,
         'gtie': $localize`Grundstückstiefe`,
         'entw': $localize`Entwicklungszustand`,

@@ -200,9 +200,13 @@
                     </dd>
                     <!-- Angaben zum Grundstück (gbrei, flae, gtie) -->
                     <dt *ngIf="feature.properties.flae"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        [title]="brzStrings.flae.tooltip | hyphenate"
+                        i18n-data-placement
                         class="col-md-5"
                         role="rowheader">
-                        {{brzStrings.flae | hyphenate}}
+                        {{brzStrings.flae.header | hyphenate}}
                     </dt>
                     <dd *ngIf="feature.properties.flae"
                         class="col-md-7"
