@@ -1,21 +1,25 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-manifest-dev/
-manifest-staging/
-manifest-production/
-power/coverage/
-power/dist/
-power/documentation/
-power/output/
-power/debug.log
-chart/power/charts
-/tmp
-/out-tsc
+/manifest-dev
+/manifest-staging
+/manifest-production
+/power/coverage
+/power/dist
+/power/tmp
+/power/out-tsc
+/power/bazel-out
+/power/documentation
+/power/output
+/power/debug.log
+/chart/power/charts
 *.lock
 
 # dependencies
-power/node_modules/
+/power/node_modules
+
+# profiling files
+chrome-profiler-events*.json
 
 # IDEs and editors
 /.idea
@@ -33,6 +37,7 @@ workspace.code-workspace
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
 # misc
 /.sass-cache
@@ -49,4 +54,4 @@ testem.log
 .DS_Store
 Thumbs.db
 desktop.ini
-package-lock.json
+/package-lock.json
