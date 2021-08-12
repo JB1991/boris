@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
-import area from '@turf/area';
 import intersect from '@turf/intersect';
 import union from '@turf/union';
 import { Feature } from 'geojson';
 import polylabel from 'polylabel';
-
 
 @Injectable({
     providedIn: 'root'
@@ -83,36 +80,6 @@ export class DynamicLabellingService {
         }));
     }
 
-    /**
-     * Returns largest polygon
-     * @param mp multiPolygon
-     * @returns largest polygon
-     */
-    private getLargestPolygon(mp: MultiPolygon): Polygon {
-        let areaX = 0;
-        let largest: Polygon;
-
-        this.multiPolygonToPolygons(mp).forEach(p => {
-            try {
-                const a = area(p);
-                if (!largest || a > areaX) {
-                    if (a > areaX) {
-                        areaX = a;
-                        largest = {
-                            type: 'Polygon',
-                            coordinates: p.coordinates,
-                        };
-                    }
-                }
-            } catch (e) {
-                if (!environment.production) {
-                    console.error(e);
-                }
-            }
-        });
-        return largest;
-    }
-
 
     /**
      * unionVectorTilesFeatures unions the features of the mapbox vector tiles by a given idGetter
@@ -123,30 +90,28 @@ export class DynamicLabellingService {
     public unionVectorTilesFeatures(
         fts: Feature[],
         idGetter: (n: Feature) => string
-    ): Feature<Polygon>[] {
+    ): Feature<Polygon | MultiPolygon>[] {
 
-        const unionedFts: Map<string, Feature<Polygon>> = new Map();
+        const unionedFts: Map<string, Feature<Polygon | MultiPolygon>> = new Map();
 
         fts.forEach(ft => {
             if (!(ft.geometry.type === 'MultiPolygon' || ft.geometry.type === 'Polygon')) {
                 console.error('geom', ft);
                 return;
             }
+
             const id = idGetter(ft);
             const existingFt = unionedFts.get(id);
+
             if (!existingFt) {
                 unionedFts.set(id, {
                     type: 'Feature',
-                    geometry: ft.geometry.type === 'Polygon' ? ft.geometry : this.getLargestPolygon(ft.geometry),
+                    geometry: ft.geometry,
                     properties: ft.properties
                 });
             } else {
-                const unionGeom = union(existingFt, ft.geometry.type === 'Polygon' ? ft.geometry : this.getLargestPolygon(ft.geometry));
-                if (unionGeom.geometry.type === 'Polygon') {
-                    existingFt.geometry = unionGeom.geometry;
-                } else {
-                    existingFt.geometry = this.getLargestPolygon(unionGeom.geometry);
-                }
+                const unionGeom = union(existingFt, ft.geometry);
+                existingFt.geometry = unionGeom.geometry;
             }
         });
         return Array.from(unionedFts.values());
@@ -158,20 +123,30 @@ export class DynamicLabellingService {
      * @param bbox bounding box of the current view
      * @returns intersected polygon feature
      */
-    public intersectFeatureWithBBox(ft: Feature<Polygon>, bbox: Polygon): Feature<Polygon>[] {
+    public intersectFeatureWithBBox(ft: Feature<Polygon | MultiPolygon>, bbox: Polygon): Feature<Polygon>[] {
         const intersection = intersect(ft, bbox);
         if (!intersection) {
-            return [ft];
+            switch (ft.geometry.type) {
+                case 'Polygon':
+                    return [{
+                        type: 'Feature',
+                        geometry: ft.geometry,
+                        properties: ft.properties,
+                    }];
+                case 'MultiPolygon':
+                    return this.multiPolygonToPolygons(ft.geometry).map(p => ({
+                        type: 'Feature',
+                        geometry: p,
+                        properties: ft.properties,
+                    }));
+            }
         }
 
         if (intersection.geometry.type === 'MultiPolygon') {
-            return intersection.geometry.coordinates.map(coords => ({
+            return this.multiPolygonToPolygons(intersection.geometry).map(p => ({
                 type: 'Feature',
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: coords
-                },
-                properties: ft.properties
+                geometry: p,
+                properties: ft.properties,
             }));
         }
         return [{
