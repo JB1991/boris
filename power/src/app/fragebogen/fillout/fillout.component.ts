@@ -114,7 +114,7 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
-     * handleSubmitFailedError handles the error if the submit failed 
+     * handleSubmitFailedError handles the error if the submit failed
      * @param result response formapi
      * @param error error
      */
