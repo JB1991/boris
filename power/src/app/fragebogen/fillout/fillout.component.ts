@@ -114,6 +114,18 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
+     * handleSubmitFailedError handles the error if the submit failed 
+     * @param result response formapi
+     * @param error error
+     */
+    public handleSubmitFailedError(result: any, error: Error) {
+        // failed to complete task
+        console.error(error);
+        result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
+        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
+    }
+
+    /**
      * Submits task
      * @param id Form pin
      * @param result Task result
@@ -134,10 +146,7 @@ export class FilloutComponent implements AfterViewInit {
             result.options.showDataSavingClear();
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
-            // failed to complete task
-            console.error(error);
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
+            this.handleSubmitFailedError(result, error);
         });
     }
 
@@ -186,10 +195,7 @@ export class FilloutComponent implements AfterViewInit {
             result.options.showDataSavingClear();
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
-            // failed to complete task
-            console.error(error);
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
+            this.handleSubmitFailedError(result, error);
         });
     }
 

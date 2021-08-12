@@ -45,17 +45,26 @@ export class BodenrichtwertService {
         this.features.next(features);
     }
 
-    public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt) {
-
+    /**
+     * createEntwFilter creates an ogc filter for every entw (Entwicklungszustand)
+     * @param entws array with entws
+     * @returns an ogc filter for every entw as a string
+     */
+    public createEntwFilter(entws: string[]): string {
         // OGC Filter for each teilmarkt/entwicklungszustand
         let ogcFilter = '';
 
-        teilmarkt.value.forEach(entwType => {
+        entws.forEach(entwType => {
             ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
                 '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
                 '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
                 '        </ogc:PropertyIsEqualTo>\n';
         });
+
+        return ogcFilter;
+    }
+
+    public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt) {
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';
@@ -65,7 +74,7 @@ export class BodenrichtwertService {
                 '<wfs:Query typeName="' + layer + '" srsName="EPSG:4326">' +
                 '<ogc:Filter>' +
                 '<ogc:And>' +
-                '<ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
+                '<ogc:Or>\n' + this.createEntwFilter(teilmarkt.value) + '</ogc:Or>\n' +
                 '<ogc:PropertyIsEqualTo>' +
                 '<ogc:PropertyName>stag</ogc:PropertyName>' +
                 '<ogc:Literal>' + stichtag + '</ogc:Literal>' +
@@ -96,6 +105,7 @@ export class BodenrichtwertService {
             { 'headers': header, 'responseType': 'json' }
         ).pipe(catchError(BodenrichtwertService.handleError));
     }
+
     /**
      * Returns the FeatureCollection identified by latitude, longitude and Teilmarkt
      * @param lat Latitude
@@ -104,15 +114,6 @@ export class BodenrichtwertService {
      * @returns returns feature
      */
     public getFeatureByLatLonEntw(lat: number, lon: number, entw: Array<string>): Observable<FeatureCollection> {
-        // OGC Filter for each teilmarkt/entwicklungszustand
-        let ogcFilter = '';
-
-        entw.forEach(entwType => {
-            ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
-                '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
-                '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
-                '        </ogc:PropertyIsEqualTo>\n';
-        });
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';
@@ -122,7 +123,7 @@ export class BodenrichtwertService {
                 '  <wfs:Query typeName="' + layer + '" srsName="EPSG:4326">\n' +
                 '    <ogc:Filter>\n' +
                 '      <ogc:And>\n' +
-                '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
+                '        <ogc:Or>\n' + this.createEntwFilter(entw) + '</ogc:Or>\n' +
                 '        <ogc:Intersects>\n' +
                 '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
                 '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +

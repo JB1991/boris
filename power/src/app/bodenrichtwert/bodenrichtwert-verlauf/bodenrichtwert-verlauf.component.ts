@@ -238,10 +238,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         const firstYear = this.seriesTemplate[0].stag;
         const lastYear = this.seriesTemplate[this.seriesTemplate.length - 1].stag;
 
-        const filteredFts = features.filter((ft: Feature) =>
+        return features.filter((ft: Feature) =>
             ft.properties.stag.substr(0, 4) >= firstYear && ft.properties.stag.substr(0, 4) <= lastYear
         );
-        return filteredFts;
     }
 
     /**
