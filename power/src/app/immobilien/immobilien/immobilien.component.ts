@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Inject, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, Inject, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
 import { ResizeObserver } from '@juggle/resize-observer';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -482,10 +482,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         const selectedlist = [];
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
-             param['fromAction'] === 'unselect') &&
-                 param['selected'].length === 1) {
+                param['fromAction'] === 'unselect') &&
+            param['selected'].length === 1) {
 
-            param['selected'][0]['dataIndex'].forEach(function(index) {
+            param['selected'][0]['dataIndex'].forEach(function (index) {
                 selectedlist.push(sdata[index]['name']);
             });
         }

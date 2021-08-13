@@ -1,4 +1,3 @@
-import * as echarts from 'echarts';
 import { ImmobilienHelper } from './immobilien.helper';
 
 export class ImmobilienUtils {

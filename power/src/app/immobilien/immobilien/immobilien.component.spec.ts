@@ -14,8 +14,6 @@ import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
 import { ImmobilienUtils } from './immobilien.utils';
 
-import * as echarts from 'echarts';
-
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 

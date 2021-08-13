@@ -7,8 +7,6 @@ import { Location } from '@angular/common';
 
 import { GmbComponent } from './gmb.component';
 
-import * as echarts from 'echarts';
-
 /* eslint-disable max-lines */
 describe('GmbComponent', () => {
     let component: GmbComponent;
@@ -134,7 +132,7 @@ describe('GmbComponent', () => {
         const param = {
             'type': 'selectchanged',
             'fromAction': 'select',
-            'selected': [ { 'dataIndex': [1] } ]
+            'selected': [{ 'dataIndex': [1] }]
         };
 
         component.filterBerichte = jasmine.createSpy();
@@ -176,7 +174,7 @@ describe('GmbComponent', () => {
 
         component.mode = 'gmb';
         component.selectedKreis = '033550000';
-        component.berichteOpened = [ 'Lüneburg_2222' ];
+        component.berichteOpened = ['Lüneburg_2222'];
 
         component.changeURL();
 
@@ -186,7 +184,7 @@ describe('GmbComponent', () => {
         );
 
         component.mode = 'lmb';
-        component.berichteOpened = [ 'Lüneburg_2222' ];
+        component.berichteOpened = ['Lüneburg_2222'];
 
         component.changeURL();
 
@@ -256,11 +254,11 @@ describe('GmbComponent', () => {
         const n = 'Landesgrundstücksmarktbericht';
         const g = 'Grundstücksmarktbericht';
 
-        expect(resg).toEqual(g + ' 2000 vom Gutachterausschuss Foobar' );
-        expect(resn).toEqual(n + ' 2000' );
+        expect(resg).toEqual(g + ' 2000 vom Gutachterausschuss Foobar');
+        expect(resn).toEqual(n + ' 2000');
 
-        expect(resgd).toEqual(dl + g + 'es 2000 vom Gutachterausschuss Foobar' );
-        expect(resnd).toEqual(dl + n + 'es 2000' );
+        expect(resgd).toEqual(dl + g + 'es 2000 vom Gutachterausschuss Foobar');
+        expect(resnd).toEqual(dl + n + 'es 2000');
     });
 
     /**

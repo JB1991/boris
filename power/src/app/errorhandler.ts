@@ -1,8 +1,7 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Platform } from '@angular/cdk/platform';
 
@@ -43,9 +42,9 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.http.post<any>('/report', msgStr)?.pipe(
             catchError(err => throwError(err))
         ).subscribe(
-            res => {},
-            err => {},
-            () => {}
+            res => { },
+            err => { },
+            () => { }
         );
 
         // Encode Error Message
