@@ -13,9 +13,6 @@ export class ImmobilienUtils {
 
         const date = [];
 
-        // Generate the date array
-        const now = new Date();
-
         for (let i = 2000; i < lastYear + 1; i++) {
             for (let q = 1; q < 5; q++) {
                 if ((!(i <= 2000 && q === 1)) && (!((i === lastYear) && (q > lastPeriod)))) {

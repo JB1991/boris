@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Map, Marker } from 'maplibre-gl';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+// import { Marker } from 'maplibre-gl';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
-import BodenrichtwertKartePitchControl from './bodenrichtwert-karte-pitch-control';
+// import BodenrichtwertKartePitchControl from './bodenrichtwert-karte-pitch-control';
 
 describe('BodenrichtwertKartePitchControl', () => {
 
-    const marker: Marker = new Marker();
-    const component: BodenrichtwertKartePitchControl = new BodenrichtwertKartePitchControl(marker);
-    let componentMap: BodenrichtwertKarteComponent;
-    let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
+    // const marker: Marker = new Marker();
+    // const component: BodenrichtwertKartePitchControl = new BodenrichtwertKartePitchControl(marker);
+    // let componentMap: BodenrichtwertKarteComponent;
+    // let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -21,10 +21,10 @@ describe('BodenrichtwertKartePitchControl', () => {
         }).compileComponents();
     }));
 
+    /*
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         componentMap = fixture.componentInstance;
-        /*
         const map = new Map({
             container: componentMap.mapContainer.nativeElement,
         });
@@ -46,8 +46,8 @@ describe('BodenrichtwertKartePitchControl', () => {
         componentMap.map.addLayer({ id: 'building-extrusion', type: 'fill-extrusion', source: 'openmaptiles' });
         componentMap.map.setZoom(10);
         component.map = componentMap.map;
-        */
     });
+    */
 
     /*
     afterEach(() => {

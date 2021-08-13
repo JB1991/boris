@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BodenrichtwertComponent } from './bodenrichtwert.component';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
@@ -26,7 +26,6 @@ import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
     let fixture: ComponentFixture<BodenrichtwertComponent>;
-    let httpTestingController: HttpTestingController;
 
     const bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
@@ -71,8 +70,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         fixture = TestBed.createComponent(BodenrichtwertComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
-        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
     it('should be created', () => {

@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
-import { SimpleChange } from '@angular/core';
+// import { SimpleChange } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { LngLat, Map, MapMouseEvent, Marker } from 'maplibre-gl';
+// import { LngLat, Map, MapMouseEvent, Marker } from 'maplibre-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { Feature } from 'geojson';
+// import { Feature } from 'geojson';
 import { BodenrichtwertKarteService } from './bodenrichtwert-karte.service';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
-    const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
+    // const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
 
-    const lat = 52.40729;
-    const lng = 9.80205;
+    // const lat = 52.40729;
+    // const lng = 9.80205;
 
-    let component: BodenrichtwertKarteComponent;
-    let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
+    // let component: BodenrichtwertKarteComponent;
+    // let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

@@ -386,19 +386,19 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('selectSingle works', () => {
-        niStatic.data.selections = [ {'type': 'single'}, {'type': 'foo'} ];
+        niStatic.data.selections = [{ 'type': 'single' }, { 'type': 'foo' }];
         const res = component.selectSingle();
         expect(res).toEqual(0);
     });
 
     it('onSelectWoMa works', () => {
-        niStatic.data.gemeinden = [ {'name': 'foo', 'woma_id': 'foo'} ];
+        niStatic.data.gemeinden = [{ 'name': 'foo', 'woma_id': 'foo' }];
         component.selectedWoMaValue = 'foo';
 
         component.accOpen = { '0': false, '1': false };
         spyOn(component, 'selectSingle').and.returnValue(0);
 
-        niStatic.data.selections = [ {'preset': ['foo']} ];
+        niStatic.data.selections = [{ 'preset': ['foo'] }];
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar', 'values': ['bar'] }];
 
         spyOn(component, 'updateChart').and.callFake(function () { });
@@ -427,7 +427,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
         const di = {};
-        niRuntime.getDrawPreset = function(val) { return this; }.bind(di);
+        niRuntime.getDrawPreset = function (val) { return this; }.bind(di);
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -450,9 +450,9 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         const di = {
             'type': 'single'
         };
-        niRuntime.getDrawPreset = function(val) { return this; }.bind(di);
+        niRuntime.getDrawPreset = function (val) { return this; }.bind(di);
 
-        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function(val) { return val; });
+        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -467,7 +467,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         component.parseURLSingle(0, params);
 
         expect(di['nipixCategory']).toEqual('bar');
-        expect(di['values']).toEqual(['a','b','c']);
+        expect(di['values']).toEqual(['a', 'b', 'c']);
     });
 
     it('parseURLMultiSelect works', () => {
@@ -476,9 +476,9 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         const di = {
             'type': 'single'
         };
-        niRuntime.getDrawPreset = function(val) { return this; }.bind(di);
+        niRuntime.getDrawPreset = function (val) { return this; }.bind(di);
 
-        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function(val) { return val; });
+        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -495,36 +495,33 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('queryURL works', () => {
         niStatic.data.selections = [
-            {'name': 'bar'},
-            {'name': '1'}
+            { 'name': 'bar' },
+            { 'name': '1' }
         ];
-        const params = {
-            'c': '1'
-        };
-        spyOn(component, 'parseURLTimeRange').and.callFake( function(par) {} );
-        spyOn(component, 'staticChange').and.callFake( function() {} );
+        spyOn(component, 'parseURLTimeRange').and.callFake(function (par) { });
+        spyOn(component, 'staticChange').and.callFake(function () { });
 
         spyOn(component, 'parseURLAggr').and.returnValue();
         spyOn(component, 'parseURLSingle').and.returnValue();
         spyOn(component, 'parseURLMultiSelect').and.returnValue();
 
-        component.queryURL({'c': '1', 'a': 'foo'});
+        component.queryURL({ 'c': '1', 'a': 'foo' });
         expect(component.parseURLAggr).toHaveBeenCalled();
 
-        component.queryURL({'c': '1', 's': 'foo'});
+        component.queryURL({ 'c': '1', 's': 'foo' });
         expect(component.parseURLSingle).toHaveBeenCalled();
 
-        component.queryURL({'c': '1', 'm': 'foo'});
+        component.queryURL({ 'c': '1', 'm': 'foo' });
         expect(component.parseURLMultiSelect).toHaveBeenCalled();
     });
 
     it('onChangeQuartal works', () => {
-        spyOn(component, 'updateChart').and.callFake( function(t1, t2) {} );
-        niRuntime.availableQuartal= [ 'foo', 'bar', 'foobar' ];
-        component.onChangeQuartal(0,2);
+        spyOn(component, 'updateChart').and.callFake(function (t1, t2) { });
+        niRuntime.availableQuartal = ['foo', 'bar', 'foobar'];
+        component.onChangeQuartal(0, 2);
         expect(niRuntime.state.rangeStartIndex).toEqual(0);
         expect(niRuntime.state.rangeEndIndex).toEqual(2);
-        expect(component.updateChart).toHaveBeenCalledWith(0,100);
+        expect(component.updateChart).toHaveBeenCalledWith(0, 100);
 
     });
 
@@ -610,7 +607,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         let param = {};
         const params = {
-            'append': function(k, v) { param[k]=v; }
+            'append': function (k, v) { param[k] = v; }
         };
 
 
@@ -621,14 +618,14 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             'name': 'barfoo',
             'type': 'single',
             'show': true,
-            'values': ['foo','bar']
+            'values': ['foo', 'bar']
         };
 
-        niRuntime.getDrawPreset = function(val) {
+        niRuntime.getDrawPreset = function (val) {
             return dpreset;
         };
 
-        let res = component.changeURLAppendPresets({'preset': ['foo'], 'nipixCategory': 'bar'}, params);
+        component.changeURLAppendPresets({ 'preset': ['foo'], 'nipixCategory': 'bar' }, params);
         expect(param).toEqual({
             'i': 'foobar',
             's': 'foobar'
@@ -636,7 +633,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         param = {};
 
-        res = component.changeURLAppendPresets({'preset': ['foo', 'bar'], 'type': 'multiIndex'}, params);
+        component.changeURLAppendPresets({ 'preset': ['foo', 'bar'], 'type': 'multiIndex' }, params);
         expect(param).toEqual({
             'i': 'foobar',
             'a': 'foo,bar'
@@ -647,7 +644,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         dpreset['name'] = 'bf';
 
-        res = component.changeURLAppendPresets({'preset': ['fo', 'ba'], 'type': 'multiIndex'}, params);
+        component.changeURLAppendPresets({ 'preset': ['fo', 'ba'], 'type': 'multiIndex' }, params);
         expect(param).toEqual({
             'm': 'fo:foobar:foobar;ba:foobar:foobar'
         });

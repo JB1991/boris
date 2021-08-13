@@ -38,7 +38,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         const res = component.parseGemeinden(gem);
 
         expect(res).toEqual(true);
-        expect(component.data.gemeinden).toEqual([{'name': '4411', 'ags': '1234567', 'woma_id': 'bla' }]);
+        expect(component.data.gemeinden).toEqual([{ 'name': '4411', 'ags': '1234567', 'woma_id': 'bla' }]);
     });
 
     it('procMap works', () => {
@@ -51,7 +51,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
                         'WOMA_SHORT': 'pt',
                         'WOMA_COLOR': '000',
                         'WOMA_COLORH': '111',
-                        'nipix': JSON.stringify({'foo': 'bar'})
+                        'nipix': JSON.stringify({ 'foo': 'bar' })
                     },
                     'geometry': {
                         'type': 'NoPoint'
@@ -71,11 +71,11 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
             ]
         };
 
-        const res = component.procMap(geoJson);
+        component.procMap(geoJson);
 
         expect(component.data.regionen).toEqual(
             {
-                'geom':  {
+                'geom': {
                     'name': 'point',
                     'short': 'pt',
                     'color': '000',

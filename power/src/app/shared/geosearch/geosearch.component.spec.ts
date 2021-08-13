@@ -1,5 +1,5 @@
-import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
 
     let component: GeosearchComponent;
     let fixture: ComponentFixture<GeosearchComponent>;
-    let httpTestingController: HttpTestingController;
     let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
@@ -41,8 +40,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
         fixture = TestBed.createComponent(GeosearchComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
-        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
     it('should be created', () => {

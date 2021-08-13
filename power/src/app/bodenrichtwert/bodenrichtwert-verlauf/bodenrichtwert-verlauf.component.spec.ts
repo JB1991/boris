@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 import { SimpleChanges } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -18,8 +17,6 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     let component: BodenrichtwertVerlaufComponent;
     let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
-    let httpClient: HttpClient;
-    let httpTestingController: HttpTestingController;
 
     registerLocaleData(localeDe);
 
@@ -40,9 +37,6 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         fixture = TestBed.createComponent(BodenrichtwertVerlaufComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
-        httpClient = TestBed.inject(HttpClient);
-        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
     it('should be created', () => {
@@ -85,7 +79,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     it('tooltipFormatter should format the tooltip text', () => {
         component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
-        component.teilmarkt = {text: 'Bauland', value: ['B'], hexColor: '#c4153a'};
+        component.teilmarkt = { text: 'Bauland', value: ['B'], hexColor: '#c4153a' };
 
         const params = [{
             seriesName: 'Wohngebiet Stadtumbau',
@@ -99,7 +93,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
             '  : ' + 200 + ' € ' + '<br />');
 
-        component.teilmarkt = {text: 'LF', value: ['B'], hexColor: '#c4153a'};
+        component.teilmarkt = { text: 'LF', value: ['B'], hexColor: '#c4153a' };
         result = component.tooltipFormatter(params);
         expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
             '  : ' + '200,00' + ' € ' + '<br />');
@@ -158,7 +152,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     it('getKeyValuePairs should group the feature by Nutzungsart bzw. BRW-Nummer', () => {
         spyOn(component, 'groupBy').and.callThrough();
-        const res = component.getKeyValuePairs(features);
+        component.getKeyValuePairs(features);
         expect(component.groupBy).toHaveBeenCalledTimes(1);
     });
 

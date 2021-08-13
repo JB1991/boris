@@ -20,7 +20,11 @@
             "es2018",
             "dom"
         ],
-        "allowJs": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "noUncheckedIndexedAccess": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
         "resolveJsonModule": true,
         "types": [
             "node"
@@ -44,6 +48,7 @@
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
+        "fullTemplateTypeCheck": false,
         "strictTemplates": false
     }
 }

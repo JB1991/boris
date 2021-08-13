@@ -250,7 +250,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     });
 
     it('exportGeoJSON works', function () {
-        const res = component.exportGeoJSON();
+        component.exportGeoJSON();
         expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({
             'features': [
                 { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {} }

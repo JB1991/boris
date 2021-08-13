@@ -287,7 +287,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         // grouped by Nutzungsart
         let groupedByProperty: Map<string, Array<Feature>> =
             this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties.nutzung));
-        for (const [key, value] of groupedByProperty.entries()) {
+        for (const [_, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter((item: Feature) =>
                     item.properties.stag.substring(0, 4) === seriesTuple.stag);

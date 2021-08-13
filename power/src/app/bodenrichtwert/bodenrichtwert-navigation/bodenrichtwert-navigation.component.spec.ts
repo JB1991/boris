@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation.component';
 import { BodenrichtwertComponent } from 'app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
-import { HttpClient } from '@angular/common/http';
 import { Feature, FeatureCollection } from 'geojson';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -18,8 +17,6 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
 
     let component: BodenrichtwertNavigationComponent;
     let fixture: ComponentFixture<BodenrichtwertNavigationComponent>;
-
-    let httpClient: HttpClient;
 
     const lat = 52.40729;
     const lng = 9.80205;
@@ -45,7 +42,6 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         fixture = TestBed.createComponent(BodenrichtwertNavigationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        httpClient = TestBed.inject(HttpClient);
 
         component.latLng = new LngLat(lng, lat);
         component.teilmarkt = {

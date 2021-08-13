@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +9,6 @@ import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AlertsService } from '../../alerts/alerts.service';
 import { SharedModule } from '../../shared.module';
-import { AdvancedSearchComponent } from '../advanced-search.component';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { FlurstueckSearchComponent, Flurstueckskennzeichen } from './flurstueck-search.component';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
@@ -26,7 +25,6 @@ describe('FlurstueckSearchComponent', () => {
     let component: FlurstueckSearchComponent;
     let fixture: ComponentFixture<FlurstueckSearchComponent>;
 
-    let httpController: HttpTestingController;
     let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
@@ -56,8 +54,6 @@ describe('FlurstueckSearchComponent', () => {
         fixture = TestBed.createComponent(FlurstueckSearchComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-
-        httpController = TestBed.inject(HttpTestingController);
     });
 
     it('should create', () => {

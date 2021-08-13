@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import * as templates from './data';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
@@ -20,8 +19,7 @@ export class StorageService {
     public UnsavedChanges = false;
     public AutoSaveEnabled = true;
 
-    constructor(private httpClient: HttpClient,
-        public auth: AuthService) { }
+    constructor(public auth: AuthService) { }
 
     /**
      * Resets service to empty model

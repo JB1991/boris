@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
@@ -27,7 +27,6 @@ describe('BodenrichwertnummerSearchComponent', () => {
     let component: BodenrichwertnummerSearchComponent;
     let fixture: ComponentFixture<BodenrichwertnummerSearchComponent>;
 
-    let httpController: HttpTestingController;
     let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
@@ -57,8 +56,6 @@ describe('BodenrichwertnummerSearchComponent', () => {
         fixture.detectChanges();
 
         component.teilmarkt = teilmarkt;
-
-        httpController = TestBed.inject(HttpTestingController);
     });
 
     it('should create', () => {

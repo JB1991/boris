@@ -82,7 +82,7 @@ export function app(lang: string): express.Express {
 }
 
 function run(): void {
-    const port = process.env.PORT || 4000;
+    const port = process.env['PORT'] || 4000;
     const appDE = app('de');
     const appDESIMPLE = app('de-simple');
     const appEN = app('en');

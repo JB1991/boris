@@ -93,7 +93,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
 
         spyOn(document, 'createElement').and.callFake(fun.bind(anchor));
 
-        const res = ImmobilienHelper.downloadFile('foo', 'bar', '', true);
+        ImmobilienHelper.downloadFile('foo', 'bar', '', true);
 
         expect(anchor.href).toEqual('foo');
         expect(anchor.download).toEqual('bar');
@@ -112,7 +112,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
 
         spyOn(document, 'createElement').and.callFake(fun.bind(anchor));
 
-        const res = ImmobilienHelper.downloadFile('foo', 'bar');
+        ImmobilienHelper.downloadFile('foo', 'bar');
 
         expect(anchor.href.indexOf('blob') !== -1).toBe(true);
         expect(anchor.download).toEqual('bar');

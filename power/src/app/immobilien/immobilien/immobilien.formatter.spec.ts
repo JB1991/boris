@@ -118,7 +118,6 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
 
 
     it('mapTooltipFormatter should return params.name', function () {
-        const ths = { myRegionen: {} };
         const res = component.mapTooltipFormatter({ 'name': 'test' });
         expect(res).toEqual('test');
     });

@@ -1,13 +1,11 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { Observable } from 'rxjs';
-import { Feature, FeatureCollection } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
 
 describe('Bodenrichtwert.BodenrichtwertService', () => {
-    const feature: Feature = require('../../testdata/geosearch/feature.json');
     const features: FeatureCollection = require('../../testdata/geosearch/featurecollection.json');
     const featureByLatLonEntw: FeatureCollection = require('../../testdata/bodenrichtwert/feature-by-lat-lon-entw.json');
 
@@ -18,7 +16,6 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     const url = environment.borisOws;
 
     let service: BodenrichtwertService;
-    let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
     beforeEach(waitForAsync(() => {
@@ -30,7 +27,6 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
 
     beforeEach(() => {
         service = TestBed.inject(BodenrichtwertService);
-        httpClient = TestBed.inject(HttpClient);
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
