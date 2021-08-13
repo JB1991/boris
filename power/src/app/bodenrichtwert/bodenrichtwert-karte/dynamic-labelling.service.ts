@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import intersect from '@turf/intersect';
 import union from '@turf/union';
-import { Feature } from 'geojson';
+import { Feature, Geometry } from 'geojson';
 import polylabel from 'polylabel';
 
 @Injectable({
@@ -9,7 +9,6 @@ import polylabel from 'polylabel';
 })
 
 export class DynamicLabellingService {
-
     /**
      * Generate Point Features
      * @param arr array with longitude, latitude and properties of each point feature
@@ -22,14 +21,10 @@ export class DynamicLabellingService {
     }[]): Array<Feature<Point>> {
         const features: Array<Feature<Point>> = [];
         arr.forEach(p => {
-            features.push({
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [p.lng, p.lat],
-                },
-                properties: p.properties,
-            })
+            features.push(this.makeFeature({
+                type: 'Point',
+                coordinates: [p.lng, p.lat],
+            }, p.properties))
         });
 
         return features;
@@ -80,6 +75,20 @@ export class DynamicLabellingService {
         }));
     }
 
+    /**
+     * makeFeature
+     * @param geom geometry
+     * @param properties properties
+     * @returns feature
+     */
+    private makeFeature<T extends Geometry>(geom: T, properties: any): Feature<T> {
+        return {
+            type: 'Feature',
+            geometry: geom,
+            properties: properties,
+        }
+    }
+
 
     /**
      * unionVectorTilesFeatures unions the features of the mapbox vector tiles by a given idGetter
@@ -104,14 +113,12 @@ export class DynamicLabellingService {
             const existingFt = unionedFts.get(id);
 
             if (!existingFt) {
-                unionedFts.set(id, {
-                    type: 'Feature',
-                    geometry: ft.geometry,
-                    properties: ft.properties
-                });
+                unionedFts.set(id, this.makeFeature(ft.geometry, ft.properties));
             } else {
                 const unionGeom = union(existingFt, ft.geometry);
-                existingFt.geometry = unionGeom.geometry;
+                if (unionGeom) {
+                    existingFt.geometry = unionGeom.geometry;
+                }
             }
         });
         return Array.from(unionedFts.values());
@@ -128,26 +135,14 @@ export class DynamicLabellingService {
         if (!intersection) {
             switch (ft.geometry.type) {
                 case 'Polygon':
-                    return [{
-                        type: 'Feature',
-                        geometry: ft.geometry,
-                        properties: ft.properties,
-                    }];
+                    return [this.makeFeature(ft.geometry, ft.properties)];
                 case 'MultiPolygon':
-                    return this.multiPolygonToPolygons(ft.geometry).map(p => ({
-                        type: 'Feature',
-                        geometry: p,
-                        properties: ft.properties,
-                    }));
+                    return this.multiPolygonToPolygons(ft.geometry).map(p => this.makeFeature(p, ft.properties));
             }
         }
 
         if (intersection.geometry.type === 'MultiPolygon') {
-            return this.multiPolygonToPolygons(intersection.geometry).map(p => ({
-                type: 'Feature',
-                geometry: p,
-                properties: ft.properties,
-            }));
+            return this.multiPolygonToPolygons(intersection.geometry).map(p => this.makeFeature(p, ft.properties));
         }
         return [{
             type: 'Feature',
@@ -162,15 +157,10 @@ export class DynamicLabellingService {
      * @returns point feature of polylabel
      */
     public pointOnFeature(ft: Feature<Polygon>): Feature<Point> {
-        const point = polylabel(ft.geometry.coordinates, 0.0001, false);
-        return {
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: point
-            },
-            properties: ft.properties
-        }
+        return this.makeFeature({
+            type: 'Point',
+            coordinates: polylabel(ft.geometry.coordinates, 0.0001, false)
+        }, ft.properties);
     }
 
     /**
@@ -191,7 +181,7 @@ export class DynamicLabellingService {
         doNotDisplay: string[],
         output: Array<Feature<Point>>): Array<Feature<Point>> {
 
-        if (doNotDisplay && doNotDisplayGetter) {
+        if (doNotDisplay) {
             input = input.filter((ft) => !doNotDisplay.includes(doNotDisplayGetter(ft)));
         }
 
