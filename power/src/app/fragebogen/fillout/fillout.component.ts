@@ -141,13 +141,19 @@ export class FilloutComponent implements AfterViewInit {
         result.options.showDataSaving($localize`Die Ergebnisse werden auf dem Server gespeichert, dies kann einige Sekunden dauern.`);
         this.submitted = true;
 
-        this.formapi.createPublicTask(id, result.result).then(() => {
-            this.setUnsavedChanges(false);
-            result.options.showDataSavingClear();
-            this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
-        }).catch((error: Error) => {
+        this.formapi.createPublicTask(id, result.result).then(() => this.changesSaved(result)).catch((error: Error) => {
             this.handleSubmitFailedError(result, error);
         });
+    }
+
+    /**
+     * changesSaved
+     * @param result
+     */
+    private changesSaved(result: any): void {
+        this.setUnsavedChanges(false);
+        result.options.showDataSavingClear();
+        this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
     }
 
     /**
@@ -190,13 +196,10 @@ export class FilloutComponent implements AfterViewInit {
         this.submitted = true;
 
         // complete
-        this.formapi.updatePublicTask(this.pin, result.result, true).then(() => {
-            this.setUnsavedChanges(false);
-            result.options.showDataSavingClear();
-            this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
-        }).catch((error: Error) => {
-            this.handleSubmitFailedError(result, error);
-        });
+        this.formapi.updatePublicTask(this.pin, result.result, true).then(() => this.changesSaved(result)).
+            catch((error: Error) => {
+                this.handleSubmitFailedError(result, error);
+            });
     }
 
     /**
