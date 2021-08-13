@@ -253,42 +253,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // zoom
-            const zoomParam = +params['zoom'];
-            if (zoomParam) {
-                if (zoomParam >= 18) {
-                    this.zoom = 18;
-                } else if (zoomParam <= 5) {
-                    this.zoom = 5;
-                } else {
-                    this.zoom = zoomParam;
-                }
-            } else {
-                this.zoom = 7;
-            }
+            this.zoom = this.validateZoom(+params['zoom']);
 
             // rotation
-            const pitchParam = +params['pitch'];
-            if (pitchParam) {
-                if (pitchParam >= 60) {
-                    this.pitch = 60;
-                } else if (pitchParam <= 0) {
-                    this.pitch = 0;
-                } else {
-                    this.pitch = pitchParam;
-                }
-            }
+            this.pitch = this.validatePitch(+params['pitch']);
 
             // bearing
-            const bearingParam = +params['bearing'];
-            if (bearingParam) {
-                if (bearingParam >= 180) {
-                    this.bearing = 180;
-                } else if (bearingParam <= -180) {
-                    this.bearing = -180;
-                } else {
-                    this.bearing = bearingParam;
-                }
-            }
+            this.bearing = this.validateBearing(+params['bearing']);
+
             this.cdr.detectChanges();
             this.changeURL();
         });
@@ -304,12 +276,65 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * validateZoom validates the url zoom param
+     * @param zoom zoom param
+     * @returns validated zoom
+     */
+    public validateZoom(zoom: number): number {
+        if (!zoom) {
+            return 7;
+        }
+        if (zoom >= 18) {
+            return 18;
+        } else if (zoom <= 5) {
+            return 5;
+        } else {
+            return zoom;
+        }
+    }
+
+    /**
+     * validatePitch validates the url pitch param
+     * @param pitch pitch param
+     * @returns validated pitch
+     */
+    public validatePitch(pitch: number): number {
+        if (!pitch) {
+            return 0;
+        }
+        if (pitch >= 60) {
+            return 60;
+        } else if (pitch <= 0) {
+            return 0;
+        } else {
+            return pitch;
+        }
+    }
+    /**
+     * validateBearing validates the bearing url param
+     * @param bearing bearing param
+     * @returns validated bearing
+     */
+    public validateBearing(bearing: number): number {
+        if (!bearing) {
+            return 0;
+        }
+        if (bearing >= 180) {
+            return 180;
+        } else if (bearing <= -180) {
+            return -180;
+        } else {
+            return bearing;
+        }
+    }
+
+    /**
      * validateLngLat validates the latitude and longitude
      * @param lat latitude
      * @param lng longitude
      * @returns true/false if lat and lng are valid
      */
-    private validateLngLat(lat: number, lng: number): boolean {
+    public validateLngLat(lat: number, lng: number): boolean {
         if ((lat <= 90 && lat >= -90) && (lng <= 180 && lng >= -180)) {
             const latLng = new LngLat(lng, lat);
             if (this.bounds.contains(latLng)) {

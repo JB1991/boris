@@ -12,7 +12,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
-import { LngLat } from 'maplibre-gl';
+import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
 import { VerfahrensartPipe } from '../pipes/verfahrensart.pipe';
 import { EntwicklungszusatzPipe } from '../pipes/entwicklungszusatz.pipe';
@@ -28,6 +28,9 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     let fixture: ComponentFixture<BodenrichtwertComponent>;
     let httpTestingController: HttpTestingController;
 
+    const bounds = new LngLatBounds([
+        [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+    ]);
     const features: FeatureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
 
     beforeEach(waitForAsync(() => {
@@ -128,6 +131,46 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.onCollapsingEnds();
         expect(component.collapsed).toBeTrue();
         expect(component.expanded).toBeFalse();
+    });
+
+    it('validateZoom should validate the zoom param', () => {
+        let zoom = component.validateZoom(100);
+        expect(zoom).toEqual(18);
+        zoom = component.validateZoom(-10);
+        expect(zoom).toEqual(5);
+        zoom = component.validateZoom(14.5);
+        expect(zoom).toEqual(14.5);
+        zoom = component.validateZoom(undefined);
+        expect(zoom).toEqual(7);
+    });
+
+    it('validatePitch should validates the pitch param', () => {
+        let pitch = component.validatePitch(100);
+        expect(pitch).toEqual(60);
+        pitch = component.validatePitch(-20);
+        expect(pitch).toEqual(0);
+        pitch = component.validatePitch(35.6);
+        expect(pitch).toEqual(35.6);
+        pitch = component.validatePitch(undefined);
+        expect(pitch).toEqual(0);
+    });
+
+    it('validateBearing should validates the bearing param', () => {
+        let bearing = component.validateBearing(200);
+        expect(bearing).toEqual(180);
+        bearing = component.validateBearing(-200);
+        expect(bearing).toEqual(-180);
+        bearing = component.validateBearing(1);
+        expect(bearing).toEqual(1);
+        bearing = component.validateBearing(undefined);
+        expect(bearing).toEqual(0);
+    });
+
+    it('validateLngLat should validates the lngLat params', () => {
+        component.bounds = bounds;
+        expect(component.validateLngLat(52.3, 9.6)).toBeTrue();
+        expect(component.validateLngLat(85.1, 140.5)).toBeFalse();
+        expect(component.validateLngLat(300, 500)).toBeFalse();
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
