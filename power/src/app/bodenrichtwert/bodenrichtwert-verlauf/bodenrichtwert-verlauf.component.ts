@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { EChartOption } from 'echarts';
+import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import * as echarts from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
@@ -13,7 +13,7 @@ export interface SeriesItem {
     nutzung: string;
     verg: string;
     verf: string;
-    forwarded?: boolean;
+    forwarded: boolean;
 }
 
 @Component({
@@ -23,33 +23,35 @@ export interface SeriesItem {
     providers: [NutzungPipe, VerfahrensartPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertVerlaufComponent implements OnChanges {
+export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit {
 
     @Input() STICHTAGE: string[];
     @Input() teilmarkt: Teilmarkt;
+
+    @ViewChild('echartsInst') echartsInst: ElementRef;
 
     // table data for screenreader
     public srTableData: Array<any> = [];
     public srTableHeader: Array<string> = [];
 
     seriesTemplate: Array<SeriesItem> = [
-        { stag: '2012', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2013', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2014', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2015', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2016', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2017', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2018', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2019', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '' }
+        { stag: '2012', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2013', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2014', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2015', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2016', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2017', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2018', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2019', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '', forwarded: false }
     ];
 
-    public chartOption: EChartOption = {
+    public chartOption: echarts.EChartsOption = {
         tooltip: {
             trigger: 'axis',
-            confine: 'true',
-            formatter: (params: any) => this.tooltipFormatter(params),
+            confine: true,
+            formatter: (params: Array<any>) => this.tooltipFormatter(params),
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
             borderColor: '#ccc',
@@ -61,8 +63,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         legend: {
             data: [],
             type: 'scroll',
-            top: '0%',
             formatter: '',
+            top: '1%',
             textStyle: {
                 rich: {}
             },
@@ -71,6 +73,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             left: '1%',
             right: '4%',
             bottom: '3%',
+            top: '15%',
             containLabel: true
         },
         xAxis: {
@@ -80,7 +83,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             axisLine: {
                 symbol: ['none', 'arrow'],
                 symbolSize: [10, 9],
-                symbolOffset: [0, 6]
+                symbolOffset: [0, 11]
             },
             axisTick: {
                 alignWithLabel: true
@@ -92,6 +95,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 formatter: '{value} €/m²',
             },
             axisLine: {
+                show: true,
                 symbol: ['none', 'arrow'],
                 symbolSize: [10, 9],
                 symbolOffset: [0, 11]
@@ -120,26 +124,33 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             if (this.features && !changes.features.firstChange) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
+                if (this.echartsInstance) {
+                    this.echartsInstance.resize();
+                }
             }
         }
     }
+
+    ngAfterViewInit() {
+        this.echartsInstance = echarts.init(this.echartsInst.nativeElement);
+    }
+
     /**
      * onChartInit initializes the chart
      * @param event event for initializing the chart
      */
-    public onChartInit(event: any): void {
+    /* public onChartInit(event: any): void {
         this.echartsInstance = event;
-    }
+    } */
 
     /**
      * clearChart clears the chartOptions
      */
     public clearChart(): void {
         this.chartOption.series = [];
-        this.chartOption.legend.data = [];
-        this.chartOption.legend.formatter = '';
-        this.chartOption.legend.textStyle.rich = '';
-        this.chartOption.grid.top = '10%';
+        this.chartOption.legend['data'] = [];
+        this.chartOption.legend['formatter'] = '';
+        this.chartOption.legend['textStyle'].rich = '';
         this.srTableHeader = [];
         this.srTableData = [];
     }
@@ -249,7 +260,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      */
     public generateChart(features: Array<Feature>): void {
         const groupedByProperty = this.getKeyValuePairs(features);
-
         for (const [key, value] of groupedByProperty.entries()) {
             const seriesArray: Array<Array<SeriesItem>> = [];
             features = Array.from(value);
@@ -258,18 +268,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.getVergOfSeries(seriesArray[0]).forEach(element => {
                 seriesArray.push(element);
             });
-            this.deleteSeriesVergItems(seriesArray[0]);
-
+            seriesArray[0] = this.deleteSeriesVergItems(seriesArray[0]);
             let label: string;
             seriesArray.forEach((series) => {
-                series = this.copyLastItem(series);
-                const seriesFilledGap: Array<SeriesItem> = this.fillGapWithinAYear(series);
                 label = this.createLegendLabel(key, series);
-                this.chartOption.legend.data.push(label);
+                this.chartOption.legend['data'].push(label);
                 this.setChartOptionsSeries(series, label);
-                if (seriesFilledGap.find(item => item.brw !== null)) {
-                    this.setChartOptionsSeries(seriesFilledGap, label);
-                }
                 this.generateSrTable(label, series);
             });
             this.setLegendFormat();
@@ -400,9 +404,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      */
     public copySeriesData(series: Array<SeriesItem>,
         seriesVergValues: Array<SeriesItem>, idx: number): Array<SeriesItem> {
-        if (idx < 8 && series[idx + 1].brw !== null && (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
+        // series changes from a verg to normal
+        if (idx < (series.length - 1) && series[idx + 1].brw !== null &&
+         (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
             seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
             seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
+            seriesVergValues = seriesVergValues.slice(0, idx + 2);
+
         }
         seriesVergValues[idx].brw = series[idx].brw;
         seriesVergValues[idx].nutzung = series[idx].nutzung;
@@ -468,31 +476,29 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
         let i: number;
         if (series.find((element, index) => {
-            if ((element.verg === '' || element.verg === null) && element.brw !== null) {
+            // find first series element with no verg and brw
+            if (!element.verg && element.brw !== null) {
                 i = index;
                 return true;
             }
         })
         ) {
+            // from no Verfahrensgrund set to a set Verfahrensgrund
             for (i; i < series.length; i++) {
-                if (series[i].verg !== null && series[i].verg !== '') {
+                if (series[i].verg) {
                     series[i].verg = null;
                     series[i].verf = null;
-                    series[i].brw = (series[i].brw).toString();
-                    series[i].forwarded = true;
+                    series[i].nutzung = null;
+                    // if series gets interrupted cause of a verg the two graphs should be connected
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                    series[i - 1].brw? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
+                    series = series.slice(0, i + 1);
                     break;
                 }
             }
         }
-
-        series.forEach(element => {
-            if (element.verg !== null) {
-                element.brw = null;
-                element.verg = null;
-                element.verf = null;
-                element.nutzung = null;
-            }
-        });
+        // if Verfahrensgrund is in the past
+        series.forEach(element => element.verg? [element.nutzung, element.brw, element.verg, element.verf] = [null, null, null, null] : '');
         return series;
     }
 
@@ -502,11 +508,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * @param label label
      */
     public setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
-        this.chartOption.series.push({
+        (this.chartOption.series as Array<echarts.SeriesOption>).push({
             name: label,
             type: 'line',
             step: 'end',
-            symbolSize: function (value: any) {
+            symbolSize:  function (value: any) {
                 if (typeof (value) === 'string') {
                     return 0;
                 } else {
@@ -570,7 +576,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      */
     /* eslint-disable complexity */
     public setLegendFormat() {
-        this.chartOption.legend.formatter = function (name: string) {
+        this.chartOption.legend['formatter'] = function (name: string) {
             const splittedName = name.split('\n');
             const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
             const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
@@ -598,7 +604,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * setTextStyleOfLegend sets some styling elements of the legend items
      */
     public setTextStyleOfLegend() {
-        this.chartOption.legend.textStyle.rich = {
+        this.chartOption.legend['textStyle'].rich = {
             'nutzung': {
                 padding: [0, 0, 0, 0],
                 align: 'center'
@@ -618,7 +624,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 align: 'center'
             },
         };
-        this.chartOption.grid.top = '15%';
     }
 
     /**
@@ -628,11 +633,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      */
     public generateSrTable(label: string, series: Array<SeriesItem>): void {
         const indexes: Array<number> = [];
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].forwarded) {
-                indexes.push(i);
-            }
-        }
         indexes.forEach(idx => series[idx].brw = null);
         if (label) {
             this.srTableHeader.push(label);

@@ -1,5 +1,8 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import 'rxjs/add/operator/catch';
 import { environment } from '@env/environment';
 import { Platform } from '@angular/cdk/platform';
 
@@ -37,8 +40,13 @@ export class GlobalErrorHandler implements ErrorHandler {
 
         // Post data to Bakend
         /* istanbul ignore next */
-        this.http.post<any>('/report', msgStr)?.subscribe(data => {
-        })
+        this.http.post<any>('/report', msgStr)?.pipe(
+            catchError(err => throwError(err))
+        ).subscribe(
+            res => {},
+            err => {},
+            () => {}
+        );
 
         // Encode Error Message
         const msgB64 = btoa(unescape(encodeURIComponent(msgStr)));

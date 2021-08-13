@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
+import { ResizeObserver } from '@juggle/resize-observer';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -15,21 +16,26 @@ import * as kreise_raw from './kreise.json';
     styleUrls: ['./gmb.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GmbComponent implements OnInit {
+export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
+
+    // echarts Components
+    @ViewChild('echartsMap') echartsMap: ElementRef;
+
     downloadPath = '/download';
     berichte = data['default'];
     kreise = kreise_raw['default'];
 
     mode = undefined;
 
-    map = {};
-    mapLoaded = false;
-    mapOptions = {};
+    map: any = null;
 
     selectedKreis = undefined;
     berichteFiltered = [];
     berichteOpened = [];
     isBrowser = true;
+
+    animationFrameID = null;
+    resizeSub: ResizeObserver;
 
     /**
      * MapOptions
@@ -82,17 +88,13 @@ export class GmbComponent implements OnInit {
                 'type': 'map',
                 'aspectScale': 1,
                 'roam': false,
-                'mapType': 'NDS', // map type should be registered
-                'itemStyle': {
-                    'normal': {
-                        'label': {
-                            'show': false
-                        }
-                    },
-                    'emphasis': {
-                        'label': {
-                            'show': false
-                        }
+                'map': 'NDS', // map type should be registered
+                'label': {
+                    'show': false
+                },
+                'emphasis': {
+                    'label': {
+                        'show': false
                     }
                 },
                 'selectedMode': 'single',
@@ -131,27 +133,25 @@ export class GmbComponent implements OnInit {
         }
     }
 
-    /**
-     * OnInit
-     * Load geojson for Landkreise
-     */
-    ngOnInit(): void {
-        if (isPlatformBrowser(this.platformId)) {
-            this.mapInit();
+    ngAfterViewInit() {
+        if (!this.isBrowser) {
+            return;
         }
 
-        this.route.data.subscribe(routedata => {
-            if (routedata['mode'] === 'lmb') {
-                this.mode = 'lmb';
-                this.filterBerichte(true);
-            }
-            if (routedata['mode'] === 'gmb') {
-                this.mode = 'gmb';
-            }
-            this.changeTitle();
-            this.cdr.detectChanges();
+        if (this.mode === 'gmb') {
+            if (this.echartsMap) {
+                this.map = echarts.init(this.echartsMap.nativeElement);
+                this.map.on('selectchanged', this.onMapSelectChange.bind(this));
 
-        });
+                this.resizeSub = new ResizeObserver(() => {
+                    this.animationFrameID = window.requestAnimationFrame(() => this.resize());
+                });
+                this.resizeSub.observe(this.echartsMap.nativeElement);
+            }
+            if (this.selectedKreis !== undefined) {
+                this.updateMapSelect();
+            }
+        }
 
         this.route.queryParams.subscribe(params => {
             if (this.mode === 'gmb') {
@@ -181,23 +181,49 @@ export class GmbComponent implements OnInit {
             this.cdr.detectChanges();
 
         });
+    }
+
+
+    resize() {
+        this.map.resize();
+    }
+
+    ngOnDestroy() {
+        if (this.resizeSub && this.echartsMap) {
+            this.resizeSub.unobserve(this.echartsMap.nativeElement);
+            window.cancelAnimationFrame(this.animationFrameID);
+        }
+    }
+
+
+    /**
+     * OnInit
+     * Load geojson for Landkreise
+     */
+    ngOnInit(): void {
+        if (isPlatformBrowser(this.platformId)) {
+            this.mapInit();
+        }
+
+        this.route.data.subscribe(routedata => {
+            if (routedata['mode'] === 'lmb') {
+                this.mode = 'lmb';
+                this.filterBerichte(true);
+            }
+            if (routedata['mode'] === 'gmb') {
+                this.mode = 'gmb';
+            }
+            this.changeTitle();
+            this.cdr.detectChanges();
+
+        });
+
+
 
     }
 
     mapInit() {
         this.loadGeoMap('assets/gmb.geojson');
-    }
-
-    /**
-     * Gets chart element for map
-     * @param ec Chart
-     */
-    onChartInit(ec) {
-        this.map = ec;
-
-        if (this.selectedKreis !== undefined) {
-            this.updateMapSelect();
-        }
     }
 
     /**
@@ -209,10 +235,10 @@ export class GmbComponent implements OnInit {
         this.http.get(url)
             .subscribe(
                 geoJson => {
-                    this.mapLoaded = true;
-
-                    echarts.registerMap('NDS', geoJson);
-                    this.mapOptions = this.myMapOptions;
+                    echarts.registerMap('NDS', geoJson as any);
+                    if (this.map) {
+                        this.map.setOption(this.myMapOptions);
+                    }
 
                     this.cdr.detectChanges();
                 }
@@ -232,14 +258,18 @@ export class GmbComponent implements OnInit {
                 'name': keys[i],
                 'itemStyle': {
                     'areaColor': '#dee2e6'
-                    /* "borderColor": bc,
-                "borderWidth": bw */
                 },
                 'emphasis': {
                     'itemStyle': {
                         'areaColor': '#c4153a' // convertColor(regionen[keys[i]].color),
-                        /* "borderColor": bc,
-                    "borderWidth": bw */
+                    }
+                },
+                'select': {
+                    'itemStyle': {
+                        'areaColor': '#c4153a'
+                    },
+                    'label': {
+                        'show': false
                     }
                 }
             };
@@ -368,6 +398,8 @@ export class GmbComponent implements OnInit {
         } else {
             this.berichteFiltered = this.filterBerichteLMB();
         }
+
+        this.cdr.detectChanges();
     }
 
 
@@ -376,38 +408,40 @@ export class GmbComponent implements OnInit {
      * @param param Map param
      */
     onMapSelectChange(param) {
+        const selectedlist = [];
+        if (param['type'] === 'selectchanged' &&
+            (param['fromAction'] === 'select' ||
+             param['fromAction'] === 'unselect') &&
+                 param['selected'].length === 1) {
 
-        let selectedlist = null;
-        if ((param['type'] === 'mapselectchanged') &&
-            (param['batch'] !== undefined) &&
-            (param['batch'] !== null)) {
-            selectedlist = param['batch'][0]['selected'];
+            param['selected'][0]['dataIndex'].forEach(function(index) {
+                selectedlist.push(index);
+            });
+        }
+
+        const ok = Object.keys(kreise_raw['default']);
+        const item = ok[selectedlist[0]];
+
+        if (item) {
+            this.selectedKreis = item;
+            this.berichteOpened = [];
+            this.filterBerichte();
+            this.changeURL();
         } else {
-            selectedlist = param['selected'];
+            this.selectedKreis = undefined;
+            this.berichteOpened = [];
+            this.filterBerichte();
+            this.changeURL();
         }
-
-        const ok = Object.keys(selectedlist);
-
-        for (let i = 0; i < ok.length; i++) {
-            if (selectedlist[ok[i]] === true) {
-                this.selectedKreis = ok[i];
-                this.berichteOpened = [];
-                this.filterBerichte();
-                this.changeURL();
-                return;
-            }
-        }
-
-        this.selectedKreis = undefined;
-        this.berichteOpened = [];
-        this.filterBerichte();
-        this.changeURL();
     }
 
     private updateMapSelect() {
+        if (!this.map) {
+            return;
+        }
         if (this.map['dispatchAction'] !== undefined) {
             this.map['dispatchAction']({
-                type: 'mapSelect',
+                type: 'select',
                 name: this.selectedKreis
             });
         }

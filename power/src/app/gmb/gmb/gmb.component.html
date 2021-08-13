@@ -25,11 +25,7 @@
     </div>
 
     <div *ngIf="isBrowser && mode === 'gmb'"
-         echarts
-         [options]="mapOptions"
-         [loading]="!mapLoaded"
-         (chartInit)="onChartInit($event)"
-         (chartMapSelectChanged)="onMapSelectChange($event)"
+         #echartsMap
          class="demo-chart chart-map"></div>
 
 

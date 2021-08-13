@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
-import { NgxEchartsModule } from 'ngx-echarts';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AlertModule } from 'ngx-bootstrap/alert';
-import * as echarts from 'echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
@@ -64,7 +62,6 @@ import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
     imports: [
         BodenrichtwertRoutingModule,
         CommonModule,
-        NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
         BsDropdownModule.forRoot(),
         AlertModule.forRoot(),

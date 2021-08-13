@@ -54,20 +54,15 @@
                 </tr>
             </tbody>
         </table>
-
+    </ng-container>
         <div class="time-series"
              id="time-series"
-             echarts
-             (chartInit)="onChartInit($event)"
-             [options]="chartOption"></div>
-    </ng-container>
+             #echartsInst
+	     ></div>
 
-    <ng-container *ngIf="!echartsInstance">
-        <div id="eChartInstance"
-             echarts
-             (chartInit)="onChartInit($event)"
-             [options]="chartOption"></div>
-    </ng-container>
+    <!--<div id="eChartInstance"
+	 class=time-series"
+	 #echartsInst></div>-->
 
     <div>
         <p *ngIf="chartOption?.series.length >= 2"

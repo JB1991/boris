@@ -7,7 +7,7 @@ import { ImmobilienUtils } from './immobilien.utils';
 
 interface NipixRuntimeMap {
     obj?: any;
-    options?: echarts.EChartOption;
+    options?: echarts.EChartsOption;
 }
 
 interface NipixRuntimeState {
@@ -287,8 +287,9 @@ export class NipixRuntime {
                     this.nipixStatic.data.selections[this.state.activeSelection]['preset'][0]
                 );
                 const reg = Object.keys(this.nipixStatic.data.regionen);
+                const dv = JSON.parse(JSON.stringify(draw.values));
                 for (let s = 0; s < reg.length; s++) {
-                    ImmobilienUtils.dispatchMapSelect(this.map.obj, reg[s], draw.values.includes(reg[s]));
+                    ImmobilienUtils.dispatchMapSelect(this.map.obj, reg[s], dv.includes(reg[s]));
                 }
             } else { // All other drawing types; unselect
                 const reg = Object.keys(this.nipixStatic.data.regionen);

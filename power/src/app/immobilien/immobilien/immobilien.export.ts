@@ -86,10 +86,6 @@ export class ImmobilienExport {
             }
         }
 
-        data['features'] = data['features'].filter(function (el) {
-            return el !== null;
-        });
-
         ImmobilienHelper.downloadFile(JSON.stringify(data), 'Wohnungsmarktregionen.geojson');
     }
 

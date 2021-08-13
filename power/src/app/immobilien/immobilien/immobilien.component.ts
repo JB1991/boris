@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Inject, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { ResizeObserver } from '@juggle/resize-observer';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +23,11 @@ declare const require: any;
     styleUrls: ['./immobilien.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImmobilienComponent implements OnInit {
+export class ImmobilienComponent implements OnDestroy, AfterViewInit {
+
+    // echarts Components
+    @ViewChild('echartsMap') echartsMap: ElementRef;
+    @ViewChild('echartsChart') echartsChart: ElementRef;
 
     // Config URl
     configUrl = 'assets/data/cfg.json';
@@ -42,6 +47,14 @@ export class ImmobilienComponent implements OnInit {
     // URL
     urlIndex = null;
 
+    animationFrameID = [null, null];
+    resizeSub = [null, null];
+
+    /**
+     * Constructor:
+     *
+     * @param http Inject HttpClient
+     */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -123,15 +136,53 @@ export class ImmobilienComponent implements OnInit {
      */
     chart_range = ImmobilienChartOptions.chartRange();
 
-    /**
-     * Init the Application.
-     */
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.initNipix();
+    ngAfterViewInit() {
+        if (!this.isBrowser) {
+            return;
+        }
+
+        if (this.echartsMap) {
+            this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
+            this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));
+
+            this.resizeSub[0] = new ResizeObserver(() => {
+                this.animationFrameID[0] = window.requestAnimationFrame(() => this.resize(0));
+            });
+            this.resizeSub[0].observe(this.echartsMap.nativeElement);
+        }
+
+        if (this.echartsChart) {
+            this.nipixRuntime.chart.obj = echarts.init(this.echartsChart.nativeElement);
+            this.nipixRuntime.chart.obj.on('click', this.chartClicked.bind(this));
+            this.nipixRuntime.chart.obj.on('datazoom', this.onDataZoom.bind(this));
+
+            this.resizeSub[1] = new ResizeObserver(() => {
+                this.animationFrameID[1] = window.requestAnimationFrame(() => this.resize(1));
+            });
+            this.resizeSub[1].observe(this.echartsChart.nativeElement);
+        }
+
+        this.initNipix();
+    }
+
+    resize(itm) {
+        switch (itm) {
+            case 0: this.nipixRuntime.map.obj.resize(); break;
+            case 1: this.nipixRuntime.chart.obj.resize(); break;
         }
     }
 
+    ngOnDestroy() {
+        if (this.resizeSub[0] && this.echartsMap) {
+            this.resizeSub[0].unobserve(this.echartsMap.nativeElement);
+            window.cancelAnimationFrame(this.animationFrameID[0]);
+        }
+
+        if (this.resizeSub[1] && this.echartsChart) {
+            this.resizeSub[1].unobserve(this.echartsChart.nativeElement);
+            window.cancelAnimationFrame(this.animationFrameID[1]);
+        }
+    }
     /**
      * Init the Application.
      * Load external Config File
@@ -408,6 +459,9 @@ export class ImmobilienComponent implements OnInit {
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
         this.nipixRuntime.state.mapWidth = 10000;
+
+        this.nipixRuntime.map.obj.setOption(this.nipixRuntime.map.options);
+
         // Update Map Selection; Wait a little time for browser to render
         /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         setTimeout(this.updateMapSelect.bind(this), 100);
@@ -417,27 +471,26 @@ export class ImmobilienComponent implements OnInit {
     /**
      * Handle the Change of an Selection in the Map
      */
-    onMapSelectChange(param) { // eslint-disable-line complexity
+    /* eslint-disable-next-line complexity */
+    onMapSelectChange(param) {
+        if (param.isFromClick === false) {
+            return;
+        }
 
         // Get List of selected items in map
-        let selectedlist = null;
-        if (param['type'] === 'mapselectchanged' && param['batch'] !== undefined && param['batch'] !== null) {
-            selectedlist = param['batch'][0]['selected'];
-        } else {
-            selectedlist = param['selected'];
+        const sdata = this.nipixRuntime.map.options.series[0]['data'];
+        const selectedlist = [];
+        if (param['type'] === 'selectchanged' &&
+            (param['fromAction'] === 'select' ||
+             param['fromAction'] === 'unselect') &&
+                 param['selected'].length === 1) {
+
+            param['selected'][0]['dataIndex'].forEach(function(index) {
+                selectedlist.push(sdata[index]['name']);
+            });
         }
 
-
-        // Get keys of selected items
-        const ok = Object.keys(selectedlist);
-
-        // Iterate over all selected Regions and collect them in an array
-        const nval = [];
-        for (let i = 0; i < ok.length; i++) {
-            if (selectedlist[ok[i]] === true) {
-                nval.push(ok[i]);
-            }
-        }
+        const nval = selectedlist;
 
         // Adds the current selection state to the draw item
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -469,6 +522,7 @@ export class ImmobilienComponent implements OnInit {
      * @param typ
      */
     toggleMapSelect(category, name, typ = 'undefined') {
+        // console.log('toggle', category, name, typ);
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i].name === category) {
@@ -697,14 +751,14 @@ export class ImmobilienComponent implements OnInit {
             'datastart': range_start,
             'dataend': range_end
         });
-        chartOptionMerge.series.push(this.chart_range);
+        (chartOptionMerge.series as any).push(this.chart_range);
 
         // Set Options to chart
         if (this.nipixRuntime.chart.obj !== null) {
             this.nipixRuntime.chart.obj.setOption(
                 Object.assign(this.nipixRuntime.chart.options, chartOptionMerge),
                 true,
-                true
+                false
             );
         }
 
@@ -933,6 +987,8 @@ export class ImmobilienComponent implements OnInit {
         if ((id === 99) && (event === true)) {
             this.onPanelChangeWoMa();
         }
+
+        this.cdr.detectChanges();
 
     }
 

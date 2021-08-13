@@ -87,18 +87,19 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
         component = new ImmobilienExport.ImmobilienExport(niStatic, niRuntime);
 
-        spyOn(echarts, 'getMap').and.callFake(
-            function (name) {
-                return {
-                    'geoJson': {
-                        'features': [
+        echarts.registerMap('NDS', {
+            'geoJson': {
+                'features': [
 
-                            { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {} }
+                    { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {} }
 
-                        ]
-                    }
-                };
+                ]
+            },
+            'geoJSON': {
+            },
+            'specialAreas': {
             }
+        } as any
         );
 
         spyOn(ImmobilienHelper, 'downloadFile').and.callFake(
@@ -246,7 +247,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         niRuntime.state.activeSelection = 99;
         niRuntime.state.selectedMyRegion = 'foo';
         component.exportGeoJSON();
-        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({ 'features': [] }), 'Wohnungsmarktregionen.geojson');
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({ 'features': [null] }), 'Wohnungsmarktregionen.geojson');
     });
 
     it('exportGeoJSON works', function () {

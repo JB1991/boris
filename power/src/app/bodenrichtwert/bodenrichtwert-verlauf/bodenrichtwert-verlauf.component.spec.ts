@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 import { SimpleChanges } from '@angular/core';
-import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { LOCALE_ID } from '@angular/core';
 import { DecimalPipe, registerLocaleData } from '@angular/common';
@@ -28,7 +27,6 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
                 DecimalPipe],
             imports: [
                 HttpClientTestingModule,
-                NgxEchartsModule.forRoot({ echarts: echarts }),
             ]
         }).compileComponents();
     }));
@@ -55,21 +53,19 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('clearChart should delete the chart data', () => {
-        component.chartOption.series = ['bar'];
-        component.chartOption.legend.data = ['foo'];
-        component.chartOption.legend.formatter = ['pluto'];
-        component.chartOption.legend.textStyle.rich = 'toto';
-        component.chartOption.grid.top = '20%';
+        (component.chartOption.series as Array<string>) = ['bar'];
+        component.chartOption.legend['data'] = ['foo'];
+        component.chartOption.legend['formatter'] = ['pluto'];
+        component.chartOption.legend['textStyle'].rich = 'toto';
         component.srTableData = ['tata'];
         component.srTableHeader = ['paperino'];
         component.clearChart();
-        expect(component.chartOption.legend.data.length).toBe(0);
-        expect(component.chartOption.series.length).toBe(0);
+        expect(component.chartOption.legend['data'].length).toBe(0);
+        expect(component.chartOption.series['length']).toBe(0);
         expect(component.srTableHeader.length).toBe(0);
         expect(component.srTableData.length).toBe(0);
-        expect(component.chartOption.legend.formatter).toBe('');
-        expect(component.chartOption.legend.textStyle.rich).toBe('');
-        expect(component.chartOption.grid.top).toBe('10%');
+        expect(component.chartOption.legend['formatter']).toBe('');
+        expect(component.chartOption.legend['textStyle'].rich).toBe('');
     });
 
     it('filterByStichtag should filter the features by Stichtag', () => {
@@ -117,30 +113,26 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('generateChart should insert data into chart options', () => {
-        component.echartsInstance = echarts.init(document.getElementById('eChartInstance'));
+        component.echartsInstance = echarts.init(document.createElement('div'));
         component.echartsInstance.setOption(component.chartOption);
-        expect(component.chartOption.legend.data.length).toBe(0);
-        expect(component.chartOption.series.length).toBe(0);
+        expect(component.chartOption.legend['data'].length).toBe(0);
+        expect(component.chartOption.series['length']).toBe(0);
         spyOn(component, 'getKeyValuePairs').and.callThrough();
         spyOn(component, 'getSeriesData').and.callThrough();
         spyOn(component, 'getVergOfSeries').and.callThrough();
         spyOn(component, 'deleteSeriesVergItems').and.callThrough();
         spyOn(component, 'createLegendLabel').and.callThrough();
         spyOn(component, 'setChartOptionsSeries').and.callThrough();
-        spyOn(component, 'copyLastItem').and.callThrough();
-        spyOn(component, 'fillGapWithinAYear').and.callThrough();
         spyOn(component, 'generateSrTable').and.callThrough();
         spyOn(component, 'setLegendFormat').and.callThrough();
         spyOn(component, 'setTextStyleOfLegend').and.callThrough();
         component.generateChart(features);
-        expect(component.chartOption.legend.data.length).toBe(1);
-        expect(component.chartOption.series.length).toBe(2);
+        expect(component.chartOption.legend['data'].length).toBe(1);
+        expect(component.chartOption.series['length']).toBe(1);
         expect(typeof 'component.chartOption.serie[8].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[6].brw').toBe('string');
-        expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(2);
-        expect(component.copyLastItem).toHaveBeenCalledTimes(1);
-        expect(component.fillGapWithinAYear).toHaveBeenCalledTimes(1);
+        expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(1);
         expect(component.getKeyValuePairs).toHaveBeenCalledTimes(1);
         expect(component.getSeriesData).toHaveBeenCalledTimes(1);
         expect(component.getVergOfSeries).toHaveBeenCalledTimes(1);
@@ -156,12 +148,12 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.groupBy).toHaveBeenCalledTimes(1);
     });
 
-    it('onChartInit should set the echartsInstance', () => {
+    /* it('onChartInit should set the echartsInstance', () => {
         const echartsInstance = echarts.init(document.getElementById('eChartInstance'));
         component.onChartInit(echartsInstance);
         expect(component.echartsInstance).toEqual(echartsInstance);
 
-    });
+    }); */
 
     it('getSeriesData should transform and filter features into series-array', () => {
         spyOn(component, 'deepCopy').and.callThrough();
@@ -177,27 +169,26 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(result.length).toBe(4);
     });
 
-    it('copyLastItem should copy the last item of the series', () => {
-        const modifiedSeries = component.copyLastItem(series);
-        expect(modifiedSeries[8].stag).toEqual('heute');
-        expect(modifiedSeries[8].nutzung).toEqual('Wohnbaufläche');
-        expect(modifiedSeries[8].brw).toEqual('8');
-        expect(modifiedSeries[8].verf).toEqual('EB');
-        expect(modifiedSeries[8].verg).toEqual('Entw');
-    });
-
     it('deleteSeriesVergItems should delete the data with verg and/or verf', () => {
-        component.deleteSeriesVergItems(deleteSeries);
-        expect(typeof (deleteSeries[3].brw)).toEqual('string');
-        expect(deleteSeries[3].verg).toEqual(null);
-        expect(deleteSeries[0].verg).toEqual(null);
-        expect(deleteSeries[0].brw).toEqual(null);
-        expect(deleteSeries[0].verf).toEqual(null);
-        expect(deleteSeries[0].nutzung).toEqual(null);
-        expect(deleteSeries[5].verg).toEqual(null);
-        expect(deleteSeries[5].brw).toEqual(null);
-        expect(deleteSeries[5].verf).toEqual(null);
-        expect(deleteSeries[5].nutzung).toEqual(null);
+        const deletedSeries = component.deleteSeriesVergItems(deleteSeries);
+        expect(deletedSeries[0].verg).toEqual(null);
+        expect(deletedSeries[0].brw).toEqual(null);
+        expect(deletedSeries[0].verf).toEqual(null);
+        expect(deletedSeries[0].nutzung).toEqual(null);
+
+        expect(deletedSeries[2].stag).toEqual('2014');
+        expect(deletedSeries[2].nutzung).toEqual('Wohnbaufläche');
+        expect(deletedSeries[2].verg).toEqual(null);
+        expect(deletedSeries[2].verf).toEqual(null);
+
+        expect(deletedSeries[3].stag).toEqual('2015');
+        expect(deletedSeries[3].brw).toEqual('4');
+        expect(typeof (deletedSeries[3].brw)).toEqual('string');
+        expect(deletedSeries[3].nutzung).toEqual(null);
+        expect(deletedSeries[3].verg).toEqual(null);
+
+        expect(deletedSeries.length).toEqual(4);
+
     });
 
     it('createLegendLabel should create the label of series', () => {
@@ -214,17 +205,11 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     it('setChartOptionsSeries should format the chart options for the series', () => {
         const label = 'Wohnbaufläche';
         component.setChartOptionsSeries(series, label);
-        expect(component.chartOption.series.length).toEqual(1);
+        expect(component.chartOption.series['length']).toEqual(1);
         expect(component.chartOption.series[0].data.length).toEqual(9);
         expect(component.chartOption.series[0].name).toEqual('Wohnbaufläche');
         expect(component.chartOption.series[0].type).toEqual('line');
         expect(component.chartOption.series[0].step).toEqual('end');
-    });
-
-    it('fillGapWithinAYear should fill gaps in graph', () => {
-        const serieFilledGap = component.fillGapWithinAYear(series);
-        expect(typeof (serieFilledGap[4].brw)).toEqual('string');
-        expect(serieFilledGap[4].forwarded).toEqual(true);
     });
 
     it('generateSrTable should create a table which inculdes the brw-data', () => {
