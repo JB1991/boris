@@ -199,6 +199,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         // }
     }
 
+    /**
+     *
+     */
     private changedTeilmarkt() {
         // update layer
         this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
@@ -214,6 +217,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         });
     }
 
+    /**
+     *
+     */
     private changedStichtag() {
         // update layer
         this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
@@ -229,6 +235,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         });
     }
 
+    /**
+     *
+     */
     private changedLatLng() {
         this.marker.setLngLat(this.latLng).addTo(this.map);
         if (this.expanded) {
@@ -236,6 +245,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         }
     }
 
+    /**
+     *
+     */
     private changedCollapsed() {
         this.map.resize();
         // resetMap only if details was expanded
@@ -710,8 +722,8 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             const features = this.dynamicLabellingService.dynamicLabelling(
                 this.map.queryRenderedFeatures(null, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
                 mapViewBound,
-                (f) => f.properties.objektidentifikator,
-                null,
+                f => f.properties.objektidentifikator,
+                f => '',
                 [],
                 []);
             landwirtschaftsSource.setData({
