@@ -3,6 +3,7 @@ import intersect from '@turf/intersect';
 import union from '@turf/union';
 import { Feature, Geometry } from 'geojson';
 import polylabel from 'polylabel';
+import pointInPolygon from '@turf/boolean-point-in-polygon'
 
 @Injectable({
     providedIn: 'root'
@@ -180,6 +181,10 @@ export class DynamicLabellingService {
         doNotDisplayGetter: (n: Feature) => string,
         doNotDisplay: string[],
         output: Array<Feature<Point>>): Array<Feature<Point>> {
+
+        if (output) {
+            output = output.filter(ft => pointInPolygon(ft.geometry.coordinates, bound));
+        }
 
         if (doNotDisplay) {
             input = input.filter((ft) => !doNotDisplay.includes(doNotDisplayGetter(ft)));
