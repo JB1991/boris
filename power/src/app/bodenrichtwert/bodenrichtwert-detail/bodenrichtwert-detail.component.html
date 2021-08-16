@@ -315,6 +315,25 @@
                        alt="Herausgegeben von"
                        title="Herausgegeben von"
                        i18n-title>{{ filteredFeatures[0]?.properties.gabe }}</a>
+                    <br><br>
+                    <a *ngIf="
+                       filteredFeatures[0] && teilmarkt.value.includes('B')"
+                       href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_bauland/"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       i18n-alt
+                       alt="Erläuterungen zur Bodenrichtwertkarte Bauland"
+                       title="Erläuterungen zur Bodenrichtwertkarte Bauland"
+                       i18n-title>Erläuterungen zur Bodenrichtwertkarte Bauland</a>
+                    <a *ngIf="
+                       filteredFeatures[0] && teilmarkt.value.includes('LF')"
+                       href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_landwirtschaft/"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       i18n-alt
+                       alt="Erläuterungen zur Bodenrichtwertkarte Landwirtschaft"
+                       title="Erläuterungen zur Bodenrichtwertkarte Landwirtschaft"
+                       i18n-title>Erläuterungen zur Bodenrichtwertkarte Landwirtschaft</a>
                 </dd>
             </dl>
         </div>
