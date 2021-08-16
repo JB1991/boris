@@ -200,7 +200,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     }
 
     /**
-     *
+     * changedTeilmarkt
      */
     private changedTeilmarkt() {
         // update layer
@@ -218,7 +218,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     }
 
     /**
-     *
+     * changedStichtag
      */
     private changedStichtag() {
         // update layer
@@ -236,7 +236,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     }
 
     /**
-     *
+     * changedLatLng
      */
     private changedLatLng() {
         this.marker.setLngLat(this.latLng).addTo(this.map);
@@ -246,7 +246,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     }
 
     /**
-     *
+     * changedCollapsed
      */
     private changedCollapsed() {
         this.map.resize();
@@ -288,7 +288,6 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /* istanbul ignore next */
     /**
      * loadMap initializes the Maplibre GL map object
-     * @param event map
      */
     public loadMap() {
         this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
