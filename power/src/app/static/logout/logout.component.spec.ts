@@ -37,7 +37,7 @@ describe('Static.Logout.LogoutComponent', () => {
 
         redirectspy = spyOn(component, 'redirect');
         localStorage.removeItem('user');
-        component.auth.user = null;
+        component.auth.user = undefined;
         fixture.detectChanges();
     }));
 

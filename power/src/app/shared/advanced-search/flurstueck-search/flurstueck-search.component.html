@@ -27,7 +27,7 @@
                    aria-placeholder="Bitte Gemarkung eingeben"
                    i18n-aria-placeholder
                    #gemarkung="ngModel"
-                   [(ngModel)]="fsk.gemarkung"
+                   [(ngModel)]="fsk!.gemarkung"
                    [ngbTypeahead]="search"
                    [inputFormatter]="inputFormatter"
                    [resultTemplate]="results"
@@ -52,7 +52,7 @@
                    i18n>Flur</label>
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="fsk.flur"
+                   [(ngModel)]="fsk!.flur"
                    [class]="!flur.valid ? 'is-invalid' : 'is-valid'"
                    #flur="ngModel"
                    name="flur"
@@ -71,7 +71,7 @@
         <div class="col-6">
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="fsk.zaehler"
+                   [(ngModel)]="fsk!.zaehler"
                    [class]="!zaehler.valid ? 'is-invalid' : 'is-valid'"
                    name="zaehler"
                    #zaehler="ngModel"
@@ -84,7 +84,7 @@
         <div class="col-6">
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="fsk.nenner"
+                   [(ngModel)]="fsk!.nenner"
                    #nenner="ngModel"
                    name="nenner"
                    i18n-placeholder

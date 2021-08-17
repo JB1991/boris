@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 
 /**
+ * AlertMessage represents an alert message
+ */
+export type AlertMessage = {
+    type: 'success' | 'danger' | 'info' | 'warning';
+    title: string;
+    text: string;
+    timeout: number;
+    date: Date;
+};
+
+/**
  * AlertsService allows to add new alert messages to the view
  */
 @Injectable({
     providedIn: 'root'
 })
 export class AlertsService {
-    public alertslist = [];
+    public alertslist = new Array<AlertMessage>();
 
     /**
      * Adds new alert to view

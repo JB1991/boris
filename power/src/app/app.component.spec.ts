@@ -76,7 +76,7 @@ describe('AppComponent', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    const answerHTTPRequest = (url, method, body, opts?) => {
+    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any) => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
@@ -85,7 +85,7 @@ describe('AppComponent', () => {
         request.flush(deepCopy(body), opts);
     };
 
-    const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+    const deepCopy = (data: any): any => JSON.parse(JSON.stringify(data));
 
     afterEach(() => {
         // Verify that no requests are remaining

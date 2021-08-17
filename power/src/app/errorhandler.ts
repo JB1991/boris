@@ -11,7 +11,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
     public errorList: Error[] = [];
-    public container: HTMLDivElement;
+    public container?: HTMLDivElement;
 
     constructor(@Inject(LOCALE_ID) public locale: string,
         public alerts: AlertsService,
@@ -72,7 +72,6 @@ export class GlobalErrorHandler implements ErrorHandler {
         }
         text.innerText += $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
         this.container.appendChild(text);
-
 
         const mail = document.createElement('div');
         mail.innerText = $localize`Kontakt:` + ' incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';

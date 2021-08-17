@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrat
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
-import { Feature } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
@@ -12,8 +12,11 @@ import { AlertsService } from '../alerts/alerts.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeosearchComponent implements OnChanges {
-
-    @ViewChild('geosearchInput') geosearchElement: ElementRef;
+    @ViewChild('geosearchInput') geosearchElement?: ElementRef;
+    @Output() selectResult = new EventEmitter();
+    @Input() address?: string;
+    public model?: Feature;
+    public loading = false;
 
     constructor(
         public geosearchService: GeosearchService,
@@ -21,27 +24,22 @@ export class GeosearchComponent implements OnChanges {
         private cdr: ChangeDetectorRef
     ) { }
 
-    @Output() selectResult = new EventEmitter();
-
-    @Input() address: string;
-
-    public model: Feature;
-
-    public loading = false;
-
     /**
      * Return the text property
      * @param feature GeoJSON feature
-     * @returns Text
+     * @returns text property of the feature
      */
-    public inputFormatter = (feature: Feature) => feature.properties.text;
+    public inputFormatter = (feature: Feature): string => {
+        if (feature.properties) {
+            return feature.properties['text'];
+        }
+        return '';
+    };
 
-    /**
-     * Initialization of the search form
-     */
+    /** @inheritdoc */
     public ngOnChanges(changes: SimpleChanges) {
-        if (changes.address) {
-            this.model = changes.address.currentValue;
+        if (changes['address']) {
+            this.model = changes['address'].currentValue;
         }
     }
 
@@ -52,7 +50,7 @@ export class GeosearchComponent implements OnChanges {
     public setFocus() {
         // eslint-disable-next-line
         setTimeout(() => {
-            this.geosearchElement.nativeElement.focus();
+            this.geosearchElement?.nativeElement.focus();
         });
     }
 
@@ -64,6 +62,14 @@ export class GeosearchComponent implements OnChanges {
         if (event.target.value) {
             this.loading = true;
         }
+    }
+
+    /**
+     * Selects text of input element
+     * @param event input event
+     */
+    public onFocus(event: any) {
+        (event.target as HTMLInputElement).select();
     }
 
     /**
@@ -79,11 +85,11 @@ export class GeosearchComponent implements OnChanges {
                 this.geosearchService.search(term).pipe(
                     catchError(() => {
                         this.alerts.NewAlert('danger', $localize`Angegebene Adresse konnte nicht gefunden werden.`, $localize`Adresse` + ': ' + term);
-                        return of([]);
+                        return of({} as any);
                     })
                 )
             ),
-            map(result => {
+            map((result: FeatureCollection) => {
                 this.loading = false;
                 this.cdr.detectChanges();
                 return result['features'];

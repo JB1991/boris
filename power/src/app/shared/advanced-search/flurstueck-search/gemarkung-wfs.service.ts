@@ -86,8 +86,8 @@ export class GemarkungWfsService {
 
         const regNumbers = new RegExp(/\d+/g);
         const regWords = new RegExp(/[a-zA-Z_äÄöÖüÜß]+/g);
-        const numbers: Array<string> = searchText.match(regNumbers);
-        const words: Array<string> = searchText.match(regWords);
+        const numbers = searchText.match(regNumbers);
+        const words = searchText.match(regWords);
 
         let filterNumbers = '';
         numbers?.forEach(n => {

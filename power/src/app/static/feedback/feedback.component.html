@@ -189,14 +189,14 @@
                 <div class="card w-100 mb-2 bg-light">
                     <div class="card-body">
                         <h3 class="card-title h5 d-inline">
-                            {{ filterTitle(ticket.getElementsByTagName('summary').item(0).textContent) }}
+                            {{ filterTitle(ticket.getElementsByTagName('summary').item(0)?.textContent) }}
                         </h3>
                         &nbsp;
                         <h4 class="card-subtitle h6 mb-2 text-muted d-inline">
-                            {{ ticket.getElementsByTagName('updated').item(0).textContent | date:'short' }}
+                            {{ ticket.getElementsByTagName('updated').item(0)?.textContent | date:'short' }}
                         </h4>
                         <p class="card-text lineb">
-                            {{ filterBody(ticket.getElementsByTagName('description').item(0).textContent) }}
+                            {{ filterBody(ticket.getElementsByTagName('description').item(0)?.textContent) }}
                         </p>
                     </div>
                 </div>

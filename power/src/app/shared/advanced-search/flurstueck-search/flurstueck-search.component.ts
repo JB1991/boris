@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
 
 export class FlurstueckSearchComponent {
 
-    public fsk: Flurstueckskennzeichen;
+    public fsk?: Flurstueckskennzeichen;
 
     public selected = false;
 
@@ -27,7 +27,7 @@ export class FlurstueckSearchComponent {
 
     @Output() selectGemarkungResult = new EventEmitter();
 
-    @Input() address: string;
+    @Input() address?: string;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
@@ -35,15 +35,23 @@ export class FlurstueckSearchComponent {
         public gemarkungService: GemarkungWfsService,
         private cdr: ChangeDetectorRef
     ) {
-        this.fsk = {};
-        this.selected = false;
+        this.reset();
     }
 
     /**
      * Reset flurstueckskennzeichen onClose
      */
     public reset() {
-        this.fsk = {};
+        this.fsk = {
+            gemarkung: {
+                type: 'Feature',
+                geometry: {} as any,
+                properties: {}
+            },
+            flur: '',
+            nenner: '',
+            zaehler: ''
+        };
         this.selected = false;
     }
 
@@ -60,12 +68,16 @@ export class FlurstueckSearchComponent {
     /**
      * Return the text property
      * @param feature GeoJSON feature
-     * @returns Text
+     * @returns formatted input
      */
-    public inputFormatter = (feature: Feature) =>
-        feature.properties.gemarkung + ' (' +
-        feature.properties.gemarkungsschluessel + ')' +
-        ' - ' + feature.properties.gemeinde;
+    public inputFormatter = (feature: Feature): string => {
+        if (feature.properties && feature.properties['gemarkung']) {
+            return feature.properties['gemarkung'] + ' (' +
+                feature.properties['gemarkungsschluessel'] + ')' +
+                ' - ' + feature.properties['gemeinde'];
+        }
+        return '';
+    };
 
     /**
      * search for flurstueck on form submit
@@ -74,16 +86,18 @@ export class FlurstueckSearchComponent {
     public searchFlurstueck(value: Flurstueckskennzeichen) {
         this.fsk = value;
 
-        this.alkisWfsService.getFlurstueckByFsk(
-            this.fsk.gemarkung.properties.gemarkungsschluessel,
-            this.fsk.flur,
-            this.fsk.zaehler,
-            this.fsk.nenner
-        ).subscribe(
-            (res: FeatureCollection) => this.handleHttpResponse(res),
-            (err: HttpErrorResponse) => this.handleHttpError(err)
-        );
-        this.closing.emit(true);
+        if (this.fsk && this.fsk.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
+            this.alkisWfsService.getFlurstueckByFsk(
+                this.fsk.gemarkung.properties['gemarkungsschluessel'],
+                this.fsk.flur,
+                this.fsk.zaehler,
+                this.fsk?.nenner
+            ).subscribe(
+                (res: FeatureCollection) => this.handleHttpResponse(res),
+                (err: HttpErrorResponse) => this.handleHttpError(err)
+            );
+            this.closing.emit(true);
+        }
     }
 
     /**
@@ -128,11 +142,11 @@ export class FlurstueckSearchComponent {
                 this.gemarkungService.getGemarkungBySearchText(term).pipe(
                     catchError((error) => {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
-                        return of([]);
+                        return of([] as any);
                     })
                 )
             ),
-            map(result => {
+            map((result: FeatureCollection) => {
                 this.loading = false;
                 this.cdr.detectChanges();
                 return result['features'];
@@ -154,12 +168,15 @@ export class FlurstueckSearchComponent {
      * @param key pressed key
      */
     public onEmpty(key: any) {
-        if ((key === 'Backspace' || key === 'Delete') && this.fsk.gemarkung) {
+        if ((key === 'Backspace' || key === 'Delete') && this.fsk?.gemarkung) {
             this.selected = false;
         }
     }
 }
 
+/**
+ * Type for Flurstueckskennzeichen
+ */
 export interface Flurstueckskennzeichen {
     gemarkung?: Feature;
     flur?: string;

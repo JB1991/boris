@@ -47,8 +47,13 @@ export class AlkisWfsService {
      * @param flur flurnummer
      * @param zaehler Flurstücksnummer - Zähler
      * @param nenner Flurstücksnummer - Nenner
+     * @returns flurstueck
      */
-    public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
+    public getFlurstueckByFsk(
+        gemarkung: string,
+        flur: string,
+        zaehler: string,
+        nenner?: string): Observable<FeatureCollection> {
         let fsk = '03' // laenderschluessel für NDS
             + gemarkung.padStart(4, '0')
             + flur.padStart(3, '0')

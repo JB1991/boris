@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } 
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
@@ -17,17 +17,17 @@ import area from '@turf/area';
 })
 export class BodenrichwertnummerSearchComponent {
 
-    @ViewChild('advancedSearchModal') public modal: ModalminiComponent;
+    @ViewChild('advancedSearchModal') public modal?: ModalminiComponent;
 
-    @Input() stichtag: string;
+    @Input() stichtag?: string;
 
-    @Input() teilmarkt: Teilmarkt;
+    @Input() teilmarkt?: Teilmarkt;
 
     @Output() bodenrichwertChange = new EventEmitter<FeatureCollection>();
 
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
 
-    public brwNummer: Feature;
+    public brwNummer: Feature | undefined;
 
     public loading = false;
 
@@ -64,7 +64,7 @@ export class BodenrichwertnummerSearchComponent {
      * @returns inputFormatter
      */
     public inputFormatter = (feature: Feature) =>
-        feature.properties.wnum + ' - ' + feature.properties.brzname;
+        feature.properties?.['wnum'] + ' - ' + feature.properties?.['brzname'];
 
     /**
      * search for selected brw-nummer on form submit
@@ -72,8 +72,8 @@ export class BodenrichwertnummerSearchComponent {
      */
     public searchBodenrichtwert(ft: Feature) {
         const latLng = this.pointOnPolygon(ft);
-        if (latLng) {
-            this.bodenrichtwertService.getFeatureByLatLonEntw(latLng[1], latLng[0], this.teilmarkt.value).subscribe(
+        if (latLng && this.teilmarkt) {
+            this.bodenrichtwertService.getFeatureByLatLonEntw(latLng[1], latLng[0], this.teilmarkt?.value).subscribe(
                 (res: FeatureCollection) => this.handleHttpResponse(res),
                 (err: HttpErrorResponse) => this.handleHttpError(err)
             );
@@ -99,8 +99,13 @@ export class BodenrichwertnummerSearchComponent {
                     coordinates: f,
                 })).sort((i, j) => area(i) - area(j)).shift();
 
+                if (!p) {
+                    throw new Error('Something failed');
+                }
                 point = polylabel(p.coordinates, 0.0001, false);
-                break
+                break;
+            default:
+                throw new Error('Unknown geometry');
         }
         return point;
     }
@@ -147,7 +152,7 @@ export class BodenrichwertnummerSearchComponent {
                 this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag, this.teilmarkt).pipe(
                     catchError((error) => {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
-                        return of([]);
+                        return of([] as any);
                     })
                 )
             ),
@@ -160,12 +165,13 @@ export class BodenrichwertnummerSearchComponent {
      * @param fts result feature collection
      * @returns array with features
      */
-    public checkFeatures(fts: FeatureCollection) {
+    public checkFeatures(fts: FeatureCollection): Feature<Geometry, GeoJsonProperties>[] {
         this.loading = false;
         // manual change detection necessary
         this.cdr.detectChanges();
         if (fts.features?.length === 0) {
             this.alerts.NewAlert('info', $localize`Keine Ergebnisse`, $localize`Es konnte leider keine Bodenrichtwertzone gefunden werden.`);
+            return [];
         } else {
             return fts.features;
         }

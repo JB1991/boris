@@ -33,7 +33,7 @@ export class LogoutComponent implements OnInit {
 
             // delete localStorage
             localStorage.removeItem('user');
-            this.auth.user = null;
+            this.auth.user = undefined;
 
             // redirect to logout page
             this.redirect(environment.auth.url + 'logout' +

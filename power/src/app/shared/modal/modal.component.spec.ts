@@ -24,18 +24,6 @@ describe('Shared.ModalComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should toggle', () => {
-        component.focusedElement = document.createElement('div');
-        component.div.nativeElement.appendChild(document.createElement('div'));
-        component.div.nativeElement.appendChild(document.createElement('div'));
-
-        expect(component.isVisible()).toBeFalse();
-        component.toggle();
-        expect(component.isVisible()).toBeTrue();
-        component.toggle();
-        expect(component.isVisible()).toBeFalse();
-    });
-
     it('should close', () => {
         // esc key
         component.isOpen = true;
@@ -61,7 +49,7 @@ describe('Shared.ModalComponent', () => {
 
         // esc key
         spyOn(document, 'getElementsByClassName').and.returnValue(document.getElementsByTagName('fergfegrehewg'));
-        component.onKeydownHandler(null);
+        component.onKeydownHandler({} as any);
         expect(component.isVisible()).toBeFalse();
     });
 });

@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
 
             // failed to authenticate
             localStorage.removeItem('user');
-            this.auth.user = null;
+            this.auth.user = undefined;
             console.error('Authentication failed');
             this.alerts.NewAlert('danger', $localize`Login fehlgeschlagen`,
                 $localize`Es konnte kein Token vom Endpunkt bezogen werden.`);

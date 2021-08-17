@@ -20,12 +20,12 @@ let id = 0;
 })
 export class TagboxComponent {
     @Input() public placeholder = '';
-    @Input() public eid: string;
-    @Input() public dataList: string[];
-    @Input() public tagList: string[];
+    @Input() public eid = '';
+    @Input() public dataList = new Array<string>();
+    @Input() public tagList = new Array<string>();
     @Output() public tagListChange = new EventEmitter<string[]>();
     @Input() public editable = true;
-    @Input() public max: number;
+    @Input() public max = 200;
     public tagInput = '';
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }

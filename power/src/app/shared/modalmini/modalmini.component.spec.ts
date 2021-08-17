@@ -26,18 +26,6 @@ describe('Shared.ModalminiComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should toggle', () => {
-        component.focusedElement = document.createElement('div');
-        component.div.nativeElement.appendChild(document.createElement('div'));
-        component.div.nativeElement.appendChild(document.createElement('div'));
-
-        expect(component.isVisible()).toBeFalse();
-        component.toggle();
-        expect(component.isVisible()).toBeTrue();
-        component.toggle();
-        expect(component.isVisible()).toBeFalse();
-    });
-
     it('should close', () => {
         // ngOnDestroy
         component.isOpen = true;

@@ -12,9 +12,9 @@ import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search
 })
 export class AdvancedSearchComponent {
 
-    @ViewChild('advancedSearchModal') public modal: ModalminiComponent;
-    @ViewChild('flurstueckForm') public flurstueckForm: FlurstueckSearchComponent;
-    @ViewChild('bodenrichtwertForm') public bodenrichtwertForm: BodenrichwertnummerSearchComponent;
+    @ViewChild('advancedSearchModal') public modal?: ModalminiComponent;
+    @ViewChild('flurstueckForm') public flurstueckForm?: FlurstueckSearchComponent;
+    @ViewChild('bodenrichtwertForm') public bodenrichtwertForm?: BodenrichwertnummerSearchComponent;
 
     @Output() flurstueckChange = new EventEmitter<FeatureCollection>();
     @Output() bodenrichtwertChange = new EventEmitter<FeatureCollection>();
@@ -22,8 +22,8 @@ export class AdvancedSearchComponent {
     // public title = $localize`Erweiterte Suche`;
 
     @Input() title = $localize`Erweiterte Suche`;
-    @Input() stichtag: string;
-    @Input() teilmarkt: Teilmarkt;
+    @Input() stichtag?: string;
+    @Input() teilmarkt?: Teilmarkt;
 
     @Input() flurstueckSearchActive = true;
     @Input() bodenrichtwertSearchActive = true;
@@ -52,7 +52,7 @@ export class AdvancedSearchComponent {
      * closing closes the modal
      */
     public closing() {
-        this.modal.close();
+        this.modal?.close();
     }
 
     /**
@@ -60,10 +60,10 @@ export class AdvancedSearchComponent {
      */
     public onClose() {
         if (this.flurstueckSearchActive) {
-            this.flurstueckForm.reset();
+            this.flurstueckForm?.reset();
         }
         if (this.bodenrichtwertSearchActive) {
-            this.bodenrichtwertForm.reset();
+            this.bodenrichtwertForm?.reset();
         }
     }
 }

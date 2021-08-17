@@ -19,10 +19,10 @@ let id = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent implements OnDestroy {
-    @ViewChild('mymodal') public div: ElementRef;
+    @ViewChild('mymodal') public div?: ElementRef;
     @Input() public checkInvalid = false;
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
-    public focusedElement: HTMLElement;
+    public focusedElement?: HTMLElement;
     public isOpen = false;
     public title = '';
 
@@ -57,17 +57,19 @@ export class ModalComponent implements OnDestroy {
      * Opens modal
      * @param title Title to display
      */
-    public open(title?: string): void {
+    public open(title: string): void {
         // open modal
         this.title = title;
         this.isOpen = true;
         document.body.classList.add('overflow-hidden');
-        this.div.nativeElement.style.display = 'block';
+        if (this.div) {
+            this.div.nativeElement.style.display = 'block';
+        }
         this.cdr.detectChanges();
 
         // focus
         this.focusedElement = document.activeElement as HTMLElement;
-        this.div.nativeElement.children[2].focus();
+        this.div?.nativeElement.children[2].focus();
     }
 
     /**
@@ -80,7 +82,7 @@ export class ModalComponent implements OnDestroy {
 
         // dont close if invalid inputs exists
         /* istanbul ignore next */
-        if (this.checkInvalid && this.div.nativeElement.getElementsByClassName('is-invalid').length > 0) {
+        if (this.checkInvalid && this.div?.nativeElement.getElementsByClassName('is-invalid').length > 0) {
             this.closing.emit(false);
             return;
         }
@@ -91,7 +93,9 @@ export class ModalComponent implements OnDestroy {
         // close modal
         this.isOpen = false;
         document.body.classList.remove('overflow-hidden');
-        this.div.nativeElement.style.display = 'none';
+        if (this.div) {
+            this.div.nativeElement.style.display = 'none';
+        }
         this.cdr.detectChanges();
 
         // focus
@@ -106,22 +110,10 @@ export class ModalComponent implements OnDestroy {
      */
     public scrollToFooter(): void {
         const footer = document.getElementById('footer-' + this.uniqId);
-        footer.scrollIntoView({
+        footer?.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
         });
-    }
-
-    /**
-     * Toggles modal
-     * @param title Title to display
-     */
-    public toggle(title?: string): void {
-        if (this.isOpen) {
-            this.close();
-        } else {
-            this.open(title);
-        }
     }
 
     /**

@@ -56,7 +56,7 @@ describe('Static.Start.StartComponent', () => {
     });
 
     it('should order cards', () => {
-        component.cardorder = {};
+        component.cardorder = [];
         component.getCardOrder('A');
         component.getCardOrder('A');
         component.getCardOrder('B');

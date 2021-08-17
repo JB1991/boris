@@ -25,12 +25,12 @@ describe('Shared.Auth.AuthService', () => {
         spyOn(console, 'error');
         spyOn(service.router, 'navigate');
         localStorage.removeItem('user');
-        service.user = null;
+        service.user = undefined;
     }));
 
     it('should be created', () => {
         expect(service).toBeTruthy();
-        expect(service.getUser()).toBeNull();
+        expect(service.getUser()).toBeUndefined();
     });
 
     it('should getBearer correct', () => {
@@ -40,7 +40,7 @@ describe('Shared.Auth.AuthService', () => {
 
         // token missing
         service.user = { 'expires': new Date(), 'token': {}, 'data': null };
-        expect(service.getBearer()).toBeNull();
+        expect(service.getBearer()).toBeUndefined();
     });
 
     it('should getHeaders correct', () => {
@@ -87,7 +87,7 @@ describe('Shared.Auth.AuthService', () => {
         expect(service.IsAuthenticated()).toBeFalse();
 
         // invalid user object
-        service.user = { 'expires': null, 'token': null, 'data': null };
+        service.user = { 'expires': undefined, 'token': null, 'data': null };
         expect(service.IsAuthenticated()).toBeFalse();
     });
 
@@ -105,7 +105,7 @@ describe('Shared.Auth.AuthService', () => {
     it('should not get token', (done) => {
         // get error
         service.KeycloakToken('abc').then(() => {
-            expect(service.getBearer()).toBeNull();
+            expect(service.getBearer()).toBeUndefined();
             done();
         });
 
@@ -115,7 +115,7 @@ describe('Shared.Auth.AuthService', () => {
     it('should not get token 2', (done) => {
         // get nothing
         service.KeycloakToken('abc').then(() => {
-            expect(service.getBearer()).toBeNull();
+            expect(service.getBearer()).toBeUndefined();
             done();
         });
 
@@ -125,7 +125,7 @@ describe('Shared.Auth.AuthService', () => {
     it('should not get token 3', (done) => {
         // get error status code
         service.KeycloakToken('abc').then(() => {
-            expect(service.getBearer()).toBeNull();
+            expect(service.getBearer()).toBeUndefined();
             done();
         });
 
@@ -253,7 +253,7 @@ describe('Shared.Auth.AuthService', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    const answerHTTPRequest = (url, method, body, opts?) => {
+    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any) => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
@@ -262,7 +262,7 @@ describe('Shared.Auth.AuthService', () => {
         request.flush(deepCopy(body), opts);
     };
 
-    const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+    const deepCopy = (data: any): any => JSON.parse(JSON.stringify(data));
 
     afterEach(() => {
         // Verify that no requests are remaining
@@ -270,7 +270,7 @@ describe('Shared.Auth.AuthService', () => {
 
         // clear storage
         localStorage.removeItem('user');
-        service.user = null;
+        service.user = undefined;
         environment.production = false;
     });
 });

@@ -13,8 +13,8 @@ import { environment } from '@env/environment';
 })
 export class StartComponent {
     public config = environment.config;
-    public cardorder = {};
-    public pin: string;
+    public cardorder = new Array<string>();
+    public pin = '';
 
     constructor(
         public router: Router,
@@ -54,10 +54,10 @@ export class StartComponent {
      * @returns True if card should be left
      */
     public getCardOrder(module: string): boolean {
-        if (typeof this.cardorder[module] !== 'undefined') {
-            return this.cardorder[module];
+        if (!this.cardorder.includes(module)) {
+            this.cardorder.push(module);
         }
-        this.cardorder[module] = Object.keys(this.cardorder).length % 2 === 1;
+        return this.cardorder.indexOf(module) % 2 === 1;
     }
 
     /**
@@ -65,7 +65,7 @@ export class StartComponent {
      * @param id Element id
      */
     public scrollToElement(id: string): void {
-        document.getElementById(id).scrollIntoView();
+        document.getElementById(id)?.scrollIntoView();
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

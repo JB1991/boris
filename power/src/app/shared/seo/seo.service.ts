@@ -108,7 +108,8 @@ export class SEOService {
      * replacement tag.
      * @returns The modified element.
      */
-    public updateTag = (tag: MetaDefinition, selector?: string): HTMLMetaElement => this.meta.updateTag(tag, selector);
+    public updateTag = (tag: MetaDefinition, selector?: string): HTMLMetaElement | null =>
+        this.meta.updateTag(tag, selector);
 
     /**
      * This method sets the robots meta tag, to allow searchengines index current page

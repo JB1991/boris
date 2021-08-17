@@ -406,7 +406,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         seriesVergValues: Array<SeriesItem>, idx: number): Array<SeriesItem> {
         // series changes from a verg to normal
         if (idx < (series.length - 1) && series[idx + 1].brw !== null &&
-         (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
+            (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
             seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
             seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
             seriesVergValues = seriesVergValues.slice(0, idx + 2);
@@ -491,14 +491,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
                     series[i].nutzung = null;
                     // if series gets interrupted cause of a verg the two graphs should be connected
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                    series[i - 1].brw? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
+                    series[i - 1].brw ? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
                     series = series.slice(0, i + 1);
                     break;
                 }
             }
         }
         // if Verfahrensgrund is in the past
-        series.forEach(element => element.verg? [element.nutzung, element.brw, element.verg, element.verf] = [null, null, null, null] : '');
+        series.forEach(element => element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = [null, null, null, null] : '');
         return series;
     }
 
@@ -512,7 +512,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             name: label,
             type: 'line',
             step: 'end',
-            symbolSize:  function (value: any) {
+            symbolSize: function (value: any) {
                 if (typeof (value) === 'string') {
                     return 0;
                 } else {

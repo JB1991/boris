@@ -45,7 +45,7 @@ describe('Static.Login.LoginComponent', () => {
 
         redirectspy = spyOn(component, 'redirect');
         localStorage.removeItem('user');
-        component.auth.user = null;
+        component.auth.user = undefined;
         fixture.detectChanges();
     }));
 
@@ -110,7 +110,7 @@ describe('Static.Login.LoginComponent', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    const answerHTTPRequest = (url, method, body, opts?) => {
+    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any) => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
@@ -119,7 +119,7 @@ describe('Static.Login.LoginComponent', () => {
         request.flush(deepCopy(body), opts);
     };
 
-    const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+    const deepCopy = (data: any): any => JSON.parse(JSON.stringify(data));
 
     afterEach(waitForAsync(() => {
         // Verify that no requests are remaining
@@ -127,7 +127,7 @@ describe('Static.Login.LoginComponent', () => {
 
         // clear storage
         localStorage.removeItem('user');
-        component.auth.user = null;
+        component.auth.user = undefined;
     }));
 });
 

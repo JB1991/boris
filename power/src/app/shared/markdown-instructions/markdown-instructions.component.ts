@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'power-markdown-instructions',
@@ -8,7 +6,6 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
     styleUrls: ['./markdown-instructions.component.scss']
 })
 export class MarkdownInstructionsComponent {
-    @ViewChild('formattinghelpmodal') public modal: ModalminiComponent;
     public title = $localize`Hilfe zur Formatierung`;
 
     constructor() {

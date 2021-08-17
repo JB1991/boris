@@ -10,6 +10,14 @@ import { UpdateService } from './update.service';
 import { SEOService } from './shared/seo/seo.service';
 import { environment } from '@env/environment';
 
+/**
+ * FrontendVersion represents the frontend version
+ */
+export type FrontendVersion = {
+    version: string;
+    branch: string
+};
+
 @Component({
     selector: 'power-root',
     templateUrl: './app.component.html',
@@ -24,7 +32,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public showOfflineNotice = true;
     public showIENotice = false;
     public config = environment.config;
-    public appVersion = { version: 'dev', branch: 'local' };
+    public appVersion: FrontendVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
@@ -91,7 +99,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 .set('Pragma', 'no-cache')
                 .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
                 .set('If-Modified-Since', '0');
-            this.httpClient.get('/assets/version.json?cache-bust=' + Math.random(),
+            this.httpClient.get<FrontendVersion>('/assets/version.json?cache-bust=' + Math.random(),
                 { headers: header, responseType: 'json' }
             ).subscribe(data => {
                 if (data && data['version']) {

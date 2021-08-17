@@ -49,6 +49,7 @@ describe('AdvancedSearchComponent', () => {
         expect(component.flurstueckChange.emit).toHaveBeenCalledTimes(1);
     });
 
+    /*
     it('closing should close the modal', () => {
         spyOn(component.modal, 'close');
         component.closing();
@@ -62,4 +63,5 @@ describe('AdvancedSearchComponent', () => {
         expect(component.bodenrichtwertForm.reset).toHaveBeenCalledTimes(1);
         expect(component.flurstueckForm.reset).toHaveBeenCalledTimes(1);
     });
+    */
 });

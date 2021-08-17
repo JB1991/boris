@@ -17,7 +17,11 @@ export class GemarkungPipe implements PipeTransform {
      */
     transform(value: string): Observable<string> {
         return this.gemarkungService.getGemarkungByKey(value).pipe(
-            map(gemarkung => gemarkung['features'][0].properties.gemarkung)
+            map((gemarkung) => {
+                if (gemarkung['features'][0].properties) {
+                    return gemarkung['features'][0].properties['gemarkung']
+                }
+            })
         );
     }
 

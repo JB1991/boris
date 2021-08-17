@@ -11,8 +11,8 @@ import { environment } from '@env/environment';
     providedIn: 'root'
 })
 export class AuthService {
-    public user: User;
-    private timerHandle: NodeJS.Timeout;
+    public user?: User = undefined;
+    private timerHandle?: NodeJS.Timeout;
 
     constructor(@Inject(LOCALE_ID) public locale: string,
         public router: Router,
@@ -37,7 +37,11 @@ export class AuthService {
         }
 
         // load session from localstorage
-        this.user = JSON.parse(localStorage.getItem('user'));
+        const tmp = localStorage.getItem('user');
+        if (!tmp) {
+            return;
+        }
+        this.user = JSON.parse(tmp);
         // fix wrong timezone after parsing from json
         if (this.user && this.user.expires) {
             this.user.expires = new Date(this.user.expires);
@@ -68,7 +72,7 @@ export class AuthService {
 
                     // delete localStorage
                     localStorage.removeItem('user');
-                    this.user = null;
+                    this.user = undefined;
                     return;
                 }
                 // save data
@@ -85,14 +89,14 @@ export class AuthService {
 
                 // delete localStorage
                 localStorage.removeItem('user');
-                this.user = null;
+                this.user = undefined;
                 return;
             }
         }
 
         // delete localStorage
         localStorage.removeItem('user');
-        this.user = null;
+        this.user = undefined;
     }
 
     /**
@@ -104,7 +108,7 @@ export class AuthService {
             // clear refresh timeout
             if (this.timerHandle) {
                 clearTimeout(this.timerHandle);
-                this.timerHandle = null;
+                this.timerHandle = undefined;
             }
 
             // set refresh timeout
@@ -119,7 +123,7 @@ export class AuthService {
      * Returns user object
      * @returns User object
      */
-    public getUser(): User {
+    public getUser(): User | undefined {
         return this.user;
     }
 
@@ -127,10 +131,10 @@ export class AuthService {
      * Returns auth header
      * @returns Bearer token
      */
-    public getBearer(): string {
+    public getBearer(): string | undefined {
         // check token
         if (!this.user || !this.user.token || !this.user.token.access_token) {
-            return null;
+            return undefined;
         }
         return 'Bearer ' + this.user.token.access_token;
     }
@@ -205,7 +209,7 @@ export class AuthService {
      * @returns User info
      */
     public parseUserinfo(): any {
-        const b64 = this.user.token.access_token.split('.')[1];
+        const b64: string = this.user?.token.access_token.split('.')[1];
         return JSON.parse(atob(b64));
     }
 
@@ -237,7 +241,7 @@ export class AuthService {
      */
     private getRole(): Role {
         let role: Role = 'user';
-        if (this.user.data && this.user.data.roles && Array.isArray(this.user.data.roles)) {
+        if (this.user?.data && this.user?.data.roles && Array.isArray(this.user.data.roles)) {
             for (const r of this.user.data.roles) {
                 if (r === 'form_api_admin') {
                     return 'admin';
@@ -260,7 +264,7 @@ export class AuthService {
      * @returns Groups
      */
     private getGroups(): Array<string> {
-        if (this.user.data && this.user.data.groups && Array.isArray(this.user.data.groups)) {
+        if (this.user?.data && this.user?.data.groups && Array.isArray(this.user.data.groups)) {
             return this.user.data.groups;
         }
         return [];
@@ -283,7 +287,7 @@ export class AuthService {
         const userRole = this.getRole();
         const userGroups = this.getGroups();
 
-        if (owner === this.user.data.sub || userRole === 'admin') {
+        if (owner === this.user?.data.sub || userRole === 'admin') {
             return true;
         }
 
@@ -323,7 +327,7 @@ export type Role = 'user' | 'editor' | 'manager' | 'admin';
  * Represents userdata
  */
 export class User {
-    expires: Date;
+    expires?: Date;
     token: any;
     data: any;
 }

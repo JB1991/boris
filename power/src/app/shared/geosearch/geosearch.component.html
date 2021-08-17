@@ -25,7 +25,7 @@
                [resultTemplate]="results"
                [focusFirst]="false"
                (selectItem)="onSelect($event.item)"
-               (focus)="$event.target.select()"
+               (focus)="onFocus($event)"
                (input)="onInput($event)">
     </div>
 </div>

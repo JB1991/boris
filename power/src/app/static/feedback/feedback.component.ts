@@ -14,7 +14,7 @@ export class FeedbackComponent implements OnInit {
     public mail = 'incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
     public stateFilter = 'opened';
     public search = '';
-    public rss = [];
+    public rss = new Array<Element>();
     /* eslint-disable-next-line max-len */
     private reg_email = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/gm;
     private reg_servicedesk = /Service Desk (.*?): /gm;
@@ -66,7 +66,7 @@ export class FeedbackComponent implements OnInit {
             const di = parser.parseFromString(tmp.toString(), 'application/xml');
             const childs = di.getElementsByTagName('entry');
 
-            this.rss = [];
+            this.rss = new Array<Element>();
             for (let i = 0; i < childs.length; i++) {
                 this.rss.push(childs[i]);
             }
@@ -91,8 +91,11 @@ export class FeedbackComponent implements OnInit {
      * @param param Title
      * @returns Filtered title
      */
-    public filterTitle(param: string): string {
-        return param.replace(this.reg_servicedesk, '').replace(this.reg_email, '***@email');
+    public filterTitle(param: string | null | undefined): string {
+        if (param) {
+            return param.replace(this.reg_servicedesk, '').replace(this.reg_email, '***@email');
+        }
+        return '';
     }
 
     /**
@@ -100,8 +103,11 @@ export class FeedbackComponent implements OnInit {
      * @param param Title
      * @returns Filtered body
      */
-    public filterBody(param: string): string {
-        return param.replace(this.reg_email, '***@email').replace(this.reg_tel, '***');
+    public filterBody(param: string | null | undefined): string {
+        if (param) {
+            return param.replace(this.reg_email, '***@email').replace(this.reg_tel, '***');
+        }
+        return '';
     }
 
     /* istanbul ignore next */

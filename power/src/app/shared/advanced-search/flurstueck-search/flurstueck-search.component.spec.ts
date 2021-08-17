@@ -65,7 +65,16 @@ describe('FlurstueckSearchComponent', () => {
         component.fsk = JSON.parse(JSON.stringify(fsk));
         component.reset();
         expect(component.selected).toBeFalse();
-        expect(component.fsk).toEqual({});
+        expect(component.fsk).toEqual({
+            gemarkung: {
+                type: 'Feature',
+                geometry: {} as any,
+                properties: {}
+            },
+            flur: '',
+            nenner: '',
+            zaehler: ''
+        });
     });
 
     it('searchFlurstueck should successfully call alkisWfsService', () => {
