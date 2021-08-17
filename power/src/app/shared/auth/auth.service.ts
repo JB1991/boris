@@ -64,10 +64,10 @@ export class AuthService {
 
             try {
                 // post login data
-                const data = await this.httpClient.post(environment.auth.url + 'token', body,
+                const data = await this.httpClient.post<JWTToken | JWTError>(environment.auth.url + 'token', body,
                     this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
                 // check for error
-                if (!data || data['error']) {
+                if (!data || (data as JWTError).error) {
                     console.error('Could not refresh: ' + data);
 
                     // delete localStorage
@@ -77,8 +77,8 @@ export class AuthService {
                 }
                 // save data
                 this.user.expires = new Date();
-                this.user.expires.setSeconds(this.user.expires.getSeconds() + (data['expires_in'] / 2));
-                this.user.token = data;
+                this.user.expires.setSeconds(this.user.expires.getSeconds() + ((data as JWTToken).expires_in / 2));
+                this.user.token = data as JWTToken;
                 this.user.data = this.parseUserinfo();
                 localStorage.setItem('user', JSON.stringify(this.user));
                 this.sessionCheck();
@@ -146,7 +146,7 @@ export class AuthService {
      * @param auth True to send authoriziation
      * @returns Header
      */
-    public getHeaders(responsetype = 'json', contenttype = 'application/json', auth = true): any {
+    public getHeaders(responsetype = 'json', contenttype = 'application/json', auth = true): { headers: HttpHeaders, responseType: any } {
         let header = new HttpHeaders().set('Content-Type', contenttype)
             .set('Cache-Control', 'no-cache')
             .set('Pragma', 'no-cache')
@@ -154,8 +154,9 @@ export class AuthService {
             .set('If-Modified-Since', '0');
 
         // check if user is authenticated
-        if (auth && this.IsAuthenticated()) {
-            header = header.set('Authorization', this.getBearer());
+        const bearer = this.getBearer();
+        if (auth && this.IsAuthenticated() && bearer) {
+            header = header.set('Authorization', bearer);
         }
         return { 'headers': header, 'responseType': responsetype };
     }
@@ -183,19 +184,21 @@ export class AuthService {
 
         // post login data
         try {
-            const data = await this.httpClient.post(environment.auth.url + 'token', body,
+            const data = await this.httpClient.post<JWTToken | JWTError>(environment.auth.url + 'token', body,
                 this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
             // check for error
-            if (!data || data['error']) {
+            if (!data || (data as JWTError).error) {
                 console.error('Could not get token: ' + data);
                 return;
             }
 
             // save data
             const expire = new Date();
-            expire.setSeconds(expire.getSeconds() + (data['expires_in'] / 2));
-            this.user = { 'expires': expire, 'token': data, 'data': null };
-            this.user.data = this.parseUserinfo();
+            expire.setSeconds(expire.getSeconds() + ((data as JWTToken).expires_in / 2));
+            this.user = { 'expires': expire, 'token': data as JWTToken, 'data': undefined };
+            if (this.user) {
+                this.user.data = this.parseUserinfo();
+            }
             localStorage.setItem('user', JSON.stringify(this.user));
         } catch (error) {
             // failed to login
@@ -208,9 +211,12 @@ export class AuthService {
      * Gets user info from keycloak
      * @returns User info
      */
-    public parseUserinfo(): any {
-        const b64: string = this.user?.token.access_token.split('.')[1];
-        return JSON.parse(atob(b64));
+    public parseUserinfo(): UserDetails | undefined {
+        if (this.user && this.user.token) {
+            const b64 = this.user.token.access_token.split('.')[1];
+            return JSON.parse(atob(b64));
+        }
+        return undefined;
     }
 
     /**
@@ -287,7 +293,7 @@ export class AuthService {
         const userRole = this.getRole();
         const userGroups = this.getGroups();
 
-        if (owner === this.user?.data.sub || userRole === 'admin') {
+        if (owner === this.user?.data?.sub || userRole === 'admin') {
             return true;
         }
 
@@ -321,6 +327,9 @@ function hasRole(role: Role, allowed: Array<Role>): boolean {
     return false;
 }
 
+/**
+ * User role
+ */
 export type Role = 'user' | 'editor' | 'manager' | 'admin';
 
 /**
@@ -328,7 +337,48 @@ export type Role = 'user' | 'editor' | 'manager' | 'admin';
  */
 export class User {
     expires?: Date;
-    token: any;
-    data: any;
+    token?: JWTToken;
+    data?: UserDetails;
+}
+
+/**
+ * JWT Token
+ */
+export type JWTToken = {
+    access_token: string;
+    expires_in: number;
+    refresh_expires_in: number;
+    refresh_token: string;
+    token_type: string;
+    id_token: string;
+    'not-before-policy': number;
+    session_state: string;
+    scope: string;
+}
+
+/**
+ * JWT Error
+ */
+export type JWTError = {
+    error: string;
+    error_description: string;
+}
+
+/**
+ * Keycloak user details
+ */
+export type UserDetails = {
+    email: string;
+    sub: string;
+    email_verified: boolean;
+    family_name: string;
+    given_name: string;
+    groups: string[];
+    locale: string;
+    name: string;
+    preferred_username: string;
+    roles: string[];
+    auth_time: number;
+    exp: number;
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

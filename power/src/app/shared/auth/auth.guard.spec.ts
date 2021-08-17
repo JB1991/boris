@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { environment } from '@env/environment';
 
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
+import { AuthService, JWTToken } from './auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Shared.Auth.AuthGuard', () => {
@@ -58,7 +58,7 @@ describe('Shared.Auth.AuthGuard', () => {
         environment.production = true;
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 900);
-        guard.auth.user = { 'expires': expire, 'token': 6, 'data': null };
+        guard.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': null };
 
         guard.canActivate().then((value) => {
             expect(value).toBeTrue();

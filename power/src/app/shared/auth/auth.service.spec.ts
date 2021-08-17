@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '@env/environment';
 
-import { AuthService } from './auth.service';
+import { AuthService, JWTToken, UserDetails } from './auth.service';
 
 describe('Shared.Auth.AuthService', () => {
     let service: AuthService;
@@ -35,11 +35,11 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should getBearer correct', () => {
         // correct bearer
-        service.user = { 'expires': new Date(), 'token': { 'access_token': 'XXX' }, 'data': null };
+        service.user = { 'expires': new Date(), 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
         expect(service.getBearer()).toEqual('Bearer XXX');
 
         // token missing
-        service.user = { 'expires': new Date(), 'token': {}, 'data': null };
+        service.user = { 'expires': new Date(), 'token': {} as JWTToken, 'data': undefined };
         expect(service.getBearer()).toBeUndefined();
     });
 
@@ -48,18 +48,18 @@ describe('Shared.Auth.AuthService', () => {
 
         // check responsetype and content-type
         expire.setSeconds(expire.getSeconds() + 200);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' }, 'data': null };
+        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
         expect(service.getHeaders('text', 'text/csv').responseType).toEqual('text');
         expect(service.getHeaders('text', 'text/csv').headers.get('Content-Type')).toEqual('text/csv');
 
         // valid session, auth header set
         expire.setSeconds(expire.getSeconds() + 200);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' }, 'data': null };
+        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
         expect(service.getHeaders().headers.get('Authorization')).toEqual('Bearer XXX');
 
         // invalid session, no auth header
         expire.setSeconds(expire.getSeconds() - 800);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' }, 'data': null };
+        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
         expect(service.getHeaders().headers.get('Authorization')).toBeNull();
     });
 
@@ -79,15 +79,15 @@ describe('Shared.Auth.AuthService', () => {
         expire.setSeconds(expire.getSeconds() + 900);
 
         // valid session
-        service.user = { 'expires': expire, 'token': 6, 'data': null };
+        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
         expect(service.IsAuthenticated()).toBeTrue();
 
         // expired session
-        service.user = { 'expires': new Date(), 'token': 6, 'data': null };
+        service.user = { 'expires': new Date(), 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
         expect(service.IsAuthenticated()).toBeFalse();
 
         // invalid user object
-        service.user = { 'expires': undefined, 'token': null, 'data': null };
+        service.user = { 'expires': undefined, 'token': undefined, 'data': undefined };
         expect(service.IsAuthenticated()).toBeFalse();
     });
 
@@ -222,27 +222,27 @@ describe('Shared.Auth.AuthService', () => {
         // authenticated but no access
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 900);
-        service.user = { 'expires': expire, 'token': 6, 'data': {} };
+        service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': {} as UserDetails };
         expect(service.IsAuthorized([], 'abc', [])).toBeFalse();
 
         // user is owner
-        service.user.data = { groups: [], roles: [], sub: 'abc' };
+        service.user.data = { groups: [], roles: [], sub: 'abc' } as unknown as UserDetails;
         expect(service.IsAuthorized([], 'abc', [])).toBeTrue();
 
         // user is in group
-        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['xxx'], sub: 'abc' };
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['xxx'], sub: 'abc' } as unknown as UserDetails;
         expect(service.IsAuthorized(['user'], '123', ['xxx', 'toastbrot'])).toBeTrue();
 
         // user is admin
-        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_editor', 'form_api_admin'], sub: 'abc' };
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_editor', 'form_api_admin'], sub: 'abc' } as unknown as UserDetails;
         expect(service.IsAuthorized(['user'], '123', ['xxx', 'toastbrot'])).toBeTrue();
 
         // user is manager
-        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_manager', 'form_api_editor'], sub: 'abc' };
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_manager', 'form_api_editor'], sub: 'abc' } as unknown as UserDetails;
         expect(service.IsAuthorized(['user', 'manager'], '123', ['xxx', 'toastbrot'])).toBeTrue();
 
         // user has no access
-        service.user.data = { groups: [], roles: [], sub: 'abc' };
+        service.user.data = { groups: [], roles: [], sub: 'abc' } as unknown as UserDetails;
         expect(service.IsAuthorized(['user'], '123', [])).toBeFalse();
     });
 

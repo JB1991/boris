@@ -55,7 +55,8 @@
                             "hyphen",
                             "showdown",
                             "rbush",
-                            "polylabel"
+                            "polylabel",
+                            "pdfmake/build/pdfmake"
                         ],
                         "vendorChunk": true,
                         "extractLicenses": false,

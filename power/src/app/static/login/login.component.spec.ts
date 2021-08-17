@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '@env/environment';
 
 import { LoginComponent } from './login.component';
-import { AuthService } from '@app/shared/auth/auth.service';
+import { AuthService, JWTToken } from '@app/shared/auth/auth.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
@@ -60,7 +60,7 @@ describe('Static.Login.LoginComponent', () => {
         // valid session, redirect user
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 200);
-        component.auth.user = { 'expires': expire, 'token': 5, 'data': null };
+        component.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': null };
 
         component.authenticate().then(() => {
             expect(console.info).toHaveBeenCalledWith('User is authenticated');
