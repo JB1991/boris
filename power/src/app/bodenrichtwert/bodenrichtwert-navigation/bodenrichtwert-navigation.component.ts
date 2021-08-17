@@ -21,41 +21,41 @@ import area from '@turf/area';
 
 export class BodenrichtwertNavigationComponent implements OnChanges {
 
-    @Input() latLng: LngLat;
-    @Output() latLngChange = new EventEmitter<LngLat>();
+    @Input() public latLng: LngLat;
+    @Output() public latLngChange = new EventEmitter<LngLat>();
 
-    @Input() address: Feature;
-    @Output() addressChange = new EventEmitter();
+    @Input() public address?: Feature;
+    @Output() public addressChange = new EventEmitter();
 
-    @Input() features: FeatureCollection;
-    @Output() featuresChange = new EventEmitter();
+    @Input() public features?: FeatureCollection;
+    @Output() public featuresChange = new EventEmitter();
 
-    @Input() teilmarkt: Teilmarkt;
-    @Output() teilmarktChange = new EventEmitter<Teilmarkt>();
+    @Input() public teilmarkt?: Teilmarkt;
+    @Output() public teilmarktChange = new EventEmitter<Teilmarkt>();
 
-    @Input() stichtag: string;
-    @Output() stichtagChange = new EventEmitter<string>();
+    @Input() public stichtag?: string;
+    @Output() public stichtagChange = new EventEmitter<string>();
 
-    @Input() flurstueck: FeatureCollection;
-    @Output() flurstueckChange = new EventEmitter();
+    @Input() public flurstueck?: FeatureCollection;
+    @Output() public flurstueckChange = new EventEmitter();
 
-    @Input() isCollapsed: boolean;
-    @Output() isCollapsedChange = new EventEmitter<boolean>();
+    @Input() public isCollapsed?: boolean;
+    @Output() public isCollapsedChange = new EventEmitter<boolean>();
 
-    @Input() resetMapFired: boolean;
-    @Output() resetMapFiredChange = new EventEmitter<boolean>();
+    @Input() public resetMapFired?: boolean;
+    @Output() public resetMapFiredChange = new EventEmitter<boolean>();
 
-    @Input() zoom: number;
-    @Output() zoomChange = new EventEmitter<number>();
+    @Input() public zoom?: number;
+    @Output() public zoomChange = new EventEmitter<number>();
 
-    @Input() pitch: number;
-    @Output() pitchChange = new EventEmitter<number>();
+    @Input() public pitch?: number;
+    @Output() public pitchChange = new EventEmitter<number>();
 
-    @Input() bearing: number;
-    @Output() bearingChange = new EventEmitter<number>();
+    @Input() public bearing?: number;
+    @Output() public bearingChange = new EventEmitter<number>();
 
-    @Input() standardBaulandZoom: number;
-    @Input() standardLandZoom: number;
+    @Input() public standardBaulandZoom?: number;
+    @Input() public standardLandZoom?: number;
 
     public searchActive = false;
     public filterActive = false;
@@ -68,7 +68,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         public alerts: AlertsService,
         public alkisWfsService: AlkisWfsService,
         private datePipe: DatePipe,
-        private location: Location,) { }
+        private location: Location) { }
 
     /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges) {
@@ -85,7 +85,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         const lat = this.latLng.lat;
         const lng = this.latLng.lng;
         this.getAddressFromLatLng(lat, lng);
-        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
+        if (this.teilmarkt) {
+            this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
+        }
         this.getFlurstueckFromLatLng(lat, lng);
     }
 
@@ -182,21 +184,22 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public determineZoomFactor(teilmarkt: Teilmarkt): number {
         // Bauland
-        if (teilmarkt.text === 'Bauland') {
+        if (this.standardBaulandZoom && teilmarkt.text === 'Bauland') {
             return this.standardBaulandZoom;
             // Landwirtschaft
-        } else {
+        } else if (this.standardLandZoom) {
             return this.standardLandZoom;
         }
+        return -1;
     }
 
     /**
      * onAddressChange emits the selected location (latLng) on gesearch item is selected
      * @param feature feature
      */
-    public onAddressChange(feature: Feature): void {
+    public onAddressChange(feature: Feature) {
         this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][0], feature?.geometry['coordinates'][1]));
-        if (this.zoom < this.determineZoomFactor(this.teilmarkt)) {
+        if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
     }
@@ -221,7 +224,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 point = polylabel(p.coordinates, 0.0001, false);
                 break
         }
-        if (this.zoom < this.determineZoomFactor(this.teilmarkt)) {
+        if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
         this.latLngChange.emit(new LngLat(point[0], point[1]));
@@ -246,7 +249,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
         }
-        if (this.teilmarkt.text !== this.bodenrichtwert.TEILMAERKTE[0].text) {
+        if (this.teilmarkt?.text !== this.bodenrichtwert.TEILMAERKTE[0].text) {
             this.teilmarktChange.emit(this.bodenrichtwert.TEILMAERKTE[0]);
         }
         if (this.stichtag !== this.bodenrichtwert.STICHTAGE[0]) {
@@ -270,7 +273,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onFocus emits the current location to trigger a map focus
      */
     public onFocus() {
-        if (this.zoom < this.determineZoomFactor(this.teilmarkt)) {
+        if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
         this.latLngChange.emit(new LngLat(this.latLng.lng, this.latLng.lat));

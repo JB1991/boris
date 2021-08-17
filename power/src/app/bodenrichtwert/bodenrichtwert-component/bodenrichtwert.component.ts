@@ -38,7 +38,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Address to be shown
      */
-    public address: Feature;
+    public address?: Feature;
 
     /**
      * Subscription to address, loaded by Geosearch-Service
@@ -48,8 +48,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
-    public features: FeatureCollection = null;
-    public filteredFeatures: Array<Feature>;
+    public features?: FeatureCollection = undefined;
+    public filteredFeatures?: Array<Feature>;
     public hasUmrechnungsdateien = false;
 
     /**
@@ -65,7 +65,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Feature as Flurstueck
      */
-    public flurstueck: FeatureCollection;
+    public flurstueck?: FeatureCollection;
 
     /**
      * Actual selected Stichtag
@@ -162,7 +162,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Print modal
      */
-    @ViewChild('print') public printModal: ModalminiComponent;
+    @ViewChild('print') public printModal?: ModalminiComponent;
 
     /* istanbul ignore next */
     constructor(
@@ -192,15 +192,17 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
             // filter features
             if (this.features || this.stichtag || this.teilmarkt) {
-                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties['brw'] - j.properties['brw']);
+                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
             }
 
             // check for umrechnungsdateien
-            for (const feature of this.filteredFeatures) {
-                if (feature.properties['umrechnungstabellendatei']
-                    && feature.properties['umrechnungstabellendatei'].length > 0) {
-                    this.hasUmrechnungsdateien = true;
-                    break;
+            if (this.filteredFeatures) {
+                for (const feature of this.filteredFeatures) {
+                    if (feature.properties?.['umrechnungstabellendatei']
+                        && feature.properties?.['umrechnungstabellendatei'].length > 0) {
+                        this.hasUmrechnungsdateien = true;
+                        break;
+                    }
                 }
             }
 
@@ -428,10 +430,10 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * @returns true or false if feature array is filled or is empty
      */
     public checkIfStichtagFtsExist(): boolean {
-        const filteredFts = this.features.features.filter((ft: Feature) =>
-            ft.properties['stag'].substr(0, 10) === this.stichtag
+        const filteredFts = this.features?.features.filter((ft: Feature) =>
+            ft.properties?.['stag'].substr(0, 10) === this.stichtag
         );
-        if (filteredFts.length) {
+        if (filteredFts?.length) {
             return true;
         } else {
             return false;
@@ -443,7 +445,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Opens print modal
      */
     public openPrintModal() {
-        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
+        this.printModal?.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
     }
 
     /**

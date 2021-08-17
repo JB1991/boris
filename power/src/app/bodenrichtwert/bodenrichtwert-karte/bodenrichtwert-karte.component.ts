@@ -122,34 +122,34 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         bounds: this.ndsBounds,
     };
 
-    @Input() latLng: LngLat;
-    @Output() latLngChange = new EventEmitter<LngLat>();
+    @Input() public latLng: LngLat;
+    @Output() public latLngChange = new EventEmitter<LngLat>();
 
-    @Input() teilmarkt: Teilmarkt;
+    @Input() public teilmarkt?: Teilmarkt;
 
-    @Input() stichtag: string;
+    @Input() public stichtag?: string;
 
-    @Input() isCollapsed: boolean;
-    @Output() isCollapsedChange = new EventEmitter();
+    @Input() public isCollapsed?: boolean;
+    @Output() public isCollapsedChange = new EventEmitter();
 
-    @Input() expanded: boolean;
+    @Input() public expanded?: boolean;
 
-    @Input() collapsed: boolean;
+    @Input() public collapsed?: boolean;
 
-    @Input() resetMapFired: boolean;
-    @Output() resetMapFiredChange = new EventEmitter<boolean>();
+    @Input() public resetMapFired?: boolean;
+    @Output() public resetMapFiredChange = new EventEmitter<boolean>();
 
-    @Input() zoom: number;
-    @Output() zoomChange = new EventEmitter<number>();
+    @Input() public zoom?: number;
+    @Output() public zoomChange = new EventEmitter<number>();
 
-    @Input() pitch: number;
-    @Output() pitchChange = new EventEmitter<number>();
+    @Input() public pitch?: number;
+    @Output() public pitchChange = new EventEmitter<number>();
 
-    @Input() bearing: number;
-    @Output() bearingChange = new EventEmitter<number>();
+    @Input() public bearing?: number;
+    @Output() public bearingChange = new EventEmitter<number>();
 
-    @Input() standardBaulandZoom: number;
-    @Input() standardLandZoom: number;
+    @Input() public standardBaulandZoom?: number;
+    @Input() public standardLandZoom?: number;
 
     constructor(
         public alerts: AlertsService,
@@ -204,12 +204,12 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      */
     private changedTeilmarkt() {
         // update layer
-        this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-        this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-        this.map.setLayoutProperty('landwirtschaft', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
-        this.map.setLayoutProperty('bauland_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-        this.map.setLayoutProperty('sanierungsgebiet_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
-        this.map.setLayoutProperty('landwirtschaft_bremen', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+        this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('landwirtschaft', 'visibility', this.teilmarkt?.value.includes('LF') ? 'visible' : 'none');
+        this.map.setLayoutProperty('bauland_bremen', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('sanierungsgebiet_bremen', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
+        this.map.setLayoutProperty('landwirtschaft_bremen', 'visibility', this.teilmarkt?.value.includes('LF') ? 'visible' : 'none');
 
         this.map.easeTo({
             zoom: this.zoom,
@@ -371,7 +371,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     'stops': [[11, 0], [13, 1]]
                 }
             },
-            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            layout: this.teilmarkt?.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]
         });
         this.map.addLayer({
@@ -390,7 +390,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     'stops': [[11, 0], [13, .6]]
                 }
             },
-            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            layout: this.teilmarkt?.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['==', 'stag', this.stichtag]
         });
         this.map.addLayer({
@@ -408,7 +408,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     'stops': [[8, 0], [10, 1]]
                 }
             },
-            layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
+            layout: this.teilmarkt?.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
         });
         this.map.addLayer({
@@ -469,7 +469,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     'stops': [[11, 0], [13, 1]]
                 }
             },
-            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            layout: this.teilmarkt?.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]
         });
         this.map.addLayer({
@@ -488,7 +488,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     'stops': [[11, 0], [13, .6]]
                 }
             },
-            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            layout: this.teilmarkt?.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]
         });
         this.map.addLayer({
@@ -506,7 +506,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     'stops': [[8, 0], [10, 1]]
                 }
             },
-            layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
+            layout: this.teilmarkt?.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
         });
 
@@ -527,8 +527,8 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             showUserLocation: false
         });
         this.map.addControl(geolocateControl, 'top-right');
-        geolocateControl.on('geolocate', (evt) => {
-            if (this.zoom < this.determineZoomFactor()) {
+        geolocateControl.on('geolocate', (evt: any) => {
+            if (this.zoom && this.zoom < this.determineZoomFactor()) {
                 this.zoomChange.emit(this.determineZoomFactor());
             }
             this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
@@ -545,7 +545,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         }
 
         // add handler
-        this.map.on('click', (event) => {
+        this.map.on('click', (event: Event) => {
             this.onMapClickEvent(event);
         });
         this.map.on('moveend', () => {
@@ -593,12 +593,13 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      */
     public determineZoomFactor(): number {
         // Bauland
-        if (this.teilmarkt.text === 'Bauland') {
+        if (this.standardBaulandZoom && this.teilmarkt?.text === 'Bauland') {
             return this.standardBaulandZoom;
             // Landwirtschaft
-        } else {
+        } else if (this.standardLandZoom) {
             return this.standardLandZoom;
         }
+        return -1;
     }
 
     /**
@@ -627,7 +628,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
-        if (this.zoom < this.determineZoomFactor()) {
+        if (this.zoom && this.zoom < this.determineZoomFactor()) {
             this.zoomChange.emit(this.determineZoomFactor());
         }
         if (event.lngLat) {
@@ -678,7 +679,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         const landwirtschaftsSource = this.map.getSource('landwirtschaftSource') as GeoJSONSource;
         const baulandSource = this.map.getSource('baulandSource') as GeoJSONSource;
 
-        if (this.teilmarkt.value.includes('B') && baulandSource) {
+        if (this.teilmarkt?.value.includes('B') && baulandSource) {
 
             if (landwirtschaftsSource) {
                 landwirtschaftsSource.setData({
@@ -690,8 +691,8 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             const features = this.dynamicLabellingService.dynamicLabelling(
                 this.map.queryRenderedFeatures(null, { layers: ['bauland', 'bauland_bremen'] }),
                 mapViewBound,
-                (f) => f.properties['objektidentifikator'],
-                (f) => f.properties['wnum'],
+                (f) => f.properties?.['objektidentifikator'],
+                (f) => f.properties?.['wnum'],
                 [
                     '04307171'
                 ],
@@ -721,7 +722,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             const features = this.dynamicLabellingService.dynamicLabelling(
                 this.map.queryRenderedFeatures(null, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
                 mapViewBound,
-                f => f.properties['objektidentifikator'],
+                f => f.properties?.['objektidentifikator'],
                 () => '',
                 [],
                 []);
@@ -738,7 +739,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * @param resourceType resourceType
      * @returns returns transformed url
      */
-    public transformRequest(url, resourceType) {
+    public transformRequest(url: string, resourceType: string) {
         if (!url.startsWith('http') && resourceType === 'Tile') {
             return { url: location.protocol + '//' + location.host + url };
         }

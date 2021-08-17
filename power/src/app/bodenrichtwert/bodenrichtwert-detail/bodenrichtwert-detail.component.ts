@@ -9,7 +9,7 @@ import { Feature, FeatureCollection } from 'geojson';
 })
 export class BodenrichtwertDetailComponent implements OnChanges {
 
-    brzStrings = {
+    public brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
         'umwert': $localize`Umrechnungstabelle`,
         'umdatei': $localize`Umrechnungsdatei`,
@@ -38,19 +38,19 @@ export class BodenrichtwertDetailComponent implements OnChanges {
         'bem': $localize`Bemerkung`
     };
 
-    @Input() stichtag: string;
+    @Input() public stichtag?: string;
 
-    @Input() teilmarkt: any;
+    @Input() public teilmarkt?: any;
 
-    @Input() features: FeatureCollection;
+    @Input() public features?: FeatureCollection;
 
-    public filteredFeatures: Array<Feature>;
+    public filteredFeatures?: Array<Feature>;
 
     /* istanbul ignore next */
     /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['features'] || changes['stichtag'] || changes['teilmarkt']) {
-            this.filteredFeatures = this.features.features.filter(ft => ft.properties['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties['brw'] - j.properties['brw']);
+            this.filteredFeatures = this.features?.features.filter(ft => ft.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
         }
     }
 

@@ -76,7 +76,7 @@ export default class BodenrichtwertKartePitchControl {
      * onRemove removes the html container and the map
      */
     onRemove() {
-        this.container.parentNode.removeChild(this.container);
+        this.container.parentNode?.removeChild(this.container);
         this.map = undefined;
     }
 }
