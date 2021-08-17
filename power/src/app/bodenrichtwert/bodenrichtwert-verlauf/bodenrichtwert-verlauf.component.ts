@@ -542,7 +542,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             }
         });
         if (seriesIncludesVerg) {
-            let verg = series.find(el => el.verg !== '' && el.verg !== null);
+            const verg = series.find(el => el.verg !== '' && el.verg !== null);
             let verf = [];
             series.filter(el => {
                 if (el.verf !== '' && el.verf !== null) {
@@ -550,7 +550,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
                 }
             });
             verf = verf.filter((el, idx, self) => idx === self.indexOf(el));
-            nutzung += '\n' + this.verfahrensartPipe.transform(verg.verg as any);
+            nutzung += '\n' + this.verfahrensartPipe.transform(verg?.verg as any);
             if (verf) {
                 verf.forEach(verfItem => {
                     if (verfItem === 'SB') {
