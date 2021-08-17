@@ -722,7 +722,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 this.map.queryRenderedFeatures(null, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
                 mapViewBound,
                 f => f.properties.objektidentifikator,
-                f => '',
+                () => '',
                 [],
                 []);
             landwirtschaftsSource.setData({

@@ -20,6 +20,9 @@ import {
 import { Observable } from 'rxjs';
 
 /* eslint-disable-next-line no-shadow */
+/**
+ *
+ */
 export enum Method {
     GET,
     POST,
@@ -156,6 +159,10 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/users', p);
     }
 
+    /**
+     * @param id
+     * @param fields
+     */
     public async getUser(
         id: string,
         fields?: Array<FormField>
@@ -170,6 +177,9 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/users/' + encodeURIComponent(id), p);
     }
 
+    /**
+     * @param params
+     */
     public async getForms(
         params: GetFormsParams
     ): Promise<{
@@ -201,6 +211,10 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/forms', p);
     }
 
+    /**
+     * @param id
+     * @param params
+     */
     public async getForm(
         id: string,
         params: GetFormParams
@@ -215,9 +229,24 @@ export class FormAPIService {
         if (params.extract) {
             p.extract = params['extract'].join(',');
         }
-        return this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
+        // eslint-disable-next-line no-console
+        console.log(p);
+        const resp = this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
+        // eslint-disable-next-line no-console
+        console.log(resp);
+
+        return resp;
     }
 
+    /**
+     * @param body
+     * @param body.owner
+     * @param body.content
+     * @param body.tags
+     * @param body.access
+     * @param body.status
+     * @param body.groups
+     */
     public async createForm(body: {
         owner?: string;
         content?: any;
@@ -232,6 +261,17 @@ export class FormAPIService {
         return this.Do(Method.POST, 'intern/forms', {}, body);
     }
 
+    /**
+     * @param id
+     * @param body
+     * @param body.owner
+     * @param body.content
+     * @param body.groups
+     * @param body.tags
+     * @param body.access
+     * @param body.group
+     * @param body.status
+     */
     public async updateForm(
         id: string,
         body: {
@@ -250,6 +290,9 @@ export class FormAPIService {
         return this.Do(Method.PUT, 'intern/forms/' + encodeURIComponent(id), {}, body);
     }
 
+    /**
+     * @param id
+     */
     public async deleteForm(
         id: string
     ): Promise<{
@@ -259,6 +302,9 @@ export class FormAPIService {
         return this.Do(Method.DELETE, 'intern/forms/' + encodeURIComponent(id), {});
     }
 
+    /**
+     * @param params
+     */
     public async getTasks(params: GetTasksParams): Promise<{ // eslint-disable-line complexity
         tasks: Array<Task>;
         total: number;
@@ -291,6 +337,10 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/tasks', p);
     }
 
+    /**
+     * @param id
+     * @param params
+     */
     public async getTask(
         id: string,
         params: GetTaskParams
@@ -311,6 +361,14 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/tasks/' + encodeURIComponent(id), p);
     }
 
+    /**
+     * @param formID
+     * @param body
+     * @param body.content
+     * @param body.description
+     * @param body.status
+     * @param number
+     */
     public async createTask(
         formID: string,
         body: {
@@ -331,6 +389,13 @@ export class FormAPIService {
         return this.Do(Method.POST, 'intern/forms/' + encodeURIComponent(formID), p, body);
     }
 
+    /**
+     * @param id
+     * @param body
+     * @param body.content
+     * @param body.description
+     * @param body.status
+     */
     public async updateTask(
         id: string,
         body: {
@@ -345,6 +410,9 @@ export class FormAPIService {
         return this.Do(Method.PUT, 'intern/tasks/' + encodeURIComponent(id), {}, body);
     }
 
+    /**
+     * @param id
+     */
     public async deleteTask(
         id: string
     ): Promise<{
@@ -354,6 +422,9 @@ export class FormAPIService {
         return this.Do(Method.DELETE, 'intern/tasks/' + encodeURIComponent(id), {});
     }
 
+    /**
+     * @param params
+     */
     public async getElements(
         params: GetElementsParams
     ): Promise<{
@@ -385,6 +456,10 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/elements', p);
     }
 
+    /**
+     * @param id
+     * @param params
+     */
     public async getElement(
         id: string,
         params: GetElementParams
@@ -402,6 +477,12 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/elements/' + encodeURIComponent(id), p);
     }
 
+    /**
+     * @param body
+     * @param body.owner
+     * @param body.content
+     * @param body.groups
+     */
     public async createElement(
         body: {
             owner?: string;
@@ -414,6 +495,11 @@ export class FormAPIService {
         return this.Do(Method.POST, 'intern/elements', {}, body);
     }
 
+    /**
+     * @param id
+     * @param body
+     * @param body.content
+     */
     public async updateElement(
         id: string,
         body: {
@@ -426,6 +512,9 @@ export class FormAPIService {
         return this.Do(Method.PUT, 'intern/elements/' + encodeURIComponent(id), {}, body);
     }
 
+    /**
+     * @param id
+     */
     public async deleteElement(
         id: string
     ): Promise<{
@@ -435,6 +524,9 @@ export class FormAPIService {
         return this.Do(Method.DELETE, 'intern/elements/' + encodeURIComponent(id), {});
     }
 
+    /**
+     * @param params
+     */
     public async getPublicForms(
         params: GetPublicFormsParams
     ): Promise<{
@@ -466,6 +558,10 @@ export class FormAPIService {
         return this.Do(Method.GET, 'public/forms', p);
     }
 
+    /**
+     * @param id
+     * @param params
+     */
     public async getPublicForm(
         id: string,
         params: GetPublicFormParams
@@ -483,6 +579,10 @@ export class FormAPIService {
         return this.Do(Method.GET, 'public/forms/' + encodeURIComponent(id), p);
     }
 
+    /**
+     * @param formID
+     * @param content
+     */
     public async createPublicTask(
         formID: string,
         content: any,
@@ -493,6 +593,10 @@ export class FormAPIService {
         return this.Do(Method.POST, 'public/forms/' + encodeURIComponent(formID), {}, { content: content });
     }
 
+    /**
+     * @param pin
+     * @param params
+     */
     public async getPublicTask(
         pin: string,
         params: GetPublicTaskParams
@@ -513,6 +617,11 @@ export class FormAPIService {
         return this.Do(Method.GET, 'public/tasks/' + encodeURIComponent(pin), p);
     }
 
+    /**
+     * @param pin
+     * @param content
+     * @param submit
+     */
     public async updatePublicTask(
         pin: string,
         content: any,
@@ -530,6 +639,9 @@ export class FormAPIService {
         });
     }
 
+    /**
+     * @param formID
+     */
     public async getCSV(formID: string): Promise<string> {
         let data: ArrayBuffer;
         const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(formID) + '/csv';
@@ -629,6 +741,9 @@ export class FormAPIService {
     }
 }
 
+/**
+ *
+ */
 export interface GetGroupTagParams {
     filter?: GroupTagFilter;
     desc?: boolean;
@@ -636,6 +751,9 @@ export interface GetGroupTagParams {
     offset?: number;
 }
 
+/**
+ *
+ */
 export interface GetUsersParams {
     fields?: Array<UserField>;
     filter?: UserFilter;
@@ -644,6 +762,9 @@ export interface GetUsersParams {
     offset?: number;
 }
 
+/**
+ *
+ */
 export interface GetFormsParams {
     fields?: Array<FormField>;
     extract?: Array<string>;
@@ -653,6 +774,9 @@ export interface GetFormsParams {
     offset?: number;
 }
 
+/**
+ *
+ */
 export interface GetPublicFormsParams {
     fields?: Array<PublicFormField>;
     extract?: Array<string>;
@@ -662,16 +786,25 @@ export interface GetPublicFormsParams {
     offset?: number;
 }
 
+/**
+ *
+ */
 export interface GetFormParams {
     fields?: Array<FormField>;
     extract?: Array<string>;
 }
 
+/**
+ *
+ */
 export interface GetPublicFormParams {
     fields?: Array<PublicFormField>;
     extract?: Array<string>;
 }
 
+/**
+ *
+ */
 export interface GetTasksParams {
     fields?: Array<TaskField>;
     extract?: Array<string>;
@@ -682,18 +815,27 @@ export interface GetTasksParams {
     offset?: number;
 }
 
+/**
+ *
+ */
 export interface GetTaskParams {
     fields?: Array<TaskField>;
     extract?: Array<string>;
     'form.extract'?: Array<string>;
 }
 
+/**
+ *
+ */
 export interface GetPublicTaskParams {
     fields?: Array<PublicTaskField>;
     extract?: Array<string>;
     'form.extract'?: Array<string>;
 }
 
+/**
+ *
+ */
 export interface GetElementsParams {
     fields?: Array<ElementField>;
     extract?: Array<string>;
@@ -703,6 +845,9 @@ export interface GetElementsParams {
     offset?: number;
 }
 
+/**
+ *
+ */
 export interface GetElementParams {
     fields?: Array<ElementField>;
     extract?: Array<string>;
