@@ -74,7 +74,7 @@ describe('GmbComponent', () => {
 
     it('generateKreisliste works', () => {
 
-        component.generateKreisliste(undefined);
+        component.generateKreisliste([]);
 
         const arr = ['033550000', 'foobar'];
 
@@ -279,7 +279,7 @@ describe('GmbComponent', () => {
 
     const deepCopy = (data: any): any => JSON.parse(JSON.stringify(data));
 
-    const keyValueSort = (data) => {
+    const keyValueSort = (data: any) => {
         const bb = [];
         const yk = Object.keys(data);
 

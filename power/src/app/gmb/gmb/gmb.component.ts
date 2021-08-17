@@ -19,28 +19,28 @@ import * as kreise_raw from './kreise.json';
 export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // echarts Components
-    @ViewChild('echartsMap') echartsMap: ElementRef;
+    @ViewChild('echartsMap') echartsMap?: ElementRef;
 
-    downloadPath = '/download';
-    berichte = data['default'];
-    kreise = kreise_raw['default'];
+    public downloadPath = '/download';
+    public berichte = data['default'];
+    public kreise = kreise_raw['default'];
 
-    mode = undefined;
+    public mode?: string = undefined;
 
-    map: any = null;
+    public map: any = null;
 
-    selectedKreis = undefined;
-    berichteFiltered = [];
-    berichteOpened = [];
-    isBrowser = true;
+    public selectedKreis?: string = undefined;
+    public berichteFiltered = new Array<any>();
+    public berichteOpened = new Array<string>();
+    public isBrowser = true;
 
-    animationFrameID = null;
-    resizeSub: ResizeObserver;
+    public animationFrameID?: number = undefined;
+    public resizeSub?: ResizeObserver;
 
     /**
      * MapOptions
      */
-    myMapOptions = {
+    public myMapOptions = {
         'title': {
             'text': $localize`Landkreise in Niedersachsen*`,
             'left': 'center',
@@ -67,7 +67,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             'trigger': 'item',
             'showDelay': 0,
             'transitionDuration': 0.2,
-            'formatter': function (params) {
+            'formatter': function (params: any) {
                 if (this.kreise.hasOwnProperty(params.name)) {
                     return this.kreise[params.name];
                 } else {
@@ -191,7 +191,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     ngOnDestroy() {
         if (this.resizeSub && this.echartsMap) {
             this.resizeSub.unobserve(this.echartsMap.nativeElement);
-            window.cancelAnimationFrame(this.animationFrameID);
+            window.cancelAnimationFrame(Number(this.animationFrameID));
         }
     }
 
@@ -231,7 +231,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      *
      * @param {string} url Url to Map GeoJSON
      */
-    loadGeoMap(url) {
+    loadGeoMap(url: string) {
         this.http.get(url)
             .subscribe(
                 geoJson => {
@@ -304,8 +304,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param arr Array
      * @returns Kreisliste
      */
-    generateKreisliste(arr) {
-        if (arr === undefined) {
+    generateKreisliste(arr: string[]) {
+        if (!arr) {
             return;
         }
 
@@ -407,14 +407,14 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Handle the Change of an Selection in the Map
      * @param param Map param
      */
-    onMapSelectChange(param) {
-        const selectedlist = [];
+    onMapSelectChange(param: any) {
+        const selectedlist = new Array<number>();
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
-             param['fromAction'] === 'unselect') &&
-                 param['selected'].length === 1) {
+                param['fromAction'] === 'unselect') &&
+            param['selected'].length === 1) {
 
-            param['selected'][0]['dataIndex'].forEach(function(index) {
+            param['selected'][0]['dataIndex'].forEach(function (index: number) {
                 selectedlist.push(index);
             });
         }
@@ -451,7 +451,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      *
      * @param newValue New selected Landkreis
      */
-    onChange(newValue) {
+    onChange(newValue: any) {
         if (!newValue) {
             this.selectedKreis = undefined;
         } else {

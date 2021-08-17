@@ -26,11 +26,11 @@ import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertPdfComponent {
-    @Input() public address: Feature;
-    @Input() public flurstueck: FeatureCollection;
-    @Input() public stichtag: string;
-    @Input() public teilmarkt: Teilmarkt;
-    @Input() public features: FeatureCollection;
+    @Input() public address?: Feature;
+    @Input() public flurstueck?: FeatureCollection;
+    @Input() public stichtag?: string;
+    @Input() public teilmarkt?: Teilmarkt;
+    @Input() public features?: FeatureCollection;
     public testMode = false;
 
     constructor(
@@ -70,7 +70,7 @@ export class BodenrichtwertPdfComponent {
                 columns: this.getHeader(),
                 margin: [43, 28, 28, 0]
             },
-            footer: /* istanbul ignore next */ function (currentPage, pageCount) {
+            footer: /* istanbul ignore next */ function (currentPage: number, pageCount: number) {
                 return {
                     text: $localize`Seite` + ' ' + currentPage + ' ' + $localize`von` + ' ' + pageCount,
                     margin: [43, 0, 28, 28]
@@ -90,7 +90,7 @@ export class BodenrichtwertPdfComponent {
                 },
                 {
                     text: [
-                        $localize`Bodenrichtwertkarte` + ' ' + this.teilmarkt.text + ' ' + $localize`auf der Grundlage der aktuellen amtlichen Geobasisdaten`,
+                        $localize`Bodenrichtwertkarte` + ' ' + this.teilmarkt?.text + ' ' + $localize`auf der Grundlage der aktuellen amtlichen Geobasisdaten`,
                         '\n',
                         $localize`Stichtag` + ': ' + this.datePipe.transform(this.stichtag)
                     ],
@@ -117,12 +117,12 @@ export class BodenrichtwertPdfComponent {
                     },
                     layout: {
                         defaultBorder: false,
-                        paddingLeft: /* istanbul ignore next */ function (i, node) { return 0; },
-                        paddingRight: /* istanbul ignore next */ function (i, node) { return 0; },
-                        paddingTop: /* istanbul ignore next */ function (i, node) { return 0; },
-                        paddingBottom: /* istanbul ignore next */ function (i, node) { return 0; },
-                        hLineColor: /* istanbul ignore next */ function (i, node) { return 'gray'; },
-                        vLineColor: /* istanbul ignore next */ function (i, node) { return 'gray'; },
+                        paddingLeft: /* istanbul ignore next */ () => 0,
+                        paddingRight: /* istanbul ignore next */ () => 0,
+                        paddingTop: /* istanbul ignore next */ () => 0,
+                        paddingBottom: /* istanbul ignore next */ () => 0,
+                        hLineColor: /* istanbul ignore next */ () => 'gray',
+                        vLineColor: /* istanbul ignore next */ () => 'gray',
                     },
                 },
                 {
@@ -307,7 +307,7 @@ export class BodenrichtwertPdfComponent {
                 link: 'https://www.gutachterausschuss.bremen.de/'
             });
             ret.push({
-                text: this.features.features[0].properties.gabe.replace('Grundstückswerte', 'Grundstückswerte\n'),
+                text: this.features?.features[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
                 width: '*',
                 fontSize: 16,
                 margin: [5, 0, 0, 0]
@@ -325,7 +325,7 @@ export class BodenrichtwertPdfComponent {
                 link: 'https://www.gag.niedersachsen.de/'
             });
             ret.push({
-                text: this.features.features[0].properties.gabe.replace('Grundstückswerte', 'Grundstückswerte\n'),
+                text: this.features?.features[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
                 width: '*',
                 fontSize: 16,
                 margin: [5, 0, 0, 0]
@@ -348,19 +348,19 @@ export class BodenrichtwertPdfComponent {
 
         // address
         if (this.address) {
-            ret.push($localize`Adresse` + ': ' + this.address.properties.text + '\n');
+            ret.push($localize`Adresse` + ': ' + this.address.properties?.['text'] + '\n');
         } else {
-            ret.push($localize`Bezeichnung der Bodenrichtswertzone` + ': ' + this.features.features[0].properties.brzname + '\n');
+            ret.push($localize`Bezeichnung der Bodenrichtswertzone` + ': ' + this.features?.features[0].properties?.['brzname'] + '\n');
         }
 
         // check if Flurstück info
-        if (this.flurstueck.features.length > 0) {
-            ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties.gemarkungsnummer +
-                ' (' + await this.gemarkungPipe.transform(this.flurstueck.features[0].properties.gemarkungsnummer.toString())?.toPromise() + '), ');
-            ret.push($localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties.flurnummer + ', ');
-            ret.push($localize`Flurstück` + ': ' + this.flurstueck.features[0].properties.zaehler);
-            if (this.flurstueck.features[0].properties.nenner) {
-                ret.push('/' + this.flurstueck.features[0].properties.nenner);
+        if (this.flurstueck && this.flurstueck.features.length > 0) {
+            ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties?.['gemarkungsnummer'] +
+                ' (' + await this.gemarkungPipe.transform(this.flurstueck.features[0].properties?.['gemarkungsnummer'].toString())?.toPromise() + '), ');
+            ret.push($localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties?.['flurnummer'] + ', ');
+            ret.push($localize`Flurstück` + ': ' + this.flurstueck.features[0].properties?.['zaehler']);
+            if (this.flurstueck.features[0].properties?.['nenner']) {
+                ret.push('/' + this.flurstueck.features[0].properties?.['nenner']);
             }
             ret.push('\n');
         }
@@ -382,36 +382,38 @@ export class BodenrichtwertPdfComponent {
         ];
 
         // for each brw
-        for (const brw of this.features.features) {
-            if (brw.properties.stag.replace('Z', '') !== this.stichtag) {
-                continue;
-            }
-            const tmp: any = [
-                {
-                    text: $localize`Bodenrichtwertzone` + ': ' + brw.properties.wnum + '\n',
-                    bold: true
+        if (this.features) {
+            for (const brw of this.features.features) {
+                if (brw.properties?.['stag'].replace('Z', '') !== this.stichtag) {
+                    continue;
                 }
-            ];
+                const tmp: any = [
+                    {
+                        text: $localize`Bodenrichtwertzone` + ': ' + brw.properties?.['wnum'] + '\n',
+                        bold: true
+                    }
+                ];
 
-            // Bodenrichtwert (brz)
-            this.getSingleBRW(tmp, brw);
+                // Bodenrichtwert (brz)
+                this.getSingleBRW(tmp, brw);
 
-            // add to array
-            ret.push({
-                text: tmp,
-                margin: [0, 0, 0, 10]
-            });
+                // add to array
+                ret.push({
+                    text: tmp,
+                    margin: [0, 0, 0, 10]
+                });
 
+            }
         }
 
         // return array
         return ret;
     }
 
-    private getSingleBRW(tmp: any, brw) { // eslint-disable-line complexity
-        if (this.teilmarkt.value.includes('B')) {
+    private getSingleBRW(tmp: any, brw: any) { // eslint-disable-line complexity
+        if (this.teilmarkt?.value.includes('B')) {
             tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties.brw, '1.0-1') + ' €/m²\n');
-        } else if (this.teilmarkt.value.includes('LF')) {
+        } else if (this.teilmarkt?.value.includes('LF')) {
             tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties.brw, '1.2-2') + ' €/m²\n');
         }
 
@@ -497,7 +499,7 @@ export class BodenrichtwertPdfComponent {
      * @returns True if Bremen
      */
     public isBremen(): boolean {
-        return this.features?.features[0].properties.gema === 'Bremerhaven' || this.features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen';
+        return this.features?.features[0].properties?.['gema'] === 'Bremerhaven' || this.features?.features[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
     }
 
     /**

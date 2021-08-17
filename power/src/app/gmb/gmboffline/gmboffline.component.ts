@@ -9,7 +9,7 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class GmbofflineComponent implements OnInit {
 
-    mode = undefined;
+    public mode?: string = undefined;
 
     constructor(
         private route: ActivatedRoute,
