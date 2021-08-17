@@ -66,6 +66,7 @@ export class FormAPIService {
             default:
                 obs = this.httpClient.get(url, this.auth.getHeaders());
         }
+
         const data = obs.toPromise();
         return data as any;
     }
@@ -229,13 +230,7 @@ export class FormAPIService {
         if (params.extract) {
             p.extract = params['extract'].join(',');
         }
-        // eslint-disable-next-line no-console
-        console.log(p);
-        const resp = this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
-        // eslint-disable-next-line no-console
-        console.log(resp);
-
-        return resp;
+        return this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
     }
 
     /**

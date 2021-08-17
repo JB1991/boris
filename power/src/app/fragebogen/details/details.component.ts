@@ -88,8 +88,6 @@ export class DetailsComponent implements OnInit {
                 fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated', 'tags', 'owner.name', 'owner.id', 'groups'],
                 extract: ['title.de', 'title.default'],
             });
-            // eslint-disable-next-line no-console
-            console.log(r);
             this.form = r.form;
             this.owner = r.form.owner;
             this.loadingscreen.setVisible(false);
