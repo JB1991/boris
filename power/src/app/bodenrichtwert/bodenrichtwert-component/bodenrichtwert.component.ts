@@ -17,6 +17,9 @@ import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.servic
 import { SEOService } from '@app/shared/seo/seo.service';
 import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
 
+/**
+ * Teilmarkt
+ */
 export interface Teilmarkt {
     value: Array<string>;
     text: string;

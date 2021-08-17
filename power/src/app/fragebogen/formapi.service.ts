@@ -635,7 +635,9 @@ export class FormAPIService {
     }
 
     /**
-     * @param formID
+     * get csv data from form id
+     * @param formID form id
+     * @returns promise of csv data
      */
     public async getCSV(formID: string): Promise<string> {
         let data: ArrayBuffer;
@@ -643,8 +645,8 @@ export class FormAPIService {
 
         try {
             data = await this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv')).toPromise();
-        } catch (error) {
-            throw new Error(error['message']);
+        } catch (error: any) {
+            throw new Error(error?.['message'] ? error['message'] : 'unknown');
         }
 
         if (!data) {
@@ -655,9 +657,10 @@ export class FormAPIService {
 
     /**
      * Returns translatored error message
-     * @param error Error
+     * @param error any
+     * @returns message
      */
-    public getErrorMessage(error: Error): string { // eslint-disable-line complexity
+    public getErrorMessage(error: any): string { // eslint-disable-line complexity
         let msg = error.toString();
         if (error['error'] && error['error']['message']) {
             msg = error['error']['message'];

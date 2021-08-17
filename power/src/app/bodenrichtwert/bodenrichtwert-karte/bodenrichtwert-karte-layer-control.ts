@@ -14,7 +14,6 @@ export default class BodenrichtwertKarteLayerControl {
      * @param map Map
      * @returns a div container including a button and i element
      */
-
     onAdd(map: Map) {
         this.map = map;
         this.btn = document.createElement('button');

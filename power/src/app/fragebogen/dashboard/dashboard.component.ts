@@ -14,13 +14,13 @@ import { SEOService } from '@app/shared/seo/seo.service';
     encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
-    public tags: Array<string>;
+    public tags: Array<string> = [];
 
-    public forms: Array<Form>;
-    public formTotal: number;
+    public forms: Array<Form> = [];
+    public formTotal = 0;
     public formPage = 1;
     public formPerPage = 5;
-    public formPageSizes: number[];
+    public formPageSizes: number[] = [];
 
     public formSearch = '';
     public formStatus: FormStatus | 'all' = 'all';
@@ -28,11 +28,11 @@ export class DashboardComponent implements OnInit {
     public formSort: FormField = 'updated';
     public formSortDesc = true;
 
-    public tasks: Array<Task>;
-    public taskTotal: number;
+    public tasks: Array<Task> = [];
+    public taskTotal = 0;
     public taskPage = 1;
     public taskPerPage = 5;
-    public taskPageSizes: number[];
+    public taskPageSizes: number[] = [];
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskField = 'updated';
@@ -57,6 +57,10 @@ export class DashboardComponent implements OnInit {
         this.updateTags(true);
     }
 
+    /**
+     * deleteForm
+     * @param id id
+     */
     public async deleteForm(id: string): Promise<void> {
         // Ask user to confirm deletion
         if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
@@ -89,17 +93,17 @@ export class DashboardComponent implements OnInit {
 
         // Add the input element to the DOM so that it can be accessed from the tests
         const importButton = document.getElementById('button-import');
-        importButton.parentNode.insertBefore(input, importButton);
+        importButton?.parentNode?.insertBefore(input, importButton);
 
         // File selected
-        input.onchange = (event: Event) => {
-            const file = event.target['files'][0];
+        input.onchange = (event: any) => {
+            const file = event?.target?.['files'][0];
             const reader = new FileReader();
             // Upload success
             reader.onload = () => {
                 try {
                     this.formAPI.createForm({
-                        content: JSON.parse(reader.result.toString()),
+                        content: JSON.parse(reader?.result ? reader.result.toString(): '{"error": "no result"}'),
                     }).then(() => {
                         this.formSortDesc = true;
                         this.formSort = 'created';
@@ -120,6 +124,10 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
+    /**
+     * updateForms
+     * @param navigate check if route should change to dashboard on failure
+     */
     public async updateForms(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
@@ -167,6 +175,10 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+    /**
+     * updateTasks
+     * @param navigate check if route should change to dashboard on failure
+     */
     public async updateTasks(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
@@ -202,6 +214,11 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+    /**
+     * updateTags
+     * @param navigate check if route should change to dashboard on failure
+     * @returns empty promise
+     */
     public async updateTags(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
@@ -218,7 +235,11 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public changeFormSort(sort: FormField): void {
+    /**
+     * changeFormSort
+     * @param sort by form field
+     */
+    public changeFormSort(sort: FormField) {
         if (this.formSort === sort) {
             this.formSortDesc = !this.formSortDesc;
         } else {
@@ -228,7 +249,11 @@ export class DashboardComponent implements OnInit {
         this.updateForms(false);
     }
 
-    public changeTaskSort(sort: TaskField): void {
+    /**
+     * changeTaskSort
+     * @param sort by task field
+     */
+    public changeTaskSort(sort: TaskField) {
         if (this.taskSort === sort) {
             this.taskSortDesc = !this.taskSortDesc;
         } else {

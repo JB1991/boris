@@ -13,17 +13,17 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
     styleUrls: ['./newform.component.scss'],
 })
 export class NewformComponent {
-    @ViewChild('modal') public modal: ModalminiComponent;
+    @ViewChild('modal') public modal?: ModalminiComponent;
     @Output() public out = new EventEmitter<string>();
-    @Input() public tags: Array<string>;
+    @Input() public tags: Array<string> = [];
 
-    public title: string;
+    public title = '';
     public service = '';
     public template = '';
     public tagList = [];
-    public templateList = [];
-    public searchText: string;
-    public test: string;
+    public templateList: string[] = [];
+    public searchText = '';
+    public test = '';
 
     constructor(public router: Router, public alerts: AlertsService, public formAPI: FormAPIService) { }
 
@@ -35,7 +35,7 @@ export class NewformComponent {
         this.title = '';
         this.tagList = [];
         this.templateList = [];
-        this.modal.open($localize`Neues Formular`);
+        this.modal?.open($localize`Neues Formular`);
     }
 
     /**
@@ -54,7 +54,7 @@ export class NewformComponent {
         this.formAPI
             .getForms(queryParams)
             .then((result) => {
-                this.templateList = result.forms;
+                this.templateList = result.forms.map(f => f?.extract? f.extract : 'no title');
             })
             .catch((error: Error) => {
                 // failed to load form
@@ -82,7 +82,7 @@ export class NewformComponent {
                 })
                 .then((data) => {
                     this.makeForm(data.form.content);
-                    this.modal.close();
+                    this.modal?.close();
                 })
                 .catch((error) => {
                     console.error(error);
@@ -93,7 +93,7 @@ export class NewformComponent {
 
         // make new form
         this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
-        this.modal.close();
+        this.modal?.close();
     }
 
     /**

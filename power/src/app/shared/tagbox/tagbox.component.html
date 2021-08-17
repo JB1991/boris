@@ -9,7 +9,7 @@
                [(ngModel)]="tagInput"
                (change)="addTag()"
                (keyup.enter)="addTag()"
-               [disabled]="max && tagList && max > 0 && tagList.length >= max"
+               [disabled]="max > 0 && tagList && max > 0 && tagList.length >= max"
                [name]="eid"
                [id]="eid"
                maxlength="50"
@@ -28,7 +28,7 @@
             [(ngModel)]="tagInput"
             (change)="addTag()"
             (keyup.enter)="addTag()"
-            [disabled]="max && tagList && max > 0 && tagList.length >= max"
+            [disabled]="max > 0 && tagList && max > 0 && tagList.length >= max"
             [name]="eid"
             [id]="eid">
         <option value="">{{ placeholder }}</option>

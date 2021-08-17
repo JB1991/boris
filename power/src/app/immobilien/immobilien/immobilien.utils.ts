@@ -24,6 +24,12 @@ export class ImmobilienUtils {
         return date;
     }
 
+    /**
+     * @param name
+     * @param bc
+     * @param bw
+     * @param area
+     */
     static getMyMapRegionenGR(name: string, bc: string, bw: number, area: string) {
         return {
             'name': name,
@@ -91,6 +97,14 @@ export class ImmobilienUtils {
     }
 
 
+    /**
+     * @param name
+     * @param seriesType
+     * @param zindex
+     * @param seriesColor
+     * @param labelFormatter
+     * @param data
+     */
     static generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data) {
         return {
             'name': name,
@@ -207,6 +221,13 @@ export class ImmobilienUtils {
     }
 
 
+    /**
+     * @param name
+     * @param color
+     * @param fontSizeBase
+     * @param position
+     * @param posX
+     */
     static generateTextElement(name, color = '#000', fontSizeBase = 1.2, position = 0, posX?): any {
         return {
             type: 'text',
@@ -221,6 +242,15 @@ export class ImmobilienUtils {
         };
     }
 
+    /**
+     * @param radius
+     * @param color
+     * @param fontSizeBase
+     * @param position
+     * @param posX
+     * @param bordercolor
+     * @param border
+     */
     static generateDotElement(
         radius = 4,
         color = '#fff',
@@ -248,6 +278,10 @@ export class ImmobilienUtils {
 
     }
 
+    /**
+     * @param regionen
+     * @param modifyArray
+     */
     static modifyRegionen(regionen, modifyArray) {
 
         const newRegionen = JSON.parse(JSON.stringify(regionen));
@@ -263,6 +297,11 @@ export class ImmobilienUtils {
         return newRegionen;
     }
 
+    /**
+     * @param obj
+     * @param name
+     * @param select
+     */
     static dispatchMapSelect(obj: any, name: string, select: boolean) {
         // check if is function
         if (typeof obj.dispatchAction !== 'function') {
