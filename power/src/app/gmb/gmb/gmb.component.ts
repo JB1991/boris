@@ -19,7 +19,7 @@ import * as kreise_raw from './kreise.json';
 export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // echarts Components
-    @ViewChild('echartsMap') echartsMap?: ElementRef;
+    @ViewChild('echartsMap') public echartsMap?: ElementRef;
 
     public downloadPath = '/download';
     public berichte = data['default'];
@@ -121,7 +121,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    changeTitle() {
+    public changeTitle() {
         if (this.mode === 'gmb') {
             this.seo.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
             this.seo.updateTag({ name: 'description', content: $localize`Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen und Preisniveau in den Teilmärkten.` });
@@ -133,7 +133,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         if (!this.isBrowser) {
             return;
         }
@@ -184,11 +184,11 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
 
-    resize() {
+    public resize() {
         this.map.resize();
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy() {
         if (this.resizeSub && this.echartsMap) {
             this.resizeSub.unobserve(this.echartsMap.nativeElement);
             window.cancelAnimationFrame(Number(this.animationFrameID));
@@ -200,7 +200,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * OnInit
      * Load geojson for Landkreise
      */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             this.mapInit();
         }
@@ -222,7 +222,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
 
-    mapInit() {
+    public mapInit() {
         this.loadGeoMap('assets/gmb.geojson');
     }
 
@@ -231,7 +231,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      *
      * @param {string} url Url to Map GeoJSON
      */
-    loadGeoMap(url: string) {
+    public loadGeoMap(url: string) {
         this.http.get(url)
             .subscribe(
                 geoJson => {
@@ -249,7 +249,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Generate Map Regionen
      * @returns Array of regions
      */
-    getRegionen() {
+    public getRegionen() {
         const res = [];
         const keys = Object.keys(kreise_raw['default']);
 
@@ -281,7 +281,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         return res;
     }
 
-    selectMenu() {
+    public selectMenu() {
         const res = [];
         const ok = Object.keys(this.kreise);
         for (let i = 0; i < ok.length; i++) {
@@ -304,7 +304,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param arr Array
      * @returns Kreisliste
      */
-    generateKreisliste(arr: string[]): string {
+    public generateKreisliste(arr: string[]): string {
         if (!arr) {
             return '';
         }
@@ -321,7 +321,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         return res.join('; ');
     }
 
-    filterBerichteGMB() {
+    public filterBerichteGMB() {
         const bf = [];
         const ber = Object.keys(this.berichte);
         for (let i = 0; i < ber.length; i++) {
@@ -357,7 +357,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         return bf;
     }
 
-    filterBerichteLMB() {
+    public filterBerichteLMB() {
 
         const bf = [];
         const bb = [];
@@ -387,7 +387,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Filter Berichte based on selection
      * @param lmb True if LBM
      */
-    filterBerichte(lmb = false) {
+    public filterBerichte(lmb = false) {
         if (this.selectedKreis === undefined && !lmb) {
             this.berichteFiltered = [];
             return;
@@ -407,7 +407,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Handle the Change of an Selection in the Map
      * @param param Map param
      */
-    onMapSelectChange(param: any) {
+    public onMapSelectChange(param: any) {
         const selectedlist = new Array<number>();
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
@@ -451,7 +451,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      *
      * @param newValue New selected Landkreis
      */
-    onChange(newValue: any) {
+    public onChange(newValue: any) {
         if (!newValue) {
             this.selectedKreis = undefined;
         } else {
@@ -463,13 +463,13 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filterBerichte();
     }
 
-    keyPress(event: any) {
+    public keyPress(event: any) {
         if (event.key === 'Enter') {
             event.target['checked'] = !event.target['checked'];
         }
     }
 
-    checkValue(event: any) {
+    public checkValue(event: any) {
         if (event.target['checked'] === true) {
             this.berichteOpened.push(event.target['id'].substring(2));
         } else {
@@ -481,7 +481,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.changeURL();
     }
 
-    changeURL() {
+    public changeURL() {
         const params = new URLSearchParams({});
         if (this.mode === 'gmb' && this.selectedKreis) {
             params.append('landkreis', this.kreise[this.selectedKreis]);
@@ -497,7 +497,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    ariaLabelBericht(year, rd, dl = false) {
+    public ariaLabelBericht(year: number, rd: string, dl = false): string {
         let label = '';
 
         if (dl) {
@@ -533,7 +533,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param rem size in rem
      * @returns size in px
      */
-    convertRemToPixels(rem: number): number {
+    public convertRemToPixels(rem: number): number {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
 }

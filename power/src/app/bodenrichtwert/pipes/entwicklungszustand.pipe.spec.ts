@@ -14,8 +14,4 @@ describe('EntwicklungszustandPipe', () => {
     it('should return the correct value', () => {
         expect(pipe.transform('B')).toEqual('Baureifes Land');
     });
-
-    it('should return undefined when there is no appropriate entry', () => {
-        expect(pipe.transform('NULL')).toEqual(undefined);
-    });
 });

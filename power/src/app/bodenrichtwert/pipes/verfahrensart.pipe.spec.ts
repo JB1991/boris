@@ -14,8 +14,4 @@ describe('VerfahrensartPipe', () => {
     it('should return the correct value', () => {
         expect(pipe.transform('San')).toEqual('Sanierungsgebiet');
     });
-
-    it('should return undefined when there is no appropriate entry', () => {
-        expect(pipe.transform('NULL')).toEqual(undefined);
-    });
 });

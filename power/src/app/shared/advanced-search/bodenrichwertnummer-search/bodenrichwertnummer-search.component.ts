@@ -149,7 +149,10 @@ export class BodenrichwertnummerSearchComponent {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap(term => term.length < 1 ? of([]) :
-                this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag, this.teilmarkt).pipe(
+                this.bodenrichtwertService.getFeatureByBRWNumber(
+                    term, this.stichtag as string,
+                    this.teilmarkt as Teilmarkt
+                ).pipe(
                     catchError((error) => {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([] as any);

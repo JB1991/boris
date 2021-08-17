@@ -33,7 +33,7 @@ export class BodenartPipe implements PipeTransform {
     ];
 
     /** @inheritdoc */
-    transform(value: any, ...args: any[]): any {
+    transform(value: string): string {
 
         let res = '';
         let types: string[] = [];
@@ -159,7 +159,9 @@ export class BodenartPipe implements PipeTransform {
         this.regex.forEach((r: RegExp) => {
             if (r.test(value)) {
                 const groups = value.match(r);
-                types = groups.slice(1, groups.length);
+                if (groups) {
+                    types = groups.slice(1, groups.length);
+                }
             }
         });
         return types;

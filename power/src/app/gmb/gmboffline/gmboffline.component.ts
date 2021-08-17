@@ -18,7 +18,7 @@ export class GmbofflineComponent implements OnInit {
         this.changeTitle();
     }
 
-    changeTitle() {
+    public changeTitle() {
         if (this.mode === 'gmb') {
             this.seo.setTitle($localize`Grundstücksmarktberichte (Archiv) - Immobilienmarkt.NI`);
             this.seo.updateTag({ name: 'description', content: $localize`Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen und Preisniveau in den Teilmärkten.` });
@@ -34,7 +34,7 @@ export class GmbofflineComponent implements OnInit {
      * OnInit
      * Load geojson for Landkreise
      */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.route.data.subscribe(routedata => {
             if (routedata['mode'] === 'lmb') {
                 this.mode = 'lmb';

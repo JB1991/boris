@@ -1,20 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+const verg = {
+    'San': $localize`Sanierungsgebiet`,
+    'Entw': $localize`Entwicklungsbereich`,
+    'SoSt': $localize`Soziale Stadt`,
+    'StUb': $localize`Stadtumbau`
+};
+
 @Pipe({
     name: 'verfahrensart'
 })
 export class VerfahrensartPipe implements PipeTransform {
 
-    verg = {
-        'San': $localize`Sanierungsgebiet`,
-        'Entw': $localize`Entwicklungsbereich`,
-        'SoSt': $localize`Soziale Stadt`,
-        'StUb': $localize`Stadtumbau`
-    };
-
     /** @inheritdoc */
-    transform(value: any, ...args: any[]): any {
-        return this.verg[value];
+    transform(value: keyof typeof verg): string {
+        return verg[value];
     }
-
 }

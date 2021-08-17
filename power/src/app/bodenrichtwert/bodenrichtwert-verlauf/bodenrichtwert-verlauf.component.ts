@@ -550,8 +550,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
                 }
             });
             verf = verf.filter((el, idx, self) => idx === self.indexOf(el));
-            verg = this.verfahrensartPipe.transform(verg.verg, null);
-            nutzung += '\n' + verg;
+            nutzung += '\n' + this.verfahrensartPipe.transform(verg.verg as any);
             if (verf) {
                 verf.forEach(verfItem => {
                     if (verfItem === 'SB') {
