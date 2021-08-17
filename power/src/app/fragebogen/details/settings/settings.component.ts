@@ -16,15 +16,15 @@ export class SettingsComponent {
         groups: Array<string>;
         owner: string;
     }>();
-    @Input() public availableTags: Array<string>;
-    @Input() public availableGroups: Array<string>;
-    @Input() public availableUsers: Array<User>;
-    @ViewChild('settingsmodal') public modal: ModalminiComponent;
+    @Input() public availableTags: Array<string> = [];
+    @Input() public availableGroups: Array<string> = [];
+    @Input() public availableUsers: Array<User> = [];
+    @ViewChild('settingsmodal') public modal?: ModalminiComponent;
 
     public old: Form;
-    public tags: Array<string>;
-    public groups: Array<string>;
-    public owner: string;
+    public tags: Array<string> = [];
+    public groups: Array<string> = [];
+    public owner = '';
 
     constructor(public auth: AuthService) {
         this.old = { owner: {} };
@@ -51,6 +51,6 @@ export class SettingsComponent {
         this.tags = JSON.parse(JSON.stringify(form.tags));
         this.groups = JSON.parse(JSON.stringify(form.groups));
         this.owner = JSON.parse(JSON.stringify(form.owner.id));
-        this.modal.open($localize`Einstellungen`);
+        this.modal?.open($localize`Einstellungen`);
     }
 }

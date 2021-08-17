@@ -13,7 +13,7 @@ export class MaketaskComponent {
         copyvalue: boolean;
     }>();
 
-    @ViewChild('maketaskmodal') public modal: ModalminiComponent;
+    @ViewChild('maketaskmodal') public modal?: ModalminiComponent;
     public amount = 1;
     public pinList = [];
     public copy = false;
@@ -24,7 +24,7 @@ export class MaketaskComponent {
     public open(): void {
         this.amount = 1;
         this.pinList = [];
-        this.modal.open($localize`PINs erstellen`);
+        this.modal?.open($localize`PINs erstellen`);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

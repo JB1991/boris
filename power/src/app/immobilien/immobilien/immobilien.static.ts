@@ -15,7 +15,6 @@ interface NipixStaticData {
     allItems?: any;
     shortNames?: any;
     selections?: any;
-
 }
 
 export class NipixStatic {
@@ -49,6 +48,11 @@ export class NipixStatic {
     public constructor() {
     }
 
+    /**
+     * loadConfig
+     * @param json data
+     * @returns always true?
+     */
     public loadConfig(json: any): boolean {
         // Layout
         this.layoutRtl = json['layoutRtl'];
@@ -69,6 +73,11 @@ export class NipixStatic {
 
     }
 
+    /**
+     * parseGemeinden
+     * @param gem gemeinden
+     * @returns always true?
+     */
     public parseGemeinden(gem: string): boolean {
 
         const rgn = [];
@@ -90,6 +99,11 @@ export class NipixStatic {
         return true;
     }
 
+    /**
+     * procMap
+     * @param geoJson geo json data
+     * @returns
+     */
     public procMap(geoJson: any): any {
 
         const geoMap = {

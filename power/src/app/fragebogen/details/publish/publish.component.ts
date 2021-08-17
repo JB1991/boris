@@ -13,9 +13,9 @@ export class PublishComponent {
         id: string;
         access: Access;
     }>();
-    public id: string;
+    public id = '';
 
-    @ViewChild('publishmodal') public modal: ModalminiComponent;
+    @ViewChild('publishmodal') public modal?: ModalminiComponent;
     public access: Access = 'pin8';
 
     /**
@@ -24,7 +24,7 @@ export class PublishComponent {
      */
     public open(id: string): void {
         this.id = id;
-        this.modal.open($localize`Veröffentlichen`);
+        this.modal?.open($localize`Veröffentlichen`);
     }
 
     /**

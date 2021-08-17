@@ -72,11 +72,11 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             {
                 forms: [
                     {
-                        id: '123', content: null, title: 'Template', tags: [], groups: [],
+                        id: '123', content: null, extract: 'Template', tags: [], groups: [],
                         created: null, status: 'created'
                     },
                     {
-                        id: '321', content: null, title: 'Template', tags: [], groups: [],
+                        id: '321', content: null, extract: 'Template', tags: [], groups: [],
                         created: null, status: 'created'
                     }
                 ],
@@ -88,7 +88,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         component.fetchTemplates();
         tick();
         expect(component.templateList.length).toEqual(2);
-        expect(component.templateList[0].id).toEqual('123');
+        expect(component.templateList[0]).toEqual('Template');
     }));
 
 

@@ -18,19 +18,19 @@ import { SEOService } from '@app/shared/seo/seo.service';
     styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
-    @ViewChild('commentmodal') public modal: ModalminiComponent;
-    @ViewChild('pagination') pagination: PaginationComponent;
-    @ViewChild('preview') public preview: PreviewComponent;
+    @ViewChild('commentmodal') public modal?: ModalminiComponent;
+    @ViewChild('pagination') pagination?: PaginationComponent;
+    @ViewChild('preview') public preview?: PreviewComponent;
 
-    public id: string;
+    public id = '';
 
-    public availableTags: Array<string>;
-    public availableGroups: Array<string>;
-    public availableUsers: Array<User>;
+    public availableTags: Array<string> = [];
+    public availableGroups: Array<string> = [];
+    public availableUsers: Array<User> = [];
 
-    public form: Form;
-    public owner: User;
-    public tasks: Array<Task>;
+    public form?: Form;
+    public owner?: User;
+    public tasks: Array<Task> = [];
     public taskTotal = 0;
     public taskPerPage = 5;
     public taskPage = 1;
@@ -58,8 +58,9 @@ export class DetailsComponent implements OnInit {
     ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);
-        this.id = this.route.snapshot.paramMap.get('id');
-        if (this.id) {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.id = id ? id : '';
+        if (this.id !== '') {
             // load data
             this.updateForm(true);
             this.updateTasks();
@@ -114,7 +115,7 @@ export class DetailsComponent implements OnInit {
                 return;
             }
             // success
-            await this.formapi.deleteForm(this.form.id);
+            await this.formapi.deleteForm(this.form?.id ? this.form.id : '');
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -131,6 +132,10 @@ export class DetailsComponent implements OnInit {
      * @returns Promise
      */
     public async archiveForm(): Promise<void> {
+        if (!this.form || !this.form.id || this.form.id === '') {
+            return;
+        }
+
         try {
             // Ask user to confirm achivation
             if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\n\
