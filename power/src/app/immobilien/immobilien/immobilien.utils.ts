@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { ImmobilienHelper } from './immobilien.helper';
 
 export class ImmobilienUtils {
@@ -298,16 +299,16 @@ export class ImmobilienUtils {
     }
 
     /**
-     * @param obj
-     * @param name
-     * @param select
+     * dispatchMapSelect
+     * @param obj obj
+     * @param name name
+     * @param select select
      */
     static dispatchMapSelect(obj: any, name: string, select: boolean) {
         // check if is function
         if (typeof obj.dispatchAction !== 'function') {
             return;
         }
-
         if (select) {
             // Select
             obj.dispatchAction({
