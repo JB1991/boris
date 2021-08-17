@@ -234,6 +234,8 @@ export class FormAPIService {
         const resp = this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
         // eslint-disable-next-line no-console
         console.log(resp);
+
+        return resp;
     }
 
     /**
