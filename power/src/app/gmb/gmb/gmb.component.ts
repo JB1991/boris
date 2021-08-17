@@ -304,9 +304,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param arr Array
      * @returns Kreisliste
      */
-    generateKreisliste(arr: string[]) {
+    generateKreisliste(arr: string[]): string {
         if (!arr) {
-            return;
+            return '';
         }
 
         const res = [];

@@ -85,16 +85,16 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.filter) {
-            p.filter = GroupTagFilterToString(params.filter);
+            p['filter'] = GroupTagFilterToString(params.filter);
         }
         if (params.desc && params.desc === true) {
-            p.desc = 'true';
+            p['desc'] = 'true';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'intern/tags', p);
     }
@@ -113,16 +113,16 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.filter) {
-            p.filter = GroupTagFilterToString(params.filter);
+            p['filter'] = GroupTagFilterToString(params.filter);
         }
         if (params.desc && params.desc === true) {
-            p.desc = 'true';
+            p['desc'] = 'true';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'intern/groups', p);
     }
@@ -141,21 +141,21 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.filter) {
-            p.filter = UserFilterToString(params.filter);
+            p['filter'] = UserFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort) + ',id';
+            p['sort'] = SortToString(params.sort) + ',id';
         } else {
-            p.sort = 'id';
+            p['sort'] = 'id';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'intern/users', p);
     }
@@ -173,7 +173,7 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (fields) {
-            p.fields = fields.join(',');
+            p['fields'] = fields.join(',');
         }
         return this.Do(Method.GET, 'intern/users/' + encodeURIComponent(id), p);
     }
@@ -190,24 +190,24 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract && params.extract.length > 0) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         if (params.filter) {
-            p.filter = FormFilterToString(params.filter);
+            p['filter'] = FormFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort) + ',id';
+            p['sort'] = SortToString(params.sort) + ',id';
         } else {
-            p.sort = 'id';
+            p['sort'] = 'id';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'intern/forms', p);
     }
@@ -225,10 +225,10 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract) {
-            p.extract = params['extract'].join(',');
+            p['extract'] = params['extract'].join(',');
         }
         return this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
     }
@@ -307,27 +307,27 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract && params.extract.length > 0) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         if (params['form.extract'] && params['form.extract'].length > 0) {
             p['form.extract'] = params['form.extract'].join(',');
         }
         if (params.filter) {
-            p.filter = TaskFilterToString(params.filter);
+            p['filter'] = TaskFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort) + ',id';
+            p['sort'] = SortToString(params.sort) + ',id';
         } else {
-            p.sort = 'id';
+            p['sort'] = 'id';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'intern/tasks', p);
     }
@@ -345,10 +345,10 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         if (params['form.extract']) {
             p['form.extract'] = params['form.extract'].join(',');
@@ -379,7 +379,7 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (number && number > 0) { // eslint-disable-line id-blacklist
-            p.number = '' + number; // eslint-disable-line id-blacklist
+            p['number'] = '' + number; // eslint-disable-line id-blacklist
         }
         return this.Do(Method.POST, 'intern/forms/' + encodeURIComponent(formID), p, body);
     }
@@ -429,24 +429,24 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract && params.extract.length > 0) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         if (params.filter) {
-            p.filter = ElementFilterToString(params.filter);
+            p['filter'] = ElementFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort) + ',id';
+            p['sort'] = SortToString(params.sort) + ',id';
         } else {
-            p.sort = 'id';
+            p['sort'] = 'id';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'intern/elements', p);
     }
@@ -464,10 +464,10 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         return this.Do(Method.GET, 'intern/elements/' + encodeURIComponent(id), p);
     }
@@ -531,24 +531,24 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         if (params.filter) {
-            p.filter = FormFilterToString(params.filter);
+            p['filter'] = FormFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort) + ',id';
+            p['sort'] = SortToString(params.sort) + ',id';
         } else {
-            p.sort = 'id';
+            p['sort'] = 'id';
         }
         if (params.limit) {
-            p.limit = params.limit.toString();
+            p['limit'] = params.limit.toString();
         }
         if (params.offset) {
-            p.offset = params.offset.toString();
+            p['offset'] = params.offset.toString();
         }
         return this.Do(Method.GET, 'public/forms', p);
     }
@@ -566,10 +566,10 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract) {
-            p.extract = params['extract'].join(',');
+            p['extract'] = params['extract'].join(',');
         }
         return this.Do(Method.GET, 'public/forms/' + encodeURIComponent(id), p);
     }
@@ -601,10 +601,10 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
-            p.fields = params.fields.join(',');
+            p['fields'] = params.fields.join(',');
         }
         if (params.extract) {
-            p.extract = params.extract.join(',');
+            p['extract'] = params.extract.join(',');
         }
         if (params['form.extract']) {
             p['form.extract'] = params['form.extract'].join(',');
@@ -627,7 +627,7 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (submit) {
-            p.submit = 'true';
+            p['submit'] = 'true';
         }
         return this.Do(Method.PUT, 'public/tasks/' + encodeURIComponent(pin), p, {
             content: content,

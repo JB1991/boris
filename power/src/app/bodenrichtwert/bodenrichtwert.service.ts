@@ -155,9 +155,9 @@ export class BodenrichtwertService {
             .pipe(
                 map(response => {
                     response.features = response.features.map(f => {
-                        f.properties.nutzung = JSON.parse(f.properties.nutzung);
-                        f.properties.umrechnungstabellendatei = JSON.parse(f.properties.umrechnungstabellendatei);
-                        f.properties.umrechnungstabellenwerte = JSON.parse(f.properties.umrechnungstabellenwerte);
+                        f.properties['nutzung'] = JSON.parse(f.properties['nutzung']);
+                        f.properties['umrechnungstabellendatei'] = JSON.parse(f.properties['umrechnungstabellendatei']);
+                        f.properties['umrechnungstabellenwerte'] = JSON.parse(f.properties['umrechnungstabellenwerte']);
                         return f;
                     });
                     return response;

@@ -119,9 +119,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
 
     /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.features) {
+        if (changes['features']) {
             this.clearChart();
-            if (this.features && !changes.features.firstChange) {
+            if (this.features && !changes['features'].firstChange) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
                 if (this.echartsInstance) {
@@ -250,7 +250,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         const lastYear = this.seriesTemplate[this.seriesTemplate.length - 1].stag;
 
         return features.filter((ft: Feature) =>
-            ft.properties.stag.substr(0, 4) >= firstYear && ft.properties.stag.substr(0, 4) <= lastYear
+            ft.properties['stag'].substr(0, 4) >= firstYear && ft.properties['stag'].substr(0, 4) <= lastYear
         );
     }
 
@@ -290,14 +290,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     public getKeyValuePairs(features: Array<Feature>): Map<string, Array<Feature>> {
         // grouped by Nutzungsart
         let groupedByProperty: Map<string, Array<Feature>> =
-            this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties.nutzung));
+            this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties['nutzung']));
         for (const [_, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter((item: Feature) =>
-                    item.properties.stag.substring(0, 4) === seriesTuple.stag);
+                    item.properties['stag'].substring(0, 4) === seriesTuple.stag);
                 if (valuesFiltered.length > 1) {
                     // grouped by Bodenrichtwertnummer
-                    groupedByProperty = this.groupBy(features, (item: Feature) => item.properties.wnum);
+                    groupedByProperty = this.groupBy(features, (item: Feature) => item.properties['wnum']);
                     break;
                 }
             }
@@ -335,12 +335,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     public getSeriesData(features: Array<Feature>): Array<SeriesItem> {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
-            const feature = features.find(f => f.properties.stag.includes(series[i].stag));
+            const feature = features.find(f => f.properties['stag'].includes(series[i].stag));
             if (feature) {
-                series[i].brw = feature.properties.brw;
-                series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
-                series[i].verg = feature.properties.verg;
-                series[i].verf = feature.properties.verf;
+                series[i].brw = feature.properties['brw'];
+                series[i].nutzung = this.nutzungPipe.transform(feature.properties['nutzung'], null);
+                series[i].verg = feature.properties['verg'];
+                series[i].verf = feature.properties['verf'];
             }
         }
         return series;
@@ -475,14 +475,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      */
     public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
         let i: number;
-        if (series.find((element, index) => {
+        if (series.find((element: any, index: number): boolean => {
             // find first series element with no verg and brw
             if (!element.verg && element.brw !== null) {
                 i = index;
                 return true;
             }
-        })
-        ) {
+            return false;
+        })) {
             // from no Verfahrensgrund set to a set Verfahrensgrund
             for (i; i < series.length; i++) {
                 if (series[i].verg) {

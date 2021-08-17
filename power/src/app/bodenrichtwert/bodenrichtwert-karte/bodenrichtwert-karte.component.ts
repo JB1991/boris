@@ -163,29 +163,29 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             return;
         }
         // Teilmarkt changed
-        if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
+        if (changes['teilmarkt'] && !changes['teilmarkt'].firstChange && !this.resetMapFired) {
             this.changedTeilmarkt();
         }
         // Stichtag changed
-        if (changes.stichtag && !changes.stichtag.firstChange) {
+        if (changes['stichtag'] && !changes['stichtag'].firstChange) {
             this.changedStichtag();
         }
         // latLng changed
-        if (changes.latLng && changes.latLng.currentValue !== undefined) {
+        if (changes['latLng'] && changes['latLng'].currentValue !== undefined) {
             this.changedLatLng();
         }
         // collapsed
-        if (changes.collapsed) {
+        if (changes['collapsed']) {
             this.changedCollapsed();
         }
         // expanded
-        if (changes.expanded && this.latLng
-            && changes.expanded.currentValue) {
+        if (changes['expanded'] && this.latLng
+            && changes['expanded'].currentValue) {
             this.fly();
         }
         // resetMapFired triggered by navigation resetMap only if details are collapsed
-        if (changes.resetMapFired && !changes.resetMapFired.firstChange) {
-            if (changes.resetMapFired.currentValue && this.collapsed) {
+        if (changes['resetMapFired'] && !changes['resetMapFired'].firstChange) {
+            if (changes['resetMapFired'].currentValue && this.collapsed) {
                 this.onResetMap();
             } else {
                 // resizes the map canvas to full display width
@@ -690,8 +690,8 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             const features = this.dynamicLabellingService.dynamicLabelling(
                 this.map.queryRenderedFeatures(null, { layers: ['bauland', 'bauland_bremen'] }),
                 mapViewBound,
-                (f) => f.properties.objektidentifikator,
-                (f) => f.properties.wnum,
+                (f) => f.properties['objektidentifikator'],
+                (f) => f.properties['wnum'],
                 [
                     '04307171'
                 ],
@@ -721,7 +721,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             const features = this.dynamicLabellingService.dynamicLabelling(
                 this.map.queryRenderedFeatures(null, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
                 mapViewBound,
-                f => f.properties.objektidentifikator,
+                f => f.properties['objektidentifikator'],
                 () => '',
                 [],
                 []);

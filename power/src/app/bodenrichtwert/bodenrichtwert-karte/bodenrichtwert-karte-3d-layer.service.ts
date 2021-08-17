@@ -116,7 +116,7 @@ export class BodenrichtwertKarte3dLayerService {
         }
 
         filteredFts.forEach((ft, i) => {
-            const id = ft.properties.objectid;
+            const id = ft.properties['objectid'];
             const layerId = id.toString();
 
             const height = opt.extrusionHeight * (i + 1);
@@ -167,7 +167,7 @@ export class BodenrichtwertKarte3dLayerService {
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
 
         filteredFts.forEach((ft) => {
-            const id = ft.properties.objectid;
+            const id = ft.properties['objectid'];
             const layerId = id.toString();
             map.removeLayer(layerId);
             map.removeLayer(layerId + 'hidden');
@@ -182,7 +182,7 @@ export class BodenrichtwertKarte3dLayerService {
      */
     public filterCollectionByStag(fts: FeatureCollection, stichtag: string) {
         const filteredFts = fts.features.filter(ft =>
-            ft.properties.stag.substr(0, 10) === stichtag
+            ft.properties['stag'].substr(0, 10) === stichtag
         );
         return filteredFts;
     }
@@ -203,7 +203,7 @@ export class BodenrichtwertKarte3dLayerService {
         // otherwise create layer first
         if (this.active3dLayer) {
             filteredFts.forEach(ft => {
-                map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacityLayer);
+                map.setPaintProperty(ft.properties['objectid'], 'fill-extrusion-opacity', opacityLayer);
             });
         } else if (fts.features.length) {
             this.active3dLayer = true;

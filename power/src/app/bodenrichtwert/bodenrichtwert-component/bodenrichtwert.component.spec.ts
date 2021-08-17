@@ -79,17 +79,17 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     it('getStichtag should return the correct stichtag for data of Bremen/Bremerhaven', () => {
         component.features = JSON.parse(JSON.stringify(features));
         // Bremerhaven
-        component.features.features[0].properties.gema = 'Bremerhaven';
-        expect(component.features.features[0].properties.gema).toEqual('Bremerhaven');
+        component.features.features[0].properties['gema'] = 'Bremerhaven';
+        expect(component.features.features[0].properties['gema']).toEqual('Bremerhaven');
 
         component.stichtag = '2020-12-31';
         expect(component.getStichtag()).toEqual('2019-12-31');
 
         // Bremen
-        component.features.features[0].properties.gema = 'Bremen';
-        component.features.features[0].properties.gabe = 'Gutachterausschuss für Grundstückswerte in Bremen';
+        component.features.features[0].properties['gema'] = 'Bremen';
+        component.features.features[0].properties['gabe'] = 'Gutachterausschuss für Grundstückswerte in Bremen';
 
-        expect(component.features.features[0].properties.gabe).toEqual('Gutachterausschuss für Grundstückswerte in Bremen');
+        expect(component.features.features[0].properties['gabe']).toEqual('Gutachterausschuss für Grundstückswerte in Bremen');
 
         component.stichtag = '2018-12-31';
         expect(component.getStichtag()).toEqual('2018-12-31');

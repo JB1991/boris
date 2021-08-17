@@ -192,13 +192,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
             // filter features
             if (this.features || this.stichtag || this.teilmarkt) {
-                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
+                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties['brw'] - j.properties['brw']);
             }
 
             // check for umrechnungsdateien
             for (const feature of this.filteredFeatures) {
-                if (feature.properties.umrechnungstabellendatei
-                    && feature.properties.umrechnungstabellendatei.length > 0) {
+                if (feature.properties['umrechnungstabellendatei']
+                    && feature.properties['umrechnungstabellendatei'].length > 0) {
                     this.hasUmrechnungsdateien = true;
                     break;
                 }
@@ -359,7 +359,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         const year = Number(this.stichtag.slice(0, 4));
 
-        if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
+        if (this.features?.features[0]?.properties?.['gema'] === 'Bremerhaven') {
             if (index >= this.STICHTAGE.length - 1) {
                 return '2011-12-31';
             }
@@ -372,7 +372,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return this.STICHTAGE[this.STICHTAGE.length - 1];
         }
 
-        if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
+        if (this.features?.features[0]?.properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
                 return this.STICHTAGE[index + 1];
             }
@@ -429,7 +429,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public checkIfStichtagFtsExist(): boolean {
         const filteredFts = this.features.features.filter((ft: Feature) =>
-            ft.properties.stag.substr(0, 10) === this.stichtag
+            ft.properties['stag'].substr(0, 10) === this.stichtag
         );
         if (filteredFts.length) {
             return true;

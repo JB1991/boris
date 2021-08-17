@@ -73,7 +73,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges) {
         if (this.latLng &&
-            (changes.latLng || changes.teilmarkt || changes.stichtag)) {
+            (changes['latLng'] || changes['teilmarkt'] || changes['stichtag'])) {
             this.updateData();
         }
     }
