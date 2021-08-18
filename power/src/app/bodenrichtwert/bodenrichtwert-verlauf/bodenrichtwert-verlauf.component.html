@@ -2,7 +2,7 @@
     <ng-container *ngIf="chartOption.series">
         <div class="h3"
              i18n>Zeitliche Entwicklung</div>
-        <ng-container *ngIf="features?.features[0].properties?.['gema'] === 'Bremerhaven'; else bremen">
+        <ng-container *ngIf="features?.features[0]?.properties?.['gema'] === 'Bremerhaven'; else bremen">
             <p>
                 <span i18n>Die Bodenrichtwerte in Bremerhaven werden in einem Zweijahreszyklus festgelegt.
                     Der letzte Stichtag war der</span> {{ getStichtag('BREMERHAVEN') | date }}.
@@ -12,7 +12,7 @@
             </p>
         </ng-container>
         <ng-template #bremen>
-            <ng-container *ngIf="features?.features[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
+            <ng-container *ngIf="features?.features[0]?.properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
                      else niedersachsen">
                 <p>
                     <span i18n>Die Bremer Bodenrichtwerte werden in einem Zweijahreszyklus festgelegt.
