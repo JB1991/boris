@@ -17,20 +17,19 @@ import { SEOService } from '@app/shared/seo/seo.service';
     styleUrls: ['./fillout.component.scss']
 })
 export class FilloutComponent implements AfterViewInit {
-    @ViewChild('wrapper') public wrapper: WrapperComponent;
+    @ViewChild('wrapper') public wrapper?: WrapperComponent;
     public language = 'de';
     public submitted = false;
     public languages = surveyLocalization.localeNames;
 
     public pin = '';
-    public form: PublicForm;
+    public form?: PublicForm;
+    public task?: PublicTask;
 
     public data = {
         css_style: JSON.parse(JSON.stringify(Bootstrap4_CSS)),
         UnsavedChanges: false
     };
-
-    public task: PublicTask;
 
     constructor(
         @Inject(LOCALE_ID) public locale: string,
@@ -49,7 +48,7 @@ export class FilloutComponent implements AfterViewInit {
     /** @inheritdoc */
     ngAfterViewInit(): void {
         // get pin
-        this.pin = this.route.snapshot.paramMap.get('pin');
+        this.pin = this.route.snapshot.paramMap.get('pin') as string;
         if (this.pin) {
             // load data
             this.loadData();
@@ -79,7 +78,9 @@ export class FilloutComponent implements AfterViewInit {
      * Set language
      */
     public setLanguage(): void {
-        this.wrapper.survey.locale = this.language;
+        if (this.wrapper && this.wrapper.survey) {
+            this.wrapper.survey.locale = this.language;
+        }
     }
 
     /**
@@ -96,7 +97,7 @@ export class FilloutComponent implements AfterViewInit {
 
             // check if user language exists in survey
             /* istanbul ignore next */
-            if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
+            if (this.wrapper && this.wrapper.survey && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
                 this.language = this.locale;
                 this.setLanguage();
             }
@@ -169,7 +170,7 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(true);
             const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
             this.task = t.task;
-            const f = await this.formapi.getPublicForm(t.task.form.id, { fields: ['id', 'content', 'access'] });
+            const f = await this.formapi.getPublicForm(t.task?.form?.id as string, { fields: ['id', 'content', 'access'] });
             this.form = f.form;
             this.language = f.form.content.locale;
             this.loadingscreen.setVisible(false);

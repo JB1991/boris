@@ -78,7 +78,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         component.timerHandle = setTimeout(() => null, 100);
         component.ngOnDestroy();
-        expect(component.timerHandle).toBeNull();
+        expect(component.timerHandle).toBeUndefined();
     });
 
     /**
@@ -97,23 +97,26 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      * ON SCROLL
      */
     it('should onScroll/onResize', () => {
-        const tb = document.getElementById('toolbox').parentElement;
+        const tb = document.getElementById('toolbox')?.parentElement;
+        if (!tb) {
+            return;
+        }
 
         // small screen, not scrolled
         (window as any).innerWidth = 450;
-        component.onScroll(null);
-        component.onResize(null);
+        component.onScroll();
+        component.onResize();
         expect(tb.style.marginTop).toEqual('0px');
 
         // wide screen, scrolled
         (window as any).innerWidth = 1024;
         (window as any).pageYOffset = 10000;
-        component.onScroll(null);
-        component.onResize(null);
+        component.onScroll();
+        component.onResize();
 
         // wide screen, not scrolled
         (window as any).pageYOffset = 0;
-        component.onScroll(null);
+        component.onScroll();
         expect(tb.style.marginTop).toEqual('0px');
     });
 
@@ -124,7 +127,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component.formapi, 'getElements').and.returnValue(Promise.resolve(getElements));
         component.loadData('123').then(() => {
-            clearTimeout(component.timerHandle);
+            clearTimeout(component.timerHandle as NodeJS.Timeout);
             expect(component.storage.model).toEqual(getForm.form.content);
             done();
         });
@@ -142,7 +145,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
 
     it('should fail to load data', (done) => {
         // expect crash
-        component.loadData(null).catch((error) => {
+        component.loadData('').catch((error) => {
             expect(error.toString()).toEqual('Error: id is required');
             done();
         });
@@ -182,11 +185,11 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     it('should not drag and drop', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
 
-        component.onDropPagination(null);
+        component.onDropPagination({} as any);
         component.onDropPagination({ removedIndex: null, addedIndex: null });
         component.onDropPagination({ removedIndex: 0, addedIndex: 0 });
 
-        component.onDropWorkspace(null);
+        component.onDropWorkspace({} as any);
         component.onDropWorkspace({ removedIndex: null, addedIndex: null });
         component.onDropWorkspace({ removedIndex: 0, addedIndex: 0 });
 
@@ -410,6 +413,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      * wsSave
      */
     it('should save formular', fakeAsync(() => {
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm));
         component.storage.setUnsavedChanges(true);
         component.wsSave();
@@ -419,6 +423,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     }));
 
     it('should fail to save formular', fakeAsync(() => {
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject('Failed to save formular'));
         component.storage.setUnsavedChanges(true);
         component.wsSave();
@@ -599,7 +604,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         }];
 
         expect(component.isFavorite({ title: 'ABC', name: '' })).toEqual(1);
-        expect(component.isFavorite({ title: 'DEF', name: '' })).toBeNull();
+        expect(component.isFavorite({ title: 'DEF', name: '' })).toEqual(0);
     });
 
     it('should insert favorite', () => {

@@ -14,7 +14,7 @@ import * as Image from './widgets/imageselector';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WrapperComponent implements OnChanges {
-    @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;
+    @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv?: ElementRef;
     @Input() public model: any;
     @Input() public data: any;
     @Input() public mode: 'edit' | 'display' = 'edit';
@@ -25,8 +25,8 @@ export class WrapperComponent implements OnChanges {
     @Output() public interimResult: EventEmitter<any> = new EventEmitter();
     @Output() public changes: EventEmitter<any> = new EventEmitter();
 
-    public survey: Model;
-    public props: any;
+    public survey?: Model;
+    public props?: any;
 
     constructor(public showdownConverter: ShowdownConverter) {
         // set showdown settings for markdown
@@ -101,7 +101,7 @@ export class WrapperComponent implements OnChanges {
         }
 
         // render survey
-        SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
+        SurveyNG.render(this.surveyjsDiv?.nativeElement, this.props);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

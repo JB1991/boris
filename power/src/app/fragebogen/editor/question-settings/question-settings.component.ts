@@ -16,12 +16,12 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestionSettingsComponent {
-    @ViewChild('questionsettingsmodal') public modal: ModalComponent;
+    @ViewChild('questionsettingsmodal') public modal?: ModalComponent;
     @Input() public model: any;
     @Output() public modelChange = new EventEmitter<any>();
     public copy = '';
-    public page: number = null;
-    public question: number = null;
+    public page?: number;
+    public question?: number;
     public showDefault = false;
 
     constructor(public alerts: AlertsService,
@@ -49,7 +49,7 @@ export class QuestionSettingsComponent {
         this.storage.setAutoSaveEnabled(false);
         this.migration();
         this.cdr.detectChanges();
-        this.modal.open($localize`Fragen Einstellungen`);
+        this.modal?.open($localize`Fragen Einstellungen`);
     }
 
     /**
@@ -67,8 +67,8 @@ export class QuestionSettingsComponent {
                 this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
             }
             this.copy = '';
-            this.page = null;
-            this.question = null;
+            this.page = undefined;
+            this.question = undefined;
             this.storage.setAutoSaveEnabled(true);
         } else {
             // invalid input
@@ -80,6 +80,9 @@ export class QuestionSettingsComponent {
      * Switches title on or off
      */
     public toggleQuestionTitle(): void {
+        if (!(this.page && this.question)) {
+            return;
+        }
         if (!this.model.pages[this.page].elements[this.question].titleLocation || this.model.pages[this.page].elements[this.question].titleLocation === 'default') {
             this.model.pages[this.page].elements[this.question].titleLocation = 'hidden';
         } else {
@@ -92,6 +95,10 @@ export class QuestionSettingsComponent {
      * Migrates element to newest version
      */
     private migration(): void { // eslint-disable-line complexity
+        if (!(this.page && this.question)) {
+            return;
+        }
+
         // add commentText
         if (['radiogroup', 'checkbox', 'imageselector', 'rating', 'file', 'nouislider']
             .includes(this.model.pages[this.page].elements[this.question].type)) {

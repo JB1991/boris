@@ -11,7 +11,7 @@ import { SEOService } from '@app/shared/seo/seo.service';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    public pin: string;
+    public pin = '';
 
     constructor(
         public router: Router,

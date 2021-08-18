@@ -74,7 +74,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'something';
         component.update(false).then(() => {
-            expect(component.pageSizes.length).toBe(10);
+            expect(component.pageSizes?.length).toBe(10);
             done();
         });
     });

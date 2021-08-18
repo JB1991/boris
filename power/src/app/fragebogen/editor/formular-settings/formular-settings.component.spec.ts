@@ -52,9 +52,9 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
 
     it('should open modal', () => {
         component.open();
-        expect(component.modal.isVisible()).toBeTrue();
-        component.modal.close();
-        expect(component.modal.isVisible()).toBeFalse();
+        expect(component.modal?.isVisible()).toBeTrue();
+        component.modal?.close();
+        expect(component.modal?.isVisible()).toBeFalse();
 
         component.close(false);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -70,7 +70,7 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
         // move down
         component.moveDown(1);
         expect(component.model.pages).toEqual([1, 2, 0]);
-        component.modal.close();
+        component.modal?.close();
     });
 
     it('should not move pages', () => {

@@ -20,10 +20,10 @@ let id = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnswersComponent {
-    @ViewChild('answersForm') public myForm;
+    @ViewChild('answersForm') public myForm?: any;
     @Input() public model: any;
     @Input() public hasImg = false;
-    @Input() public data = [];
+    @Input() public data = new Array<any>();
     @Output() public dataChange = new EventEmitter<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
@@ -134,9 +134,12 @@ export class AnswersComponent {
 
         // image selected
         input.onchange = (e: Event) => {
-            const file = e.target['files'][0];
+            if (e && e.target) {
+                return;
+            }
+            const file = (e.target as HTMLInputElement).files?.[0];
             const reader = new FileReader();
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file as File);
 
             // upload success
             reader.onload = () => {
@@ -147,6 +150,9 @@ export class AnswersComponent {
                     const ctx = canvas.getContext('2d');
                     const oc = document.createElement('canvas');
                     const octx = oc.getContext('2d');
+                    if (!(ctx && octx)) {
+                        return;
+                    }
 
                     canvas.width = 300; // destination canvas size
                     canvas.height = canvas.width * img.height / img.width;

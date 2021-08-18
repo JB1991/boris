@@ -13,7 +13,7 @@ export class LocaleInputComponent {
     @Input() public placeholder = '';
     @Input() public describedby = '';
     @Input() public type = 'text';
-    @Input() public eid: string;
+    @Input() public eid = '';
     @Input() public locale: any;
     @Output() public localeChange = new EventEmitter<any>();
     public displayLang = 'default';

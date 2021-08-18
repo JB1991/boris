@@ -80,7 +80,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         component.wrapper = { survey: { locale: 'de', getUsedLocales: () => [] } } as any;
         component.language = 'en';
         component.setLanguage();
-        expect(component.wrapper.survey.locale).toEqual('en');
+        expect(component.wrapper?.survey.locale).toEqual('en');
     });
 
     /**
@@ -254,7 +254,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should throw error', () => {
         expect(() => {
-            component.submitTask(null, {});
+            component.submitTask('', {});
         }).toThrowError('id is required');
         expect(() => {
             component.submitTask('123', null);

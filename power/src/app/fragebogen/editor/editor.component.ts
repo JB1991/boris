@@ -24,11 +24,11 @@ import { SEOService } from '@app/shared/seo/seo.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
-    @ViewChild('preview') public preview: PreviewComponent;
+    @ViewChild('preview') public preview?: PreviewComponent;
     public elementCopy: any;
     public isCollapsedToolBox = false;
-    public timerHandle: NodeJS.Timeout;
-    public favorites = [];
+    public timerHandle?: NodeJS.Timeout;
+    public favorites = new Array<any>();
 
     constructor(
         public route: ActivatedRoute,
@@ -68,7 +68,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // delete auto save method
         if (this.timerHandle) {
             clearInterval(this.timerHandle);
-            this.timerHandle = null;
+            this.timerHandle = undefined;
         }
     }
 
@@ -182,16 +182,19 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
     /**
      * Scroll event handler
-     * @param event Event
      */
-    @HostListener('window:scroll', ['$event']) onScroll(event: Event): void {
-        const tb = document.getElementById('toolbox').parentElement;
-        const fr = document.getElementById('favorites').parentElement;
+    @HostListener('window:scroll', ['$event']) onScroll(): void {
+        const tb = document.getElementById('toolbox')?.parentElement;
+        const fr = document.getElementById('favorites')?.parentElement;
+        if (!(tb && fr)) {
+            return;
+        }
 
         // check if not mobile device
         if (window.innerWidth >= 992) {
             // prevent scrolling too far
-            if (tb.parentElement.clientHeight < (tb.clientHeight + fr.clientHeight + window.pageYOffset + 12)) {
+            if (tb.parentElement &&
+                tb.parentElement.clientHeight < (tb.clientHeight + fr.clientHeight + window.pageYOffset + 12)) {
                 return;
             }
             tb.style.marginTop = window.pageYOffset + 'px';
@@ -202,12 +205,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
     /**
      * Resize event handler
-     * @param event Event
      */
-    @HostListener('window:resize', ['$event']) onResize(event: Event): void {
+    @HostListener('window:resize', ['$event']) onResize(): void {
         // check if not mobile device
-        const div = document.getElementById('toolbox').parentElement;
-        if (window.innerWidth < 992) {
+        const div = document.getElementById('toolbox')?.parentElement;
+        if (div && window.innerWidth < 992) {
             div.style.marginTop = '0px';
         }
     }
@@ -278,7 +280,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // order of pages changed
         if (dropResult.payload.from === 'pagination') {
             this.history.makeHistory(this.storage.model);
-            moveItemInArray(this.storage.model.pages, dropResult.removedIndex, dropResult.addedIndex);
+            moveItemInArray(this.storage.model.pages, Number(dropResult.removedIndex), dropResult.addedIndex);
             this.storage.selectedPageID = dropResult.addedIndex;
 
             // moved element to other page
@@ -312,7 +314,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         if (dropResult.payload.from === 'workspace') {
             this.history.makeHistory(this.storage.model);
             moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements,
-                dropResult.removedIndex, dropResult.addedIndex);
+                Number(dropResult.removedIndex), dropResult.addedIndex);
 
             // new element dragged into workspace
         } else if (dropResult.payload.from === 'toolbox') {
@@ -525,6 +527,9 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
+        if (!id) {
+            return;
+        }
 
         this.formapi.updateForm(id, {
             content: this.storage.model,
@@ -567,7 +572,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             const div = document.getElementById('toolbox');
             /* istanbul ignore next */
             if (div) {
-                document.getElementById('toolbox').scrollTop = 300;
+                div.scrollTop = 300;
             }
         }, 100);
     }
@@ -713,7 +718,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         question.name = '';
 
         // add favorite
-        this.formapi.createElement({ content: question }).then((data) => {
+        this.formapi.createElement({ content: question }).then((data: any) => {
             data['content'] = question;
             this.favorites.push(data);
             this.cdr.detectChanges();
@@ -761,7 +766,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Checks if an element is a favorite
      * @param element Question
-     * @returns Number of favorite, null if it is not a favorite
+     * @returns Number of favorite, 0 if it is not a favorite
      */
     public isFavorite(element: any): number {
         // prepare data
@@ -774,7 +779,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
                 return i + 1;
             }
         }
-        return null;
+        return 0;
     }
 
     /**

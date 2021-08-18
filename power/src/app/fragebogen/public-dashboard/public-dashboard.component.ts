@@ -16,11 +16,11 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class PublicDashboardComponent implements OnInit {
     public data: Array<PublicForm> = [];
-    public total: number;
+    public total?: number;
     public page = 1;
     public perPage = 5;
-    public pageSizes: number[];
-    public totalPages: number;
+    public pageSizes?: number[];
+    public totalPages?: number;
     public search = '';
     public sort: PublicFormField = 'extract';
     public desc = false;

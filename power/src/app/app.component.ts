@@ -123,8 +123,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             }
 
             // IE+Edge deprecation notice
-            /* eslint-disable-next-line */
-            const isIE = /*@cc_on!@*/false || !!document['documentMode'];
+            // eslint-disable-next-line
+            // @ts-ignore
+            const isIE = /*@cc_on!@*/false || !!document['documentMode']; // eslint-disable-line
             const isEdge = !isIE && !!window.StyleMedia;
             /* istanbul ignore next */
             if (isIE || isEdge) {

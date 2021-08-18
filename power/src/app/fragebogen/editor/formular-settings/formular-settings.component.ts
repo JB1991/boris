@@ -15,7 +15,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormularSettingsComponent {
-    @ViewChild('formsettingsmodal') public modal: ModalComponent;
+    @ViewChild('formsettingsmodal') public modal?: ModalComponent;
     @Input() public model: any;
     @Output() public modelChange = new EventEmitter<any>();
     public copy = '';
@@ -31,7 +31,7 @@ export class FormularSettingsComponent {
     public open(): void {
         this.copy = JSON.stringify(this.model);
         this.storage.setAutoSaveEnabled(false);
-        this.modal.open($localize`Formular Einstellungen`);
+        this.modal?.open($localize`Formular Einstellungen`);
     }
 
     /**

@@ -15,7 +15,7 @@ export class StorageService {
     public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     public FormularFields = templates.FormularFields;
     public selectedPageID = 0;
-    public selectedElementID: number = null;
+    public selectedElementID?: number = undefined;
     public UnsavedChanges = false;
     public AutoSaveEnabled = true;
 
@@ -35,7 +35,7 @@ export class StorageService {
 
         this.FormularFields = templates.FormularFields;
         this.selectedPageID = 0;
-        this.selectedElementID = null;
+        this.selectedElementID = undefined;
         this.UnsavedChanges = false;
         this.AutoSaveEnabled = true;
     }

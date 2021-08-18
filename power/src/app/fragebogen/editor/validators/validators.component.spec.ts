@@ -106,7 +106,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     it('should not parse validators', () => {
         // no data
         component.data = { validators: null };
-        component.ngOnChanges(null);
+        component.ngOnChanges({});
         expect(component.struct.length).toEqual(0);
 
         // crash
@@ -118,7 +118,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
             ]
         };
         expect(() => {
-            component.ngOnChanges(null);
+            component.ngOnChanges({});
         }).toThrowError('Unkown validator type');
     });
 
@@ -145,14 +145,14 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
                 }
             ]
         };
-        component.ngOnChanges(null);
+        component.ngOnChanges({});
         expect(component.struct.length).toEqual(5);
         expect(component.struct[0].type).toEqual('numeric');
         expect(component.struct[1].type).toEqual('answercount');
         expect(component.struct[2].type).toEqual('text');
         expect(component.struct[3].type).toEqual('email');
         expect(component.struct[4].type).toEqual('regex');
-        component.modelChanged(null);
+        component.modelChanged();
     });
 
     it('should parse expression validators', () => {
@@ -173,7 +173,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
                 }
             ]
         };
-        component.ngOnChanges(null);
+        component.ngOnChanges({});
         expect(component.struct.length).toEqual(4);
         expect(component.struct[0].type).toEqual('expression');
     });
@@ -186,7 +186,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
             }
         ];
         expect(() => {
-            component.modelChanged(null);
+            component.modelChanged();
         }).toThrowError('Unkown validator type');
     });
 
@@ -216,9 +216,9 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
         component.data = {
             validators: testdata
         };
-        component.ngOnChanges(null);
+        component.ngOnChanges({});
 
-        component.modelChanged(null);
+        component.modelChanged();
         expect(component.data.validators).toEqual(testdata);
     });
 
@@ -241,11 +241,11 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
         component.data = {
             validators: testdata
         };
-        component.ngOnChanges(null);
+        component.ngOnChanges({});
         component.struct[0].value = '';
         testdata[0].expression = '{e1} equals \'\'';
 
-        component.modelChanged(null);
+        component.modelChanged();
         expect(component.data.validators).toEqual(testdata);
     });
 

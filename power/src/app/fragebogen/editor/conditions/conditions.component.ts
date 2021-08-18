@@ -23,8 +23,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
     @Input() public data: any;
     @Output() public dataChange = new EventEmitter<any>();
 
-    public struct = [];
-    public questions = [];
+    public struct = new Array<any>();
+    public questions = new Array<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
@@ -54,14 +54,14 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 }
             }
         }
-        this.loadChoices(null);
+        this.loadChoices();
     }
 
     /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || this.struct.length > 0) {
-            this.loadChoices(null);
+            this.loadChoices();
             return;
         }
 
@@ -77,7 +77,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 operator: '',
                 value: null,
                 choices: null
-            };
+            } as any;
 
             // get condition
             if (split[i] === 'and' || split[i] === 'or') {
@@ -103,7 +103,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
                 if (tmp.operator === 'anyof' || tmp.operator === 'allof') {
                     // list
-                    tmp.value = [];
+                    tmp.value = new Array<any>();
                     const tmp2 = split[i].substring(1, split[i].length - 1);
                     const regex2 = /[^\s',]+|'([^']*)'/gm;
                     for (const item of tmp2.match(regex2)) {
@@ -116,14 +116,13 @@ export class ConditionsComponent implements OnInit, OnChanges {
             }
             this.struct.push(tmp);
         }
-        this.loadChoices(null);
+        this.loadChoices();
     }
 
     /**
      * Handles changes to forms
-     * @param event Event
      */
-    public modelChanged(event: Event): void { // eslint-disable-line complexity
+    public modelChanged(): void { // eslint-disable-line complexity
         // convert form to condition object
         this.data = '';
         for (const item of this.struct) {
@@ -191,9 +190,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
     /**
      * Connects choices with element
-     * @param event Event
      */
-    public loadChoices(event: Event): void {
+    public loadChoices(): void {
         for (const item of this.struct) {
             item.choices = null;
 
@@ -265,7 +263,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
         } else {
             this.struct[i].value.splice(this.struct[i].value.length, 0, this.struct[i].choices[j].value);
         }
-        this.modelChanged(null);
+        this.modelChanged();
     }
 
     /**
@@ -279,7 +277,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
             value: null,
             choices: null,
         });
-        this.modelChanged(null);
+        this.modelChanged();
     }
 
     /**
@@ -292,7 +290,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
         }
 
         this.struct.splice(this.struct.length - 1, 1);
-        this.modelChanged(null);
+        this.modelChanged();
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

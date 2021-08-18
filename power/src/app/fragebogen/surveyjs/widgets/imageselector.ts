@@ -1,4 +1,4 @@
-import { CustomWidgetCollection, JsonObject } from 'survey-angular';
+import { CustomWidgetCollection, JsonObject, Question } from 'survey-angular';
 
 /* eslint-disable complexity */
 /* istanbul ignore next */
@@ -12,12 +12,12 @@ export function init(): void {
         widgetIsLoaded: function () {
             return true;
         },
-        isFit: function (question) {
+        isFit: function (question: Question) {
             return question.getType() === 'imageselector';
         },
         htmlTemplate: '<div></div>',
         activatedByChanged: function (activatedBy: string) {
-            JsonObject.metaData.addClass('imageselector', [], null, 'imagepicker');
+            JsonObject.metaData.addClass('imageselector', [], undefined, 'imagepicker');
             JsonObject.metaData.addProperties('imageselector', [
                 {
                     name: 'mobiletext:boolean',
@@ -26,19 +26,19 @@ export function init(): void {
                 }
             ]);
         },
-        afterRender: function (question, el) {
+        afterRender: function (question: Question, el: HTMLElement) {
             // check size
             let maring = 'm-2';
-            let width = question.imageWidth + 'px';
+            let width = question['imageWidth'] + 'px';
             if (screen.width < 576) {
-                question.imageHeight = 0;
+                question['imageHeight'] = 0;
                 maring = 'mb-2';
                 width = '100%';
             }
 
             // forearch create element
             let i = 1;
-            for (const choice of question.choices) {
+            for (const choice of question['choices']) {
                 // create container
                 const figure = document.createElement('button');
                 figure.style.width = width;
@@ -64,12 +64,12 @@ export function init(): void {
                 // click event
                 /* eslint-disable-next-line scanjs-rules/call_addEventListener */
                 figure.addEventListener('click', function (event) {
-                    if (!question.multiSelect) {
+                    if (!question['multiSelect']) {
                         // single value
                         question.value = choice.value;
 
                         // mark choices as checked / unchecked
-                        for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
+                        for (const button of Array.from(el.getElementsByTagName('button'))) {
                             if (button.value === question.value) {
                                 // checked
                                 button.setAttribute('aria-checked', 'true');
@@ -82,7 +82,7 @@ export function init(): void {
                         }
                     } else {
                         // multi select
-                        const ret = [].concat(question.value);
+                        const ret = new Array<any>().concat(question.value);
                         const index = ret.indexOf(choice.value);
                         if (index > -1) {
                             ret.splice(index, 1);
@@ -92,7 +92,7 @@ export function init(): void {
                         question.value = ret;
 
                         // mark choices as checked / unchecked
-                        for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
+                        for (const button of Array.from(el.getElementsByTagName('button'))) {
                             if (ret.includes(button.value)) {
                                 // checked
                                 button.setAttribute('aria-checked', 'true');
@@ -107,17 +107,17 @@ export function init(): void {
                 });
 
                 // create image
-                if (!question.mobiletext || screen.width >= 576) {
+                if (!question['mobiletext'] || screen.width >= 576) {
                     const img = document.createElement('img');
                     img.classList.add('figure-img', 'img-fluid', 'rounded');
                     /* eslint-disable-next-line scanjs-rules/assign_to_src */
                     img.src = choice.imageLink;
                     img.style.width = width;
-                    if (question.imageHeight) {
-                        img.height = question.imageHeight;
-                        img.style.height = question.imageHeight + 'px';
+                    if (question['imageHeight']) {
+                        img.height = question['imageHeight'];
+                        img.style.height = question['imageHeight'] + 'px';
                     }
-                    img.style.objectFit = question.imageFit;
+                    img.style.objectFit = question['imageFit'];
                     img.alt = choice.text;
 
                     // create caption
@@ -136,7 +136,7 @@ export function init(): void {
                 el.appendChild(figure);
 
                 // rows
-                if (question.colCount > 0 && i % question.colCount === 0) {
+                if (question['colCount'] > 0 && i % question['colCount'] === 0) {
                     const divcontainer = document.createElement('div');
                     el.appendChild(divcontainer);
                 }
@@ -146,9 +146,9 @@ export function init(): void {
             // value changed from surveyjs
             const updateValueHandler = function () {
                 // mark choices as checked / unchecked
-                if (!question.multiSelect) {
+                if (!question['multiSelect']) {
                     // single value
-                    for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
+                    for (const button of Array.from(el.getElementsByTagName('button'))) {
                         if (button.value === question.value) {
                             // checked
                             button.setAttribute('aria-checked', 'true');
@@ -161,7 +161,7 @@ export function init(): void {
                     }
                 } else {
                     // multi select
-                    for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
+                    for (const button of Array.from(el.getElementsByTagName('button'))) {
                         if (question.value.includes(button.value)) {
                             // checked
                             button.setAttribute('aria-checked', 'true');
@@ -179,7 +179,7 @@ export function init(): void {
 
             // question is readonly
             if (question.isReadOnly) {
-                for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
+                for (const button of Array.from(el.getElementsByTagName('button'))) {
                     button.disabled = true;
                     button.setAttribute('aria-disabled', 'true');
                     button.style.opacity = '0.5';
@@ -189,7 +189,7 @@ export function init(): void {
 
             // readonly callback
             question.readOnlyChangedCallback = function () {
-                for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
+                for (const button of Array.from(el.getElementsByTagName('button'))) {
                     if (question.isReadOnly) {
                         button.disabled = true;
                         button.setAttribute('aria-disabled', 'true');
@@ -205,9 +205,10 @@ export function init(): void {
             };
 
             // visible callback
-            question.visibleChoicesChangedCallback = function () {
-                for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
-                    for (const choice of question.choices) {
+            // visible callback
+            question['visibleChoicesChangedCallback'] = function () {
+                for (const button of Array.from(el.getElementsByTagName('button'))) {
+                    for (const choice of question['choices']) {
                         if (choice.value !== button.value) {
                             continue;
                         }
@@ -226,10 +227,10 @@ export function init(): void {
                 }
             };
         },
-        willUnmount: function (question, el) {
-            question.valueChangedCallback = null;
-            question.readOnlyChangedCallback = null;
-            question.visibleChoicesChangedCallback = null;
+        willUnmount: function (question: Question, el: HTMLElement) {
+            question.valueChangedCallback = () => { };
+            question.readOnlyChangedCallback = () => { };
+            question['visibleChoicesChangedCallback'] = () => { };
         }
     };
 

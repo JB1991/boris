@@ -24,15 +24,15 @@ export class ValidatorsComponent implements OnInit, OnChanges {
     @Input() public data: any;
     @Output() public dataChange = new EventEmitter<any>();
 
-    public struct = [];
-    public questions = [];
+    public struct = new Array<any>();
+    public questions = new Array<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     /** @inheritdoc */
     ngOnInit(): void {
         // make question list
-        this.questions = [];
+        this.questions = new Array<any>();
         for (let i = 0; i < this.model.pages.length; i++) {
             for (const element of this.model.pages[i].elements) {
                 // add to list
@@ -55,14 +55,14 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                 }
             }
         }
-        this.loadChoices(null);
+        this.loadChoices();
     }
 
     /** @inheritdoc */
     ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || !this.data.validators || this.struct.length > 0) {
-            this.loadChoices(null);
+            this.loadChoices();
             return;
         }
 
@@ -113,7 +113,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         operator: '',
                         value: '',
                         choices: null
-                    };
+                    } as any;
                     const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm;
                     const split = validator.expression.match(regex);
 
@@ -133,7 +133,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
                         if (data.operator === 'anyof' || data.operator === 'allof') {
                             // list
-                            data.value = [];
+                            data.value = new Array<any>();
                             const tmp2 = split[2].substring(1, split[2].length - 1);
                             const regex2 = /[^\s',]+|'([^']*)'/gm;
                             for (const item of tmp2.match(regex2)) {
@@ -150,14 +150,13 @@ export class ValidatorsComponent implements OnInit, OnChanges {
             }
             this.struct.push(data);
         }
-        this.loadChoices(null);
+        this.loadChoices();
     }
 
     /**
      * Handles changes to forms
-     * @param event Event
      */
-    public modelChanged(event: Event): void { // eslint-disable-line complexity
+    public modelChanged(): void { // eslint-disable-line complexity
         // convert form to validator object
         this.data.validators = [];
         for (const item of this.struct) {
@@ -227,7 +226,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
             this.data.validators.push(data);
         }
         this.dataChange.emit(this.data);
-        this.loadChoices(null);
+        this.loadChoices();
     }
 
     /**
@@ -282,9 +281,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
     /**
      * Connects choices with element
-     * @param event Event
      */
-    public loadChoices(event: Event): void {
+    public loadChoices(): void {
         for (const item of this.struct) {
             item.choices = null;
 
@@ -356,7 +354,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         } else {
             this.struct[i].value.splice(this.struct[i].value.length, 0, this.struct[i].choices[j].value);
         }
-        this.modelChanged(null);
+        this.modelChanged();
     }
 
     /**
@@ -368,7 +366,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
             min: null,
             max: null
         });
-        this.modelChanged(null);
+        this.modelChanged();
     }
 
     /**
@@ -381,7 +379,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         }
 
         this.struct.splice(this.struct.length - 1, 1);
-        this.modelChanged(null);
+        this.modelChanged();
     }
 
     /**
@@ -389,7 +387,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      * @param event Event
      */
     public selectDefaultValidator(event: Event): void {
-        switch (event.target['value']) {
+        switch ((event.target as HTMLSelectElement).value) {
             case 'date1':
                 this.struct.splice(this.struct.length, 0, {
                     type: 'regex',
@@ -413,8 +411,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         }
 
         // reset select
-        event.target['value'] = '';
-        this.modelChanged(null);
+        (event.target as HTMLSelectElement).value = '';
+        this.modelChanged();
     }
 
     /**

@@ -13,8 +13,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewComponent {
-    @ViewChild('previewmodal') public modal: ModalComponent;
-    @ViewChild('wrapper') public wrapper: WrapperComponent;
+    @ViewChild('previewmodal') public modal?: ModalComponent;
+    @ViewChild('wrapper') public wrapper?: WrapperComponent;
     @Input() public form: any;
     @Input() public data: any = null;
     public surveyjs_style = Bootstrap4_CSS;
@@ -47,9 +47,9 @@ export class PreviewComponent {
         this.isVisible = true;
         this.cdr.detectChanges();
         if (this.data) {
-            this.modal.open($localize`Ergebnisvorschau`);
+            this.modal?.open($localize`Ergebnisvorschau`);
         } else {
-            this.modal.open($localize`Formularvorschau`);
+            this.modal?.open($localize`Formularvorschau`);
         }
     }
 
@@ -76,7 +76,9 @@ export class PreviewComponent {
      * Set language
      */
     public setLanguage(): void {
-        this.wrapper.survey.locale = this.language;
+        if (this.wrapper && this.wrapper.survey) {
+            this.wrapper.survey.locale = this.language;
+        }
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

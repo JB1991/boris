@@ -8,8 +8,8 @@ import { StorageService } from './storage.service';
     providedIn: 'root'
 })
 export class HistoryService {
-    public undoBuffer = [];
-    public redoBuffer = [];
+    public undoBuffer = new Array<any>();
+    public redoBuffer = new Array<any>();
 
     constructor(public storage: StorageService) { }
 
@@ -17,8 +17,8 @@ export class HistoryService {
      * Resets service to empty model
      */
     public resetService(): void {
-        this.undoBuffer = [];
-        this.redoBuffer = [];
+        this.undoBuffer = new Array<any>();
+        this.redoBuffer = new Array<any>();
     }
 
     /**

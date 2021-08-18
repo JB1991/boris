@@ -6,7 +6,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService, GetTasksParams, GetTaskParams } from '../formapi.service';
-import { TaskStatus, TaskField, Form, Task, User, Access } from '../formapi.model';
+import { TaskStatus, TaskField, Form, Task, User, Access, TaskFilter } from '../formapi.model';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
 import { SEOService } from '@app/shared/seo/seo.service';
@@ -159,6 +159,9 @@ export class DetailsComponent implements OnInit {
      * @returns Promise
      */
     public async getCSV(): Promise<void> {
+        if (!this.form?.id) {
+            return;
+        }
         try {
             alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
             const r = await this.formapi.getCSV(this.form.id);
@@ -194,7 +197,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie diese Antwort wirklich löschen?`)) {
                 return;
             }
-            await this.formapi.deleteTask(this.tasks[i].id);
+            await this.formapi.deleteTask(this.tasks[i].id as string);
             this.tasks.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
@@ -223,7 +226,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie eine neue Pin generieren?`)) {
                 return;
             }
-            await this.formapi.updateTask(this.tasks[i].id, { status: 'created' });
+            await this.formapi.updateTask(this.tasks[i].id as string, { status: 'created' });
             await this.updateTasks();
             this.alerts.NewAlert('success', $localize`Neue Pin generiert`,
                 $localize`Die neue Pin wurde erfolgreich generiert.`);
@@ -252,7 +255,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie die Antwort abschließen?`)) {
                 return;
             }
-            await this.formapi.updateTask(this.tasks[i].id, { status: 'completed' });
+            await this.formapi.updateTask(this.tasks[i].id as string, { status: 'completed' });
             await this.updateTasks();
             this.alerts.NewAlert('success', $localize`Antwort abgeschlossen`,
                 $localize`Die Antwort wurde erfolgreich abgeschlossen.`);
@@ -282,9 +285,9 @@ export class DetailsComponent implements OnInit {
                 fields: ['content'],
             };
 
-            const r = await this.formapi.getTask(this.tasks[i].id, params);
+            const r = await this.formapi.getTask(this.tasks[i].id as string, params);
 
-            this.preview.open('display', r.task.content);
+            this.preview?.open('display', r.task.content);
         } catch (error) {
             // failed to delete task
             console.error(error);
@@ -297,8 +300,12 @@ export class DetailsComponent implements OnInit {
      * Exports form to json
      */
     public exportForm(): void {
+        if (!this.form) {
+            return;
+        }
+
         // load form
-        this.formapi.getForm(this.form.id, { fields: ['content'] }).then(result => {
+        this.formapi.getForm(this.form.id as string, { fields: ['content'] }).then(result => {
             // download json
             const blob = new Blob([JSON.stringify(result.form.content)], { type: 'application/json;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
@@ -375,7 +382,7 @@ export class DetailsComponent implements OnInit {
         if (this.taskStatus !== 'all') {
             params.filter = {
                 and: [
-                    params.filter,
+                    params.filter as TaskFilter,
                     {
                         status: this.taskStatus,
                     }
@@ -487,11 +494,17 @@ export class DetailsComponent implements OnInit {
      * @returns Promise
      */
     public async createTaskEvent(event: { amount: number; copyvalue: boolean }): Promise<void> {
+        if (!this.form) {
+            return;
+        }
+
         try {
-            const r = await this.formapi.createTask(this.form.id, {}, event.amount);
+            const r = await this.formapi.createTask(this.form.id as string, {}, event.amount);
             this.taskSort = 'created';
             this.taskSortDesc = true;
-            this.pagination.page = 1;
+            if (this.pagination) {
+                this.pagination.page = 1;
+            }
             this.updateTasks();
             // copy to clipboard
             /* istanbul ignore else */

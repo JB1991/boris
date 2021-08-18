@@ -2,7 +2,7 @@
              checkInvalid="true"
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
-         *ngIf="question !== null && model.pages[page].elements[question]">
+         *ngIf="question && page && model.pages[page].elements[question]">
         <accordion [isAnimated]="false"
                    [closeOthers]="true">
             <!-- common -->
@@ -903,7 +903,7 @@
                 class="btn btn-success mr-2"
                 i18n-title
                 title="Änderungen speichern"
-                (click)="modal.close()">
+                (click)="modal?.close()">
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"
