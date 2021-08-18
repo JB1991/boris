@@ -48,7 +48,7 @@ export class GemarkungWfsService {
      * @param gemarkung gemarkungsschlüssel
      */
     public getGemarkungByKey(gemarkung: string): Observable<FeatureCollection> {
-        const key = gemarkung.padEnd(4, '*');
+        const key = gemarkung.padStart(4, '0');
 
         const filter = '<wfs:GetFeature ' +
             'xmlns:ogc="http://www.opengis.net/ogc" ' +
@@ -91,7 +91,7 @@ export class GemarkungWfsService {
 
         let filterNumbers = '';
         numbers?.forEach(n => {
-            n = n.padEnd(4, '*');
+            n = n.padStart(4, '0');
             filterNumbers +=
                 '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
                 '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +

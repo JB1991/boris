@@ -28,7 +28,6 @@ import 'web-animations-js'; // Run `npm install --save web-animations-js`.
 /** IE11 requires the following for NgClass support on SVG elements */
 import 'core-js/es/array';
 import 'core-js/es/string/pad-start';
-import 'core-js/es/string/pad-end';
 import 'core-js/es/object/values';
 import 'core-js/stable/url-search-params';
 
