@@ -1,11 +1,11 @@
 /* eslint-disable max-lines */
 import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import * as echarts from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
+import { EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
 
 export interface SeriesItem {
     stag: string;
@@ -41,23 +41,23 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     public srTableHeader: Array<string> = [];
 
     seriesTemplate: Array<SeriesItem> = [
-        { stag: '2012', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2013', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2014', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2015', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2016', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2017', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2018', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2019', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
-        { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '', forwarded: false }
+        { stag: '2012', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2013', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2014', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2015', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2016', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2017', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2018', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2019', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2020', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: 'heute', brw: '', nutzung: '', verg: '', verf: '', forwarded: false }
     ];
 
-    public chartOption: echarts.EChartsOption = {
+    public chartOption: EChartsOption = {
         tooltip: {
             trigger: 'axis',
             confine: true,
-            formatter: (params: Array<any>) => this.tooltipFormatter(params),
+            formatter: (params: any) => this.tooltipFormatter(params),
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
             borderColor: '#ccc',
@@ -132,9 +132,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         }
     }
 
+    /** @inheritdoc */
     ngAfterViewInit() {
         if (this.echartsInst) {
-            this.echartsInstance = echarts.init(this.echartsInst.nativeElement);
+            this.echartsInstance = init(this.echartsInst.nativeElement);
         }
     }
 
@@ -151,11 +152,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      */
     public clearChart(): void {
         this.chartOption.series = [];
-        if (this.chartOption.legend) {
-            this.chartOption.legend['data'] = [];
-            this.chartOption.legend['formatter'] = '';
-            this.chartOption.legend['textStyle'].rich = '';
-        }
+        const legend: any = this.chartOption.legend;
+        legend['data'] = [];
+        legend['formatter'] = '';
+        legend['textStyle'].rich = '';
+
         this.srTableHeader = [];
         this.srTableData = [];
     }
@@ -277,7 +278,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             let label: string;
             seriesArray.forEach((series) => {
                 label = this.createLegendLabel(key, series);
-                this.chartOption.legend['data'].push(label);
+                if (this.chartOption.legend) {
+                    const legend = this.chartOption.legend as LegendComponentOption;
+                    legend?.data?.push(label);
+                }
                 this.setChartOptionsSeries(series, label);
                 this.generateSrTable(label, series);
             });
@@ -320,7 +324,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         const map = new Map<string, Array<Feature>>();
         list.forEach((item) => {
             const key = keyGetter(item);
-            if (key !== null) {
+            if (key !== null && key !== '') {
                 const collection = map.get(key);
                 if (!collection) {
                     map.set(key, [item]);
@@ -343,7 +347,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             const feature = features.find(f => f.properties?.['stag'].includes(series[i].stag));
             if (feature) {
                 series[i].brw = feature.properties?.['brw'];
-                series[i].nutzung = this.nutzungPipe.transform(feature.properties?.['nutzung'], null);
+                series[i].nutzung = this.nutzungPipe.transform(feature.properties?.['nutzung']);
                 series[i].verg = feature.properties?.['verg'];
                 series[i].verf = feature.properties?.['verf'];
             }
@@ -513,7 +517,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * @param label label
      */
     public setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
-        (this.chartOption.series as Array<echarts.SeriesOption>).push({
+        (this.chartOption.series as Array<SeriesOption>).push({
             name: label,
             type: 'line',
             step: 'end',
@@ -580,7 +584,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      */
     /* eslint-disable complexity */
     public setLegendFormat() {
-        this.chartOption.legend['formatter'] = function (name: string) {
+        const legend = this.chartOption.legend as LegendComponentOption;
+        legend['formatter'] = function (name: string) {
             const splittedName = name.split('\n');
             const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
             const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
@@ -608,7 +613,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * setTextStyleOfLegend sets some styling elements of the legend items
      */
     public setTextStyleOfLegend() {
-        this.chartOption.legend['textStyle'].rich = {
+        const legend: any = this.chartOption.legend;
+        legend.textStyle.rich = {
             'nutzung': {
                 padding: [0, 0, 0, 0],
                 align: 'center'
@@ -637,7 +643,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      */
     public generateSrTable(label: string, series: Array<SeriesItem>): void {
         const indexes: Array<number> = [];
-        indexes.forEach(idx => series[idx].brw = null);
+        indexes.forEach(idx => series[idx].brw = '');
         if (label) {
             this.srTableHeader.push(label);
             this.srTableData.push({ series: series });

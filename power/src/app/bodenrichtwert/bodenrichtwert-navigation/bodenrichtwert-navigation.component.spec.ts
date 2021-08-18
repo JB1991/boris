@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation.component';
 import { BodenrichtwertComponent } from 'app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, Point } from 'geojson';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -11,7 +11,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { LngLat } from 'maplibre-gl';
 
 describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationComponent', () => {
-    const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
+    const feature: Feature<Point> = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
     const featureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
     const flurstueck: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
 

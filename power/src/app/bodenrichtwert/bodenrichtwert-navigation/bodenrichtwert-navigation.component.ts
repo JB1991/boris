@@ -4,7 +4,7 @@ import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { BodenrichtwertComponent } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, Point } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { LngLat } from 'maplibre-gl';
@@ -197,7 +197,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onAddressChange emits the selected location (latLng) on gesearch item is selected
      * @param feature feature
      */
-    public onAddressChange(feature: Feature) {
+    public onAddressChange(feature: Feature<Point>) {
         this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][0], feature?.geometry['coordinates'][1]));
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
@@ -209,7 +209,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param fts features
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
-        let point: number[];
+        let point: number[] = [];
 
         switch (fts.features[0].geometry.type) {
             case 'Polygon':
@@ -221,8 +221,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                     coordinates: f,
                 })).sort((i, j) => area(i) - area(j)).shift();
 
-                point = polylabel(p.coordinates, 0.0001, false);
-                break
+                if (p) {
+                    point = polylabel(p.coordinates, 0.0001, false);
+                }
         }
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));

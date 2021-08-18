@@ -191,6 +191,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     });
 
+
     it('createLegendLabel should create the label of series', () => {
         const key = '12345';
         const res = component.createLegendLabel(key, series);

@@ -87,7 +87,7 @@ const ergaenzende_art_der_nutzung = {
 export class NutzungPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: any[], ...args: any[]): string {
+    transform(value: any[]): string {
         if (value === null) {
             return '';
         }
