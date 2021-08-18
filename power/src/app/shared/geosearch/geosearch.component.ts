@@ -14,7 +14,7 @@ import { AlertsService } from '../alerts/alerts.service';
 export class GeosearchComponent implements OnChanges {
     @ViewChild('geosearchInput') geosearchElement?: ElementRef;
     @Output() selectResult = new EventEmitter();
-    @Input() address?: string;
+    @Input() address?: Feature;
     public model?: Feature;
     public loading = false;
 

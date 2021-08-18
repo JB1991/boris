@@ -1,4 +1,5 @@
 {
+    "files.trimTrailingWhitespace": true,
     "html.format.endWithNewline": true,
     "html.format.indentHandlebars": true,
     "html.format.wrapAttributes": "force-aligned",
@@ -8,5 +9,6 @@
         "power"
     ],
     "editor.detectIndentation": false,
-	"scssFormatter.singleQuote": true
+    "scssFormatter.singleQuote": true,
+    "yaml.schemas": {}
 }

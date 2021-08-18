@@ -2,10 +2,10 @@ import { Map, Marker } from 'maplibre-gl';
 
 export default class BodenrichtwertKartePitchControl {
     public map: Map;
-    public btn: HTMLButtonElement;
-    public container: HTMLDivElement;
+    public btn?: HTMLButtonElement;
+    public container?: HTMLDivElement;
 
-    public currentZoom: number;
+    public currentZoom?: number;
     public marker: Marker;
 
     constructor(marker: Marker) {
@@ -49,7 +49,7 @@ export default class BodenrichtwertKartePitchControl {
      */
     public activate3dView() {
         this.currentZoom = this.map.getZoom();
-        if (this.currentZoom < 11) {
+        if (this.currentZoom && this.currentZoom < 11) {
             this.currentZoom = 15.1;
         }
         this.map.easeTo({
@@ -76,7 +76,9 @@ export default class BodenrichtwertKartePitchControl {
      * onRemove removes the html container and the map
      */
     onRemove() {
-        this.container.parentNode?.removeChild(this.container);
+        if (this.container) {
+            this.container.parentNode?.removeChild(this.container);
+        }
         this.map = undefined;
     }
 }

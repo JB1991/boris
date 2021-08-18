@@ -18,7 +18,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     @ViewChild('map')
-    public mapContainer: ElementRef<HTMLElement>;
+    public mapContainer?: ElementRef<HTMLElement>;
 
     // Maplibre GL Map Object
     public map: Map;
@@ -261,7 +261,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         // create Maplibre object
         try {
             this.map = new Map({
-                container: this.mapContainer.nativeElement,
+                container: this.mapContainer?.nativeElement,
                 style: this.MAP_STYLE_URL,
                 zoom: 7,
                 transformRequest: this.transformRequest,

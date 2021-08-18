@@ -33,6 +33,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     }));
 
     it('should create', () => {
+        spyOn(console, 'info');
         expect(component).toBeTruthy();
         environment.production = true;
         component.debugPrint('x');

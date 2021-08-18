@@ -25,10 +25,16 @@ export interface SeriesItem {
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit {
 
-    @Input() STICHTAGE: string[];
-    @Input() teilmarkt: Teilmarkt;
+    @Input() STICHTAGE?: string[];
+    @Input() teilmarkt?: Teilmarkt;
 
-    @ViewChild('echartsInst') echartsInst: ElementRef;
+    @ViewChild('echartsInst') echartsInst?: ElementRef;
+
+    @Input() address?: Feature;
+
+    @Input() features?: FeatureCollection;
+
+    public echartsInstance: any;
 
     // table data for screenreader
     public srTableData: Array<any> = [];
@@ -105,12 +111,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         series: [],
     };
 
-    @Input() address: Feature;
-
-    @Input() features: FeatureCollection;
-
-    public echartsInstance: any;
-
     constructor(
         private nutzungPipe: NutzungPipe,
         private verfahrensartPipe: VerfahrensartPipe,
@@ -133,7 +133,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     }
 
     ngAfterViewInit() {
-        this.echartsInstance = echarts.init(this.echartsInst.nativeElement);
+        if (this.echartsInst) {
+            this.echartsInstance = echarts.init(this.echartsInst.nativeElement);
+        }
     }
 
     /**
@@ -149,9 +151,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      */
     public clearChart(): void {
         this.chartOption.series = [];
-        this.chartOption.legend['data'] = [];
-        this.chartOption.legend['formatter'] = '';
-        this.chartOption.legend['textStyle'].rich = '';
+        if (this.chartOption.legend) {
+            this.chartOption.legend['data'] = [];
+            this.chartOption.legend['formatter'] = '';
+            this.chartOption.legend['textStyle'].rich = '';
+        }
         this.srTableHeader = [];
         this.srTableData = [];
     }
@@ -171,10 +175,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
                     params[j].seriesName = this.formatTooltipforSmallViews(params[j].seriesName);
                 }
                 let value: string;
-                if (this.teilmarkt.text === 'Bauland') {
-                    value = this.decimalPipe.transform(params[j].value, '1.0-1');
+                if (this.teilmarkt?.text === 'Bauland') {
+                    value = this.decimalPipe.transform(params[j].value, '1.0-1') as string;
                 } else {
-                    value = this.decimalPipe.transform(params[j].value, '1.2-2');
+                    value = this.decimalPipe.transform(params[j].value, '1.2-2') as string;
                 }
                 // result with modified tooltip text
                 res.push(`${params[j].marker} ${params[j].seriesName} : ${value} € <br />`);
@@ -183,9 +187,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
 
         let isSet = false;
         let smallestDiff: number;
-        let index: number;
+        let index = 0;
 
-        this.STICHTAGE.forEach((v, i) => {
+        this.STICHTAGE?.forEach((v, i) => {
             const diff = Math.abs(new Date(year + '-01-01').getTime() - new Date(v).getTime());
             if (!isSet) {
                 smallestDiff = diff;
@@ -199,7 +203,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             }
         });
 
-        return ([this.datePipe.transform(this.STICHTAGE[index]), '<br />', res.join('')].join(''));
+        return ([this.datePipe.transform(this.STICHTAGE?.[index]), '<br />', res.join('')].join(''));
     }
 
     /**
@@ -251,7 +255,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         const lastYear = this.seriesTemplate[this.seriesTemplate.length - 1].stag;
 
         return features.filter((ft: Feature) =>
-            ft.properties['stag'].substr(0, 4) >= firstYear && ft.properties['stag'].substr(0, 4) <= lastYear
+            ft.properties?.['stag'].substr(0, 4) >= firstYear && ft.properties?.['stag'].substr(0, 4) <= lastYear
         );
     }
 
@@ -291,14 +295,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     public getKeyValuePairs(features: Array<Feature>): Map<string, Array<Feature>> {
         // grouped by Nutzungsart
         let groupedByProperty: Map<string, Array<Feature>> =
-            this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties['nutzung']));
+            this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties?.['nutzung']));
         for (const [_, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter((item: Feature) =>
-                    item.properties['stag'].substring(0, 4) === seriesTuple.stag);
+                    item.properties?.['stag'].substring(0, 4) === seriesTuple.stag);
                 if (valuesFiltered.length > 1) {
                     // grouped by Bodenrichtwertnummer
-                    groupedByProperty = this.groupBy(features, (item: Feature) => item.properties['wnum']);
+                    groupedByProperty = this.groupBy(features, (item: Feature) => item.properties?.['wnum']);
                     break;
                 }
             }
@@ -336,12 +340,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     public getSeriesData(features: Array<Feature>): Array<SeriesItem> {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
-            const feature = features.find(f => f.properties['stag'].includes(series[i].stag));
+            const feature = features.find(f => f.properties?.['stag'].includes(series[i].stag));
             if (feature) {
-                series[i].brw = feature.properties['brw'];
-                series[i].nutzung = this.nutzungPipe.transform(feature.properties['nutzung'], null);
-                series[i].verg = feature.properties['verg'];
-                series[i].verf = feature.properties['verf'];
+                series[i].brw = feature.properties?.['brw'];
+                series[i].nutzung = this.nutzungPipe.transform(feature.properties?.['nutzung'], null);
+                series[i].verg = feature.properties?.['verg'];
+                series[i].verf = feature.properties?.['verf'];
             }
         }
         return series;
@@ -361,7 +365,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         // extract each Verfahrensgrund
         defaultVerg.forEach(verg => {
             seriesVergValues = this.deepCopy(this.seriesTemplate);
-            const seriesIncludesVerf: SeriesItem = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
+            const seriesIncludesVerf = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
                 element.verf === 'SB' || element.verf === 'EB'));
             if (seriesIncludesVerf) {
                 // separates each Verfahrensart of Verfahrensgrund
@@ -373,8 +377,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
                             seriesVergValues = this.copySeriesData(series, seriesVergValues, i);
                         }
                     }
-                    const seriesIncludesCurrentVerf = seriesVergValues.find(element => element.verf === verf);
-                    const seriesIncludesCurrentVerg = seriesVergValues.find(element => element.verg === verg);
+                    const seriesIncludesCurrentVerf = seriesVergValues.find((element: any) => element.verf === verf);
+                    const seriesIncludesCurrentVerg = seriesVergValues.find((element: any) => element.verg === verg);
                     if (seriesIncludesCurrentVerg && seriesIncludesCurrentVerf) {
                         seriesVergValuesTotal.push(seriesVergValues);
                     }
@@ -386,7 +390,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
                         seriesVergValues = this.copySeriesData(series, seriesVergValues, i);
                     }
                 }
-                const seriesIncludesCurrentVerg = seriesVergValues.find(element => element.verg === verg);
+                const seriesIncludesCurrentVerg = seriesVergValues.find((element: any) => element.verg === verg);
                 if (seriesIncludesCurrentVerg) {
                     seriesVergValuesTotal.push(seriesVergValues);
                 }
@@ -531,12 +535,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * @returns the label for the legend
      */
     public createLegendLabel(key: string, series: Array<SeriesItem>): string {
-        let nutzung: string = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
+        let nutzung = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung as string;
         const wnum = Number(key);
         if (wnum && nutzung) {
             nutzung += '\n' + wnum;
         }
-        let seriesIncludesVerg: boolean;
+        let seriesIncludesVerg = false;
         series.forEach(element => {
             if (element.verg && element.verg !== null && element.verg !== '') {
                 seriesIncludesVerg = true;
@@ -544,7 +548,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
         });
         if (seriesIncludesVerg) {
             const verg = series.find(el => el.verg !== '' && el.verg !== null);
-            let verf = [];
+            let verf = new Array<string>();
             series.filter(el => {
                 if (el.verf !== '' && el.verf !== null) {
                     verf.push(el.verf);
@@ -655,6 +659,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * @returns returns the correct stichtag for bremerhaven or bremen
      */
     public getStichtag(l: 'BREMEN' | 'BREMERHAVEN'): string {
+        if (!this.STICHTAGE) {
+            return '';
+        }
         if (new Date().getFullYear() % 2 !== 0) {
             if (l === 'BREMERHAVEN') {
                 return this.STICHTAGE[1];

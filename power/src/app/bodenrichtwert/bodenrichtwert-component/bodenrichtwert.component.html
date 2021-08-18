@@ -84,18 +84,18 @@
                             <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
                                 <div class="col-12 col-lg p-0">
                                     <!-- no address and no features but latLng set-->
-                                    <div *ngIf="!address && !features?.features.length"
+                                    <div *ngIf="!address && !features?.features?.length"
                                          class="h6 px-1 px-lg-2 pt-2 m-0 text-center"
                                          i18n>Es liegen keine Bodenrichtwertdaten für diese Koordinate vor.</div>
                                     <!-- - no address but features -->
-                                    <div *ngIf="!address && features?.features.length "
+                                    <div *ngIf="!address && features?.features?.length "
                                          class="h6 px-1 px-lg-2 pt-2 m-0 text-center">
-                                        {{ features.features[0].properties.brzname | umlautCorrection }}
+                                        {{ features?.features?.[0]?.properties?.['brzname'] | umlautCorrection }}
                                     </div>
                                     <!-- address and features -->
                                     <div *ngIf="address"
                                          class="h6 px-1 px-lg-2 pt-2 m-0 text-center">
-                                        {{ address.properties.text }}
+                                        {{ address.properties?.['text'] }}
                                     </div>
                                     <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
                                 </div>
@@ -122,7 +122,7 @@
         <div class="p-1 overflow-auto card card-header rounded-0 details-content-height">
             <div class="row m-0 p-lg-2 p-1">
                 <ng-template [ngTemplateOutlet]="detailsHints"></ng-template>
-                <div *ngIf="features?.features.length"
+                <div *ngIf="features?.features?.length"
                      class="col-12 p-0">
                     <power-bodenrichtwert-detail [stichtag]="stichtag"
                                                  [teilmarkt]="teilmarkt"
@@ -142,7 +142,7 @@
     <!-- DetailsHeaderButtons Template -->
     <ng-template #detailsFunctionButtons>
         <div class="row p-0 m-0 h-100 justify-content-end">
-            <div *ngIf="features?.features.length && checkIfStichtagFtsExist()"
+            <div *ngIf="features?.features?.length && checkIfStichtagFtsExist()"
                  class="col-auto col-lg-6 p-0">
                 <button class="nav-link btn p-2 m-2"
                         type="button"
@@ -167,8 +167,8 @@
                 </button>
             </div>
             <div class="p-0"
-                 [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
-                <button [class.d-none]="!address && !features?.features.length"
+                 [class]="features?.features?.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
+                <button [class.d-none]="!address && !features?.features?.length"
                         class="nav-link btn p-2 m-2"
                         [ngClass]="{'active': hintsActive}"
                         type="button"
@@ -198,7 +198,7 @@
     <!-- DetailsHints Template -->
     <ng-template #detailsHints>
         <!-- hints for no address and no features -->
-        <div *ngIf="(!address || address.properties.bundesland !== 'Niedersachsen' || address.properties.bundesland !== 'Bremen') && features && !features.features.length"
+        <div *ngIf="(!address || address.properties?.['bundesland'] !== 'Niedersachsen' || address.properties?.['bundesland'] !== 'Bremen') && features && !features.features.length"
              class="text-center">
             <p class="p-1 m-0"
                i18n>Keine gültige Adresse!</p>
@@ -210,7 +210,7 @@
         </div>
         <!-- hints from info button -->
         <div [class]="hintsActive ? 'd-block pb-2' : 'd-none'">
-            <div *ngIf="address || features?.features.length"
+            <div *ngIf="address || features?.features?.length"
                  class="text-center">
                 <p class="p-1 m-0 small"
                    i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
@@ -224,12 +224,12 @@
                         aktuell ausgewählten Standort und auf den Stichtag</span> {{ getStichtag() | date }}.
                 </p>
             </div>
-            <div *ngIf="address && (address.properties.bundesland === 'Niedersachsen' || address.properties.bundesland === 'Bremen') && !features?.features.length"
+            <div *ngIf="address && (address.properties?.['bundesland'] === 'Niedersachsen' || address.properties?.['bundesland'] === 'Bremen') && !features?.features?.length"
                  class="text-center">
                 <p class="p-1 m-0 small"
                    i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
             </div>
-            <div *ngIf="!address && features?.features.length"
+            <div *ngIf="!address && features?.features?.length"
                  class="text-center">
                 <p class="p-1 m-0 small"
                    i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
@@ -242,7 +242,7 @@
 
     <!-- Flurstueckskennzeichen Template -->
     <ng-template #flurstueckskennzeichen>
-        <span *ngIf="flurstueck?.features.length"
+        <span *ngIf="flurstueck && flurstueck.features && flurstueck.features.length"
               class="row p-0 m-0 text-center"
               type="text">
             <span class="col px-1 px-lg-2">
@@ -262,30 +262,32 @@
                     </g>
                 </svg>
                 <span class="d-inline-block">
-                    <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
+                    <span *ngIf="flurstueck.features[0]?.properties?.['gemarkungsnummer']"
                           class="text-nowrap">
                         <small class="ml-2 mr-2">
                             <span i18n>Gemarkung</span>:
-                            {{ flurstueck.features[0].properties.gemarkungsnummer }}
-                            ({{ flurstueck.features[0].properties.gemarkungsnummer.toString() | gemarkung | async }})
+                            {{ flurstueck.features[0]?.properties?.['gemarkungsnummer'] }}
+                            ({{ flurstueck.features[0]?.properties?.['gemarkungsnummer'].toString() | gemarkung |
+                            async
+                            }})
                         </small>
                     </span>
                     <wbr>
-                    <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
+                    <span *ngIf="flurstueck.features[0]?.properties?.['flurnummer']"
                           class="text-nowrap">
                         <small class="mr-2">
                             <span i18n>Flurnummer</span>:
-                            {{ flurstueck.features[0].properties.flurnummer }}
+                            {{ flurstueck.features[0]?.properties?.['flurnummer'] }}
                         </small>
                     </span>
                     <wbr>
-                    <span *ngIf="flurstueck.features[0]?.properties.zaehler"
+                    <span *ngIf="flurstueck.features[0]?.properties?.['zaehler']"
                           class="text-nowrap">
                         <small>
                             <span i18n>Flurstück</span>:
-                            {{ flurstueck.features[0].properties.zaehler }}</small>
-                        <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
-                            flurstueck.features[0].properties.nenner }}
+                            {{ flurstueck.features[0]?.properties?.['zaehler'] }}</small>
+                        <small *ngIf="flurstueck.features[0]?.properties?.['nenner']">/{{
+                            flurstueck.features[0]?.properties?.['nenner'] }}
                         </small>
                     </span>
                 </span>
@@ -299,11 +301,11 @@
         <strong i18n>Ihr Ausdruck wurde erzeugt und steht jetzt zum herunterladen bereit.</strong>
     </div>
 
-    <div *ngIf="filteredFeatures?.length > 0 && hasUmrechnungsdateien">
+    <div *ngIf="filteredFeatures && filteredFeatures.length > 0 && hasUmrechnungsdateien">
         <span i18n>Umrechnungsdateien für wert­re­le­van­te Einflussgrößen herunterladen</span>:
         <ul class="m-0">
             <ng-container *ngFor="let feature of filteredFeatures">
-                <li *ngFor="let umrechnung of feature.properties.umrechnungstabellendatei">
+                <li *ngFor="let umrechnung of feature?.properties?.['umrechnungstabellendatei']">
                     <a class="btn-link"
                        role="button"
                        title="{{ umrechnung.text | einflussgroesse }}"

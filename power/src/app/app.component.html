@@ -138,7 +138,7 @@
                     role="button"
                     (click)="isCollapsedImmo = true; isCollapsedBRW = true;"
                     (keydown.enter)="isCollapsedImmo = true; isCollapsedBRW = true;"
-                    *ngIf="config.modules.includes('login') && auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
+                    *ngIf="config.modules.includes('login') && auth.IsAuthenticated() && auth.user?.data?.preferred_username">
                     <a class="nav-link dropdown-toggle clickable"
                        href=""
                        id="navbarUser"
@@ -170,7 +170,7 @@
                          [collapse]="isCollapsedAcc">
                         <a class="dropdown-item"
                            href=""
-                           (click)="$event.preventDefault()">{{ auth.user.data.email }}</a>
+                           (click)="$event.preventDefault()">{{ auth.user?.data?.email }}</a>
 
                         <div class="dropdown-divider"></div>
 
