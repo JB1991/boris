@@ -267,7 +267,7 @@
                         <small class="ml-2 mr-2">
                             <span i18n>Gemarkung</span>:
                             {{ flurstueck.features[0]?.properties?.['gemarkungsnummer'] }}
-                            ({{ flurstueck.features[0]?.properties?.['gemarkungsnummer'].toString() | gemarkung |
+                            ({{ flurstueck.features[0]?.properties?.['gemarkungsnummer'] | gemarkung |
                             async
                             }})
                         </small>
