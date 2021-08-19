@@ -133,6 +133,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
+    /** @inheritdoc */
     public ngAfterViewInit() {
         if (!this.isBrowser) {
             return;
@@ -183,23 +184,23 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-
+    /**
+     * Resizes echart
+     */
     public resize() {
         this.map?.resize();
     }
 
+    /** @inheritdoc */
     public ngOnDestroy() {
-        if (this.resizeSub && this.echartsMap) {
-            this.resizeSub.unobserve(this.echartsMap.nativeElement);
+        if (this.resizeSub) {
+            this.resizeSub.disconnect();
             window.cancelAnimationFrame(Number(this.animationFrameID));
         }
     }
 
 
-    /**
-     * OnInit
-     * Load geojson for Landkreise
-     */
+    /** @inheritdoc */
     public ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             this.mapInit();
@@ -215,11 +216,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             }
             this.changeTitle();
             this.cdr.detectChanges();
-
         });
-
-
-
     }
 
     public mapInit() {

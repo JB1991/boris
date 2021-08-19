@@ -1,11 +1,11 @@
 /* eslint-disable max-lines */
-import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
+import { ECharts, EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
 
 export interface SeriesItem {
     stag: string;
@@ -23,7 +23,7 @@ export interface SeriesItem {
     providers: [NutzungPipe, VerfahrensartPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit {
+export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     @Input() STICHTAGE?: string[];
     @Input() teilmarkt?: Teilmarkt;
@@ -34,7 +34,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
 
     @Input() features?: FeatureCollection;
 
-    public echartsInstance: any;
+    public echartsInstance: ECharts;
+    public animationFrameID?: number = undefined;
+    public resizeSub?: ResizeObserver;
 
     // table data for screenreader
     public srTableData: Array<any> = [];
@@ -119,7 +121,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     ) { }
 
     /** @inheritdoc */
-    ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (changes['features']) {
             this.clearChart();
             if (this.features && !changes['features'].firstChange) {
@@ -133,19 +135,31 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     }
 
     /** @inheritdoc */
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         if (this.echartsInst) {
             this.echartsInstance = init(this.echartsInst.nativeElement);
+
+            this.resizeSub = new ResizeObserver(() => {
+                this.animationFrameID = window.requestAnimationFrame(() => this.resize());
+            });
+            this.resizeSub.observe(this.echartsInst.nativeElement);
+        }
+    }
+
+    /** @inheritdoc */
+    public ngOnDestroy() {
+        if (this.resizeSub) {
+            this.resizeSub.disconnect();
+            window.cancelAnimationFrame(Number(this.animationFrameID));
         }
     }
 
     /**
-     * onChartInit initializes the chart
-     * @param event event for initializing the chart
+     * Resizes echart
      */
-    /* public onChartInit(event: any): void {
-        this.echartsInstance = event;
-    } */
+    public resize() {
+        this.echartsInstance?.resize();
+    }
 
     /**
      * clearChart clears the chartOptions
