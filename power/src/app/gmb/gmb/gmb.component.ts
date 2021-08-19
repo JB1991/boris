@@ -27,7 +27,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public mode?: string = undefined;
 
-    public map: any = null;
+    public map?: echarts.ECharts = undefined;
 
     public selectedKreis?: string = undefined;
     public berichteFiltered = new Array<any>();
@@ -165,8 +165,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                             this.updateMapSelect();
                             this.filterBerichte();
                             this.myMapOptions['series'][0]['data'] = this.getRegionen();
-                            if (this.map['setOptions'] !== undefined) {
-                                this.map['setOptions'](this.myMapOptions);
+                            if (this.map?.setOption !== undefined) {
+                                this.map.setOption(this.myMapOptions);
                             }
                             i = lok.length;
                         }
@@ -185,7 +185,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
     public resize() {
-        this.map.resize();
+        this.map?.resize();
     }
 
     public ngOnDestroy() {
@@ -232,7 +232,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param {string} url Url to Map GeoJSON
      */
     public loadGeoMap(url: string) {
-        this.http.get(url)
+        this.http.get<JSON>(url)
             .subscribe(
                 geoJson => {
                     echarts.registerMap('NDS', geoJson as any);
@@ -439,8 +439,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.map) {
             return;
         }
-        if (this.map['dispatchAction'] !== undefined) {
-            this.map['dispatchAction']({
+        if (this.map.dispatchAction !== undefined) {
+            this.map.dispatchAction({
                 type: 'select',
                 name: this.selectedKreis
             });
@@ -463,17 +463,19 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filterBerichte();
     }
 
-    public keyPress(event: any) {
-        if (event.key === 'Enter') {
-            event.target['checked'] = !event.target['checked'];
+    public keyPress(event: KeyboardEvent) {
+        const target = event.target as HTMLInputElement;
+        if (target && event.key === 'Enter') {
+            target.checked = !target.checked;
         }
     }
 
-    public checkValue(event: any) {
-        if (event.target['checked'] === true) {
-            this.berichteOpened.push(event.target['id'].substring(2));
+    public checkValue(event: Event) {
+        const target = event.target as HTMLInputElement;
+        if (target.checked === true) {
+            this.berichteOpened.push(target.id.substring(2));
         } else {
-            const index = this.berichteOpened.indexOf(event.target['id'].substring(2));
+            const index = this.berichteOpened.indexOf(target.id.substring(2));
             if (index > -1) {
                 this.berichteOpened.splice(index, 1);
             }

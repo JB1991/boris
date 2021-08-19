@@ -1,7 +1,5 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Platform } from '@angular/cdk/platform';
 
@@ -37,15 +35,11 @@ export class GlobalErrorHandler implements ErrorHandler {
             msgStr += '\n\n' + err.toString() + '\n' + /* istanbul ignore next */ err?.stack;
         }
 
-        // Post data to Bakend
+        // post data to backend
         /* istanbul ignore next */
-        this.http.post<any>('/report', msgStr)?.pipe(
-            catchError(err => throwError(err))
-        ).subscribe(
-            res => { },
-            err => { },
-            () => { }
-        );
+        this.http.post('/report', msgStr)?.toPromise().catch((err: Error) => {
+            console.error(err);
+        });
 
         // Encode Error Message
         const msgB64 = btoa(unescape(encodeURIComponent(msgStr)));

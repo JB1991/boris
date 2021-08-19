@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 /**
  * Svg Pipe allows inserting svg html into web page
@@ -16,7 +16,7 @@ export class SvgPipe implements PipeTransform {
      * @param value formular element
      * @returns Trusted html
      */
-    transform(value: any): any {
+    transform(value: string): SafeHtml {
         return this.sanitized.bypassSecurityTrustHtml(value);
     }
 }

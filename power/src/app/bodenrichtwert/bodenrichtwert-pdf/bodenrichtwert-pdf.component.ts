@@ -1,9 +1,10 @@
 /* eslint-disable max-lines */
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { environment } from '@env/environment';
 
+import { Content, TDocumentDefinitions } from 'pdfmake/interfaces';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
@@ -58,7 +59,7 @@ export class BodenrichtwertPdfComponent {
     // eslint-disable-next-line complexity
     public async create(): Promise<boolean> {
         // pdf definition
-        const docDefinition: any = {
+        const docDefinition: TDocumentDefinitions = {
             pageSize: 'A4', // 595.28, 841.89
             pageMargins: [43, 88, 28, 48],
             compress: true,
@@ -296,8 +297,8 @@ export class BodenrichtwertPdfComponent {
         return true;
     }
 
-    public getHeader(): any {
-        const ret: any = [];
+    public getHeader(): Content[] {
+        const ret = new Array<Content>();
 
         if (this.isBremen()) {
             // Bremen + Bremerhaven
@@ -308,7 +309,7 @@ export class BodenrichtwertPdfComponent {
             });
             ret.push({
                 text: this.features?.features[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
-                width: '*',
+                width: '*' as any,
                 fontSize: 16,
                 margin: [5, 0, 0, 0]
             });
@@ -326,7 +327,7 @@ export class BodenrichtwertPdfComponent {
             });
             ret.push({
                 text: this.features?.features[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
-                width: '*',
+                width: '*' as any,
                 fontSize: 16,
                 margin: [5, 0, 0, 0]
             });
@@ -343,8 +344,8 @@ export class BodenrichtwertPdfComponent {
      * Returns makepdf Array for address and flurstück info
      * @returns PDF Address and Flurstück
      */
-    public async getAddressFlurstueck(): Promise<any> {
-        const ret: any = [];
+    public async getAddressFlurstueck(): Promise<Content[]> {
+        const ret = new Array<Content>();
 
         // address
         if (this.address) {
@@ -371,8 +372,8 @@ export class BodenrichtwertPdfComponent {
      * Returns makepdf Array for BRWs
      * @returns makepdf Array
      */
-    public getBRW(): any {
-        const ret: any = [
+    public getBRW(): Content[] {
+        const ret: Content[] = [
             {
                 text: $localize`Bodenrichtwertzonen`,
                 bold: true,
@@ -387,7 +388,7 @@ export class BodenrichtwertPdfComponent {
                 if (brw.properties?.['stag'].replace('Z', '') !== this.stichtag) {
                     continue;
                 }
-                const tmp: any = [
+                const tmp: Content[] = [
                     {
                         text: $localize`Bodenrichtwertzone` + ': ' + brw.properties?.['wnum'] + '\n',
                         bold: true
@@ -410,82 +411,85 @@ export class BodenrichtwertPdfComponent {
         return ret;
     }
 
-    private getSingleBRW(tmp: any, brw: any) { // eslint-disable-line complexity
+    private getSingleBRW(tmp: Content[], brw: Feature<Geometry, GeoJsonProperties>) { // eslint-disable-line complexity
+        if (!brw.properties) {
+            return;
+        }
         if (this.teilmarkt?.value.includes('B')) {
-            tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties.brw, '1.0-1') + ' €/m²\n');
+            tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties['brw'], '1.0-1') + ' €/m²\n');
         } else if (this.teilmarkt?.value.includes('LF')) {
-            tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties.brw, '1.2-2') + ' €/m²\n');
+            tmp.push($localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties['brw'], '1.2-2') + ' €/m²\n');
         }
 
         // Entwicklungszustand (entw)
-        tmp.push($localize`Entwicklungszustand` + ': ' + this.entwicklungszustandPipe.transform(brw.properties.entw) + '\n');
+        tmp.push($localize`Entwicklungszustand` + ': ' + this.entwicklungszustandPipe.transform(brw.properties['entw']) + '\n');
 
         // Entwicklungszustandzusatz (verf, verg)
-        if (brw.properties.verg) {
-            tmp.push($localize`Verfahrensgrund` + ': ' + this.verfahrensartPipe.transform(brw.properties.verg) + '\n');
+        if (brw.properties['verg']) {
+            tmp.push($localize`Verfahrensgrund` + ': ' + this.verfahrensartPipe.transform(brw.properties['verg']) + '\n');
         }
-        if (brw.properties.verf) {
-            tmp.push($localize`Entwicklungs- und Sanierungszusatz` + ': ' + this.entwicklungszusatzPipe.transform(brw.properties.verf) + '\n');
+        if (brw.properties['verf']) {
+            tmp.push($localize`Entwicklungs- und Sanierungszusatz` + ': ' + this.entwicklungszusatzPipe.transform(brw.properties['verf']) + '\n');
         }
 
         // Beitragsrechtlicher Zustand (beit)
-        if (brw.properties.beit) {
-            tmp.push($localize`Beitrags- und abgabenrechtlicher Zustand` + ': ' + this.beitragPipe.transform(brw.properties.beit) + '\n');
+        if (brw.properties['beit']) {
+            tmp.push($localize`Beitrags- und abgabenrechtlicher Zustand` + ': ' + this.beitragPipe.transform(brw.properties['beit']) + '\n');
         }
 
         // Nutzung - Art und Ergänzung (nuta, enuta)
-        tmp.push($localize`Art der Nutzung` + ': ' + this.nutzungPipe.transform(brw.properties.nutzung) + '\n');
+        tmp.push($localize`Art der Nutzung` + ': ' + this.nutzungPipe.transform(brw.properties['nutzung']) + '\n');
 
         // Bauweise oder Anbauart (bauw)
-        if (brw.properties.bauw) {
-            tmp.push($localize`Bauweise` + ': ' + this.bauweisePipe.transform(brw.properties.bauw) + '\n');
+        if (brw.properties['bauw']) {
+            tmp.push($localize`Bauweise` + ': ' + this.bauweisePipe.transform(brw.properties['bauw']) + '\n');
         }
 
         // Maß der baulichen Nutzung (bmz, gez, grz, wgfz)
-        if (brw.properties.bmz) {
-            tmp.push($localize`Baumassenzahl` + ': ' + this.decimalPipe.transform(brw.properties.bmz) + '\n');
+        if (brw.properties['bmz']) {
+            tmp.push($localize`Baumassenzahl` + ': ' + this.decimalPipe.transform(brw.properties['bmz']) + '\n');
         }
-        if (brw.properties.gez) {
-            tmp.push($localize`Geschosszahl` + ': ' + brw.properties.gez + '\n');
+        if (brw.properties['gez']) {
+            tmp.push($localize`Geschosszahl` + ': ' + brw.properties['gez'] + '\n');
         }
-        if (brw.properties.grz) {
-            tmp.push($localize`Grundflächenzahl` + ': ' + this.decimalPipe.transform(brw.properties.grz) + '\n');
+        if (brw.properties['grz']) {
+            tmp.push($localize`Grundflächenzahl` + ': ' + this.decimalPipe.transform(brw.properties['grz']) + '\n');
         }
-        if (brw.properties.wgfz) {
-            tmp.push($localize`Wertrelevante Geschossflächenzahl` + ': ' + this.decimalPipe.transform(brw.properties.wgfz) + '\n');
+        if (brw.properties['wgfz']) {
+            tmp.push($localize`Wertrelevante Geschossflächenzahl` + ': ' + this.decimalPipe.transform(brw.properties['wgfz']) + '\n');
         }
 
         // Merkmale der Land- und forstwirtschaftlichen Flächen (acza, bod, grza)
-        if (brw.properties.acza) {
-            tmp.push($localize`Ackerzahl` + ': ' + this.decimalPipe.transform(brw.properties.acza) + '\n');
+        if (brw.properties['acza']) {
+            tmp.push($localize`Ackerzahl` + ': ' + this.decimalPipe.transform(brw.properties['acza']) + '\n');
         }
-        if (brw.properties.bod) {
-            tmp.push($localize`Bodenart` + ': ' + this.bodenartPipe.transform(brw.properties.bod) + '\n');
+        if (brw.properties['bod']) {
+            tmp.push($localize`Bodenart` + ': ' + this.bodenartPipe.transform(brw.properties['bod']) + '\n');
         }
-        if (brw.properties.grza) {
-            tmp.push($localize`Grünlandzahl` + ': ' + this.decimalPipe.transform(brw.properties.grza) + '\n');
+        if (brw.properties['grza']) {
+            tmp.push($localize`Grünlandzahl` + ': ' + this.decimalPipe.transform(brw.properties['grza']) + '\n');
         }
 
         // Angaben zum Grundstück (gbrei, flae, gtie, frei, bem)
-        if (brw.properties.flae) {
-            tmp.push($localize`Grundstücksfläche` + ': ' + this.decimalPipe.transform(brw.properties.flae) + ' m²\n');
+        if (brw.properties['flae']) {
+            tmp.push($localize`Grundstücksfläche` + ': ' + this.decimalPipe.transform(brw.properties['flae']) + ' m²\n');
         }
-        if (brw.properties.gbrei) {
-            tmp.push($localize`Grundstücksbreite` + ': ' + this.decimalPipe.transform(brw.properties.gbrei) + ' m\n');
+        if (brw.properties['gbrei']) {
+            tmp.push($localize`Grundstücksbreite` + ': ' + this.decimalPipe.transform(brw.properties['gbrei']) + ' m\n');
         }
-        if (brw.properties.gtie) {
-            tmp.push($localize`Grundstückstiefe` + ': ' + this.decimalPipe.transform(brw.properties.gtie) + ' m\n');
+        if (brw.properties['gtie']) {
+            tmp.push($localize`Grundstückstiefe` + ': ' + this.decimalPipe.transform(brw.properties['gtie']) + ' m\n');
         }
-        if (brw.properties.frei) {
-            tmp.push($localize`Landesspezifische Angaben` + ': ' + this.umlautCorrectionPipe.transform(brw.properties.frei) + '\n');
+        if (brw.properties['frei']) {
+            tmp.push($localize`Landesspezifische Angaben` + ': ' + this.umlautCorrectionPipe.transform(brw.properties['frei']) + '\n');
         }
-        if (brw.properties.bem) {
-            tmp.push($localize`Bemerkung` + ': ' + brw.properties.bem + '\n');
+        if (brw.properties['bem']) {
+            tmp.push($localize`Bemerkung` + ': ' + brw.properties['bem'] + '\n');
         }
 
         // Umrechnungsdatei
-        if (brw.properties.umrechnungstabellendatei) {
-            const path = brw.properties.umrechnungstabellendatei[0].dateiname.replace('http://boris.niedersachsen.de', '');
+        if (brw.properties['umrechnungstabellendatei']) {
+            const path = brw.properties['umrechnungstabellendatei'][0].dateiname.replace('http://boris.niedersachsen.de', '');
             const newUrl = location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
             tmp.push({
                 text: $localize`Umrechnungstabelle` + ': ' + newUrl,

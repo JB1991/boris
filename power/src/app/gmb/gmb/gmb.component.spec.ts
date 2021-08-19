@@ -48,9 +48,7 @@ describe('GmbComponent', () => {
         fixture = TestBed.createComponent(GmbComponent);
         component = fixture.componentInstance;
 
-        spyOn(component, 'mapInit').and.callFake(function () {
-        });
-
+        spyOn(component, 'mapInit').and.callFake(function () { });
 
         fixture.detectChanges();
         httpTestingController = TestBed.inject(HttpTestingController);
@@ -159,12 +157,12 @@ describe('GmbComponent', () => {
     });
 
     it('keyPress works', () => {
-        const event = {
+        const event: KeyboardEvent = {
             'key': 'Enter',
             'target': {
                 'checked': false
-            }
-        };
+            } as HTMLInputElement
+        } as any;
 
         component.keyPress(event);
         expect(event.target['checked']).toEqual(true);
@@ -214,12 +212,12 @@ describe('GmbComponent', () => {
     });
 
     it('checkValue works', () => {
-        const event = {
+        const event: Event = {
             'target': {
                 'checked': true,
                 'id': 'id0815'
-            }
-        };
+            } as HTMLInputElement
+        } as any;
 
         component.berichteOpened = [];
 
@@ -228,7 +226,7 @@ describe('GmbComponent', () => {
         component.checkValue(event);
         expect(component.berichteOpened).toEqual(['0815']);
 
-        event.target.checked = false;
+        (event.target as HTMLInputElement).checked = false;
         component.checkValue(event);
         expect(component.berichteOpened).toEqual([]);
 

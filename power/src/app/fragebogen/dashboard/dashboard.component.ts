@@ -96,14 +96,18 @@ export class DashboardComponent implements OnInit {
         importButton?.parentNode?.insertBefore(input, importButton);
 
         // File selected
-        input.onchange = (event: any) => {
-            const file = event?.target?.['files'][0];
+        input.onchange = (event: Event) => {
+            const target = event.target as HTMLInputElement;
+            if (!target || !target.files) {
+                return;
+            }
+            const file = target.files[0];
             const reader = new FileReader();
             // Upload success
             reader.onload = () => {
                 try {
                     this.formAPI.createForm({
-                        content: JSON.parse(reader?.result ? reader.result.toString(): '{"error": "no result"}'),
+                        content: JSON.parse(reader?.result ? reader.result.toString() : '{"error": "no result"}'),
                     }).then(() => {
                         this.formSortDesc = true;
                         this.formSort = 'created';

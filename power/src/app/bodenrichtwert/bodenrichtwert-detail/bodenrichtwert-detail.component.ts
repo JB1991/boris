@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
+import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
@@ -40,7 +41,7 @@ export class BodenrichtwertDetailComponent implements OnChanges {
 
     @Input() public stichtag?: string;
 
-    @Input() public teilmarkt?: any;
+    @Input() public teilmarkt?: Teilmarkt;
 
     @Input() public features?: FeatureCollection;
 

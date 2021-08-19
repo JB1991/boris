@@ -1,24 +1,25 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+const bodTypes = [
+    { key: 'S', value: $localize`Sand`, slash: $localize`Sand`, comma: $localize`Sand`, plus: $localize`Sand` },
+    { key: 'sL', value: $localize`Sandiger Lehm`, slash: $localize`sandigem Lehm`, comma: $localize`sandiger Lehm`, plus: $localize`sandigem Lehm` },
+    { key: 'Sl', value: $localize`Anlehmiger Sand`, slash: $localize`anlehmigem Sand`, comma: $localize`anlehmiger Sand`, plus: $localize`anlehmigem Sand` },
+    { key: 'St', value: $localize`Steine und Blöcke`, slash: $localize`Steinen und Blöcken`, comma: $localize`Steine und Blöcke`, plus: $localize`Steinen und Blöcken` },
+    { key: 'lS', value: $localize`Lehmiger Sand`, slash: $localize`lehmigem Sand`, comma: $localize`lehmiger Sand`, plus: $localize`lehmigem Sand` },
+    { key: 'lSg', value: $localize`Lehmiger Sand mit starkem Steingehalt`, slash: $localize`lemigem Sand mit starkem Steingehalt`, comma: $localize`lehmiger Sand mit starkem Steingehalt`, plus: $localize`lehmigem Sand mit starkem Steingehalt` },
+    { key: 'L', value: $localize`Lehm`, slash: $localize`Lehm`, comma: $localize`Lehm`, plus: $localize`Lehm` },
+    { key: 'Lg', value: $localize`Lehm mit starkem Steingehalt`, slash: $localize`Lehm mit starkem Steingehalt`, comma: $localize`Lehm mit starkem Steingehalt`, plus: $localize`Lehm mit starkem Steingehalt` },
+    { key: 'LT', value: $localize`Schwerer Lehm`, slash: $localize`schwerem Lehm`, comma: $localize`schwerer Lehm`, plus: $localize`schwerem Lehm` },
+    { key: 'T', value: $localize`Ton`, slash: $localize`Ton`, comma: $localize`Ton`, plus: $localize`Ton` },
+    { key: 'Fe', value: $localize`Felsen`, slash: $localize`Felsen`, comma: $localize`Felsen`, plus: $localize`Felsen` },
+    { key: 'Mo', value: $localize`Moor`, slash: $localize`Moor`, comma: $localize`Moor`, plus: $localize`Moor` },
+];
+
 @Pipe({
     name: 'bodenart'
 })
 export class BodenartPipe implements PipeTransform {
 
-    bodTypes = [
-        { key: 'S', value: $localize`Sand`, slash: $localize`Sand`, comma: $localize`Sand`, plus: $localize`Sand` },
-        { key: 'sL', value: $localize`Sandiger Lehm`, slash: $localize`sandigem Lehm`, comma: $localize`sandiger Lehm`, plus: $localize`sandigem Lehm` },
-        { key: 'Sl', value: $localize`Anlehmiger Sand`, slash: $localize`anlehmigem Sand`, comma: $localize`anlehmiger Sand`, plus: $localize`anlehmigem Sand` },
-        { key: 'St', value: $localize`Steine und Blöcke`, slash: $localize`Steinen und Blöcken`, comma: $localize`Steine und Blöcke`, plus: $localize`Steinen und Blöcken` },
-        { key: 'lS', value: $localize`Lehmiger Sand`, slash: $localize`lehmigem Sand`, comma: $localize`lehmiger Sand`, plus: $localize`lehmigem Sand` },
-        { key: 'lSg', value: $localize`Lehmiger Sand mit starkem Steingehalt`, slash: $localize`lemigem Sand mit starkem Steingehalt`, comma: $localize`lehmiger Sand mit starkem Steingehalt`, plus: $localize`lehmigem Sand mit starkem Steingehalt` },
-        { key: 'L', value: $localize`Lehm`, slash: $localize`Lehm`, comma: $localize`Lehm`, plus: $localize`Lehm` },
-        { key: 'Lg', value: $localize`Lehm mit starkem Steingehalt`, slash: $localize`Lehm mit starkem Steingehalt`, comma: $localize`Lehm mit starkem Steingehalt`, plus: $localize`Lehm mit starkem Steingehalt` },
-        { key: 'LT', value: $localize`Schwerer Lehm`, slash: $localize`schwerem Lehm`, comma: $localize`schwerer Lehm`, plus: $localize`schwerem Lehm` },
-        { key: 'T', value: $localize`Ton`, slash: $localize`Ton`, comma: $localize`Ton`, plus: $localize`Ton` },
-        { key: 'Fe', value: $localize`Felsen`, slash: $localize`Felsen`, comma: $localize`Felsen`, plus: $localize`Felsen` },
-        { key: 'Mo', value: $localize`Moor`, slash: $localize`Moor`, comma: $localize`Moor`, plus: $localize`Moor` },
-    ];
 
     regex: RegExp[] = [
         // 3 chars
@@ -39,7 +40,10 @@ export class BodenartPipe implements PipeTransform {
         let types: string[] = [];
 
         if (this.bodTypeExists(value)) {
-            res = this.getBodType(value).value;
+            const tmp = this.getBodType(value)?.value;
+            if (tmp) {
+                res = tmp;
+            }
         } else if (value.includes(',')) {
             types = value.split(',');
             res = this.buildDisplayValue(types, 'und');
@@ -66,7 +70,7 @@ export class BodenartPipe implements PipeTransform {
      * @returns returns true/false if bodenart exists
      */
     private bodTypeExists(value: string): boolean {
-        return this.bodTypes.some(b => b.key === value);
+        return bodTypes.some(b => b.key === value);
     }
 
     /**
@@ -74,8 +78,8 @@ export class BodenartPipe implements PipeTransform {
      * @param value key einer Bodenart
      * @returns Returns the bodenart for a given key
      */
-    private getBodType(value: string): any {
-        return this.bodTypes.find(b => b.key === value);
+    private getBodType(value: string): typeof bodTypes[0] | undefined {
+        return bodTypes.find(b => b.key === value);
     }
 
     /**
@@ -124,7 +128,7 @@ export class BodenartPipe implements PipeTransform {
      * @param operator defines how to combine multiple bodenarten
      * @returns Returns the correct valueString of a bodType for a specific operator
      */
-    private getValueByOperator(bodType: any, operator: string): string {
+    private getValueByOperator(bodType: typeof bodTypes[0], operator: string): string {
         let value = '';
         switch (operator) {
             case 'und': {
