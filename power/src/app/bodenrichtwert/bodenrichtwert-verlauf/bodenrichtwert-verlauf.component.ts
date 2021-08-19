@@ -150,7 +150,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     public ngOnDestroy() {
         if (this.resizeSub) {
             this.resizeSub.disconnect();
-            window.cancelAnimationFrame(Number(this.animationFrameID));
+            if (this.animationFrameID) {
+                window.cancelAnimationFrame(this.animationFrameID);
+            }
         }
     }
 
