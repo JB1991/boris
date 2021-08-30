@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GmbComponent } from './gmb/gmb.component';
+import { GmbComponent } from './gmb.component';
 
 const routes: Routes = [
     {
