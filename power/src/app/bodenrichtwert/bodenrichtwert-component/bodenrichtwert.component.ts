@@ -212,10 +212,15 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             this.isCollapsed = false;
             this.cdr.detectChanges();
         });
-        this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
-            this.flurstueck = fst;
-            this.cdr.detectChanges();
-        });
+        this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(
+            fst => {
+                this.flurstueck = fst;
+                this.cdr.detectChanges();
+            },
+            error => {
+                console.error(error);
+            }
+        );
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
 
