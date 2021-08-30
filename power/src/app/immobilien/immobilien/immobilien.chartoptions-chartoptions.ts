@@ -155,27 +155,33 @@ export const chartOptions = {
         formatter: null
     },
     toolbox: {
-        show: false,
-        orient: 'vertical',
+        show: true,
+        orient: 'horizontal',
         itemSize: 30,
         itemGap: 20,
         right: 5,
-        top: 190,
+        top: 110,
         feature: {
-            mySaveAsImage: {
+            myResetChart: {
                 show: true,
+                title: $localize`Reset`,
+                icon: 'path://M 7.765625 0.28515625 A 0.25 0.25 0 0 0 7.5898438 0.34179688 L 5.2304688 2.3085938 A 0.25 0.25 0 0 0 5.2304688 2.6914062 L 7.5898438 4.6582031 A 0.25 0.25 0 0 0 8 4.4667969 L 8 3 A 5 5 0 1 1 3.453125 5.9140625 A 0.5 0.5 0 0 0 2.546875 5.4960938 A 6 6 0 1 0 8 2 L 8 0.53320312 A 0.25 0.25 0 0 0 7.765625 0.28515625 z',
+                onclick: null
+            },
+            mySaveAsImage: {
+                show: false,
                 title: $localize`Bild`,
                 icon: 'path://M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M6,20H15L18,20V12L14,16L12,14L6,20M8,9A2,2 0 0,0 6,11A2,2 0 0,0 8,13A2,2 0 0,0 10,11A2,2 0 0,0 8,9Z',
                 onclick: null
             },
             mySaveAsCSV: {
-                show: true,
+                show: false,
                 title: $localize`CSV`,
                 icon: 'path://M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M10,19H7V17H10V19M10,16H7V14H10V16M10,13H7V11H10V13M14,19H11V17H14V19M14,16H11V14H14V16M14,13H11V11H14V13M13,9V3.5L18.5,9H13Z',
                 onclick: null
             },
             mySaveAsGeoJSON: {
-                show: true,
+                show: false,
                 title: $localize`GeoJSON`,
                 icon: 'path://M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15.68,15C15.34,13.3 13.82,12 12,12C10.55,12 9.3,12.82 8.68,14C7.17,14.18 6,15.45 6,17A3,3 0 0,0 9,20H15.5A2.5,2.5 0 0,0 18,17.5C18,16.18 16.97,15.11 15.68,15Z',
                 onclick: null
