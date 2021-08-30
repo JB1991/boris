@@ -65,6 +65,7 @@ export class ImmobilienChartOptions {
         ret.xAxis[0].axisLabel.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeAxisLabel);
         ret.yAxis[0].axisLabel.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeAxisLabel);
         ret.tooltip.formatter = opt.tooltipFormatter;
+        ret.toolbox.feature.myResetChart.onclick = opt.resetChart;
         ret.toolbox.feature.mySaveAsImage.onclick = opt.exportAsImage;
         ret.toolbox.feature.mySaveAsCSV.onclick = opt.exportCSV;
         ret.toolbox.feature.mySaveAsGeoJSON.onclick = opt.exportNiPixGeoJson;

@@ -409,6 +409,11 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                         'text': this.nipixStatic.textOptions,
                         'date': this.nipixRuntime.availableQuartal,
                         'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
+                        'resetChart': function () {
+                            this.nipixRuntime.resetHighlight();
+                            this.nipixRuntime.state.selectedChartLine = '';
+                            this.updateChart();
+                        }.bind(this),
                         'exportAsImage': function () { this.nipixRuntime.export.exportAsImage(); }.bind(this),
                         'exportCSV': function () { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
                         'exportNiPixGeoJson': function () { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
@@ -458,6 +463,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             'geoCoordMapTop': this.nipixStatic.data.geoCoordMap['top'],
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
+
         this.nipixRuntime.state.mapWidth = 10000;
 
         this.nipixRuntime.map.obj.setOption(this.nipixRuntime.map.options);
@@ -473,7 +479,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      */
     /* eslint-disable-next-line complexity */
     onMapSelectChange(param) {
-        if (param.isFromClick === false) {
+        if ((param.isFromClick === false) ||
+                (param['isFromClick'] && (param['fromAction'] === 'select') && (param['selected'].length === 0))) {
             return;
         }
 
@@ -513,6 +520,8 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
         // Finally Update chart
         this.updateChart();
+
+        this.cdr.detectChanges();
     }
 
     /**
@@ -842,6 +851,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         } else {
             this.setMapOptions(false);
         }
+        setTimeout(function() { this.cdr.detectChanges() }.bind(this),50);
     }
 
     /**
