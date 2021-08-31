@@ -696,6 +696,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             return this.STICHTAGE[1];
         }
     }
+
+    /**
+     * Returns echart options series
+     * @returns SeriesOption[]
+     */
+    public getSeriesOption(): SeriesOption[] {
+        if (this.chartOption.series) {
+            return this.chartOption.series as SeriesOption[];
+        }
+        return new Array<SeriesOption>();
+    }
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

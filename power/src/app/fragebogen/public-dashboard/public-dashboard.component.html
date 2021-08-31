@@ -32,7 +32,7 @@
                            type="search"
                            i18n-placeholder
                            placeholder="Suche"
-                           (change)="search = $event.target.value; update(false)">
+                           (change)="search = getHTMLInputValue($event); update(false)">
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                                   aria-describedby="ascSortedTitle descSortedTitle noForms"
                                   i18n
                                   i18n-aria-roledescription>Titel</span>
-                            <span *ngIf="sort && sort === 'title'">
+                            <span *ngIf="sort && sort === 'extract'">
                                 <span *ngIf="!desc"
                                       id="ascSortedTitle"
                                       title="Aufsteigend sortiert"
@@ -164,7 +164,7 @@
                                i18n>Anzahl von Formularen pro Seite</label>
                         <select class="custom-select"
                                 id="pagination-forms"
-                                (change)="perPage = $event.target.value; update(false)">
+                                (change)="perPage = getHTMLInputValue($event); update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
                             </option>

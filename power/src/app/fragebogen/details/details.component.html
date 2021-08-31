@@ -270,7 +270,7 @@
                            i18n>Antworten filtern nach Status</label>
                     <select class="browser-default custom-select"
                             id="filter-task-status"
-                            (change)="taskStatus = $event.target.value; this.updateTasks()">
+                            (change)="taskStatus = getHTMLInputValue($event); this.updateTasks()">
                         <option value="all"
                                 selected
                                 i18n>Status: Alle</option>
@@ -749,7 +749,7 @@
                                i18n>Anzahl von Antworten pro Seite</label>
                         <select class="custom-select"
                                 id="pagination-tasks"
-                                (change)="taskPerPage = $event.target.value; updateTasks()">
+                                (change)="taskPerPage = getHTMLInputValue($event); updateTasks()">
                             <option *ngFor=" let size of taskPageSizes ">
                                 {{ size }}
                             </option>

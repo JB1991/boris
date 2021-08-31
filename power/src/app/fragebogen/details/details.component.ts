@@ -527,5 +527,14 @@ export class DetailsComponent implements OnInit {
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
+
+    /**
+     * Returns value of change event
+     * @param event Change Event
+     * @returns Value
+     */
+    public getHTMLInputValue(event: Event): any {
+        return (event.target as HTMLInputElement).value;
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

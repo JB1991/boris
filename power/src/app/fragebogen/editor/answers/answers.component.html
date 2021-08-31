@@ -31,7 +31,7 @@
                        i18n>Anzeigetext</label>
                 <power-forms-editor-localeinput [(locale)]="item.text"
                                                 eid="answer-text-{{ i }}{{ uniqId }}"
-                                                maxlength="200"
+                                                [maxlength]="200"
                                                 i18n-placeholder
                                                 placeholder="Anzeigetext"></power-forms-editor-localeinput>
             </div>

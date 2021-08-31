@@ -161,7 +161,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                     const lk = params['landkreis'];
                     const lok = Object.keys(KREISE_DATA);
                     for (let i = 0; i < lok.length; i++) {
-                        if (KREISE_DATA.hasOwnProperty(lok[i]) && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
+                        if (KREISE_DATA.hasOwnProperty(lok[i])
+                            && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
                             this.selectedKreis = lok[i] as keyof typeof KREISE_DATA;
                             this.updateMapSelect();
                             this.filterBerichte();
@@ -459,13 +460,14 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     /**
      * Handle Landkreis Select change
      *
-     * @param newValue New selected Landkreis
+     * @param event Change Event
      */
-    public onChange(newValue: any) {
+    public onChange(event: Event) {
+        const newValue = event.target as HTMLSelectElement;
         if (!newValue) {
             this.selectedKreis = undefined;
         } else {
-            this.selectedKreis = newValue;
+            this.selectedKreis = newValue.value as keyof typeof KREISE_DATA;
         }
         this.berichteOpened = new Array<any>();
         this.changeURL();
