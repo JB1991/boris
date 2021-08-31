@@ -4,7 +4,8 @@ import { ModalminiFooterDirective } from './modalmini-footer.directive';
 
 describe('Shared.ModalminiFooterDirective', () => {
     it('should create an instance', () => {
-        const directive = new ModalminiFooterDirective(null);
+        const div = document.createElement('div');
+        const directive = new ModalminiFooterDirective(new ElementRef(div));
         expect(directive).toBeTruthy();
     });
 

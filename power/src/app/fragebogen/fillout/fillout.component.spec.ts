@@ -80,7 +80,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         component.wrapper = { survey: { locale: 'de', getUsedLocales: () => [] } } as any;
         component.language = 'en';
         component.setLanguage();
-        expect(component.wrapper?.survey.locale).toEqual('en');
+        expect(component.wrapper?.survey?.locale).toEqual('en');
     });
 
     /**

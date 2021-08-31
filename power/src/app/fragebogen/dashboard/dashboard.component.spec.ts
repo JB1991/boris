@@ -274,9 +274,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     template: ''
 })
 class MockNewformComponent {
-    @ViewChild('modal') public modal: ModalminiComponent;
+    @ViewChild('modal') public modal?: ModalminiComponent;
     @Output() public out = new EventEmitter<Form>();
-    @Input() public tags: Array<string>;
+    @Input() public tags: Array<string> = [];
 }
 @Component({
     selector: 'power-forms-home',

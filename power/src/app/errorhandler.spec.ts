@@ -38,6 +38,15 @@ describe('GlobalErrorHandler', () => {
         handler.handleError(new Error('Loading chunk 0 failed'));
         expect(handler.reload).toHaveBeenCalledTimes(1);
     });
+
+    afterEach(() => {
+        // remove error screen
+        if (handler.container) {
+            document.body.removeChild(handler.container);
+        }
+        handler.errorList = [];
+        handler.container = undefined;
+    });
 });
 
 class MockUpdateService {

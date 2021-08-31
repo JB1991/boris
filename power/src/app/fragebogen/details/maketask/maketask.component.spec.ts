@@ -39,9 +39,9 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
     it('should open and close', () => {
         fixture.detectChanges();
         component.open();
-        expect(component.modal.isOpen).toBeTrue();
-        component.modal.close();
-        expect(component.modal.isOpen).toBeFalse();
+        expect(component.modal?.isOpen).toBeTrue();
+        component.modal?.close();
+        expect(component.modal?.isOpen).toBeFalse();
     });
 
     afterEach(() => {

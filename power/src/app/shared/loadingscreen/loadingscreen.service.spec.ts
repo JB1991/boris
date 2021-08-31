@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NavigationEnd, Router, NavigationStart, GuardsCheckEnd, NavigationCancel } from '@angular/router';
+import { NavigationEnd, Router, NavigationStart, GuardsCheckEnd, NavigationCancel, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { LoadingscreenService } from './loadingscreen.service';
@@ -47,7 +47,10 @@ describe('Shared.Loadingscreen.LoadingscreenService', () => {
 
 class MockRouter {
     public ns = new NavigationStart(0, 'http://localhost:4200/login');
-    public gc = new GuardsCheckEnd(1, 'http://localhost:4200/login', 'http://localhost:4200/login', null, true);
+    public gc = new GuardsCheckEnd(1, 'http://localhost:4200/login', 'http://localhost:4200/login', {
+        url: '',
+        root: new ActivatedRouteSnapshot(),
+    }, true);
     public ne = new NavigationEnd(2, 'http://localhost:4200/login', 'http://localhost:4200/login');
     public nc = new NavigationCancel(1, 'http://localhost:4200/login', 'Guard');
     public events = new Observable(observer => {

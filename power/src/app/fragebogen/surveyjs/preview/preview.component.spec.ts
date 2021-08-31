@@ -42,15 +42,15 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     });
 
     it('should open/close', () => {
-        expect(component.modal.isVisible()).toBeFalse();
+        expect(component.modal?.isVisible()).toBeFalse();
         expect(component.mode).toEqual('display');
 
         component.open();
-        expect(component.modal.isVisible()).toBeTrue();
+        expect(component.modal?.isVisible()).toBeTrue();
         expect(component.mode).toEqual('display');
 
-        component.modal.close();
-        expect(component.modal.isVisible()).toBeFalse();
+        component.modal?.close();
+        expect(component.modal?.isVisible()).toBeFalse();
         expect(component.data).toBeNull();
 
         component.open('edit', 5);
@@ -64,7 +64,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         component.language = 'en';
         component.setLanguage();
 
-        expect(component.wrapper.survey.locale).toEqual('en');
+        expect(component.wrapper?.survey?.locale).toEqual('en');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
