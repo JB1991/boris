@@ -34,7 +34,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
 
     @Input() features?: FeatureCollection;
 
-    public echartsInstance: ECharts;
+    public echartsInstance?: ECharts;
     public animationFrameID?: number = undefined;
     public resizeSub?: ResizeObserver;
 
@@ -499,10 +499,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @returns returns the series without verfahrensgrund items
      */
     public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
-        let i: number;
+        let i = 0;
         if (series.find((element: any, index: number): boolean => {
             // find first series element with no verg and brw
-            if (!element.verg && element.brw !== null) {
+            if (!element.verg && element.brw) {
                 i = index;
                 return true;
             }
@@ -511,19 +511,19 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             // from no Verfahrensgrund set to a set Verfahrensgrund
             for (i; i < series.length; i++) {
                 if (series[i].verg) {
-                    series[i].verg = null;
-                    series[i].verf = null;
-                    series[i].nutzung = null;
+                    series[i].verg = '';
+                    series[i].verf = '';
+                    series[i].nutzung = '';
                     // if series gets interrupted cause of a verg the two graphs should be connected
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                    series[i - 1].brw ? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
+                    series[i - 1].brw ? series[i].brw = (series[i].brw).toString() : series[i].brw = '';
                     series = series.slice(0, i + 1);
                     break;
                 }
             }
         }
         // if Verfahrensgrund is in the past
-        series.forEach(element => element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = [null, null, null, null] : '');
+        series.forEach(element => element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = ['', '', '', ''] : '');
         return series;
     }
 

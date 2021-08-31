@@ -171,10 +171,10 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     it('deleteSeriesVergItems should delete the data with verg and/or verf', () => {
         const deletedSeries = component.deleteSeriesVergItems(deleteSeries);
-        expect(deletedSeries[0].verg).toEqual(null);
-        expect(deletedSeries[0].brw).toEqual(null);
-        expect(deletedSeries[0].verf).toEqual(null);
-        expect(deletedSeries[0].nutzung).toEqual(null);
+        expect(deletedSeries[0].verg).toEqual('');
+        expect(deletedSeries[0].brw).toEqual('');
+        expect(deletedSeries[0].verf).toEqual('');
+        expect(deletedSeries[0].nutzung).toEqual('');
 
         expect(deletedSeries[2].stag).toEqual('2014');
         expect(deletedSeries[2].nutzung).toEqual('Wohnbaufläche');
@@ -184,8 +184,8 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(deletedSeries[3].stag).toEqual('2015');
         expect(deletedSeries[3].brw).toEqual('4');
         expect(typeof (deletedSeries[3].brw)).toEqual('string');
-        expect(deletedSeries[3].nutzung).toEqual(null);
-        expect(deletedSeries[3].verg).toEqual(null);
+        expect(deletedSeries[3].nutzung).toEqual('');
+        expect(deletedSeries[3].verg).toEqual('');
 
         expect(deletedSeries.length).toEqual(4);
 

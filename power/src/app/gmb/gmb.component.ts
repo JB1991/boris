@@ -29,7 +29,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public map?: ECharts = undefined;
 
-    public selectedKreis?: string = undefined;
+    public selectedKreis?: keyof typeof KREISE_DATA = undefined;
     public berichteFiltered = new Array<any>();
     public berichteOpened = new Array<string>();
     public isBrowser = true;
@@ -68,8 +68,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             'showDelay': 0,
             'transitionDuration': 0.2,
             'formatter': function (params: any) {
-                if (KREISE_DATA[params.name]) {
-                    return KREISE_DATA[params.name];
+                if (KREISE_DATA.hasOwnProperty(params.name)) {
+                    return KREISE_DATA[params.name as keyof typeof KREISE_DATA];
                 } else {
                     return params.name;
                 }
@@ -161,8 +161,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                     const lk = params['landkreis'];
                     const lok = Object.keys(KREISE_DATA);
                     for (let i = 0; i < lok.length; i++) {
-                        if (KREISE_DATA[lok[i]] === lk) {
-                            this.selectedKreis = lok[i];
+                        if (KREISE_DATA.hasOwnProperty(lok[i]) && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
+                            this.selectedKreis = lok[i] as keyof typeof KREISE_DATA;
                             this.updateMapSelect();
                             this.filterBerichte();
                             (this.myMapOptions['series'] as SeriesOption[])[0]['data'] = this.getRegionen();
@@ -286,7 +286,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         for (let i = 0; i < ok.length; i++) {
             res.push({
                 'key': ok[i],
-                'value': KREISE_DATA[ok[i]]
+                'value': KREISE_DATA[ok[i] as keyof typeof KREISE_DATA]
             });
         }
         res.sort(function (a, b) {
@@ -312,7 +312,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
         for (let i = 0; i < arr.length; i++) {
             if (KREISE_DATA.hasOwnProperty(arr[i])) {
-                res.push(KREISE_DATA[arr[i]]);
+                res.push(KREISE_DATA[arr[i] as keyof typeof KREISE_DATA]);
             } else {
                 res.push(arr[i]);
             }
@@ -325,13 +325,24 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         const ber = Object.keys(GMB_DATA);
         for (let i = 0; i < ber.length; i++) {
             const yr = new Array<any>();
-            const yk = Object.keys(GMB_DATA[ber[i]]);
+            const yk = Object.keys(GMB_DATA[ber[i] as keyof typeof GMB_DATA]);
             for (let y = 0; y < yk.length; y++) {
-                if ((GMB_DATA[ber[i]][yk[y]]['bereich'] !== undefined) &&
-                    (GMB_DATA[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
+                const tmp1 = GMB_DATA[ber[i] as keyof typeof GMB_DATA];
+                const tmp2 = tmp1[yk[y] as keyof typeof tmp1] as {
+                    fileurl: string;
+                    file: string;
+                    bereich: string[];
+                    checksum: {
+                        md5: string;
+                        sha256: string;
+                        sha1: string;
+                    };
+                };
+                if ((tmp2.bereich !== undefined) &&
+                    (tmp2.bereich.includes(this.selectedKreis as string))) {
                     yr.push({
                         'key': yk[y],
-                        'value': GMB_DATA[ber[i]][yk[y]]
+                        'value': tmp2
                     });
                 }
             }
@@ -362,9 +373,10 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         const yk = Object.keys(GMB_DATA['Niedersachsen']);
 
         for (let y = 0; y < yk.length; y++) {
+            const tmp1 = GMB_DATA['Niedersachsen' as keyof typeof GMB_DATA];
             bb.push({
                 'key': yk[y],
-                'value': GMB_DATA['Niedersachsen'][yk[y]]
+                'value': tmp1[yk[y] as keyof typeof tmp1]
             });
 
         }
@@ -420,8 +432,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         const ok = Object.keys(KREISE_DATA);
         const item = ok[selectedlist[0]];
 
-        if (item) {
-            this.selectedKreis = item;
+        if (item && KREISE_DATA.hasOwnProperty(item)) {
+            this.selectedKreis = item as keyof typeof KREISE_DATA;
             this.berichteOpened = new Array<any>();
             this.filterBerichte();
             this.changeURL();

@@ -25,7 +25,7 @@ export class ValueComponent implements OnChanges {
     @Input() public question: any;
     @Input() public value: any;
     @Output() public valueChange = new EventEmitter<any>();
-    public data = {};
+    public data: any = {};
     public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) {
