@@ -16,7 +16,7 @@ export const environment = {
         'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-light.json',
         'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-grayscale.json',
     ],
-    formAPI: 'http://localhost:8080/',
+    formAPI: 'http://localhost:8080/formapi/',
     auth: {
         clientid: 'power',
         clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
