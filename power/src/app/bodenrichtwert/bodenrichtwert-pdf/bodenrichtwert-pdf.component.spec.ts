@@ -140,36 +140,36 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
             }
         ];
         component.flurstueck = {
-            "type": "FeatureCollection",
-            "features": [
+            'type': 'FeatureCollection',
+            'features': [
                 {
-                    "type": "Feature",
-                    "id": "ax_flurstueck_nds.2160785",
-                    "geometry": {} as any,
-                    "properties": {
-                        "gml_id": "DENIAL350000733t",
-                        "identifier": "urn:adv:oid:DENIAL350000733t",
-                        "beginnt": "2018-02-20T06:20:24Z",
-                        "advstandardmodell": "DLKM",
-                        "anlass": 50000,
-                        "land": 3,
-                        "gemarkungsnummer": 1205,
-                        "zaehler": 113,
-                        "nenner": 37,
-                        "flurstueckskennzeichen": "031205005001130037__",
-                        "amtlicheflaeche": 1262,
-                        "amtlicheflaeche_uom": "urn:adv:uom:m2",
-                        "flurnummer": 5,
-                        "abweichenderrechtszustand": false,
-                        "zweifelhafterflurstuecksnachweis": false,
-                        "rechtsbehelfsverfahren": false,
-                        "zeitpunktderentstehung": "1974-01-01",
-                        "gemeindezugehoerigkeit|ax_gemeindekennzeichen|land": 3,
-                        "regierungsbezirk": 3,
-                        "kreis": 59,
-                        "gemeinde": 17,
-                        "zustaendigestelle|ax_dienststelle_schluessel|land": 3,
-                        "stelle": 2343
+                    'type': 'Feature',
+                    'id': 'ax_flurstueck_nds.2160785',
+                    'geometry': {} as any,
+                    'properties': {
+                        'gml_id': 'DENIAL350000733t',
+                        'identifier': 'urn:adv:oid:DENIAL350000733t',
+                        'beginnt': '2018-02-20T06:20:24Z',
+                        'advstandardmodell': 'DLKM',
+                        'anlass': 50000,
+                        'land': 3,
+                        'gemarkungsnummer': 1205,
+                        'zaehler': 113,
+                        'nenner': 37,
+                        'flurstueckskennzeichen': '031205005001130037__',
+                        'amtlicheflaeche': 1262,
+                        'amtlicheflaeche_uom': 'urn:adv:uom:m2',
+                        'flurnummer': 5,
+                        'abweichenderrechtszustand': false,
+                        'zweifelhafterflurstuecksnachweis': false,
+                        'rechtsbehelfsverfahren': false,
+                        'zeitpunktderentstehung': '1974-01-01',
+                        'gemeindezugehoerigkeit|ax_gemeindekennzeichen|land': 3,
+                        'regierungsbezirk': 3,
+                        'kreis': 59,
+                        'gemeinde': 17,
+                        'zustaendigestelle|ax_dienststelle_schluessel|land': 3,
+                        'stelle': 2343
                     }
                 }
             ]
