@@ -44,7 +44,7 @@
                     class="form-select"
                     i18n-aria-label
                     aria-label="Wählen die einen Landkreis"
-                    (change)="onChange($event.target.value)">
+                    (change)="onChange($event)">
                 <ng-container *ngFor="let kreis of selectMenu()">
                     <option *ngIf="selectedKreis === kreis.key"
                             value="{{ kreis.key }}"

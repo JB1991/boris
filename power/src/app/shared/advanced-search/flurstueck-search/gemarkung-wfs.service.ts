@@ -48,8 +48,6 @@ export class GemarkungWfsService {
      * @param gemarkung gemarkungsschlüssel
      */
     public getGemarkungByKey(gemarkung: string): Observable<FeatureCollection> {
-        const key = gemarkung.padStart(4, '0');
-
         const filter = '<wfs:GetFeature ' +
             'xmlns:ogc="http://www.opengis.net/ogc" ' +
             'xmlns:wfs="http://www.opengis.net/wfs" ' +
@@ -59,7 +57,7 @@ export class GemarkungWfsService {
             '<ogc:Filter>' +
             '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
             '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
-            '<ogc:Literal>' + key + '</ogc:Literal>' +
+            '<ogc:Literal>*' + gemarkung + '*</ogc:Literal>' +
             '</ogc:PropertyIsLike>' +
             '</ogc:Filter>' +
             '</wfs:Query>' +
@@ -91,25 +89,24 @@ export class GemarkungWfsService {
 
         let filterNumbers = '';
         numbers?.forEach(n => {
-            n = n.padStart(4, '0');
             filterNumbers +=
                 '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
                 '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
-                '<ogc:Literal>' + n + '</ogc:Literal>' +
+                '<ogc:Literal>*' + n + '*</ogc:Literal>' +
                 '</ogc:PropertyIsLike>';
         });
 
         let filterWords = '';
         words?.forEach(w => {
-            w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() + '*';
+            w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
             filterWords +=
                 '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
                 '<ogc:PropertyName>gemarkung</ogc:PropertyName>' +
-                '<ogc:Literal>' + w + '</ogc:Literal>' +
+                '<ogc:Literal>*' + w + '*</ogc:Literal>' +
                 '</ogc:PropertyIsLike>' +
                 '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
                 '<ogc:PropertyName>gemeinde</ogc:PropertyName>' +
-                '<ogc:Literal>' + w + '</ogc:Literal>' +
+                '<ogc:Literal>*' + w + '*</ogc:Literal>' +
                 '</ogc:PropertyIsLike>';
         });
 

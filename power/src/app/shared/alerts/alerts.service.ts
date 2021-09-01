@@ -29,10 +29,7 @@ export class AlertsService {
      */
     public NewAlert(type: 'success' | 'danger' | 'info' | 'warning',
         title: string, text: string, timeout = 5000): void {
-        // check if type is set
-        if (!type) {
-            throw new Error('Type is required');
-        }
+        // check timeout
         if (timeout < 1000 || timeout > 60000) {
             throw new Error('timeout too big or small');
         }

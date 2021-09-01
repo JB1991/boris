@@ -21,7 +21,6 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
-import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -60,8 +59,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 NutzungPipe,
                 BauweisePipe,
                 BodenartPipe,
-                UmlautCorrectionPipe,
-                GemarkungPipe
+                UmlautCorrectionPipe
             ]
         }).compileComponents();
     }));
@@ -78,18 +76,23 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
 
     it('getStichtag should return the correct stichtag for data of Bremen/Bremerhaven', () => {
         component.features = JSON.parse(JSON.stringify(features));
+
         // Bremerhaven
-        component.features.features[0].properties['gema'] = 'Bremerhaven';
-        expect(component.features.features[0].properties['gema']).toEqual('Bremerhaven');
+        if (component.features && component.features.features[0].properties) {
+            component.features.features[0].properties['gema'] = 'Bremerhaven';
+        }
+        expect(component.features?.features[0]?.properties?.['gema']).toEqual('Bremerhaven');
 
         component.stichtag = '2020-12-31';
         expect(component.getStichtag()).toEqual('2019-12-31');
 
         // Bremen
-        component.features.features[0].properties['gema'] = 'Bremen';
-        component.features.features[0].properties['gabe'] = 'Gutachterausschuss für Grundstückswerte in Bremen';
+        if (component.features && component.features.features[0].properties) {
+            component.features.features[0].properties['gema'] = 'Bremen';
+            component.features.features[0].properties['gabe'] = 'Gutachterausschuss für Grundstückswerte in Bremen';
+        }
 
-        expect(component.features.features[0].properties['gabe']).toEqual('Gutachterausschuss für Grundstückswerte in Bremen');
+        expect(component.features?.features[0]?.properties?.['gabe']).toEqual('Gutachterausschuss für Grundstückswerte in Bremen');
 
         component.stichtag = '2018-12-31';
         expect(component.getStichtag()).toEqual('2018-12-31');
@@ -137,8 +140,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         expect(zoom).toEqual(5);
         zoom = component.validateZoom(14.5);
         expect(zoom).toEqual(14.5);
-        zoom = component.validateZoom(undefined);
-        expect(zoom).toEqual(7);
     });
 
     it('validatePitch should validates the pitch param', () => {
@@ -148,8 +149,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         expect(pitch).toEqual(0);
         pitch = component.validatePitch(35.6);
         expect(pitch).toEqual(35.6);
-        pitch = component.validatePitch(undefined);
-        expect(pitch).toEqual(0);
     });
 
     it('validateBearing should validates the bearing param', () => {
@@ -159,8 +158,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         expect(bearing).toEqual(-180);
         bearing = component.validateBearing(1);
         expect(bearing).toEqual(1);
-        bearing = component.validateBearing(undefined);
-        expect(bearing).toEqual(0);
     });
 
     it('validateLngLat should validates the lngLat params', () => {

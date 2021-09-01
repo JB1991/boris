@@ -87,7 +87,9 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
 
     it('getBodenrichtwertzonen should call BodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
-        component.getBodenrichtwertzonen(lat, lng, component.teilmarkt.value);
+        if (component.teilmarkt) {
+            component.getBodenrichtwertzonen(lat, lng, component.teilmarkt?.value);
+        }
         expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(1);
     });
 

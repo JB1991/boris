@@ -25,7 +25,6 @@
         "noUncheckedIndexedAccess": false,
         "noUnusedLocals": true,
         "noUnusedParameters": false,
-        "resolveJsonModule": true,
         "types": [
             "node"
         ],
@@ -48,7 +47,7 @@
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
-        "fullTemplateTypeCheck": false,
-        "strictTemplates": false
+        "fullTemplateTypeCheck": true,
+        "strictTemplates": true
     }
 }

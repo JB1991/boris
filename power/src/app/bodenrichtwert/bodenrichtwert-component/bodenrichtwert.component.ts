@@ -16,6 +16,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { SEOService } from '@app/shared/seo/seo.service';
 import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 /**
  * Teilmarkt
@@ -178,7 +179,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
         public location: Location,
-        private seo: SEOService
+        private seo: SEOService,
+        private alerts: AlertsService
     ) {
         this.seo.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.seo.updateTag({ name: 'description', content: $localize`Bodenrichtwerte für Bauland und landwirtschaftliche Nutzflächen werden flächendeckend in BORIS.NI für das Land Niedersachsen und Bremen kostenfrei zur Verfügung gestellt.` });
@@ -212,10 +214,16 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             this.isCollapsed = false;
             this.cdr.detectChanges();
         });
-        this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
-            this.flurstueck = fst;
-            this.cdr.detectChanges();
-        });
+        this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(
+            fst => {
+                this.flurstueck = fst;
+                this.cdr.detectChanges();
+            },
+            err => {
+                console.error(err);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
+            }
+        );
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
 

@@ -210,6 +210,7 @@ export class NipixRuntime {
      * timeout handler for diable highlight
      */
     public highlightTimeout() {
+        this.highlightedTimeout = null;
         this.state.highlightedSeries = '';
         this.updateMapSelect();
     }
@@ -219,6 +220,7 @@ export class NipixRuntime {
      */
     public resetHighlight() {
         clearTimeout(this.highlightedTimeout);
+        this.highlightedTimeout = null;
         this.state.highlightedSeries = '';
         this.updateMapSelect();
     }
@@ -230,6 +232,11 @@ export class NipixRuntime {
      */
     public highlightSeries(seriesName) {
         if (this.state.highlightedSeries !== seriesName) {
+
+            if (this.highlightedTimeout !== null) {
+                this.resetHighlight();
+            }
+
             this.state.highlightedSeries = seriesName;
 
             const rkey = Object.keys(this.nipixStatic.data.regionen);
@@ -246,7 +253,6 @@ export class NipixRuntime {
             }
 
         }
-        clearTimeout(this.highlightedTimeout);
         /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         this.highlightedTimeout = setTimeout(this.highlightTimeout.bind(this), 10000);
     }

@@ -57,10 +57,12 @@ describe('Static.Feedback.FeedbackComponent', () => {
     it('should remove sensitive informations', () => {
         expect(component.filterTitle('dagobert@duck.net')).toEqual('***@email');
         expect(component.filterTitle('Hello Dagobert (dagobert@duck.net)!')).toEqual('Hello Dagobert (***@email)!');
+        expect(component.filterTitle(null)).toEqual('');
 
         expect(component.filterBody('dagobert@duck.net')).toEqual('***@email');
         expect(component.filterBody('Hello Dagobert (dagobert@duck.net)!')).toEqual('Hello Dagobert (***@email)!');
         expect(component.filterBody('+49 511 64609-146')).toEqual('***');
+        expect(component.filterBody(null)).toEqual('');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

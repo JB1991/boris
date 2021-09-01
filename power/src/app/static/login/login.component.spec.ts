@@ -60,7 +60,7 @@ describe('Static.Login.LoginComponent', () => {
         // valid session, redirect user
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 200);
-        component.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': null };
+        component.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
 
         component.authenticate().then(() => {
             expect(console.info).toHaveBeenCalledWith('User is authenticated');

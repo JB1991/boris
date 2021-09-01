@@ -20,7 +20,7 @@
                     <power-forms-editor-localeinput [(locale)]="model.title"
                                                     eid="form-title"
                                                     [required]="true"
-                                                    maxlength="200"
+                                                    [maxlength]="200"
                                                     i18n-placeholder
                                                     placeholder="Formular Titel"></power-forms-editor-localeinput>
                 </div>
@@ -411,7 +411,7 @@
                                    i18n>Seiten Titel</label>
                             <power-forms-editor-localeinput [(locale)]="page.title"
                                                             eid="page-title-{{ i }}"
-                                                            maxlength="200"
+                                                            [maxlength]="200"
                                                             i18n-placeholder
                                                             placeholder="Seiten Titel">
                             </power-forms-editor-localeinput>

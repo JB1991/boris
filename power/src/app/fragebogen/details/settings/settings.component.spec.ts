@@ -47,9 +47,9 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         component.open({
             id: '123',
         });
-        expect(component.modal.isOpen).toBeTrue();
-        component.modal.close();
-        expect(component.modal.isOpen).toBeFalse();
+        expect(component.modal?.isOpen).toBeTrue();
+        component.modal?.close();
+        expect(component.modal?.isOpen).toBeFalse();
     });
 
     it('should open with data', () => {
@@ -59,11 +59,11 @@ describe('Fragebogen.Details.SettingsComponent', () => {
             groups: ['b'],
             owner: { id: '1', name: 'Klaus' }
         });
-        expect(component.modal.isOpen).toBeTrue();
+        expect(component.modal?.isOpen).toBeTrue();
         expect(component.tags).toEqual(['a']);
         expect(component.groups).toEqual(['b']);
         expect(component.owner).toEqual('1');
-        component.modal.close();
+        component.modal?.close();
     });
 
 });

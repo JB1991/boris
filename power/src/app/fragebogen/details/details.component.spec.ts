@@ -386,10 +386,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
         spyOn(component.formapi, 'getTask').and.returnValue(Promise.resolve(getTaskContent));
-        spyOn(component.preview, 'open');
+        if (component.preview) {
+            spyOn(component.preview, 'open');
+        }
 
         component.openTask(0).then(() => {
-            expect(component.preview.open).toHaveBeenCalledTimes(1);
+            expect(component.preview?.open).toHaveBeenCalledTimes(1);
             done();
         });
     });
@@ -567,7 +569,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should createTaskEvent', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        component.form.status = 'published';
+        if (component.form) {
+            component.form.status = 'published';
+        }
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
         fixture.detectChanges();
 
@@ -604,7 +608,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should updateGroups', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'getGroups').and.returnValue(Promise.resolve({ groups: ['A'], total: 1, status: null }));
+        spyOn(component.formapi, 'getGroups').and.returnValue(Promise.resolve({ groups: ['A'], total: 1, status: 200 }));
 
         component.updateGroups().then(() => {
             expect(component.availableGroups).toEqual(['A']);
@@ -614,7 +618,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should updateUsers', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'getUsers').and.returnValue(Promise.resolve({ users: [{ name: 'X', id: '1' }], total: 1, status: null }));
+        spyOn(component.formapi, 'getUsers').and.returnValue(Promise.resolve({ users: [{ name: 'X', id: '1' }], total: 1, status: 200 }));
 
         component.updateUsers().then(() => {
             expect(component.availableUsers).toEqual([{ name: 'X', id: '1' }]);
@@ -663,9 +667,9 @@ class MockPublishComponent { }
     template: ''
 })
 class MockSettingsComponent {
-    @Input() public availableTags: Array<string>;
-    @Input() public availableGroups: Array<string>;
-    @Input() public availableUsers: Array<User>;
+    @Input() public availableTags = new Array<string>();
+    @Input() public availableGroups = new Array<string>();
+    @Input() public availableUsers = new Array<User>();
 }
 @Component({
     selector: 'power-forms-dashboard',

@@ -22,15 +22,6 @@ describe('Shared.Alerts.AlertsService', () => {
         expect(service.alertslist[0].title).toEqual('Test Title');
     });
 
-    it('should add invalid alert', () => {
-        expect(() => {
-            service.NewAlert(null, '', '');
-        }).toThrowError('Type is required');
-        expect(() => {
-            service.NewAlert('success', 'Test Title', 'Test Body', 500);
-        }).toThrowError('timeout too big or small');
-    });
-
     it('should prevent too much alerts', () => {
         service.NewAlert('success', 'Test Title', 'Test Body');
         service.NewAlert('success', 'Test Title', 'Test Body');
@@ -39,6 +30,12 @@ describe('Shared.Alerts.AlertsService', () => {
         expect(service.alertslist.length).toEqual(4);
         service.NewAlert('success', 'Test Title', 'Test Body');
         expect(service.alertslist.length).toEqual(4);
+    });
+
+    it('should prevent too big timeout', () => {
+        expect(() => {
+            service.NewAlert('success', 'Test Title', 'Test Body', 120000);
+        }).toThrowError('timeout too big or small');
     });
 
     it('should reset service', () => {

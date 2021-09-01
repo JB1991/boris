@@ -3,11 +3,11 @@ import { ResizeObserver } from '@juggle/resize-observer';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import * as echarts from 'echarts';
+import { init, registerMap, ECharts, EChartsOption, SeriesOption } from 'echarts';
 
 import { SEOService } from '@app/shared/seo/seo.service';
-import * as data from './gmb.json';
-import * as kreise_raw from './kreise.json';
+import { GMB_DATA } from './gmb';
+import { KREISE_DATA } from './kreise';
 
 /* eslint-disable max-lines */
 @Component({
@@ -22,14 +22,14 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('echartsMap') public echartsMap?: ElementRef;
 
     public downloadPath = '/download';
-    public berichte = data['default'];
-    public kreise = kreise_raw['default'];
+    public berichte = GMB_DATA;
+    public kreise = KREISE_DATA;
 
     public mode?: string = undefined;
 
-    public map: any = null;
+    public map?: ECharts = undefined;
 
-    public selectedKreis?: string = undefined;
+    public selectedKreis?: keyof typeof KREISE_DATA = undefined;
     public berichteFiltered = new Array<any>();
     public berichteOpened = new Array<string>();
     public isBrowser = true;
@@ -40,7 +40,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     /**
      * MapOptions
      */
-    public myMapOptions = {
+    public myMapOptions: EChartsOption = {
         'title': {
             'text': $localize`Landkreise in Niedersachsen*`,
             'left': 'center',
@@ -68,8 +68,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             'showDelay': 0,
             'transitionDuration': 0.2,
             'formatter': function (params: any) {
-                if (this.kreise.hasOwnProperty(params.name)) {
-                    return this.kreise[params.name];
+                if (KREISE_DATA.hasOwnProperty(params.name)) {
+                    return KREISE_DATA[params.name as keyof typeof KREISE_DATA];
                 } else {
                     return params.name;
                 }
@@ -133,6 +133,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
+    /** @inheritdoc */
     public ngAfterViewInit() {
         if (!this.isBrowser) {
             return;
@@ -140,7 +141,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
         if (this.mode === 'gmb') {
             if (this.echartsMap) {
-                this.map = echarts.init(this.echartsMap.nativeElement);
+                this.map = init(this.echartsMap.nativeElement);
                 this.map.on('selectchanged', this.onMapSelectChange.bind(this));
 
                 this.resizeSub = new ResizeObserver(() => {
@@ -158,15 +159,16 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                 if (params['landkreis']) {
                     this.mode = 'gmb';
                     const lk = params['landkreis'];
-                    const lok = Object.keys(this.kreise);
+                    const lok = Object.keys(KREISE_DATA);
                     for (let i = 0; i < lok.length; i++) {
-                        if (this.kreise[lok[i]] === lk) {
-                            this.selectedKreis = lok[i];
+                        if (KREISE_DATA.hasOwnProperty(lok[i])
+                            && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
+                            this.selectedKreis = lok[i] as keyof typeof KREISE_DATA;
                             this.updateMapSelect();
                             this.filterBerichte();
-                            this.myMapOptions['series'][0]['data'] = this.getRegionen();
-                            if (this.map['setOptions'] !== undefined) {
-                                this.map['setOptions'](this.myMapOptions);
+                            (this.myMapOptions['series'] as SeriesOption[])[0]['data'] = this.getRegionen();
+                            if (this.map?.setOption !== undefined) {
+                                this.map.setOption(this.myMapOptions);
                             }
                             i = lok.length;
                         }
@@ -183,23 +185,24 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-
+    /**
+     * Resizes echart
+     */
     public resize() {
-        this.map.resize();
+        this.map?.resize();
     }
 
+    /** @inheritdoc */
     public ngOnDestroy() {
-        if (this.resizeSub && this.echartsMap) {
-            this.resizeSub.unobserve(this.echartsMap.nativeElement);
-            window.cancelAnimationFrame(Number(this.animationFrameID));
+        if (this.resizeSub) {
+            this.resizeSub.disconnect();
+            if (this.animationFrameID) {
+                window.cancelAnimationFrame(this.animationFrameID);
+            }
         }
     }
 
-
-    /**
-     * OnInit
-     * Load geojson for Landkreise
-     */
+    /** @inheritdoc */
     public ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             this.mapInit();
@@ -215,11 +218,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             }
             this.changeTitle();
             this.cdr.detectChanges();
-
         });
-
-
-
     }
 
     public mapInit() {
@@ -235,7 +234,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.http.get(url)
             .subscribe(
                 geoJson => {
-                    echarts.registerMap('NDS', geoJson as any);
+                    registerMap('NDS', geoJson as any);
                     if (this.map) {
                         this.map.setOption(this.myMapOptions);
                     }
@@ -250,8 +249,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @returns Array of regions
      */
     public getRegionen() {
-        const res = [];
-        const keys = Object.keys(kreise_raw['default']);
+        const res = new Array<any>();
+        const keys = Object.keys(KREISE_DATA);
 
         for (let i = 0; i < keys.length; i++) {
             const region = {
@@ -271,7 +270,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                     'label': {
                         'show': false
                     }
-                }
+                },
+                'selected': false
             };
             if (this.selectedKreis === keys[i]) {
                 region['selected'] = true;
@@ -282,12 +282,12 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public selectMenu() {
-        const res = [];
-        const ok = Object.keys(this.kreise);
+        const res = new Array<any>();
+        const ok = Object.keys(KREISE_DATA);
         for (let i = 0; i < ok.length; i++) {
             res.push({
                 'key': ok[i],
-                'value': this.kreise[ok[i]]
+                'value': KREISE_DATA[ok[i] as keyof typeof KREISE_DATA]
             });
         }
         res.sort(function (a, b) {
@@ -309,11 +309,11 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             return '';
         }
 
-        const res = [];
+        const res = new Array<any>();
 
         for (let i = 0; i < arr.length; i++) {
-            if (this.kreise.hasOwnProperty(arr[i])) {
-                res.push(this.kreise[arr[i]]);
+            if (KREISE_DATA.hasOwnProperty(arr[i])) {
+                res.push(KREISE_DATA[arr[i] as keyof typeof KREISE_DATA]);
             } else {
                 res.push(arr[i]);
             }
@@ -322,17 +322,28 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public filterBerichteGMB() {
-        const bf = [];
-        const ber = Object.keys(this.berichte);
+        const bf = new Array<any>();
+        const ber = Object.keys(GMB_DATA);
         for (let i = 0; i < ber.length; i++) {
-            const yr = [];
-            const yk = Object.keys(this.berichte[ber[i]]);
+            const yr = new Array<any>();
+            const yk = Object.keys(GMB_DATA[ber[i] as keyof typeof GMB_DATA]);
             for (let y = 0; y < yk.length; y++) {
-                if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
-                    (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
+                const tmp1 = GMB_DATA[ber[i] as keyof typeof GMB_DATA];
+                const tmp2 = tmp1[yk[y] as keyof typeof tmp1] as {
+                    fileurl: string;
+                    file: string;
+                    bereich: string[];
+                    checksum: {
+                        md5: string;
+                        sha256: string;
+                        sha1: string;
+                    };
+                };
+                if ((tmp2.bereich !== undefined) &&
+                    (tmp2.bereich.includes(this.selectedKreis as string))) {
                     yr.push({
                         'key': yk[y],
-                        'value': this.berichte[ber[i]][yk[y]]
+                        'value': tmp2
                     });
                 }
             }
@@ -358,15 +369,15 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public filterBerichteLMB() {
-
-        const bf = [];
-        const bb = [];
-        const yk = Object.keys(this.berichte['Niedersachsen']);
+        const bf = new Array<any>();
+        const bb = new Array<any>();
+        const yk = Object.keys(GMB_DATA['Niedersachsen']);
 
         for (let y = 0; y < yk.length; y++) {
+            const tmp1 = GMB_DATA['Niedersachsen' as keyof typeof GMB_DATA];
             bb.push({
                 'key': yk[y],
-                'value': this.berichte['Niedersachsen'][yk[y]]
+                'value': tmp1[yk[y] as keyof typeof tmp1]
             });
 
         }
@@ -389,7 +400,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      */
     public filterBerichte(lmb = false) {
         if (this.selectedKreis === undefined && !lmb) {
-            this.berichteFiltered = [];
+            this.berichteFiltered = new Array<any>();
             return;
         }
 
@@ -419,17 +430,17 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             });
         }
 
-        const ok = Object.keys(kreise_raw['default']);
+        const ok = Object.keys(KREISE_DATA);
         const item = ok[selectedlist[0]];
 
-        if (item) {
-            this.selectedKreis = item;
-            this.berichteOpened = [];
+        if (item && KREISE_DATA.hasOwnProperty(item)) {
+            this.selectedKreis = item as keyof typeof KREISE_DATA;
+            this.berichteOpened = new Array<any>();
             this.filterBerichte();
             this.changeURL();
         } else {
             this.selectedKreis = undefined;
-            this.berichteOpened = [];
+            this.berichteOpened = new Array<any>();
             this.filterBerichte();
             this.changeURL();
         }
@@ -439,8 +450,8 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.map) {
             return;
         }
-        if (this.map['dispatchAction'] !== undefined) {
-            this.map['dispatchAction']({
+        if (this.map.dispatchAction !== undefined) {
+            this.map.dispatchAction({
                 type: 'select',
                 name: this.selectedKreis
             });
@@ -449,31 +460,34 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     /**
      * Handle Landkreis Select change
      *
-     * @param newValue New selected Landkreis
+     * @param event Change Event
      */
-    public onChange(newValue: any) {
+    public onChange(event: Event) {
+        const newValue = event.target as HTMLSelectElement;
         if (!newValue) {
             this.selectedKreis = undefined;
         } else {
-            this.selectedKreis = newValue;
+            this.selectedKreis = newValue.value as keyof typeof KREISE_DATA;
         }
-        this.berichteOpened = [];
+        this.berichteOpened = new Array<any>();
         this.changeURL();
         this.updateMapSelect();
         this.filterBerichte();
     }
 
-    public keyPress(event: any) {
-        if (event.key === 'Enter') {
-            event.target['checked'] = !event.target['checked'];
+    public keyPress(event: KeyboardEvent) {
+        const target = event.target as HTMLInputElement;
+        if (target && event.key === 'Enter') {
+            target.checked = !target.checked;
         }
     }
 
-    public checkValue(event: any) {
-        if (event.target['checked'] === true) {
-            this.berichteOpened.push(event.target['id'].substring(2));
+    public checkValue(event: Event) {
+        const target = event.target as HTMLInputElement;
+        if (target.checked === true) {
+            this.berichteOpened.push(target.id.substring(2));
         } else {
-            const index = this.berichteOpened.indexOf(event.target['id'].substring(2));
+            const index = this.berichteOpened.indexOf(target.id.substring(2));
             if (index > -1) {
                 this.berichteOpened.splice(index, 1);
             }
@@ -484,7 +498,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     public changeURL() {
         const params = new URLSearchParams({});
         if (this.mode === 'gmb' && this.selectedKreis) {
-            params.append('landkreis', this.kreise[this.selectedKreis]);
+            params.append('landkreis', KREISE_DATA[this.selectedKreis]);
         }
         if (this.berichteOpened.length > 0) {
             params.append('berichte', this.berichteOpened.join(','));

@@ -12,8 +12,6 @@ describe('Fragebogen.Details.PublishComponent', () => {
     let component: PublishComponent;
     let fixture: ComponentFixture<PublishComponent>;
 
-    // const formSample = require('../../../../testdata/fragebogen/intern-get-forms-id.json');
-
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -47,9 +45,9 @@ describe('Fragebogen.Details.PublishComponent', () => {
      */
     it('should open and close', () => {
         component.open('123');
-        expect(component.modal.isOpen).toBeTrue();
-        component.modal.close();
-        expect(component.modal.isOpen).toBeFalse();
+        expect(component.modal?.isOpen).toBeTrue();
+        component.modal?.close();
+        expect(component.modal?.isOpen).toBeFalse();
     });
 
     /**

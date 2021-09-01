@@ -1,11 +1,11 @@
 /* eslint-disable max-lines */
-import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
+import { ECharts, EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
 
 /**
  *
@@ -26,7 +26,7 @@ export interface SeriesItem {
     providers: [NutzungPipe, VerfahrensartPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit {
+export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     @Input() STICHTAGE?: string[];
     @Input() teilmarkt?: Teilmarkt;
@@ -37,7 +37,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
 
     @Input() features?: FeatureCollection;
 
-    public echartsInstance: any;
+    public echartsInstance?: ECharts;
+    public animationFrameID?: number = undefined;
+    public resizeSub?: ResizeObserver;
 
     // table data for screenreader
     public srTableData: Array<any> = [];
@@ -122,7 +124,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     ) { }
 
     /** @inheritdoc */
-    ngOnChanges(changes: SimpleChanges): void {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (changes['features']) {
             this.clearChart();
             if (this.features && !changes['features'].firstChange) {
@@ -136,19 +138,33 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
     }
 
     /** @inheritdoc */
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         if (this.echartsInst) {
             this.echartsInstance = init(this.echartsInst.nativeElement);
+
+            this.resizeSub = new ResizeObserver(() => {
+                this.animationFrameID = window.requestAnimationFrame(() => this.resize());
+            });
+            this.resizeSub.observe(this.echartsInst.nativeElement);
+        }
+    }
+
+    /** @inheritdoc */
+    public ngOnDestroy() {
+        if (this.resizeSub) {
+            this.resizeSub.disconnect();
+            if (this.animationFrameID) {
+                window.cancelAnimationFrame(this.animationFrameID);
+            }
         }
     }
 
     /**
-     * onChartInit initializes the chart
-     * @param event event for initializing the chart
+     * Resizes echart
      */
-    /* public onChartInit(event: any): void {
-        this.echartsInstance = event;
-    } */
+    public resize() {
+        this.echartsInstance?.resize();
+    }
 
     /**
      * clearChart clears the chartOptions
@@ -486,10 +502,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * @returns returns the series without verfahrensgrund items
      */
     public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
-        let i: number;
+        let i = 0;
         if (series.find((element: any, index: number): boolean => {
             // find first series element with no verg and brw
-            if (!element.verg && element.brw !== null) {
+            if (!element.verg && element.brw) {
                 i = index;
                 return true;
             }
@@ -498,19 +514,19 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             // from no Verfahrensgrund set to a set Verfahrensgrund
             for (i; i < series.length; i++) {
                 if (series[i].verg) {
-                    series[i].verg = null;
-                    series[i].verf = null;
-                    series[i].nutzung = null;
+                    series[i].verg = '';
+                    series[i].verf = '';
+                    series[i].nutzung = '';
                     // if series gets interrupted cause of a verg the two graphs should be connected
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                    series[i - 1].brw ? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
+                    series[i - 1].brw ? series[i].brw = (series[i].brw).toString() : series[i].brw = '';
                     series = series.slice(0, i + 1);
                     break;
                 }
             }
         }
         // if Verfahrensgrund is in the past
-        series.forEach(element => element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = [null, null, null, null] : '');
+        series.forEach(element => element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = ['', '', '', ''] : '');
         return series;
     }
 
@@ -685,6 +701,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
             }
             return this.STICHTAGE[1];
         }
+    }
+
+    /**
+     * Returns echart options series
+     * @returns SeriesOption[]
+     */
+    public getSeriesOption(): SeriesOption[] {
+        if (this.chartOption.series) {
+            return this.chartOption.series as SeriesOption[];
+        }
+        return new Array<SeriesOption>();
     }
 }
 

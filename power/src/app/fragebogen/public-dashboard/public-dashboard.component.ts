@@ -101,4 +101,13 @@ export class PublicDashboardComponent implements OnInit {
             }
         }
     }
+
+    /**
+     * Returns value of change event
+     * @param event Change Event
+     * @returns Value
+     */
+    public getHTMLInputValue(event: Event): any {
+        return (event.target as HTMLInputElement).value;
+    }
 }

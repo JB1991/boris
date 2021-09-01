@@ -527,7 +527,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             showUserLocation: false
         });
         this.map.addControl(geolocateControl, 'top-right');
-        geolocateControl.on('geolocate', (evt: any) => {
+        geolocateControl.on('geolocate', (evt: GeolocationPosition) => {
             if (this.zoom && this.zoom < this.determineZoomFactor()) {
                 this.zoomChange.emit(this.determineZoomFactor());
             }

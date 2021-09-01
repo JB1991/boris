@@ -47,8 +47,8 @@ describe('Fragebogen.Details.CommentComponent', () => {
      */
     it('should open and close', () => {
         component.open(getTask.task);
-        expect(component.modal.isOpen).toBeTrue();
-        component.modal.close();
+        expect(component.modal?.isOpen).toBeTrue();
+        component.modal?.close();
     });
 
     afterEach(() => {

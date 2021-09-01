@@ -1,5 +1,5 @@
 import {
-    Component, Input, Output, EventEmitter, ViewChild,
+    Component, Input, Output, EventEmitter,
     InjectionToken, Inject, ChangeDetectionStrategy
 } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
@@ -20,7 +20,6 @@ let id = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnswersComponent {
-    @ViewChild('answersForm') public myForm?: any;
     @Input() public model: any;
     @Input() public hasImg = false;
     @Input() public data = new Array<any>();

@@ -28,7 +28,7 @@ describe('Shared.Auth.AuthGuard', () => {
         spyOn(console, 'error');
         spyOn(guard.router, 'navigate');
         localStorage.removeItem('user');
-        guard.auth.user = null;
+        guard.auth.user = undefined;
     }));
 
     it('should be created', () => {
@@ -58,7 +58,7 @@ describe('Shared.Auth.AuthGuard', () => {
         environment.production = true;
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 900);
-        guard.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': null };
+        guard.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
 
         guard.canActivate().then((value) => {
             expect(value).toBeTrue();
@@ -69,7 +69,7 @@ describe('Shared.Auth.AuthGuard', () => {
     afterEach(() => {
         // clear storage
         localStorage.removeItem('user');
-        guard.auth.user = null;
+        guard.auth.user = undefined;
         environment.production = false;
     });
 });

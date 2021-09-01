@@ -1,5 +1,5 @@
 <power-modal #questionsettingsmodal
-             checkInvalid="true"
+             [checkInvalid]="true"
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="question && page && model.pages[page].elements[question]">
@@ -46,7 +46,7 @@
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
                                                     eid="question-title"
                                                     [required]="true"
-                                                    maxlength="200"></power-forms-editor-localeinput>
+                                                    [maxlength]="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-description -->
@@ -93,7 +93,7 @@
                            i18n>Pflichtfeld Fehlertext</label>
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].requiredErrorText"
                                                     eid="question-requiredErrorText"
-                                                    maxlength="200"></power-forms-editor-localeinput>
+                                                    [maxlength]="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-titleLocation -->
@@ -134,7 +134,7 @@
                            i18n>Kommentar Eingabefeld Text</label>
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].commentText"
                                                     eid="question-commentText"
-                                                    maxlength="200"></power-forms-editor-localeinput>
+                                                    [maxlength]="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-visible -->
@@ -294,7 +294,7 @@
                                i18n>Anzeigetext Minimum</label>
                         <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].minRateDescription"
                                                         eid="question-minRateDescription"
-                                                        maxlength="200"></power-forms-editor-localeinput>
+                                                        [maxlength]="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMin -->
@@ -317,7 +317,7 @@
                                i18n>Anzeigetext Maximum</label>
                         <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].maxRateDescription"
                                                         eid="question-maxRateDescription"
-                                                        maxlength="200"></power-forms-editor-localeinput>
+                                                        [maxlength]="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMax -->
@@ -485,7 +485,7 @@
                                i18n>Anzeigetext links</label>
                         <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelFalse"
                                                         eid="question-labelFalse"
-                                                        maxlength="200"></power-forms-editor-localeinput>
+                                                        [maxlength]="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-valueFalse -->
@@ -505,7 +505,7 @@
                                i18n>Anzeigetext rechts</label>
                         <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelTrue"
                                                         eid="question-labelTrue"
-                                                        maxlength="200"></power-forms-editor-localeinput>
+                                                        [maxlength]="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-valueTrue -->
@@ -689,7 +689,7 @@
                            i18n>Anderes Eingabefeld Text</label>
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].otherText"
                                                     eid="question-otherText"
-                                                    maxlength="200"></power-forms-editor-localeinput>
+                                                    [maxlength]="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-showClearButton -->

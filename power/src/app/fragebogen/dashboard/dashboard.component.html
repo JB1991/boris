@@ -28,7 +28,7 @@
                        i18n>Antworten filtern nach Status</label>
                 <select class="browser-default custom-select"
                         id="filter-task-status"
-                        (change)="taskStatus = $event.target.value; updateTasks(false)">
+                        (change)="taskStatus = getHTMLInputValue($event); updateTasks(false)">
                     <option value="all"
                             selected
                             i18n>Status: Alle</option>
@@ -394,7 +394,7 @@
                                i18n>Anzahl von Antworten pro Seite</label>
                         <select class="custom-select"
                                 id="pagination-tasks"
-                                (change)="taskPerPage = $event.target.value; updateTasks(false)">
+                                (change)="taskPerPage = getHTMLInputValue($event); updateTasks(false)">
                             <option *ngFor=" let size of taskPageSizes">
                                 {{ size }}
                             </option>
@@ -470,7 +470,7 @@
                                type="search"
                                i18n-placeholder
                                placeholder="Suche"
-                               (change)="formSearch = $event.target.value; updateForms(false)">
+                               (change)="formSearch = getHTMLInputValue($event); updateForms(false)">
                     </div>
                 </div>
                 <div class="d-inline-block w-50"
@@ -480,7 +480,7 @@
                            i18n>Formulare filtern nach Status</label>
                     <select class="browser-default custom-select"
                             id="filter-form-status"
-                            (change)="formStatus = $event.target.value; updateForms(false)">
+                            (change)="formStatus = getHTMLInputValue($event); updateForms(false)">
                         <option value="all"
                                 selected
                                 i18n>Status: Alle</option>
@@ -863,7 +863,7 @@
                                i18n>Anzahl von Formularen pro Seite</label>
                         <select class="custom-select"
                                 id="pagination-forms"
-                                (change)="formPerPage = $event.target.value; updateForms(false)">
+                                (change)="formPerPage = getHTMLInputValue($event); updateForms(false)">
                             <option *ngFor=" let size of formPageSizes">
                                 {{ size }}
                             </option>

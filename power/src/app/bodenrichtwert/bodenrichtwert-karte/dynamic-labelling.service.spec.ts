@@ -110,8 +110,8 @@ describe('DynamicLabellingService', () => {
                     ]
                 ],
             },
-            (f) => f.properties['brw'],
-            (f) => f.properties['wnum'],
+            (f) => f.properties?.['brw'],
+            (f) => f.properties?.['wnum'],
             ['123'],
             [p1]);
         expect(features[1].geometry.coordinates[0]).toEqual(9.743383242008349);

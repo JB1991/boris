@@ -2,6 +2,7 @@
 import { Injectable, SimpleChange } from '@angular/core';
 import { FeatureCollection } from 'geojson';
 import { FillExtrusionLayer, Map } from 'maplibre-gl';
+import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
 export interface ExtrusionLayerOptions {
     extrusionHeight: number;
@@ -13,8 +14,6 @@ export interface ExtrusionLayerOptions {
 @Injectable({
     providedIn: 'root'
 })
-
-
 export class BodenrichtwertKarte3dLayerService {
 
     // layer ids for label layer (Bauland, Landwirtschaft)
@@ -79,7 +78,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @param stichtag current stichtag
      * @param teilmarkt current teilmarkt
      */
-    public onFeaturesChange(fts: SimpleChange, map: Map, stichtag: string, teilmarkt: any) {
+    public onFeaturesChange(fts: SimpleChange, map: Map, stichtag: string, teilmarkt: Teilmarkt) {
         const previousFeatures = fts.previousValue;
         const currentFeatures = fts.currentValue;
 
@@ -99,7 +98,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @param teilmarkt teilmarkt
      */
     // tslint:disable-next-line: max-func-body-length
-    public add3dLayer(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
+    public add3dLayer(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: Teilmarkt) {
         this.active3dLayer = true;
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
         const opacity = this.getOpacityByRotation(map, 0.6);
@@ -132,7 +131,7 @@ export class BodenrichtwertKarte3dLayerService {
             this.extrusionLayer.id = layerId;
             this.extrusionLayer.maxzoom = opt.maxZoom;
             this.extrusionLayer.minzoom = opt.minZoom;
-            this.extrusionLayer.paint['fill-extrusion-color'] = teilmarkt.color;
+            this.extrusionLayer.paint['fill-extrusion-color'] = teilmarkt.hexColor;
             this.extrusionLayer.paint['fill-extrusion-opacity'] = opacity;
             this.extrusionLayer.paint['fill-extrusion-height'] = height;
             this.extrusionLayer.paint['fill-extrusion-base'] = prevHeight + opt.gapHeight;
@@ -194,7 +193,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @param stichtag stichtag
      * @param teilmarkt teimarkt
      */
-    public onRotate(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
+    public onRotate(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: Teilmarkt) {
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
 
         const opacityLayer = this.getOpacityByRotation(map, 0.6);
