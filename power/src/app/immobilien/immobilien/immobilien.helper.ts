@@ -18,7 +18,7 @@ export class ImmobilienHelper {
      * @param {number} c Color Component
      * @returns {string} Hex Component
      */
-    static componentToHex(c) {
+    static componentToHex(c: number): string {
         const hex = c.toString(16);
         return hex.length === 1 ? '0' + hex : hex;
     }
@@ -31,7 +31,7 @@ export class ImmobilienHelper {
      * @param {number} b blue coor
      * @returns {string} Hex-Color
      */
-    static rgbToHex(r, g, b) {
+    static rgbToHex(r: number, g: number, b: number): string {
         return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
 
@@ -46,19 +46,18 @@ export class ImmobilienHelper {
      * @param color Input Color
      * @returns HexColor (#rrggbb)
      */
-    static convertColor(color) {
+    static convertColor(color: string | number[]): string {
         if (color !== undefined && color !== null) {
-            if (color.slice(0, 3) === 'rgb') {
+            if (typeof color === 'string' && color.slice(0, 3) === 'rgb') {
                 const cc = color.slice(4).replace(')', '').split(',');
                 return this.rgbToHex(parseInt(cc[0], 10), parseInt(cc[1], 10), parseInt(cc[2], 10));
             } else if (Array.isArray(color) && color.length === 3) {
                 return this.rgbToHex(color[0], color[1], color[2]);
-            } else if (color.slice(0, 1) === '#') {
+            } else if (typeof color === 'string' && color.slice(0, 1) === '#') {
                 return color;
             }
         }
         return '#000000';
-
     }
 
     /**
@@ -70,7 +69,7 @@ export class ImmobilienHelper {
      * @param percent lighten or darken -1<=0<=1
      * @returns Modified color
      */
-    static modifyColor(color, percent) {
+    static modifyColor(color: string | number[], percent: number): string {
 
         color = this.convertColor(color);
 
@@ -92,18 +91,17 @@ export class ImmobilienHelper {
         ).toString(16).slice(1);
     }
 
-
     /**
      * Appending zeros
      *
      * @param n number
      * @returns zero padding number
      */
-    static appendLeadingZeroes(n) {
+    static appendLeadingZeroes(n: number): string {
         if (n <= 9) {
             return '0' + n;
         }
-        return n;
+        return n.toString();
     }
 
     /**
@@ -139,7 +137,7 @@ export class ImmobilienHelper {
      * @param filetype Content-Type
      * @param isurl True if is url
      */
-    static downloadFile(data, filename, filetype = 'text/csv', isurl = false): any {
+    static downloadFile(data: any, filename: string, filetype = 'text/csv', isurl = false) {
         let url = data;
         let blob;
 
@@ -182,11 +180,10 @@ export class ImmobilienHelper {
      * @param separator Separator used in path
      * @returns Resolved Property
      */
-    static resolve(path, obj: any = self, separator = '.') {
+    static resolve(path: string | string[], obj: any = self, separator = '.'): any {
         const properties = Array.isArray(path) ? path : path.split(separator);
         return properties.reduce((prev, curr) => prev && prev[curr], obj);
     }
-
 
     /**
      * Convert Array to CSV
@@ -197,8 +194,8 @@ export class ImmobilienHelper {
      * @param feld Quote character
      * @returns CSV String
      */
-    static convertArrayToCSV(array, keys, split = ';', feld = '"') {
-        const tmp = [];
+    static convertArrayToCSV(array: any[], keys: any[], split = ';', feld = '"') {
+        const tmp = new Array<any>();
 
         for (let i = 0; i < array.length; i++) {
             let stmp = '';
@@ -219,7 +216,6 @@ export class ImmobilienHelper {
         }
 
         return tmp.join('\r\n');
-
     }
 
     /**
@@ -229,8 +225,7 @@ export class ImmobilienHelper {
      * @param feature Feature which should be extracted
      * @returns Feature if found, empty object if not found
      */
-    static getSingleFeature(data, feature) {
-
+    static getSingleFeature(data: any, feature: any): any {
         for (let i = 0; i < data['features'].length; i++) {
             if (feature === data['features'][i]['properties']['name']) {
                 return data['features'][i];
@@ -238,9 +233,7 @@ export class ImmobilienHelper {
         }
 
         return {};
-
     }
-
 
     /**
      * Get an Array of given Geometries from GeoJSON
@@ -249,9 +242,9 @@ export class ImmobilienHelper {
      * @param features Array of Features for the Collection
      * @returns GeometryCollection Object (Empty geometries property if no feature were found)
      */
-    static getGeometryArray(data, features) {
+    static getGeometryArray(data: any, features: any): any {
 
-        const geoarray = [];
+        const geoarray = new Array<any>();
 
         for (let i = 0; i < data['features'].length; i++) {
             if (features.includes(data['features'][i]['properties']['name'])) {
@@ -263,8 +256,6 @@ export class ImmobilienHelper {
             'type': 'GeometryCollection',
             'geometries': geoarray
         };
-
     }
-
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -108,7 +108,7 @@ export class ImmobilienExport {
         const series = chartoptions['series'];
         const istart = Math.trunc(date.length * chartoptions['dataZoom'][0]['start'] / 100);
         const iend = Math.trunc(date.length * chartoptions['dataZoom'][0]['end'] / 100);
-        let tmp = [];
+        let tmp = new Array<any>();
         const geoData = echarts.getMap('NDS').geoJson;
         for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
             const drawitem = this.nipixRuntime.drawPresets[d];
@@ -135,8 +135,9 @@ export class ImmobilienExport {
     }
 
 
-    private exportNiPixGeoJsonGeoJson(drawitem: any, geoData: any, date, series, istart, iend) {
-        const tmp = [];
+    private exportNiPixGeoJsonGeoJson(drawitem: any, geoData: any, date: string,
+        series: any, istart: number, iend: number): any[] {
+        const tmp = new Array<any>();
         if (drawitem['type'] === 'single') {
             for (let s = 0; s < drawitem['values'].length; s++) {
                 const feature = ImmobilienHelper.getSingleFeature(geoData, drawitem['values'][s]);
@@ -167,7 +168,7 @@ export class ImmobilienExport {
     }
 
 
-    private exportNiPixGeoJsonCSV(drawitem: any, date, series, istart, iend) {
+    private exportNiPixGeoJsonCSV(drawitem: any, date: string, series: any, istart: number, iend: number) {
         const tmp = [];
         if (drawitem['type'] === 'single') {
             for (let s = 0; s < drawitem['values'].length; s++) {
@@ -208,7 +209,7 @@ export class ImmobilienExport {
      * @param tend Timeslot end date
      * @returns Timeslot array or empty array if region not found
      */
-    private getNiPixTimeslot(date, series, region, tstart: number, tend: number) {
+    private getNiPixTimeslot(date: string, series: any, region: string, tstart: number, tend: number) {
         let data = null;
         let datafaelle = 0;
 
@@ -219,7 +220,7 @@ export class ImmobilienExport {
                 }
             }
         }
-        if (this.nipixRuntime.calculated.hiddenData.hasOwnProperty(region)) {
+        if (this.nipixRuntime.calculated.hiddenData?.hasOwnProperty(region)) {
             datafaelle = this.nipixRuntime.calculated.hiddenData[region];
         }
         if (data !== null && datafaelle !== null) {

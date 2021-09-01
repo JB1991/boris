@@ -8,14 +8,14 @@ export class ImmobilienFormatter {
     private nipixStatic: ImmobilenNipixStatic.NipixStatic;
     private nipixRuntime: ImmobilenNipixRuntime.NipixRuntime;
 
-    private legendposition = [];
+    private legendposition = new Array<number>();
 
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic, niRuntime: ImmobilenNipixRuntime.NipixRuntime) {
         this.nipixStatic = niStatic;
         this.nipixRuntime = niRuntime;
     }
 
-    public mapTooltipFormatter = (params) => {
+    public mapTooltipFormatter = (params: any): string => {
         if (this.nipixStatic.data.regionen.hasOwnProperty(params.name)) {
             return this.nipixRuntime.translate(this.nipixStatic.data.regionen[params.name]['name']);
         } else {
@@ -23,11 +23,11 @@ export class ImmobilienFormatter {
         }
     };
 
-    public chartTooltipFormatter = (params, ticket, callback) => {
+    public chartTooltipFormatter = (params: any, ticket: any, callback: any): string => {
 
         let faelle = 0;
 
-        if (this.nipixRuntime.calculated.hiddenData.hasOwnProperty(params.seriesName)) {
+        if (this.nipixRuntime.calculated.hiddenData?.hasOwnProperty(params.seriesName)) {
             faelle = this.nipixRuntime.calculated.hiddenData[params.seriesName][params.dataIndex];
         }
 
@@ -57,16 +57,17 @@ export class ImmobilienFormatter {
      * @param params eCharts Formatter parameter (see echarts api)
      * @returns Formatted String
      */
-    public formatLabel = (params) => { // eslint-disable-line complexity
+    public formatLabel = (params: any): string => { // eslint-disable-line complexity
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
             if ((this.legendposition.length > params.seriesIndex) ||
                 (params.seriesIndex === 0)) {
-                this.legendposition = [];
+                this.legendposition = new Array<number>();
             }
 
             let printlegend = true;
             const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({ 'yAxisIndex': 0 }, params.data));
-            const fontSizeInPx = ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage);
+            const fontSizeInPx =
+                ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage as number);
             const clearance = Math.round((fontSizeInPx + 2) / 2);
 
             for (let i = 0; i < this.legendposition.length; i++) {
@@ -81,7 +82,7 @@ export class ImmobilienFormatter {
                 printlegend = false;
             }
 
-            if ((this.nipixRuntime.calculated.drawData.length === 2) &&
+            if ((this.nipixRuntime.calculated.drawData?.length === 2) &&
                 (params.seriesName === '1')) {
                 printlegend = false;
             }
@@ -112,7 +113,7 @@ export class ImmobilienFormatter {
         return this.nipixRuntime.translate(myname);
     };
 
-    public formatLegend = (name: string) => this.findName(name, false, true);
+    public formatLegend = (name: string): string => this.findName(name, false, true);
 
     /**
      * Get Label for a specific Series
@@ -120,7 +121,7 @@ export class ImmobilienFormatter {
      * @param series series Id
      * @returns series label (sort)
      */
-    public getSeriesLabel(series) {
+    public getSeriesLabel(series: string): string {
         if (this.nipixStatic.data.regionen[series] !== undefined) {
             return this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['name']) +
                 ' (' +
@@ -137,7 +138,7 @@ export class ImmobilienFormatter {
      * @param series series id
      * @returns Series Color
      */
-    public getSeriesColor(series) {
+    public getSeriesColor(series: string): string {
         if (this.nipixStatic.data.regionen[series] !== undefined) {
             return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
         } else {
@@ -145,13 +146,15 @@ export class ImmobilienFormatter {
         }
     }
 
-    public simpleLegend() {
-        const legend = [];
-        for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
-            if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' ' + $localize`(ohne Daten)`);
-            } else {
-                legend.push(this.nipixRuntime.calculated.drawData[i]['name']);
+    public simpleLegend(): string[] {
+        const legend = new Array<string>();
+        if (this.nipixRuntime.calculated.drawData) {
+            for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+                if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
+                    legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' ' + $localize`(ohne Daten)`);
+                } else {
+                    legend.push(this.nipixRuntime.calculated.drawData[i]['name']);
+                }
             }
         }
         return legend;
@@ -159,6 +162,9 @@ export class ImmobilienFormatter {
 
 
     private graphicLegendSingle(obj: any) {
+        if (!this.nipixRuntime.calculated.drawData) {
+            return;
+        }
         for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
             let addText = '';
             const element = this.nipixStatic.data.regionen[this.nipixRuntime.calculated.drawData[i]['name']];
@@ -186,6 +192,9 @@ export class ImmobilienFormatter {
     }
 
     private graphicLegendMulti(obj: any) {
+        if (!(this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection)) {
+            return;
+        }
         const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
         for (let i = 0; i < ccat.length; i++) {
             obj.infoLegend.push(ImmobilienUtils.generateTextElement(
@@ -206,6 +215,10 @@ export class ImmobilienFormatter {
     }
 
     private graphicLegendMultiSelect(obj: any) {
+        if (!(this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection
+            && this.nipixStatic.data.allItems)) {
+            return;
+        }
         const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
         for (let i = 0; i < this.nipixStatic.data.allItems.length; i++) {
             for (let d = 0; d < ccat.length; d++) {
@@ -234,13 +247,14 @@ export class ImmobilienFormatter {
         }
     }
 
-    public graphicLegend() {
+    public graphicLegend(): any[] {
         const workdata = {
-            'infoLegend': [],
+            'infoLegend': new Array<any>(),
             'infoLegendPosition': 0
         };
 
-        if (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
+        if (this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection
+            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
             && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
             if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'single')) {
                 this.graphicLegendSingle(workdata);

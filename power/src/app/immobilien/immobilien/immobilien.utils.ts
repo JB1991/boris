@@ -11,7 +11,7 @@ export class ImmobilienUtils {
      */
     static getDateArray(lastYear: number, lastPeriod: number) {
 
-        const date = [];
+        const date = new Array<any>();
 
         for (let i = 2000; i < lastYear + 1; i++) {
             for (let q = 1; q < 5; q++) {
@@ -63,8 +63,8 @@ export class ImmobilienUtils {
      * @param lighten (default false) Lighten the areaColor
      * @returns MapRegionen array
      */
-    static getMyMapRegionen(regionen, myregion = null, selectionList = null, lighten = false) {
-        const res = [];
+    static getMyMapRegionen(regionen: any, myregion: any = null, selectionList: any = null, lighten: any = false) {
+        const res = new Array<any>();
         const keys = Object.keys(regionen);
         for (let i = 0; i < keys.length; i++) {
             let bw = 1;
@@ -106,7 +106,7 @@ export class ImmobilienUtils {
      * @param labelFormatter
      * @param data
      */
-    static generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data) {
+    static generateSeriesGS(name: any, seriesType: any, zindex: any, seriesColor: any, labelFormatter: any, data: any) {
         return {
             'name': name,
             'type': seriesType,
@@ -149,15 +149,15 @@ export class ImmobilienUtils {
      * @returns echarts Series Object
      */
     static generateSeries(
-        name,
-        data,
-        color,
-        labelFormatter = null,
+        name: string,
+        data: any,
+        color: any,
+        labelFormatter: any = null,
         selectedChartLine = '',
         xIndex = 0,
         yIndex = 0,
         seriesType = 'line'
-    ): any {
+    ) {
 
         let seriesColor = ImmobilienHelper.convertColor(color);
         let zindex = 0;
@@ -193,10 +193,10 @@ export class ImmobilienUtils {
      * @param offset Offset for ercentage calculation
      * @returns Data array
      */
-    static generateDrawSeriesData(data, date = [], field = null, offset = 100) {
+    static generateDrawSeriesData(data: any, date = new Array<string>(), field: string | null = null, offset = 100) {
 
         // Empty data array
-        const ret = [];
+        const ret = new Array<any>();
 
         // Iterate over all available data
         for (let d = 0; d < date.length; d++) {
@@ -229,7 +229,7 @@ export class ImmobilienUtils {
      * @param position
      * @param posX
      */
-    static generateTextElement(name, color = '#000', fontSizeBase = 1.2, position = 0, posX?): any {
+    static generateTextElement(name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any) {
         return {
             type: 'text',
             top: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase),
@@ -260,7 +260,7 @@ export class ImmobilienUtils {
         posX = 0,
         bordercolor = '#000',
         border = 0
-    ): any {
+    ) {
         return {
             type: 'circle',
             cursor: 'normal',
@@ -283,7 +283,7 @@ export class ImmobilienUtils {
      * @param regionen
      * @param modifyArray
      */
-    static modifyRegionen(regionen, modifyArray) {
+    static modifyRegionen(regionen: any, modifyArray: any[]) {
 
         const newRegionen = JSON.parse(JSON.stringify(regionen));
 

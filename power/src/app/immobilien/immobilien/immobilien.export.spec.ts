@@ -49,7 +49,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     const prepareNiRuntimeChart = function () {
         niRuntime.chart = {
             'obj': {
-                'convertToPixel': function (par1, par2) { return 1; },
+                'convertToPixel': function (par1: any, par2: any) { return 1; },
                 'resize': jasmine.createSpy(),
                 'setOption': jasmine.createSpy(),
                 'getOption': function () {
@@ -71,7 +71,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                         ]
                     };
                 },
-                'getDataURL': function (par1) {
+                'getDataURL': function (par1: any) {
                     return 'data';
                 }
             }

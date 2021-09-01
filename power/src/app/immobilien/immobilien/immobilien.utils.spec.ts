@@ -163,7 +163,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
                 formatter: 'bar'
             },
             'data': []
-        });
+        } as any);
     });
 
     it('generateDrawSeriesData empty works', function () {

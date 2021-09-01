@@ -104,10 +104,10 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
             'activeSelection': 'na'
         };
         niRuntime.calculated = JSON.parse(JSON.stringify(niRuntimeCalculated));
-        niRuntime.highlightSeries = function (seriesName) { };
+        niRuntime.highlightSeries = function (seriesName: any) { };
         niRuntime.chart = {
             'obj': {
-                'convertToPixel': function (par1, par2) { return 1; }
+                'convertToPixel': function (par1: any, par2: any) { return 1; }
             }
         };
 
@@ -115,7 +115,7 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
             'formatLabel': function () { }
         };
 
-        niRuntime.getDrawPreset = function (name) {
+        niRuntime.getDrawPreset = function (name: any) {
             return {
                 'show': true,
                 'values': ['foo'],
@@ -155,7 +155,7 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
                 yIndex = 0,
                 seriesType = 'line'
             ) {
-                return name;
+                return name as any;
             }
         );
 

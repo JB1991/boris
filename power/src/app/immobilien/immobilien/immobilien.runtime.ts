@@ -15,7 +15,7 @@ interface NipixRuntimeState {
     selectedChartLine?: string;
     rangeStartIndex?: number;
     rangeEndIndex?: number;
-    selection?: any;
+    selection?: any[];
     activeSelection?: number;
     highlightedSeries?: string;
     selectedMyRegion?: string;
@@ -23,9 +23,9 @@ interface NipixRuntimeState {
 }
 
 interface NipixRuntimeCalculated {
-    mapRegionen?: any;
-    drawData?: any;
-    hiddenData?: any;
+    mapRegionen?: any[];
+    drawData?: any[];
+    hiddenData?: any[];
     chartTitle?: string;
     legendText?: any;
 }
@@ -36,7 +36,7 @@ export class NipixRuntime {
     private nipixStatic: ImmobilenNipixStatic.NipixStatic;
 
     /* eslint-disable-next-line scanjs-rules/call_setTimeout */
-    private highlightedTimeout = setTimeout(this.highlightTimeout.bind(this), 10000);
+    private highlightedTimeout: NodeJS.Timeout | null = setTimeout(this.highlightTimeout.bind(this), 10000);
 
     public formatter: ImmobilienFormatter.ImmobilienFormatter;
     public export: ImmobilienExport.ImmobilienExport;
@@ -64,11 +64,11 @@ export class NipixRuntime {
         'mapWidth': 10000
     };
 
-    public availableQuartal = [];
+    public availableQuartal = new Array<any>();
 
-    public availableNipixCategories = [];
+    public availableNipixCategories = new Array<any>();
 
-    public drawPresets = [];
+    public drawPresets = new Array<any>();
 
     public calculated: NipixRuntimeCalculated = {
         'mapRegionen': [],
@@ -129,7 +129,7 @@ export class NipixRuntime {
         this.calculator = new ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator(this.nipixStatic, this);
     }
 
-    public translate(defaultID: string) {
+    public translate(defaultID: string): string {
         if (this.locale && this.locale.hasOwnProperty(defaultID)) {
             return this.locale[defaultID];
         } else {
@@ -137,7 +137,7 @@ export class NipixRuntime {
         }
     }
 
-    public translateArray(input, key = 'name') {
+    public translateArray(input: any, key = 'name') {
         const cpy = JSON.parse(JSON.stringify(input));
 
         for (let i = 0; i < cpy.length; i++) {
@@ -159,7 +159,7 @@ export class NipixRuntime {
 
     public updateAvailableQuartal(lastYear: number, lastPeriod: number) {
 
-        this.availableQuartal = [];
+        this.availableQuartal = new Array<any>();
 
         for (let i = 2000; i < lastYear + 1; i++) {
             for (let q = 1; q < 5; q++) {
@@ -219,7 +219,9 @@ export class NipixRuntime {
      * Reset the highlighted Map (before) timeout
      */
     public resetHighlight() {
-        clearTimeout(this.highlightedTimeout);
+        if (this.highlightedTimeout) {
+            clearTimeout(this.highlightedTimeout);
+        }
         this.highlightedTimeout = null;
         this.state.highlightedSeries = '';
         this.updateMapSelect();
@@ -230,7 +232,7 @@ export class NipixRuntime {
      *
      * @param seriesName name of the series to highlight
      */
-    public highlightSeries(seriesName) {
+    public highlightSeries(seriesName: string) {
         if (this.state.highlightedSeries !== seriesName) {
 
             if (this.highlightedTimeout !== null) {
@@ -240,7 +242,7 @@ export class NipixRuntime {
             this.state.highlightedSeries = seriesName;
 
             const rkey = Object.keys(this.nipixStatic.data.regionen);
-            let rname = [];
+            let rname = new Array<any>();
 
             if (rkey.includes(seriesName)) {
                 rname.push(seriesName);
@@ -265,7 +267,7 @@ export class NipixRuntime {
     }
 
 
-    public updateRange(range_start, range_end) {
+    public updateRange(range_start: number, range_end: number) {
         if (this.state.rangeStartIndex === 0) {
             this.state.rangeStartIndex =
                 Math.round((this.availableQuartal.length - 1) / 100 * range_start);
@@ -282,7 +284,7 @@ export class NipixRuntime {
      * Update the Selection of the Map aware of the activer Draw Item
      * @param id id
      */
-    public updateMapSelect(id = null) {
+    public updateMapSelect(id: string | null = null) {
         if (this.map.obj === null) {
             return;
         }

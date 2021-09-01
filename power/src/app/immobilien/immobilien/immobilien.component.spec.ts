@@ -23,8 +23,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     let fixture: ComponentFixture<ImmobilienComponent>;
     let httpTestingController: HttpTestingController;
 
-    let niStatic;
-    let niRuntime;
+    let niStatic: any;
+    let niRuntime: any;
 
     const location = {
         'replaceState': jasmine.createSpy()
@@ -71,7 +71,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         };
         niRuntime.formatter = {
         };
-        niRuntime.translateArray = function (data) { return data; };
+        niRuntime.translateArray = function (data: any) { return data; };
     };
 
     const configAnswer = {
@@ -389,7 +389,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(component.updateMapSelect).toHaveBeenCalledWith('4102');
         expect(ret).toEqual('foo');
 
-        const ret1 = component.regionName(undefined);
+        const ret1 = component.regionName(undefined as any);
         expect(ret1).toEqual('');
     });
 
@@ -435,7 +435,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
         const di = {};
-        niRuntime.getDrawPreset = function (val) { return this; }.bind(di);
+        niRuntime.getDrawPreset = function (val: any) { return this; }.bind(di);
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -458,7 +458,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         const di = {
             'type': 'single'
         };
-        niRuntime.getDrawPreset = function (val) { return this; }.bind(di);
+        niRuntime.getDrawPreset = function (val: any) { return this; }.bind(di);
 
         spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
 
@@ -535,7 +535,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('getCustomColor works', () => {
         niRuntime.getDrawPreset = jasmine.createSpy().and.returnValue({ 'colors': 'foobar' });
-        spyOn(ImmobilienHelper, 'convertColor').and.callFake(function (par) { return par; });
+        spyOn(ImmobilienHelper, 'convertColor').and.callFake(function (par: any) { return par; });
 
         const ret = component.getCustomColor('foobar');
         expect(ret).toEqual('foobar');
@@ -616,7 +616,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         let param = {};
         const params = {
             'append': function (k, v) { param[k] = v; }
-        };
+        } as URLSearchParams;
 
 
         spyOn(component, 'makeValuesHumanReadable').and.returnValue(['foobar']);
@@ -629,7 +629,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             'values': ['foo', 'bar']
         };
 
-        niRuntime.getDrawPreset = function (val) {
+        niRuntime.getDrawPreset = function (val: any) {
             return dpreset;
         };
 

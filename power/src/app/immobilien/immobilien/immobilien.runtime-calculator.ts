@@ -15,7 +15,7 @@ export class NipixRuntimeCalculator {
     }
 
 
-    private calculateDrawDataSingleOnRef(drawitem: any, value, nipix) {
+    private calculateDrawDataSingleOnRef(drawitem: any, value: any, nipix: any) {
         // Calc reference value on referenceDate
         let reference = 100;
         if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
@@ -26,7 +26,7 @@ export class NipixRuntimeCalculator {
         }
 
         // Add Series
-        this.nipixRuntime.calculated.drawData.push(
+        this.nipixRuntime.calculated.drawData?.push(
             ImmobilienUtils.generateSeries(
                 value,
                 ImmobilienUtils.generateDrawSeriesData(
@@ -45,9 +45,9 @@ export class NipixRuntimeCalculator {
         );
     }
 
-    private calculateDrawDataSinglePush(drawitem: any, value, nipix) {
+    private calculateDrawDataSinglePush(drawitem: any, value: any, nipix: any) {
         if (this.nipixStatic.data.regionen[value] !== undefined) {
-            this.nipixRuntime.calculated.drawData.push(
+            this.nipixRuntime.calculated.drawData?.push(
                 ImmobilienUtils.generateSeries(
                     value,
                     [],
@@ -88,7 +88,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataAggrIterate(drawitem: any, workdata, aggr, d) {
+    private calculateDrawDataAggrIterate(drawitem: any, workdata: any, aggr: any, d: any) {
         for (let i = 0; i < drawitem['values'].length; i++) {
             const value = drawitem['values'][i];
             const data = this.nipixStatic.data.nipix[drawitem.nipixCategory][value];
@@ -120,7 +120,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataAggrDate(drawitem: any, workdata) {
+    private calculateDrawDataAggrDate(drawitem: any, workdata: any) {
         for (let d = 0; d < this.nipixRuntime.availableQuartal.length; d++) {
 
             const aggr = {
@@ -151,7 +151,7 @@ export class NipixRuntimeCalculator {
         if ((drawitem['show'] === true) && (drawitem['values'].length > 0)) {
 
             this.calculateDrawDataAggrDate(drawitem, workdata);
-            this.nipixRuntime.calculated.drawData.push( // Add Series to Output
+            this.nipixRuntime.calculated.drawData?.push( // Add Series to Output
                 ImmobilienUtils.generateSeries(
                     drawitem['name'],
                     ImmobilienUtils.generateDrawSeriesData(

@@ -11,10 +11,10 @@ interface NipixStaticData {
     gemeinden?: any[];
     geoCoordMap?: any;
     regionen?: any;
-    presets?: any;
-    allItems?: any;
+    presets?: any[];
+    allItems?: any[];
     shortNames?: any;
-    selections?: any;
+    selections?: any[];
 }
 
 export class NipixStatic {
@@ -32,8 +32,8 @@ export class NipixStatic {
     public data: NipixStaticData = {
         'nipix': {},
         'gemeinden': [],
-        'geoCoordMap': [],
-        'regionen': [],
+        'geoCoordMap': {},
+        'regionen': {},
         'presets': [],
         'allItems': [],
         'shortNames': {},
@@ -90,7 +90,7 @@ export class NipixStatic {
             // If line is valid
             if (line[0].length === 7) {
 
-                rgn.push({'name': line[1], 'ags': line[0], 'woma_id': line[2]});
+                rgn.push({ 'name': line[1], 'ags': line[0], 'woma_id': line[2] });
             }
         }
 
@@ -107,14 +107,14 @@ export class NipixStatic {
     public procMap(geoJson: any): any {
 
         const geoMap = {
-            'type':'FeatureCollection',
-            'totalFeatures':'unknown',
-            'features':[]
+            'type': 'FeatureCollection',
+            'totalFeatures': 'unknown',
+            'features': new Array<any>()
         };
 
-        const regionenData = {};
+        const regionenData: any = {};
         const geoCoordMap = { 'left': [], 'right': [], 'top': [], 'bottom': [] };
-        const nipixData = {};
+        const nipixData: any = {};
 
         const lastAvailable = [];
 
@@ -146,7 +146,7 @@ export class NipixStatic {
                     }
 
                     const la = Object.keys(nipixParse[nkey[n]]);
-                    lastAvailable.push(la[la.length-1]);
+                    lastAvailable.push(la[la.length - 1]);
 
                     nipixData[nkey[n]][props['name']] = nipixParse[nkey[n]];
                 }
@@ -169,7 +169,7 @@ export class NipixStatic {
         las[0] = parseInt(las[0], 10);
         las[1] = parseInt(las[1], 10);
 
-        return { 'map': geoMap, 'la': las};
+        return { 'map': geoMap, 'la': las };
     }
 
 

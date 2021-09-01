@@ -147,7 +147,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
             function (mapobj, key, select) { }
         );
 
-        component.updateMapSelect(1);
+        component.updateMapSelect('1');
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
 
         component.state.activeSelection = 1;

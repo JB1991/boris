@@ -3,7 +3,7 @@
  * @param position Position
  * @returns Object
  */
-function getScatter(position) {
+function getScatter(position: string) {
     return {
         'type': 'effectScatter',
         'coordinateSystem': 'geo',

@@ -14,7 +14,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
 
     it('ImmobilienHelper.appendLeadingZeroes should not append > 9', function () {
         const res = ImmobilienHelper.appendLeadingZeroes(10);
-        expect(res).toEqual(10);
+        expect(res).toEqual('10');
     });
 
     it('ImmobilienHelper.getDate returns Year', function () {
@@ -35,13 +35,13 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
     });
 
     it('ImmobilienHelper.convertColor undefined returns #000000', function () {
-        const res = ImmobilienHelper.convertColor(undefined);
+        const res = ImmobilienHelper.convertColor(undefined as any);
         expect(res).toEqual('#000000');
     });
 
 
     it('ImmobilienHelper.convertColor null returns #000000', function () {
-        const res = ImmobilienHelper.convertColor(null);
+        const res = ImmobilienHelper.convertColor(null as any);
         expect(res).toEqual('#000000');
     });
 

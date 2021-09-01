@@ -14,8 +14,6 @@ import * as ImmobilenNipixRuntime from './immobilien.runtime';
 import * as echarts from 'echarts';
 import { SEOService } from '@app/shared/seo/seo.service';
 
-declare const require: any;
-
 /* eslint-disable max-lines */
 @Component({
     selector: 'power-immobilien',
@@ -26,29 +24,29 @@ declare const require: any;
 export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     // echarts Components
-    @ViewChild('echartsMap') echartsMap: ElementRef;
-    @ViewChild('echartsChart') echartsChart: ElementRef;
+    @ViewChild('echartsMap') public echartsMap?: ElementRef;
+    @ViewChild('echartsChart') public echartsChart?: ElementRef;
 
     // Config URl
-    configUrl = 'assets/data/cfg.json';
+    public configUrl = 'assets/data/cfg.json';
 
     // Nipix Static Data
-    nipixStatic = new ImmobilenNipixStatic.NipixStatic();
+    public nipixStatic = new ImmobilenNipixStatic.NipixStatic();
 
     // Nipix Runtime Data
-    nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
+    public nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
 
     // Accordion State
-    accOpen = {};
+    public accOpen: any = {};
 
     // true if is browser
-    isBrowser = true;
+    public isBrowser = true;
 
     // URL
-    urlIndex = null;
+    public urlIndex: number | null = null;
 
-    animationFrameID = [null, null];
-    resizeSub = [null, null];
+    public animationFrameID: number[] | null[] = [null, null];
+    public resizeSub: ResizeObserver[] | null[] = [null, null];
 
     /**
      * Constructor:
@@ -73,42 +71,53 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         }
     }
 
-    title = 'lgln';
+    public title = 'lgln';
 
     // show loading spinner:
-    mapLoaded = false;
+    public mapLoaded = false;
 
     // Wohnungsmartregion suchen
-    selectedWoMa: string;
-    selectedWoMaValue: string;
+    public selectedWoMa = '';
+    public selectedWoMaValue?: string;
 
-    selectSingle() {
+    public selectSingle(): number | null {
         let singleSelectionId = null;
-        for (let i = 0; i < this.nipixStatic.data.selections.length; i++) {
-            if (this.nipixStatic.data.selections[i]['type'] === 'single') {
-                singleSelectionId = i;
+        if (this.nipixStatic.data.selections) {
+            for (let i = 0; i < this.nipixStatic.data.selections.length; i++) {
+                if (this.nipixStatic.data.selections[i]['type'] === 'single') {
+                    singleSelectionId = i;
+                }
             }
         }
 
         return singleSelectionId;
     }
 
-    onSelectWoMa(): void {
+    /* eslint-disable-next-line complexity */
+    public onSelectWoMa() {
         try {
-            this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
+            if (this.nipixStatic.data.gemeinden) {
+                this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
+            } else {
+                this.selectedWoMa = '';
+                return;
+            }
         } catch (error) {
             this.selectedWoMa = '';
             return;
         }
 
         const singleSelectionId = this.selectSingle();
+        if (singleSelectionId === null) {
+            return;
+        }
 
         const accKeys = Object.keys(this.accOpen);
         let isSet = false;
         if (singleSelectionId !== null) {
             for (let i = 0; i < accKeys.length; i++) {
                 if (parseInt(accKeys[i], 10) < 90) {
-                    if (accKeys[i] === singleSelectionId) {
+                    if (accKeys[i] === singleSelectionId.toString()) {
                         this.accOpen[accKeys[i]] = true;
                         isSet = true;
                     } else {
@@ -134,9 +143,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     /**
      * echart_range_series
      */
-    chart_range = ImmobilienChartOptions.chartRange();
+    public chart_range = ImmobilienChartOptions.chartRange();
 
-    ngAfterViewInit() {
+    /** @inheritdoc */
+    public ngAfterViewInit() {
         if (!this.isBrowser) {
             return;
         }
@@ -165,29 +175,34 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         this.initNipix();
     }
 
-    resize(itm) {
+    public resize(itm: number) {
         switch (itm) {
             case 0: this.nipixRuntime.map.obj.resize(); break;
             case 1: this.nipixRuntime.chart.obj.resize(); break;
         }
     }
 
-    ngOnDestroy() {
+    /** @inheritdoc */
+    public ngOnDestroy() {
         if (this.resizeSub[0] && this.echartsMap) {
             this.resizeSub[0].unobserve(this.echartsMap.nativeElement);
-            window.cancelAnimationFrame(this.animationFrameID[0]);
+            if (this.animationFrameID[0] !== null) {
+                window.cancelAnimationFrame(this.animationFrameID[0]);
+            }
         }
 
         if (this.resizeSub[1] && this.echartsChart) {
             this.resizeSub[1].unobserve(this.echartsChart.nativeElement);
-            window.cancelAnimationFrame(this.animationFrameID[1]);
+            if (this.animationFrameID[1] !== null) {
+                window.cancelAnimationFrame(this.animationFrameID[1]);
+            }
         }
     }
     /**
      * Init the Application.
      * Load external Config File
      */
-    initNipix() {
+    public initNipix() {
         // Load Config
         this.loadConfig(this.configUrl);
     }
@@ -199,7 +214,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      *
      * @param {string} url Url to Configuration
      */
-    loadConfig(url) {
+    public loadConfig(url: string) {
         this.http.get(url)
             .subscribe(json => {
                 this.nipixRuntime.state.initState = 1;
@@ -220,7 +235,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      *
      * @param {string} url Url to Gemeinnde CSV
      */
-    loadGemeinden(url) {
+    public loadGemeinden(url: string) {
         // Load nipix
         this.http.get(url, { responseType: 'text' })
             .subscribe(gem => {
@@ -236,7 +251,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * parseURLTimeRange
      * @param params
      */
-    parseURLTimeRange(params) {
+    public parseURLTimeRange(params: any) {
         if (params['t1']) {
             this.nipixRuntime.state.rangeStartIndex = this.nipixRuntime.availableQuartal.indexOf(params['t1']);
         }
@@ -266,7 +281,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param selectionId
      * @param params
      */
-    parseURLAggr(selectionId, params) {
+    public parseURLAggr(selectionId: any, params: any) {
 
         const prelist = params['a'].split(',');
         const itm = this.nipixStatic.data.selections[selectionId];
@@ -298,7 +313,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param selectionId
      * @param params
      */
-    parseURLSingle(selectionId, params) {
+    public parseURLSingle(selectionId: any, params: any) {
 
         const list = params['s'].split(',');
 
@@ -320,7 +335,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param selectionId
      * @param params
      */
-    parseURLMultiSelect(selectionId, params) {
+    public parseURLMultiSelect(selectionId: any, params: any) {
 
         const inp = params['m'].split(';');
 
@@ -355,7 +370,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Query URL Params
      * @param params
      */
-    queryURL(params) {
+    public queryURL(params: any) {
 
         this.parseURLTimeRange(params);
 
@@ -385,14 +400,14 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         setTimeout(this.staticChange.bind(this), 50, selectionId, true);
 
         this.cdr.detectChanges();
-
     }
+
     /**
      * Load Map
      *
      * @param {string} url Url to Map GeoJSON
      */
-    loadGeoMap(url) {
+    public loadGeoMap(url: string) {
 
         // fetch map geo JSON data from server
         this.http.get(url)
@@ -451,7 +466,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Set Map Options
      * @param selectType
      */
-    setMapOptions(selectType: any = 'multiple') {
+    public setMapOptions(selectType: any = 'multiple') {
 
         this.nipixRuntime.map.options = ImmobilienChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
@@ -478,21 +493,21 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Handle the Change of an Selection in the Map
      */
     /* eslint-disable-next-line complexity */
-    onMapSelectChange(param) {
+    public onMapSelectChange(param: any) {
         if ((param.isFromClick === false) ||
-                (param['isFromClick'] && (param['fromAction'] === 'select') && (param['selected'].length === 0))) {
+            (param['isFromClick'] && (param['fromAction'] === 'select') && (param['selected'].length === 0))) {
             return;
         }
 
         // Get List of selected items in map
         const sdata = this.nipixRuntime.map.options.series[0]['data'];
-        const selectedlist = [];
+        const selectedlist = new Array<string>();
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
                 param['fromAction'] === 'unselect') &&
             param['selected'].length === 1) {
 
-            param['selected'][0]['dataIndex'].forEach(function (index) {
+            param['selected'][0]['dataIndex'].forEach(function (index: number) {
                 selectedlist.push(sdata[index]['name']);
             });
         }
@@ -530,7 +545,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param name
      * @param typ
      */
-    toggleMapSelect(category, name, typ = 'undefined') {
+    public toggleMapSelect(category: string, name: string, typ = 'undefined') {
         // console.log('toggle', category, name, typ);
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -565,7 +580,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Update the Selectiopn of the Map aware of the activer Draw Item
      * @param id
      */
-    updateMapSelect(id = null) {
+    public updateMapSelect(id: string | null = null) {
         this.nipixRuntime.updateMapSelect(id);
     }
 
@@ -574,7 +589,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Gets chart element for map
      * @param ec
      */
-    onChartInit(ec) {
+    public onChartInit(ec: any) {
         this.nipixRuntime.map.obj = ec;
 
         if (this.nipixRuntime.state.initState === 3) {
@@ -586,7 +601,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Gets chart element for Chart
      * @param ec
      */
-    onChartChartInit(ec) {
+    public onChartChartInit(ec: any) {
         this.nipixRuntime.chart.obj = ec;
 
         if (this.nipixRuntime.state.initState === 3) {
@@ -598,7 +613,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Finish Randering
      * @param ec
      */
-    onChartFinished(ec) {
+    public onChartFinished(ec: any) {
         this.nipixRuntime.export.chartRenderFinished();
 
         if (this.nipixRuntime.map.obj === null) {
@@ -633,7 +648,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param index
      * @param cat
      */
-    onChangeCat(index, cat) {
+    public onChangeCat(index: string | string[], cat: string) {
         if (Array.isArray(index)) {
             for (let i = 0; i < index.length; i++) {
                 for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
@@ -661,7 +676,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param start
      * @param end
      */
-    onChangeQuartal(start, end) {
+    public onChangeQuartal(start: number, end: number) {
         if (start !== null) {
             this.nipixRuntime.state.rangeStartIndex = start;
         }
@@ -680,7 +695,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Switch between multiple Draw
      * @param name
      */
-    onClickDrawRoot(name) {
+    public onClickDrawRoot(name: any) {
         this.updateMapSelect();
         this.updateChart();
     }
@@ -689,7 +704,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Toggle Show of Draw Item
      * @param name
      */
-    onToggleDrawRoot(name) {
+    public onToggleDrawRoot(name: string) {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i].name === name) {
                 this.nipixRuntime.drawPresets[i].show = !this.nipixRuntime.drawPresets[i].show;
@@ -706,9 +721,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param start
      * @param end
      */
-    updateChart(start = null, end = null) {
-        let range_start = this.chart_range['data'][2][0];
-        let range_end = this.chart_range['data'][3][0]; // 100;
+    public updateChart(start: number | null = null, end: number | null = null) {
+        let range_start: number = this.chart_range['data'][2][0];
+        let range_end: number = this.chart_range['data'][3][0]; // 100;
         let subAdd = ''; // Additional subtitle
         if (start !== null) {
             range_start = start;
@@ -745,12 +760,12 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param subAdd
      * @param range_text
      */
-    updateChartMerge(range_start, range_end, subAdd, range_text) {
+    public updateChartMerge(range_start: number, range_end: number, subAdd: string, range_text: string) {
         const chartOptionMerge = ImmobilienChartOptions.getChartOptionsMerge({
             'text': this.nipixStatic.textOptions,
             'graphic0': this.nipixRuntime.chart.options['graphic'][0],
             'graphic1left': this.nipixStatic.chartExportWidth - 600 + 65,
-            'graphic1children': [].concat(this.nipixRuntime.formatter.graphicLegend()),
+            'graphic1children': new Array<any>().concat(this.nipixRuntime.formatter.graphicLegend()),
             'graphic2fontsize': ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage),
             'graphic2text': range_text,
             'legenddata': this.nipixRuntime.formatter.simpleLegend(),
@@ -777,7 +792,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Handle Chart DataZoom
      * @param event
      */
-    onDataZoom(event) {
+    public onDataZoom(event: any) {
         this.chart_range['data'][2] = [event.start, -1];
         this.chart_range['data'][3] = [event.end, -1];
         this.nipixRuntime.state.rangeStartIndex =
@@ -793,14 +808,14 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Focus single ChartLine
      * @param event
      */
-    chartClicked(event) {
+    public chartClicked(event: any) {
         if ((event.componentType === 'series') && (event.seriesType === 'line')) {
             this.nipixRuntime.state.selectedChartLine = event.seriesName;
             this.updateChart();
         }
     }
 
-    onPanelChangeWoMa() {
+    public onPanelChangeWoMa() {
         this.nipixRuntime.calculated.mapRegionen = ImmobilienUtils.getMyMapRegionen(
             this.nipixStatic.data.regionen,
             null,
@@ -811,7 +826,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         this.updateMapSelect(this.nipixRuntime.state.selectedMyRegion);
     }
 
-    onPanelChangeIndex(selection_id: number) { // eslint-disable-line complexity
+    public onPanelChangeIndex(selection_id: number) { // eslint-disable-line complexity
         this.urlIndex = selection_id;
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&
@@ -851,7 +866,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         } else {
             this.setMapOptions(false);
         }
-        setTimeout(function() { this.cdr.detectChanges() }.bind(this),50);
+        setTimeout(function () { this.cdr.detectChanges() }.bind(this), 50);
     }
 
     /**
@@ -859,12 +874,12 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      *
      * @param drawname Name of the draw Object
      */
-    toggleAllSelect(drawname) {
+    public toggleAllSelect(drawname: string) {
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i]['name'] === drawname) {
                 if (this.nipixRuntime.drawPresets[i].values.length > 0) {
-                    this.nipixRuntime.drawPresets[i].values = [];
+                    this.nipixRuntime.drawPresets[i].values = new Array<any>();
                 } else {
                     this.nipixRuntime.drawPresets[i].values = this.nipixStatic.data.allItems;
                 }
@@ -884,7 +899,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param id
      * @returns WoMaReg Name
      */
-    regionName(id) {
+    public regionName(id: string) {
         if ((id !== undefined) && (this.nipixStatic.data.regionen.hasOwnProperty(id))) {
             if (this.nipixRuntime.state.selectedMyRegion !== id) {
                 this.nipixRuntime.state.selectedMyRegion = id;
@@ -903,7 +918,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param name draw name
      * @returns color Color
      */
-    getCustomColor(name) {
+    public getCustomColor(name: string) {
         const draw = this.nipixRuntime.getDrawPreset(name);
 
         if (draw && draw['colors'].length > 0) {
@@ -919,7 +934,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param preset Array of preset
      * @param count Amount of items
      */
-    onSetSpecificDraw(preset, count) {
+    public onSetSpecificDraw(preset: string[], count: number) {
         for (let i = 0; i < preset.length; i++) {
             for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
                 if (this.nipixRuntime.drawPresets[d]['name'] === preset[i]) {
@@ -942,7 +957,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param selectname Name of the selection
      * @param count Amount
      */
-    onSetNumber(selectname, count) {
+    public onSetNumber(selectname: string, count: number) {
         for (let s = 0; s < this.nipixStatic.data.selections.length; s++) {
             if (this.nipixStatic.data.selections[s]['name'] === selectname) {
                 this.nipixStatic.data.selections[s]['selected'] = count;
@@ -964,7 +979,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      *
      * @param drawname Name of the draw object.
      */
-    toggleNipixCategory(drawname) {
+    public toggleNipixCategory(drawname: string) {
         this.nipixRuntime.toggleNipixCategory(drawname);
         this.updateChart();
     }
@@ -975,7 +990,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param id id of the tab
      * @returns True if expanded
      */
-    staticExpand(id) {
+    public staticExpand(id: number) {
         if (this.accOpen[id] === true) {
             return true;
         } else {
@@ -989,7 +1004,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param id id of the tab
      * @param event boolean is Opened
      */
-    staticChange(id, event) {
+    public staticChange(id: number, event: boolean) {
         this.accOpen[id] = event;
         if ((id < 90) && (event === true)) {
             this.onPanelChangeIndex(id);
@@ -1002,16 +1017,16 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     }
 
-    makeValuesHumanReadable(values) {
-        const val = [];
+    public makeValuesHumanReadable(values: string[]): string[] {
+        const val = new Array<string>();
         for (let i = 0; i < values.length; i++) {
             val.push(this.nipixStatic.data.regionen[values[i]]['short'].replace(/[^a-zA-Z0-9]/g, ''));
         }
         return val;
     }
 
-    unmakeValuesHumanReadable(list) {
-        const val = [];
+    public unmakeValuesHumanReadable(list: string[]): string[] {
+        const val = new Array<string>();
         const reg = Object.keys(this.nipixStatic.data.regionen);
         for (let i = 0; i < reg.length; i++) {
             if (list.includes(this.nipixStatic.data.regionen[reg[i]]['short'].replace(/[^a-zA-Z0-9]/g, ''))) {
@@ -1021,7 +1036,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         return val;
     }
 
-    checkURLNipixCategory(ncat) {
+    public checkURLNipixCategory(ncat: string): string {
         let val = this.nipixRuntime.availableNipixCategories[0];
         for (let i = 0; i < this.nipixRuntime.availableNipixCategories.length; i++) {
             if (this.nipixRuntime.availableNipixCategories[i].replace(/[^a-zA-Z0-9]/g, '') === ncat) {
@@ -1031,7 +1046,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         return val;
     }
 
-    changeURLAppendPresets(selection, params) {
+    public changeURLAppendPresets(selection: any, params: URLSearchParams) {
 
         const presetName = selection['preset'];
 
@@ -1047,7 +1062,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 if (selection['type'] === 'multiIndex') {
                     params.append('i', preset['nipixCategory'].replace(/[^a-zA-Z]/g, ''));
                 }
-                const pre = [];
+                const pre = new Array<any>();
                 for (let i = 0; i < presetName.length; i++) {
                     if (this.nipixRuntime.getDrawPreset(presetName[i]).show) {
                         pre.push(presetName[i]);
@@ -1056,7 +1071,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 params.append('a', pre.join(','));
 
             } else { // Sonderfall manueller Vergleich
-                const pval = [];
+                const pval = new Array<any>();
                 for (let i = 0; i < presetName.length; i++) {
                     const spreset = this.nipixRuntime.getDrawPreset(presetName[i]);
                     if (spreset['values'].length > 0) {
@@ -1074,7 +1089,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         }
     }
 
-    changeURL() {
+    public changeURL() {
         const params = new URLSearchParams({});
 
         params.append(
@@ -1100,7 +1115,5 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
         this.location.replaceState('/immobilienpreisindex', params.toString());
     }
-
 }
-
 /* vim: set expandtab ts=4 sw=4 sts=4: */

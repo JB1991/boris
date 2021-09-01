@@ -82,14 +82,14 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
             'activeSelection': 'na'
         };
         niRuntime.calculated = JSON.parse(JSON.stringify(niRuntimeCalculated));
-        niRuntime.highlightSeries = function (seriesName) { };
+        niRuntime.highlightSeries = function (seriesName: any) { };
         niRuntime.chart = {
             'obj': {
-                'convertToPixel': function (par1, par2) { return 1; }
+                'convertToPixel': function (par1: any, par2: any) { return 1; }
             }
         };
 
-        niRuntime.getDrawPreset = function (name) {
+        niRuntime.getDrawPreset = function (name: any) {
             return {
                 'show': true,
                 'values': ['foo'],
@@ -97,13 +97,13 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
             };
         };
 
-        niRuntime.translate = function (id) { return id; };
+        niRuntime.translate = function (id: any) { return id; };
 
         component = new ImmobilienFormatter.ImmobilienFormatter(niStatic, niRuntime);
 
         spyOn(ImmobilienUtils, 'generateTextElement').and.callFake(
-            function (name, color = '#000', fontSizeBase = 1.2, position = 0, posX?) {
-                return name;
+            function (name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any) {
+                return name as any;
             }
         );
 
