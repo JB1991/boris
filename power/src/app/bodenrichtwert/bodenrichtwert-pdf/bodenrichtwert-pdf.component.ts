@@ -18,7 +18,6 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
-import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-pdf',
@@ -31,11 +30,11 @@ export class BodenrichtwertPdfComponent {
     @Input() public flurstueck?: FeatureCollection;
     @Input() public stichtag?: string;
     @Input() public teilmarkt?: Teilmarkt;
-    @Input() public features?: FeatureCollection;
+    @Input() public features?: Array<Feature>;
     public testMode = false;
 
     constructor(
-        private mapService: BodenrichtwertKarteService,
+        public mapService: BodenrichtwertKarteService,
         private decimalPipe: DecimalPipe,
         private datePipe: DatePipe,
         private entwicklungszustandPipe: EntwicklungszustandPipe,
@@ -45,8 +44,7 @@ export class BodenrichtwertPdfComponent {
         private nutzungPipe: NutzungPipe,
         private bauweisePipe: BauweisePipe,
         private bodenartPipe: BodenartPipe,
-        private umlautCorrectionPipe: UmlautCorrectionPipe,
-        private gemarkungPipe: GemarkungPipe
+        private umlautCorrectionPipe: UmlautCorrectionPipe
     ) {
         /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
         (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -57,7 +55,7 @@ export class BodenrichtwertPdfComponent {
      * @returns True if successful
      */
     // eslint-disable-next-line complexity
-    public async create(): Promise<boolean> {
+    public create(): boolean {
         // pdf definition
         const docDefinition: TDocumentDefinitions = {
             pageSize: 'A4', // 595.28, 841.89
@@ -98,7 +96,7 @@ export class BodenrichtwertPdfComponent {
                     margin: [0, 20, 0, 10]
                 },
                 {
-                    text: await this.getAddressFlurstueck(),
+                    text: this.getAddressFlurstueck(),
                     margin: [0, 0, 0, 10]
                 },
                 {
@@ -308,7 +306,7 @@ export class BodenrichtwertPdfComponent {
                 link: 'https://www.gutachterausschuss.bremen.de/'
             });
             ret.push({
-                text: this.features?.features[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
+                text: this.features?.[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
                 width: '*' as any,
                 fontSize: 16,
                 margin: [5, 0, 0, 0]
@@ -326,7 +324,7 @@ export class BodenrichtwertPdfComponent {
                 link: 'https://www.gag.niedersachsen.de/'
             });
             ret.push({
-                text: this.features?.features[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
+                text: this.features?.[0].properties?.['gabe'].replace('Grundstückswerte', 'Grundstückswerte\n'),
                 width: '*' as any,
                 fontSize: 16,
                 margin: [5, 0, 0, 0]
@@ -344,20 +342,20 @@ export class BodenrichtwertPdfComponent {
      * Returns makepdf Array for address and flurstück info
      * @returns PDF Address and Flurstück
      */
-    public async getAddressFlurstueck(): Promise<Content[]> {
+    public getAddressFlurstueck(): Content[] {
         const ret = new Array<Content>();
 
         // address
         if (this.address) {
             ret.push($localize`Adresse` + ': ' + this.address.properties?.['text'] + '\n');
         } else {
-            ret.push($localize`Bezeichnung der Bodenrichtswertzone` + ': ' + this.features?.features[0].properties?.['brzname'] + '\n');
+            ret.push($localize`Bezeichnung der Bodenrichtswertzone` + ': ' + this.features?.[0].properties?.['brzname'] + '\n');
         }
 
         // check if Flurstück info
         if (this.flurstueck && this.flurstueck.features.length > 0) {
             ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties?.['gemarkungsnummer'] +
-                ' (' + await this.gemarkungPipe.transform(this.flurstueck.features[0].properties?.['gemarkungsnummer'].toString())?.toPromise() + '), ');
+                ' (' + this.features?.[0].properties?.['gema'] + '), ');
             ret.push($localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties?.['flurnummer'] + ', ');
             ret.push($localize`Flurstück` + ': ' + this.flurstueck.features[0].properties?.['zaehler']);
             if (this.flurstueck.features[0].properties?.['nenner']) {
@@ -384,10 +382,7 @@ export class BodenrichtwertPdfComponent {
 
         // for each brw
         if (this.features) {
-            for (const brw of this.features.features) {
-                if (brw.properties?.['stag'].replace('Z', '') !== this.stichtag) {
-                    continue;
-                }
+            for (const brw of this.features) {
                 const tmp: Content[] = [
                     {
                         text: $localize`Bodenrichtwertzone` + ': ' + brw.properties?.['wnum'] + '\n',
@@ -503,7 +498,7 @@ export class BodenrichtwertPdfComponent {
      * @returns True if Bremen
      */
     public isBremen(): boolean {
-        return this.features?.features[0].properties?.['gema'] === 'Bremerhaven' || this.features?.features[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
+        return this.features?.[0].properties?.['gema'] === 'Bremerhaven' || this.features?.[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
     }
 
     /**

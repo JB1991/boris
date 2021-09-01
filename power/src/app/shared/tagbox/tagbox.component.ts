@@ -34,9 +34,6 @@ export class TagboxComponent {
      * Adds tag to list
      */
     public addTag(): void {
-        if (!this.tagList) {
-            this.tagList = [];
-        }
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }

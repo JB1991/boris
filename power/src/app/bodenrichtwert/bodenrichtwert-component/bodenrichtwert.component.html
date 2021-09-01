@@ -267,9 +267,8 @@
                         <small class="ml-2 mr-2">
                             <span i18n>Gemarkung</span>:
                             {{ flurstueck.features[0]?.properties?.['gemarkungsnummer'] }}
-                            ({{ flurstueck.features[0]?.properties?.['gemarkungsnummer'] | gemarkung |
-                            async
-                            }})
+                            <ng-container *ngIf="filteredFeatures">({{ filteredFeatures[0].properties?.['gema'] }})
+                            </ng-container>
                         </small>
                     </span>
                     <wbr>
@@ -339,5 +338,5 @@
                           [flurstueck]="flurstueck"
                           [stichtag]="stichtag"
                           [teilmarkt]="teilmarkt"
-                          [features]="features"
+                          [features]="filteredFeatures"
                           #pdf></power-bodenrichtwert-pdf>

@@ -32,6 +32,12 @@ describe('Shared.Alerts.AlertsService', () => {
         expect(service.alertslist.length).toEqual(4);
     });
 
+    it('should prevent too big timeout', () => {
+        expect(() => {
+            service.NewAlert('success', 'Test Title', 'Test Body', 120000);
+        }).toThrowError('timeout too big or small');
+    });
+
     it('should reset service', () => {
         service.NewAlert('success', 'Test Title', 'Test Body', 3500);
         expect(service.alertslist[0].timeout).toEqual(3500);

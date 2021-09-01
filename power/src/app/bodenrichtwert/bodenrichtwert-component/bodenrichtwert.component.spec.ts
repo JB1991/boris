@@ -21,7 +21,6 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
-import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -60,8 +59,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 NutzungPipe,
                 BauweisePipe,
                 BodenartPipe,
-                UmlautCorrectionPipe,
-                GemarkungPipe
+                UmlautCorrectionPipe
             ]
         }).compileComponents();
     }));

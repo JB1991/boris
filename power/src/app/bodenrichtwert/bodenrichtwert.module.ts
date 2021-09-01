@@ -26,7 +26,6 @@ import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
 import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
-import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -78,8 +77,7 @@ import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
         BauweisePipe,
         BodenartPipe,
         UmlautCorrectionPipe,
-        EinflussgroessePipe,
-        GemarkungPipe
+        EinflussgroessePipe
     ]
 })
 export class BodenrichtwertModule {
