@@ -545,7 +545,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         }
 
         // add handler
-        this.map.on('click', (event: Event) => {
+        this.map.on('click', (event: MapMouseEvent) => {
             this.onMapClickEvent(event);
         });
         this.map.on('moveend', () => {

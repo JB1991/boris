@@ -591,7 +591,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('getCSV should fail with http error', (done) => {
         service.getCSV('123').catch((error) => {
-            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/intern/forms/123/csv: 404 Not Found');
+            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/formapi/intern/forms/123/csv: 404 Not Found');
             done();
         });
         answerHTTPRequest(environment.formAPI + 'intern/forms/123/csv', 'GET', '',
