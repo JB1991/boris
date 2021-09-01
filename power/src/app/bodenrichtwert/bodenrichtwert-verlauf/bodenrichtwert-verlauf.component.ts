@@ -7,6 +7,9 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
 
+/**
+ *
+ */
 export interface SeriesItem {
     stag: string;
     brw: string;
@@ -583,6 +586,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit 
      * setLegendFormat formats the labels of the legend block
      */
     /* eslint-disable complexity */
+    /**
+     *
+     */
     public setLegendFormat() {
         const legend = this.chartOption.legend as LegendComponentOption;
         legend['formatter'] = function (name: string) {
