@@ -9,7 +9,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
     styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent {
-    @Output() out = new EventEmitter<{
+    @Output() public out = new EventEmitter<{
         id: string;
         description: string;
     }>();

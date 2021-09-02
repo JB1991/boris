@@ -20,7 +20,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 GeosearchComponent
             ],

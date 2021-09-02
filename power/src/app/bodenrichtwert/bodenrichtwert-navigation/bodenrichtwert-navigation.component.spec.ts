@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation.component';
-import { BodenrichtwertComponent } from 'app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
+import { BodenrichtwertComponent } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -23,7 +23,7 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
     const stichtag = '2018-12-31';
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [BodenrichtwertNavigationComponent],
             imports: [
                 CommonModule,

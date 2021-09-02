@@ -16,7 +16,7 @@ export class PreviewPipe implements PipeTransform {
      * @param lang Language
      * @returns Surveyjs
      */
-    transform(value: any, lang = this.locale): any {
+    public transform(value: any, lang = this.locale): any {
         return {
             locale: lang,
             pages: [

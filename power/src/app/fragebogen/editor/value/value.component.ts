@@ -39,7 +39,7 @@ export class ValueComponent implements OnChanges {
     }
 
     /** @inheritdoc */
-    ngOnChanges(): void {
+    public ngOnChanges(): void {
         this.data[this.question.name] = this.value;
     }
 

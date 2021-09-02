@@ -9,7 +9,7 @@ export class ImmobilienUtils {
      * @param lastPeriod Period of the last available NIPIX Data
      * @returns DateArray array
      */
-    static getDateArray(lastYear: number, lastPeriod: number) {
+    public static getDateArray(lastYear: number, lastPeriod: number): any[] {
 
         const date = new Array<any>();
 
@@ -31,12 +31,7 @@ export class ImmobilienUtils {
      * @param bw
      * @param area
      */
-    static getMyMapRegionenGR(
-        name: string,
-        bc: string,
-        bw: number,
-        area: string
-    ) {
+    public static getMyMapRegionenGR(name: string, bc: string, bw: number, area: string): any {
         return {
             'name': name,
             'itemStyle': {
@@ -68,12 +63,12 @@ export class ImmobilienUtils {
      * @param lighten (default false) Lighten the areaColor
      * @returns MapRegionen array
      */
-    static getMyMapRegionen(
+    public static getMyMapRegionen(
         regionen: any,
-        myregion: string|null = null,
-        selectionList: string[]|null = null,
+        myregion: string | null = null,
+        selectionList: string[] | null = null,
         lighten: boolean = false
-    ) {
+    ): any[] {
         const res = new Array<any>();
         const keys = Object.keys(regionen);
         for (let i = 0; i < keys.length; i++) {
@@ -116,14 +111,14 @@ export class ImmobilienUtils {
      * @param labelFormatter
      * @param data
      */
-    static generateSeriesGS(
+    public static generateSeriesGS(
         name: string,
         seriesType: string,
         zindex: number,
         seriesColor: string,
         labelFormatter: any,
         data: any
-    ) {
+    ): any {
         return {
             'name': name,
             'type': seriesType,
@@ -165,7 +160,7 @@ export class ImmobilienUtils {
      * @param seriesType SeriesTyp (default line) (see echarts api)
      * @returns echarts Series Object
      */
-    static generateSeries(
+    public static generateSeries(
         name: string,
         data: any,
         color: string,
@@ -210,12 +205,12 @@ export class ImmobilienUtils {
      * @param offset Offset for ercentage calculation
      * @returns Data array
      */
-    static generateDrawSeriesData(
-        data: any[],
-        date: string[] = [],
-        field: any = null,
+    public static generateDrawSeriesData(
+        data: any,
+        date = new Array<string>(),
+        field: string | null = null,
         offset: number = 100
-    ) {
+    ): any[] {
 
         // Empty data array
         const ret = new Array<any>();
@@ -251,7 +246,7 @@ export class ImmobilienUtils {
      * @param position
      * @param posX
      */
-    static generateTextElement(
+    public static generateTextElement(
         name: string,
         color: string = '#000',
         fontSizeBase: number = 1.2,
@@ -280,7 +275,7 @@ export class ImmobilienUtils {
      * @param bordercolor
      * @param border
      */
-    static generateDotElement(
+    public static generateDotElement(
         radius: number = 4,
         color: string = '#fff',
         fontSizeBase: number = 1.2,
@@ -311,7 +306,7 @@ export class ImmobilienUtils {
      * @param regionen
      * @param modifyArray
      */
-    static modifyRegionen(regionen: any, modifyArray: any[]) {
+    public static modifyRegionen(regionen: any, modifyArray: any[]): any {
         const newRegionen = JSON.parse(JSON.stringify(regionen));
 
         for (let i = 0; i < modifyArray.length; i++) {
@@ -331,7 +326,7 @@ export class ImmobilienUtils {
      * @param name name
      * @param select select
      */
-    static dispatchMapSelect(obj: any, name: string, select: boolean) {
+    public static dispatchMapSelect(obj: any, name: string, select: boolean): void {
         // check if is function
         if (typeof obj.dispatchAction !== 'function') {
             return;

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail.component';
 import { BeitragPipe } from '@app/bodenrichtwert/pipes/beitrag.pipe';
@@ -17,7 +18,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     const teilmarkt = { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' };
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 BodenrichtwertDetailComponent,
                 BeitragPipe,
@@ -27,6 +28,9 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
                 EntwicklungszusatzPipe,
                 EntwicklungszustandPipe,
                 GagKontaktdatenPipe
+            ],
+            imports: [
+                CommonModule
             ]
         })
             .compileComponents();

@@ -21,7 +21,7 @@ const bodTypes = [
 export class BodenartPipe implements PipeTransform {
 
 
-    regex: RegExp[] = [
+    public regex: RegExp[] = [
         // 3 chars
         /^([a-z]{1})([A-Z]{2})/, // aBC , z.B. sLT
         /^([A-Z]{1})([A-Z]{1}[a-z]{1})/, // ABc , z.B. SMo
@@ -34,7 +34,7 @@ export class BodenartPipe implements PipeTransform {
     ];
 
     /** @inheritdoc */
-    transform(value: string): string {
+    public transform(value: string): string {
 
         let res = '';
         let types: string[] = [];

@@ -14,14 +14,14 @@ describe('AdvancedSearchComponent', () => {
     let fixture: ComponentFixture<AdvancedSearchComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 AdvancedSearchComponent,
                 ModalminiComponent
             ],
             imports: [
                 SharedModule,
-                TabsModule,
+                TabsModule.forRoot(),
                 HttpClientTestingModule
             ]
         }).compileComponents();

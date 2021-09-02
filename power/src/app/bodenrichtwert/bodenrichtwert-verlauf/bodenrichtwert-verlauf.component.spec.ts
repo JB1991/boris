@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
-import { SimpleChanges } from '@angular/core';
+import { SimpleChanges, LOCALE_ID } from '@angular/core';
 import * as echarts from 'echarts';
-import { LOCALE_ID } from '@angular/core';
-import { DecimalPipe, registerLocaleData } from '@angular/common';
+import { CommonModule, DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
@@ -20,13 +19,14 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     registerLocaleData(localeDe);
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
             providers: [
                 { provide: LOCALE_ID, useValue: 'de' },
                 DecimalPipe],
             imports: [
                 HttpClientTestingModule,
+                CommonModule
             ]
         }).compileComponents();
     }));

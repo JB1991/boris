@@ -12,7 +12,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     let fixture: ComponentFixture<PreviewComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 SharedModule,
                 ShowdownModule,

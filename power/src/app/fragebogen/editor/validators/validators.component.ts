@@ -30,7 +30,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     /** @inheritdoc */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         // make question list
         this.questions = new Array<any>();
         for (let i = 0; i < this.model.pages.length; i++) {
@@ -59,7 +59,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
     }
 
     /** @inheritdoc */
-    ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
+    public ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || !this.data.validators || this.struct.length > 0) {
             this.loadChoices();

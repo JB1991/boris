@@ -28,7 +28,7 @@ describe('FlurstueckSearchComponent', () => {
     let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 FlurstueckSearchComponent
             ],
@@ -39,7 +39,7 @@ describe('FlurstueckSearchComponent', () => {
             ],
             imports: [
                 SharedModule,
-                ModalModule,
+                ModalModule.forRoot(),
                 HttpClientTestingModule,
                 NgbTypeaheadModule
             ]

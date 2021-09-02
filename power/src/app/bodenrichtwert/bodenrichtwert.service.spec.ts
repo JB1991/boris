@@ -19,10 +19,9 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     let httpTestingController: HttpTestingController;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [HttpClientTestingModule]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {

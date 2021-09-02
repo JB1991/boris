@@ -121,7 +121,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    public changeTitle() {
+    public changeTitle(): void {
         if (this.mode === 'gmb') {
             this.seo.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
             this.seo.updateTag({ name: 'description', content: $localize`Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen und Preisniveau in den Teilmärkten.` });
@@ -134,7 +134,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     /** @inheritdoc */
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         if (!this.isBrowser) {
             return;
         }
@@ -188,12 +188,12 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     /**
      * Resizes echart
      */
-    public resize() {
+    public resize(): void {
         this.map?.resize();
     }
 
     /** @inheritdoc */
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         if (this.resizeSub) {
             this.resizeSub.disconnect();
             if (this.animationFrameID) {
@@ -221,7 +221,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-    public mapInit() {
+    public mapInit(): void {
         this.loadGeoMap('assets/gmb.geojson');
     }
 
@@ -230,7 +230,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      *
      * @param {string} url Url to Map GeoJSON
      */
-    public loadGeoMap(url: string) {
+    public loadGeoMap(url: string): void {
         this.http.get(url)
             .subscribe(
                 geoJson => {
@@ -248,7 +248,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Generate Map Regionen
      * @returns Array of regions
      */
-    public getRegionen() {
+    public getRegionen(): any[] {
         const res = new Array<any>();
         const keys = Object.keys(KREISE_DATA);
 
@@ -281,7 +281,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         return res;
     }
 
-    public selectMenu() {
+    public selectMenu(): any[] {
         const res = new Array<any>();
         const ok = Object.keys(KREISE_DATA);
         for (let i = 0; i < ok.length; i++) {
@@ -321,7 +321,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         return res.join('; ');
     }
 
-    public filterBerichteGMB() {
+    public filterBerichteGMB(): any[] {
         const bf = new Array<any>();
         const ber = Object.keys(GMB_DATA);
         for (let i = 0; i < ber.length; i++) {
@@ -368,7 +368,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         return bf;
     }
 
-    public filterBerichteLMB() {
+    public filterBerichteLMB(): any[] {
         const bf = new Array<any>();
         const bb = new Array<any>();
         const yk = Object.keys(GMB_DATA['Niedersachsen']);
@@ -398,7 +398,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Filter Berichte based on selection
      * @param lmb True if LBM
      */
-    public filterBerichte(lmb = false) {
+    public filterBerichte(lmb = false): void {
         if (this.selectedKreis === undefined && !lmb) {
             this.berichteFiltered = new Array<any>();
             return;
@@ -418,7 +418,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Handle the Change of an Selection in the Map
      * @param param Map param
      */
-    public onMapSelectChange(param: any) {
+    public onMapSelectChange(param: any): void {
         const selectedlist = new Array<number>();
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
@@ -446,7 +446,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    private updateMapSelect() {
+    private updateMapSelect(): void {
         if (!this.map) {
             return;
         }
@@ -462,7 +462,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      *
      * @param event Change Event
      */
-    public onChange(event: Event) {
+    public onChange(event: Event): void {
         const newValue = event.target as HTMLSelectElement;
         if (!newValue) {
             this.selectedKreis = undefined;
@@ -475,14 +475,14 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filterBerichte();
     }
 
-    public keyPress(event: KeyboardEvent) {
+    public keyPress(event: KeyboardEvent): void {
         const target = event.target as HTMLInputElement;
         if (target && event.key === 'Enter') {
             target.checked = !target.checked;
         }
     }
 
-    public checkValue(event: Event) {
+    public checkValue(event: Event): void {
         const target = event.target as HTMLInputElement;
         if (target.checked === true) {
             this.berichteOpened.push(target.id.substring(2));
@@ -495,7 +495,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.changeURL();
     }
 
-    public changeURL() {
+    public changeURL(): void {
         const params = new URLSearchParams({});
         if (this.mode === 'gmb' && this.selectedKreis) {
             params.append('landkreis', KREISE_DATA[this.selectedKreis]);

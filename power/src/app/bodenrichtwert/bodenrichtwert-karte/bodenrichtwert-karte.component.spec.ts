@@ -22,7 +22,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     // let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [BodenrichtwertKarteComponent],
             imports: [
                 CommonModule,

@@ -26,7 +26,7 @@ export class ModalminiComponent implements OnDestroy {
     ) { }
 
     /** @inheritdoc */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();
         }

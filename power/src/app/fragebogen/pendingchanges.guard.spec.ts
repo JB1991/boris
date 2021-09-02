@@ -42,9 +42,9 @@ describe('Fragebogen.PendingchangesGuard', () => {
 
 class MockComponent implements ComponentCanDeactivate {
     // Set this to the value you want to mock being returned from GuardedComponent
-    returnValue: boolean | Observable<boolean> = false;
+    public returnValue: boolean | Observable<boolean> = false;
 
-    canDeactivate(): boolean | Observable<boolean> {
+    public canDeactivate(): boolean | Observable<boolean> {
         return this.returnValue;
     }
 }

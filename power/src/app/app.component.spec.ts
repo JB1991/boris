@@ -13,7 +13,7 @@ describe('AppComponent', () => {
     let httpTestingController: HttpTestingController;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule,
@@ -106,6 +106,7 @@ class MockAlertsComponent {
 class MockLoadingscreenComponent {
 }
 class MockUpdateService {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public checkForUpdates() { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

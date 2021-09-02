@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'zone.js/node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
@@ -6,10 +7,9 @@ import { join } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import { createWindow } from 'domino';
 
-import { AppServerModule } from './src/main.server';
+import { AppServerModule } from './main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { LOCALE_ID } from '@angular/core';
-import { enableProdMode } from '@angular/core';
+import { LOCALE_ID, enableProdMode } from '@angular/core';
 
 enableProdMode();
 const template = readFileSync(join('dist/power/browser/de', 'index.html')).toString();
@@ -26,19 +26,23 @@ const createObjectURL = require('create-object-url');
 (global as any).location = window.location;
 (global as any).localStorage = window.localStorage;
 (global as any).HTMLElement = (window as any).HTMLElement;
-(global as any).HTMLElement.prototype.getBoundingClientRect = () => {
+(global as any).HTMLElement.prototype.getBoundingClientRect = function () {
     return {
         left: '',
         right: '',
         top: '',
         bottom: ''
-    };
+    }
 };
-//(global as any).self.navigator = {};
 const Blobx = require('node-blob');
 (global as any).Blob = Blobx;
 
 // The Express app is exported so that it can be used by serverless Functions.
+/**
+ * Creates app instance
+ * @param lang Language string
+ * @returns Express
+ */
 export function app(lang: string): express.Express {
     const server = express();
     const distFolder = join(process.cwd(), `dist/power/browser/${lang}`);
@@ -64,6 +68,7 @@ export function app(lang: string): express.Express {
 
     // All regular routes use the Universal engine
     server.get('*', (req, res) => {
+        /* eslint-disable object-shorthand */
         res.render(indexHtml, {
             req,
             providers: [
@@ -107,4 +112,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
     run();
 }
 
-export * from './src/main.server';
+export * from './main.server';

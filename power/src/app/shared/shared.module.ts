@@ -57,7 +57,7 @@ import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichw
         CommonModule,
         FormsModule,
         NgbTypeaheadModule,
-        TabsModule,
+        TabsModule.forRoot(),
         ModalModule.forRoot(),
         A11yModule
     ]

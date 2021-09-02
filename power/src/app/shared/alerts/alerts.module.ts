@@ -19,7 +19,7 @@ import { AlertsService } from './alerts.service';
 })
 export class AlertsModule {
     /* eslint-disable-next-line jsdoc/require-jsdoc */
-    static forRoot(): ModuleWithProviders<AlertsModule> {
+    public static forRoot(): ModuleWithProviders<AlertsModule> {
         return {
             ngModule: AlertsModule,
             providers: [AlertsService]

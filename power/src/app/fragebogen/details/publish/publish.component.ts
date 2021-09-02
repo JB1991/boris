@@ -9,7 +9,7 @@ import { Access } from '../../formapi.model';
     styleUrls: ['./publish.component.scss']
 })
 export class PublishComponent {
-    @Output() out = new EventEmitter<{
+    @Output() public out = new EventEmitter<{
         id: string;
         access: Access;
     }>();

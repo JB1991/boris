@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CommonModule } from '@angular/common';
 
 import { ConditionModalComponent } from './condition-modal.component';
 import { ConditionsComponent } from '../conditions/conditions.component';
@@ -12,10 +13,11 @@ describe('Fragebogen.Editor.ConditionModalComponent', () => {
     let fixture: ComponentFixture<ConditionModalComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),
+                CommonModule,
                 SharedModule
             ],
             declarations: [

@@ -91,7 +91,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     /** @inheritdoc */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
@@ -143,12 +143,12 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     /** @inheritdoc */
-    ngAfterViewChecked(): void {
+    public ngAfterViewChecked(): void {
         this.cdRef.detectChanges();
     }
 
     /** @inheritdoc */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
         this._subscription.unsubscribe();

@@ -15,7 +15,7 @@ export class GemarkungPipe implements PipeTransform {
      * @param value gemarkungsschlüssel
      * @returns observable of gemarkungsname
      */
-    transform(value: string | number): Observable<string> {
+    public transform(value: string | number): Observable<string> {
         return this.gemarkungService.getGemarkungByKey(value.toString()).pipe(
             map((gemarkung) => {
                 if (gemarkung['features'][0]?.properties) {

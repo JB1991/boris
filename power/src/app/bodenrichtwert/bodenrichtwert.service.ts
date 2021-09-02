@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection, Geometry } from 'geojson';
 import { environment } from '@env/environment';
 import { Teilmarkt } from './bodenrichtwert-component/bodenrichtwert.component';
 
@@ -41,7 +41,7 @@ export class BodenrichtwertService {
      * Updates the features by feeding it to the Subject
      * @param features Updated FeatureCollection
      */
-    public updateFeatures(features: FeatureCollection) {
+    public updateFeatures(features: FeatureCollection): void {
         this.features.next(features);
     }
 
@@ -64,7 +64,8 @@ export class BodenrichtwertService {
         return ogcFilter;
     }
 
-    public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt) {
+    public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt
+    ): Observable<FeatureCollection<Geometry, { [name: string]: any; }>> {
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';

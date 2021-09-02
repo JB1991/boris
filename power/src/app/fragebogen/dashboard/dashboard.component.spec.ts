@@ -11,6 +11,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 import { FormAPIService } from '../formapi.service';
 import { Form } from '@angular/forms';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 /* eslint-disable max-lines */
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
@@ -22,13 +23,14 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     const getTags = require('../../../testdata/fragebogen/get-tags.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockHomeComponent }
                 ]),
-                PaginationModule.forRoot()
+                PaginationModule.forRoot(),
+                SharedModule
             ],
             providers: [
                 Title,
@@ -63,7 +65,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         component.formStatus = 'created';
         component.formAccess = 'public';
         component.formSearch = 'something';
-        component.updateForms(false).then(() => {
+        void component.updateForms(false).then(() => {
             expect(component.forms).toEqual(getForms.forms);
             expect(component.formTotal).toEqual(getForms.total);
             done();
@@ -74,7 +76,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve(getForms));
         component.formStatus = 'created';
         component.formSort = 'extract';
-        component.updateForms(false).then(() => {
+        void component.updateForms(false).then(() => {
             expect(component.forms).toEqual(getForms.forms);
             expect(component.formTotal).toEqual(getForms.total);
             done();
@@ -87,7 +89,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             status: 200,
             total: 100
         }));
-        component.updateForms(false).then(() => {
+        void component.updateForms(false).then(() => {
             expect(component.formPageSizes.length).toEqual(10);
             done();
         });
@@ -96,7 +98,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed updateTasks', (done) => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve(getTasks));
         component.taskStatus = 'created';
-        component.updateTasks(false).then(() => {
+        void component.updateTasks(false).then(() => {
             expect(component.tasks).toEqual(getTasks.tasks);
             expect(component.taskTotal).toEqual(getTasks.total);
             done();
@@ -106,7 +108,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed updateTasks', (done) => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve(getTasks));
         component.taskSort = 'form.extract';
-        component.updateTasks(false).then(() => {
+        void component.updateTasks(false).then(() => {
             expect(component.tasks).toEqual(getTasks.tasks);
             expect(component.taskTotal).toEqual(getTasks.total);
             done();
@@ -120,7 +122,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             status: 200,
         }));
         component.taskStatus = 'created';
-        component.updateTasks(false).then(() => {
+        void component.updateTasks(false).then(() => {
             expect(component.taskPageSizes.length).toEqual(10);
             done();
         });
@@ -129,7 +131,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed updateTags', (done) => {
         spyOn(component.formAPI, 'getTags').and.returnValue(Promise.resolve(getTags));
         component.taskStatus = 'created';
-        component.updateTags(false).then(() => {
+        void component.updateTags(false).then(() => {
             expect(component.tags).toEqual(getTags.tags);
             done();
         });
@@ -142,7 +144,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         }));
         spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(true);
-        component.deleteForm('123').then(() => {
+        void component.deleteForm('123').then(() => {
             expect(component.updateForms).toHaveBeenCalledTimes(1);
             done();
         });
@@ -155,7 +157,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         }));
         spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(false);
-        component.deleteForm('123').then(() => {
+        void component.deleteForm('123').then(() => {
             expect(component.updateForms).toHaveBeenCalledTimes(0);
             done();
         });
@@ -198,7 +200,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     */
     it('should fail updateForms', (done) => {
         spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('fail'));
-        component.updateForms(true).then(() => {
+        void component.updateForms(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
@@ -208,7 +210,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should fail updateForms 2', (done) => {
         spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('fail'));
-        component.updateForms(false).then(() => {
+        void component.updateForms(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
@@ -218,7 +220,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should fail updateTasks', (done) => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject('fail'));
-        component.updateTasks(true).then(() => {
+        void component.updateTasks(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
@@ -228,7 +230,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should fail updateTasks 2', (done) => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject('fail'));
-        component.updateTasks(false).then(() => {
+        void component.updateTasks(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
@@ -238,7 +240,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should fail updateTags', (done) => {
         spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject('fail'));
-        component.updateTags(true).then(() => {
+        void component.updateTags(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
@@ -248,7 +250,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should fail updateTags 2', (done) => {
         spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject('fail'));
-        component.updateTags(false).then(() => {
+        void component.updateTags(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
@@ -260,7 +262,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(true);
-        component.deleteForm('').then(() => {
+        void component.deleteForm('').then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'fail');

@@ -6,7 +6,7 @@ import * as PO from './immobilien.chartoptions-printoptions';
 
 export class ImmobilienChartOptions {
 
-    static chartRange() {
+    public static chartRange(): any {
         return JSON.parse(JSON.stringify(CO.chartRange));
     }
 
@@ -16,7 +16,7 @@ export class ImmobilienChartOptions {
      * @param selectType Select type
      * @returns Map options
      */
-    static getMapOptions(
+    public static getMapOptions(
         opt: any = { 'text': {} },
         selectType: any = 'multiple'
     ): echarts.EChartsOption {
@@ -53,7 +53,7 @@ export class ImmobilienChartOptions {
      * @param opt Options
      * @returns Chart options
      */
-    static getChartOptions(opt: any = { 'text': {} }): echarts.EChartsOption {
+    public static getChartOptions(opt: any = { 'text': {} }): echarts.EChartsOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptions));
         ret.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeBase);
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
@@ -79,7 +79,7 @@ export class ImmobilienChartOptions {
      * @param opt Options
      * @returns Chart options
      */
-    static getChartOptionsMerge(opt: any = { 'text': {} }): echarts.EChartsOption {
+    public static getChartOptionsMerge(opt: any = { 'text': {} }): echarts.EChartsOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptionsMerge));
         ret.graphic[0] = opt.graphic0;
         ret.graphic[1].left = opt.graphic1left;
@@ -100,12 +100,12 @@ export class ImmobilienChartOptions {
     /**
      * Chart Options (Merge) for hideing view components and show print components
      */
-    static mergeHide = JSON.parse(JSON.stringify(PO.mergeHide));
+    public static mergeHide = JSON.parse(JSON.stringify(PO.mergeHide));
 
     /**
      * Chart Options (Merge) for show view components and hide print components
      */
-    static mergeShow = JSON.parse(JSON.stringify(PO.mergeShow));
+    public static mergeShow = JSON.parse(JSON.stringify(PO.mergeShow));
 
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

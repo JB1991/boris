@@ -8,7 +8,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
     styleUrls: ['./maketask.component.scss']
 })
 export class MaketaskComponent {
-    @Output() out = new EventEmitter<{
+    @Output() public out = new EventEmitter<{
         amount: number;
         copyvalue: boolean;
     }>();

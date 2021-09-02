@@ -16,7 +16,7 @@ describe('Static.Login.LoginComponent', () => {
     let redirectspy: jasmine.Spy<(url: string) => void>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
@@ -62,7 +62,7 @@ describe('Static.Login.LoginComponent', () => {
         expire.setSeconds(expire.getSeconds() + 200);
         component.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
 
-        component.authenticate().then(() => {
+        void component.authenticate().then(() => {
             expect(console.info).toHaveBeenCalledWith('User is authenticated');
             done();
         });
@@ -72,7 +72,7 @@ describe('Static.Login.LoginComponent', () => {
         // set keycloak return code
         spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
 
-        component.authenticate().then(() => {
+        void component.authenticate().then(() => {
             expect(console.info).toHaveBeenCalledWith('User has authenticated');
             done();
         });
@@ -86,7 +86,7 @@ describe('Static.Login.LoginComponent', () => {
         spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
         spyOn(component.auth, 'KeycloakToken');
 
-        component.authenticate().then(() => {
+        void component.authenticate().then(() => {
             expect(console.error).toHaveBeenCalledWith('Authentication failed');
             done();
         });
@@ -97,7 +97,7 @@ describe('Static.Login.LoginComponent', () => {
         spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.callFake((name) =>
             (name === 'redirect' ? '/en-US/forms' : null));
 
-        component.authenticate().then(() => {
+        void component.authenticate().then(() => {
             expect(component.redirect).toHaveBeenCalledTimes(2);
             done();
         });

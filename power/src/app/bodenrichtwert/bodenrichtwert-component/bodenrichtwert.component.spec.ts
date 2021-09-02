@@ -8,7 +8,6 @@ import { BodenrichtwertPdfComponent } from '../bodenrichtwert-pdf/bodenrichtwert
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
@@ -32,7 +31,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     const features: FeatureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 BodenrichtwertComponent,
                 BodenrichtwertKarteComponent,
@@ -46,8 +45,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 HttpClientTestingModule,
                 RouterModule.forRoot([]),
                 SharedModule,
-                CollapseModule.forRoot(),
-                AlertModule.forRoot()
+                CollapseModule.forRoot()
             ],
             providers: [
                 DatePipe,

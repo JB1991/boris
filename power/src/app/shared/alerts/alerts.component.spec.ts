@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlertsComponent } from './alerts.component';
+import { AlertsModule } from './alerts.module';
 import { AlertsService } from './alerts.service';
 
 describe('Shared.Alerts.AlertsComponent', () => {
@@ -8,12 +9,15 @@ describe('Shared.Alerts.AlertsComponent', () => {
     let fixture: ComponentFixture<AlertsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             providers: [
                 AlertsService
             ],
             declarations: [
                 AlertsComponent
+            ],
+            imports: [
+                AlertsModule.forRoot()
             ]
         }).compileComponents();
 

@@ -17,8 +17,7 @@ export default class BodenrichtwertKartePitchControl {
      * @param map Map
      * @returns a div container including a button and i element
      */
-
-    onAdd(map: Map) {
+    public onAdd(map: Map): HTMLDivElement {
         this.map = map;
         this.btn = document.createElement('button');
         this.btn.id = '3D';
@@ -47,7 +46,7 @@ export default class BodenrichtwertKartePitchControl {
     /**
      * activate3dView adds a building transition layer to the map
      */
-    public activate3dView() {
+    public activate3dView(): void {
         this.currentZoom = this.map.getZoom();
         if (this.currentZoom && this.currentZoom < 11) {
             this.currentZoom = 15.1;
@@ -63,7 +62,7 @@ export default class BodenrichtwertKartePitchControl {
     /**
      * deactivate3dView removes the building extrusion layer from the map
      */
-    public deactivate3dView() {
+    public deactivate3dView(): void {
         this.map.easeTo({
             pitch: 0,
             zoom: this.currentZoom,
@@ -75,9 +74,9 @@ export default class BodenrichtwertKartePitchControl {
     /**
      * onRemove removes the html container and the map
      */
-    onRemove() {
-        if (this.container) {
-            this.container.parentNode?.removeChild(this.container);
+    public onRemove(): void {
+        if (this.container && this.container.parentNode) {
+            this.container.parentNode.removeChild(this.container);
         }
         this.map = undefined;
     }

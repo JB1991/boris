@@ -13,7 +13,7 @@ const verf = {
 export class EntwicklungszusatzPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: keyof typeof verf): string {
+    public transform(value: keyof typeof verf): string {
         return verf[value];
     }
 }

@@ -30,7 +30,7 @@ describe('BodenrichwertnummerSearchComponent', () => {
     let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 BodenrichwertnummerSearchComponent
             ],

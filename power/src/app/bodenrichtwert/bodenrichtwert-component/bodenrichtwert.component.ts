@@ -234,7 +234,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /* istanbul ignore next */
     /** @inheritdoc */
-    ngOnInit() {
+    public ngOnInit(): void {
         // eslint-disable-next-line complexity
         this.route.queryParams.subscribe(params => {
             // lat and lat
@@ -282,7 +282,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Destroys all active subscriptions
      */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.addressSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
         this.flurstueckSubscription.unsubscribe();
@@ -396,7 +396,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * updates collapsed and expanded onCollapsingEnds
      */
-    public onCollapsingEnds() {
+    public onCollapsingEnds(): void {
         this.collapsed = !this.collapsed;
         this.expanded = false;
     }
@@ -404,7 +404,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * updates collapsed and expanded onExpandingEnds
      */
-    public onExpandingEnds() {
+    public onExpandingEnds(): void {
         this.expanded = !this.expanded;
         this.collapsed = false;
     }
@@ -412,7 +412,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * changeURL updates the URL if stichtag, teilmarkt or latLng changed
      */
-    public changeURL() {
+    public changeURL(): void {
         const params = new URLSearchParams({});
         if (this.latLng) {
             params.append('lat', this.latLng.lat.toString());
@@ -455,7 +455,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Opens print modal
      */
-    public openPrintModal() {
+    public openPrintModal(): void {
         this.printModal?.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
     }
 

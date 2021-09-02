@@ -16,7 +16,7 @@ export class SvgPipe implements PipeTransform {
      * @param value formular element
      * @returns Trusted html
      */
-    transform(value: string): SafeHtml {
+    public transform(value: string): SafeHtml {
         return this.sanitized.bypassSecurityTrustHtml(value);
     }
 }

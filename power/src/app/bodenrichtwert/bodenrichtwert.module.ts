@@ -3,7 +3,6 @@ import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
@@ -61,7 +60,6 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         CommonModule,
         SharedModule,
         BsDropdownModule.forRoot(),
-        AlertModule.forRoot(),
         CollapseModule.forRoot()
     ],
     providers: [

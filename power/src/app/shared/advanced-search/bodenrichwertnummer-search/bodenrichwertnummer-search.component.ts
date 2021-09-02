@@ -19,11 +19,11 @@ export class BodenrichwertnummerSearchComponent {
 
     @ViewChild('advancedSearchModal') public modal?: ModalminiComponent;
 
-    @Input() stichtag?: string;
+    @Input() public stichtag?: string;
 
-    @Input() teilmarkt?: Teilmarkt;
+    @Input() public teilmarkt?: Teilmarkt;
 
-    @Output() bodenrichwertChange = new EventEmitter<FeatureCollection>();
+    @Output() public bodenrichwertChange = new EventEmitter<FeatureCollection>();
 
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
 
@@ -42,7 +42,7 @@ export class BodenrichwertnummerSearchComponent {
     /**
      * reset bodenrichtwertForm onClose
      */
-    public reset() {
+    public reset(): void {
         this.brwNummer = undefined;
         // manual change detection necessary
         this.cdr.detectChanges();
@@ -52,7 +52,7 @@ export class BodenrichwertnummerSearchComponent {
      * onInput sets the loading status true if the input field contains characters
      * @param event input event
      */
-    public onInput(event: any) {
+    public onInput(event: any): void {
         if (event.target.value) {
             this.loading = true;
         }
@@ -63,14 +63,14 @@ export class BodenrichwertnummerSearchComponent {
      * @param feature GeoJSON feature
      * @returns inputFormatter
      */
-    public inputFormatter = (feature: Feature) =>
+    public inputFormatter = (feature: Feature): string =>
         feature.properties?.['wnum'] + ' - ' + feature.properties?.['brzname'];
 
     /**
      * search for selected brw-nummer on form submit
      * @param ft feature
      */
-    public searchBodenrichtwert(ft: Feature) {
+    public searchBodenrichtwert(ft: Feature): void {
         const latLng = this.pointOnPolygon(ft);
         if (latLng && this.teilmarkt) {
             this.bodenrichtwertService.getFeatureByLatLonEntw(latLng[1], latLng[0], this.teilmarkt?.value).subscribe(
@@ -114,7 +114,7 @@ export class BodenrichwertnummerSearchComponent {
      * Handle the HTTP Response
      * @param res response as text/xml
      */
-    public handleHttpResponse(res: FeatureCollection) {
+    public handleHttpResponse(res: FeatureCollection): void {
         if (res.features.length > 0) {
             this.bodenrichwertChange.next(res);
             this.bodenrichtwertService.updateFeatures(res);
@@ -131,7 +131,7 @@ export class BodenrichwertnummerSearchComponent {
      * Handle the HTTP Error Response
      * @param err error
      */
-    public handleHttpError(err: HttpErrorResponse) {
+    public handleHttpError(err: HttpErrorResponse): void {
         this.alerts.NewAlert(
             'danger',
             $localize`Laden fehlgeschlagen`,
@@ -144,7 +144,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param text$ Input as Observable
      * @returns search
      */
-    public search = (text$: Observable<string>) =>
+    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

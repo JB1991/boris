@@ -21,7 +21,7 @@ export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate
      * @param component Angular component
      * @returns Boolean or Obersable
      */
-    canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {
+    public canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {
         return component.canDeactivate() ?
             true :
             confirm($localize`ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.`);

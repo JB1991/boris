@@ -54,7 +54,7 @@ export class NewformComponent {
         this.formAPI
             .getForms(queryParams)
             .then((result) => {
-                this.templateList = result.forms.map(f => f?.extract? f.extract : '').filter(title => title !== '');
+                this.templateList = result.forms.map(f => f?.extract ? f.extract : '').filter(title => title !== '');
             })
             .catch((error: Error) => {
                 // failed to load form
@@ -81,7 +81,7 @@ export class NewformComponent {
                     fields: ['content'],
                 })
                 .then((data) => {
-                    this.makeForm(data.form.content);
+                    void this.makeForm(data.form.content);
                     this.modal?.close();
                 })
                 .catch((error) => {
@@ -92,7 +92,7 @@ export class NewformComponent {
         }
 
         // make new form
-        this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
+        void this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
         this.modal?.close();
     }
 

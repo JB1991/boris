@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -8,8 +9,9 @@ describe('Shared.ModalminiComponent', () => {
     let fixture: ComponentFixture<ModalminiComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
+                CommonModule,
                 ModalModule.forRoot()
             ],
             declarations: [

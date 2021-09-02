@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 
-import { ModalComponent } from '../modal/modal.component';
 import { MarkdownInstructionsComponent } from './markdown-instructions.component';
 import { SharedModule } from '@app/shared/shared.module';
 
@@ -9,12 +9,12 @@ describe('MarkdownInstructionsComponent', () => {
     let fixture: ComponentFixture<MarkdownInstructionsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 MarkdownInstructionsComponent,
-                ModalComponent
             ],
             imports: [
+                CommonModule,
                 SharedModule
             ]
         })

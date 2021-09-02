@@ -33,7 +33,7 @@ export class FeedbackComponent implements OnInit {
     }
 
     /** @inheritdoc */
-    async ngOnInit(): Promise<void> {
+    public async ngOnInit(): Promise<void> {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             await this.loadRSSFeed();

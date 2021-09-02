@@ -38,7 +38,7 @@ describe('Shared.Auth.AuthGuard', () => {
     it('should open in dev', (done) => {
         // not in production
         environment.production = false;
-        guard.canActivate().then((value) => {
+        void guard.canActivate().then((value) => {
             expect(value).toBeTrue();
             done();
         });
@@ -47,7 +47,7 @@ describe('Shared.Auth.AuthGuard', () => {
     it('should deny access', (done) => {
         // unauthorized
         environment.production = true;
-        guard.canActivate().then((value) => {
+        void guard.canActivate().then((value) => {
             expect(value).toBeFalse();
             done();
         });
@@ -60,7 +60,7 @@ describe('Shared.Auth.AuthGuard', () => {
         expire.setSeconds(expire.getSeconds() + 900);
         guard.auth.user = { 'expires': expire, 'token': { 'access_token': 'XXX' } as JWTToken, 'data': undefined };
 
-        guard.canActivate().then((value) => {
+        void guard.canActivate().then((value) => {
             expect(value).toBeTrue();
             done();
         });

@@ -27,7 +27,7 @@ npm-install:
   script:
     - cd power
     - npm ci
-    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p es2015
+    - node_modules/.bin/ngcc --tsconfig ./tsconfig.app.json -p es2015
   only:
     - merge_requests
     - tags

@@ -158,7 +158,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     ) { }
 
     /** @inheritdoc */
-    ngOnChanges(changes: SimpleChanges) { // eslint-disable-line complexity
+    public ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         if (!this.map) {
             return;
         }
@@ -202,7 +202,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * changedTeilmarkt
      */
-    private changedTeilmarkt() {
+    private changedTeilmarkt(): void {
         // update layer
         this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
         this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
@@ -220,7 +220,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * changedStichtag
      */
-    private changedStichtag() {
+    private changedStichtag(): void {
         // update layer
         this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
         this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
@@ -238,7 +238,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * changedLatLng
      */
-    private changedLatLng() {
+    private changedLatLng(): void {
         this.marker.setLngLat(this.latLng).addTo(this.map);
         if (this.expanded) {
             this.fly();
@@ -248,7 +248,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * changedCollapsed
      */
-    private changedCollapsed() {
+    private changedCollapsed(): void {
         this.map.resize();
         // resetMap only if details was expanded
         if (this.resetMapFired) {
@@ -257,7 +257,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     }
 
     /** @inheritdoc */
-    ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         // create Maplibre object
         try {
             this.map = new Map({
@@ -289,7 +289,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * loadMap initializes the Maplibre GL map object
      */
-    public loadMap() {
+    public loadMap(): void {
         this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
         this.map.addSource('baulandSource', {
             type: 'geojson', data: {
@@ -565,21 +565,21 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * onZoomEnd emits the current zoom level onZoomEnd
      */
-    public onZoomEnd() {
+    public onZoomEnd(): void {
         this.zoomChange.emit(this.map.getZoom());
     }
 
     /**
      * onPitchEnd emits the current pitch onPitchEnd
      */
-    public onPitchEnd() {
+    public onPitchEnd(): void {
         this.pitchChange.emit(this.map.getPitch());
     }
 
     /**
      * onRotate emits the current rotation level onRotate
      */
-    public onRotate() {
+    public onRotate(): void {
         this.pitchChange.emit(this.map.getPitch());
         this.bearingChange.emit(this.map.getBearing());
 
@@ -605,7 +605,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * flyTo executes a flyTo for a given latLng
      */
-    public fly() {
+    public fly(): void {
         this.map.flyTo({
             center: [this.latLng.lng, this.latLng.lat],
             zoom: this.zoom,
@@ -659,7 +659,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * relabel
      */
-    public relabel() {
+    public relabel(): void {
         const mapSW = this.map.getBounds().getSouthWest();
         const mapNE = this.map.getBounds().getNorthEast();
 
@@ -739,7 +739,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * @param resourceType resourceType
      * @returns returns transformed url
      */
-    public transformRequest(url: string, resourceType: string) {
+    public transformRequest(url: string, resourceType: string): { url: string } {
         if (!url.startsWith('http') && resourceType === 'Tile') {
             return { url: location.protocol + '//' + location.host + url };
         }

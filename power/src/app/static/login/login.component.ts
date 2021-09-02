@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     }
 
     /** @inheritdoc */
-    async ngOnInit(): Promise<void> {
+    public async ngOnInit(): Promise<void> {
         /* istanbul ignore else */
         if (localStorage) {
             this.loadingscreen.setVisible(true);
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         // check if user is authenticated
         if (this.auth.IsAuthenticated()) {
             console.info('User is authenticated');
-            this.router.navigate([redirect], { replaceUrl: true });
+            void this.router.navigate([redirect], { replaceUrl: true });
             return;
         }
 
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
             // check if user is authenticated
             if (this.auth.IsAuthenticated()) {
                 console.info('User has authenticated');
-                this.router.navigate([redirect], { replaceUrl: true });
+                void this.router.navigate([redirect], { replaceUrl: true });
                 return;
             }
 
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
             console.error('Authentication failed');
             this.alerts.NewAlert('danger', $localize`Login fehlgeschlagen`,
                 $localize`Es konnte kein Token vom Endpunkt bezogen werden.`);
-            this.router.navigate(['/'], { replaceUrl: true });
+            void this.router.navigate(['/'], { replaceUrl: true });
             return;
         }
 

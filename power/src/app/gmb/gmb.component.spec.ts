@@ -17,7 +17,7 @@ describe('GmbComponent', () => {
     };
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([])
@@ -46,7 +46,7 @@ describe('GmbComponent', () => {
         component = fixture.componentInstance;
 
         component.isBrowser = false;
-        spyOn(component, 'mapInit').and.callFake(function () { });
+        spyOn(component, 'mapInit');
         fixture.detectChanges();
     });
 

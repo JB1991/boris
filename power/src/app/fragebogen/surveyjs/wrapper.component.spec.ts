@@ -9,7 +9,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     let fixture: ComponentFixture<WrapperComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 ShowdownModule
             ],

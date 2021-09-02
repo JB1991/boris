@@ -21,7 +21,7 @@ const contact = {
 export class GagKontaktdatenPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: keyof typeof contact): string {
+    public transform(value: keyof typeof contact): string {
         return contact[value];
     }
 }

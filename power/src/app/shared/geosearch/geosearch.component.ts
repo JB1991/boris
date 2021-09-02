@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrat
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, Geometry } from 'geojson';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
@@ -12,9 +12,9 @@ import { AlertsService } from '../alerts/alerts.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeosearchComponent implements OnChanges {
-    @ViewChild('geosearchInput') geosearchElement?: ElementRef;
-    @Output() selectResult = new EventEmitter();
-    @Input() address?: Feature;
+    @ViewChild('geosearchInput') public geosearchElement?: ElementRef;
+    @Output() public selectResult = new EventEmitter();
+    @Input() public address?: Feature;
     public model?: Feature;
     public loading = false;
 
@@ -37,7 +37,7 @@ export class GeosearchComponent implements OnChanges {
     };
 
     /** @inheritdoc */
-    public ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (changes['address']) {
             this.model = changes['address'].currentValue;
         }
@@ -47,7 +47,7 @@ export class GeosearchComponent implements OnChanges {
     /**
      * setFocus sets the focus on the geosearch input field
      */
-    public setFocus() {
+    public setFocus(): void {
         // eslint-disable-next-line
         setTimeout(() => {
             this.geosearchElement?.nativeElement.focus();
@@ -58,7 +58,7 @@ export class GeosearchComponent implements OnChanges {
      * onInput sets the loading status true if the input field contains characters
      * @param event input event
      */
-    public onInput(event: any) {
+    public onInput(event: any): void {
         if (event.target.value) {
             this.loading = true;
         }
@@ -68,7 +68,7 @@ export class GeosearchComponent implements OnChanges {
      * Selects text of input element
      * @param event input event
      */
-    public onFocus(event: any) {
+    public onFocus(event: any): void {
         (event.target as HTMLInputElement).select();
     }
 
@@ -77,7 +77,7 @@ export class GeosearchComponent implements OnChanges {
      * @param text$ Input as Observable
      * @returns Observable
      */
-    public search = (text$: Observable<string>) =>
+    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
@@ -100,7 +100,7 @@ export class GeosearchComponent implements OnChanges {
      * Select an item from the search result list
      * @param item GeoJSON feature
      */
-    public onSelect(item: Feature) {
+    public onSelect(item: Feature): void {
         this.selectResult.next(item);
         this.geosearchService.updateFeatures(item);
     }

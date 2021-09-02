@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -19,7 +20,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     const taskContent = require('../../../testdata/fragebogen/task-content.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
@@ -113,7 +114,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.resolve(getPublicTask));
         spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.resolve(getPublicForm));
         component.pin = '123';
-        component.loadData().then(() => {
+        void component.loadData().then(() => {
             expect(component.language).toEqual(getPublicForm.form.content.locale);
             done();
         });
@@ -123,7 +124,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.resolve(getPublicTask));
         spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.reject('Failed to load form'));
         component.pin = '123';
-        component.loadData().then(() => {
+        void component.loadData().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
                 'Failed to load form');

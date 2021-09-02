@@ -1,7 +1,7 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/5.0/config/configuration-file.html
 
-module.exports = function(config) {
+module.exports = function (config) {
     config.set({
         basePath: '',
         frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -14,13 +14,22 @@ module.exports = function(config) {
             require('karma-junit-reporter')
         ],
         client: {
+            jasmine: {
+                // you can add configuration options for Jasmine here
+                // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
+                // for example, you can disable the random execution with `random: false`
+                // or set a specific seed with `seed: 4321`
+            },
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
+        jasmineHtmlReporter: {
+            suppressAll: true // removes the duplicated traces
+        },
         coverageReporter: {
-            dir : '../coverage/',
-            fixWebpackSourcePaths: true,
+            dir: require('path').join(__dirname, './coverage'),
+            subdir: '.',
             reporters: [
-                { type: 'html', subdir: '.' },
+                { type: 'html' },
                 { type: 'text-summary' },
                 { type: 'lcov', subdir: 'report-lcov' }
             ]
@@ -38,8 +47,9 @@ module.exports = function(config) {
             }
         },
         singleRun: false,
+        restartOnFileChange: true,
         junitReporter: {
-            outputDir: '../output',
+            outputDir: './output',
             outputFile: 'junit_karma.xml',
             useBrowserName: false
         }

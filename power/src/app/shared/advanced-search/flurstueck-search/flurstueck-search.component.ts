@@ -3,7 +3,7 @@ import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from '
 import { AlertsService } from '../../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, Geometry } from 'geojson';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
@@ -23,11 +23,11 @@ export class FlurstueckSearchComponent {
 
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
 
-    @Output() flurstueckChange = new EventEmitter<FeatureCollection>();
+    @Output() public flurstueckChange = new EventEmitter<FeatureCollection>();
 
-    @Output() selectGemarkungResult = new EventEmitter();
+    @Output() public selectGemarkungResult = new EventEmitter();
 
-    @Input() address?: string;
+    @Input() public address?: string;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
@@ -41,7 +41,7 @@ export class FlurstueckSearchComponent {
     /**
      * Reset flurstueckskennzeichen onClose
      */
-    public reset() {
+    public reset(): void {
         this.fsk = {
             gemarkung: {
                 type: 'Feature',
@@ -59,7 +59,7 @@ export class FlurstueckSearchComponent {
      * onInput sets the loading status true if the input field contains characters
      * @param event input event
      */
-    public onInput(event: any) {
+    public onInput(event: any): void {
         if (event.target.value) {
             this.loading = true;
         }
@@ -83,7 +83,7 @@ export class FlurstueckSearchComponent {
      * search for flurstueck on form submit
      * @param value form values as flurstueckskennzeichen
      */
-    public searchFlurstueck(value: Flurstueckskennzeichen) {
+    public searchFlurstueck(value: Flurstueckskennzeichen): void {
         this.fsk = value;
 
         if (this.fsk && this.fsk.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
@@ -104,7 +104,7 @@ export class FlurstueckSearchComponent {
      * Handle the HTTP Response
      * @param res response as text/xml
      */
-    public handleHttpResponse(res: FeatureCollection) {
+    public handleHttpResponse(res: FeatureCollection): void {
         if (res.features.length > 0) {
             this.flurstueckChange.next(res);
             this.alkisWfsService.updateFeatures(res);
@@ -121,7 +121,7 @@ export class FlurstueckSearchComponent {
      * Handle the HTTP Error Response
      * @param err error
      */
-    public handleHttpError(err: HttpErrorResponse) {
+    public handleHttpError(err: HttpErrorResponse): void {
         this.alerts.NewAlert(
             'danger',
             $localize`Laden fehlgeschlagen`,
@@ -134,7 +134,7 @@ export class FlurstueckSearchComponent {
      * @param text$ Input as Observable
      * @returns Search Observable
      */
-    public search = (text$: Observable<string>) =>
+    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
@@ -157,7 +157,7 @@ export class FlurstueckSearchComponent {
      * Select an item from the search result list
      * @param item GeoJSON feature
      */
-    public onSelect(item: any) {
+    public onSelect(item: any): void {
         this.selectGemarkungResult.next(item);
         this.gemarkungService.updateFeatures(item);
         this.selected = true;
@@ -167,7 +167,7 @@ export class FlurstueckSearchComponent {
      * onEmpty sets selected to false if the input field gemarkung is empty
      * @param key pressed key
      */
-    public onEmpty(key: any) {
+    public onEmpty(key: any): void {
         if ((key === 'Backspace' || key === 'Delete') && this.fsk?.gemarkung) {
             this.selected = false;
         }

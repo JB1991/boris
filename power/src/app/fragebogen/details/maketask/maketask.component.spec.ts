@@ -1,5 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -13,11 +14,12 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
     let fixture: ComponentFixture<MaketaskComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                FormsModule,
                 RouterTestingModule.withRoutes([]),
+                CommonModule,
+                FormsModule,
                 SharedModule
             ],
             providers: [
@@ -42,10 +44,6 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         expect(component.modal?.isOpen).toBeTrue();
         component.modal?.close();
         expect(component.modal?.isOpen).toBeFalse();
-    });
-
-    afterEach(() => {
-
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

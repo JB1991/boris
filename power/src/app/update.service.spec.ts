@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { TestBed } from '@angular/core/testing';
-import { SwUpdate } from '@angular/service-worker';
-import { UpdateActivatedEvent, UpdateAvailableEvent, UnrecoverableStateEvent } from '@angular/service-worker';
+import { SwUpdate, UpdateActivatedEvent, UpdateAvailableEvent, UnrecoverableStateEvent } from '@angular/service-worker';
 import { Observable, Subject } from 'rxjs';
 
 import { UpdateService } from './update.service';

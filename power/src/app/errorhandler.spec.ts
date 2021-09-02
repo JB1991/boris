@@ -50,6 +50,7 @@ describe('GlobalErrorHandler', () => {
 });
 
 class MockUpdateService {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public cleanupServiceWorker(del: boolean) { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

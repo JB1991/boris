@@ -36,7 +36,7 @@ export class AlkisWfsService {
      * Updates the features by feeding a new value to the Subject
      * @param features New feature
      */
-    public updateFeatures(features: FeatureCollection) {
+    public updateFeatures(features: FeatureCollection): void {
         this.features.next(features);
     }
 

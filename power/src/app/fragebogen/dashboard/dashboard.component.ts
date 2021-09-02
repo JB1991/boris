@@ -51,10 +51,10 @@ export class DashboardComponent implements OnInit {
     }
 
     /** @inheritdoc */
-    ngOnInit(): void {
-        this.updateForms(true);
-        this.updateTasks(true);
-        this.updateTags(true);
+    public ngOnInit(): void {
+        void this.updateForms(true);
+        void this.updateTasks(true);
+        void this.updateTags(true);
     }
 
     /**
@@ -70,8 +70,8 @@ export class DashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             await this.formAPI.deleteForm(id);
-            this.updateForms(false);
-            this.updateTasks(false);
+            void this.updateForms(false);
+            void this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.error(error);
@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
                     }).then(() => {
                         this.formSortDesc = true;
                         this.formSort = 'created';
-                        this.updateForms(false);
+                        void this.updateForms(false);
                         this.alerts.NewAlert('success', $localize`Import erfolgreich`, $localize`Der Fragebogen wurde erfolgreich importiert.`);
                     }).catch((error) => {
                         console.error(error);
@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+                void this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }
@@ -213,7 +213,7 @@ export class DashboardComponent implements OnInit {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+                void this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }
@@ -234,7 +234,7 @@ export class DashboardComponent implements OnInit {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+                void this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }
@@ -243,28 +243,28 @@ export class DashboardComponent implements OnInit {
      * changeFormSort
      * @param sort by form field
      */
-    public changeFormSort(sort: FormField) {
+    public changeFormSort(sort: FormField): void {
         if (this.formSort === sort) {
             this.formSortDesc = !this.formSortDesc;
         } else {
             this.formSortDesc = false;
         }
         this.formSort = sort;
-        this.updateForms(false);
+        void this.updateForms(false);
     }
 
     /**
      * changeTaskSort
      * @param sort by task field
      */
-    public changeTaskSort(sort: TaskField) {
+    public changeTaskSort(sort: TaskField): void {
         if (this.taskSort === sort) {
             this.taskSortDesc = !this.taskSortDesc;
         } else {
             this.taskSortDesc = false;
         }
         this.taskSort = sort;
-        this.updateTasks(false);
+        void this.updateTasks(false);
     }
 
     /**

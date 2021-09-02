@@ -12,7 +12,7 @@ const beitrag = {
 export class BeitragPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: keyof typeof beitrag): string {
+    public transform(value: keyof typeof beitrag): string {
         return beitrag[value];
     }
 }

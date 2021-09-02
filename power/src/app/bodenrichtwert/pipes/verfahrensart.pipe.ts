@@ -13,7 +13,7 @@ const verg = {
 export class VerfahrensartPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: keyof typeof verg): string {
+    public transform(value: keyof typeof verg): string {
         return verg[value];
     }
 }

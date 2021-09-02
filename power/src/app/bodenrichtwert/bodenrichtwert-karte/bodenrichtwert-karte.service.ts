@@ -14,7 +14,7 @@ export class BodenrichtwertKarteService {
     /**
      * Zooms view to selection
      */
-    public zoomToSelection() {
+    public zoomToSelection(): void {
         // update marker and andress
         const longlat = this.marker.getLngLat();
         if (longlat) {

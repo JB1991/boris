@@ -13,7 +13,7 @@ describe('Static.Logout.LogoutComponent', () => {
     let redirectspy: jasmine.Spy<(url: string) => void>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([

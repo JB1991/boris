@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
      * Called before a protected route is loaded to check if user is authenticated
      * @returns Promise of boolean
      */
-    async canActivate(): Promise<boolean> {
+    public async canActivate(): Promise<boolean> {
         // allow access if auth module is not enabled
         if (!this.auth.IsAuthEnabled()) {
             return true;
@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
 
         // unauthenticated
         console.error('User is unauthenticated');
-        this.router.navigate(['/login'], { queryParams: { redirect: location.pathname }, replaceUrl: true });
+        void this.router.navigate(['/login'], { queryParams: { redirect: location.pathname }, replaceUrl: true });
         return false;
     }
 }

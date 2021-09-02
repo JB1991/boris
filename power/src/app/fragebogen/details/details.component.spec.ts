@@ -3,6 +3,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DetailsComponent } from './details.component';
@@ -26,13 +27,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     const getTaskContent = require('../../../testdata/fragebogen/get-task-content.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 PaginationModule.forRoot(),
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockDashboardComponent }
                 ]),
+                CommonModule,
                 SurveyjsModule,
                 SharedModule
             ],
@@ -83,7 +85,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should updateForm', (done) => {
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.resolve(getForm));
         component.id = '123';
-        component.updateForm(false).then(() => {
+        void component.updateForm(false).then(() => {
             expect(component.form).toEqual(getForm.form);
             done();
         });
@@ -94,7 +96,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.id = 'abc';
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed 1'));
 
-        component.updateForm(true).then(() => {
+        void component.updateForm(true).then(() => {
             expect(component.form).toBeUndefined();
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
@@ -120,7 +122,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.deleteForm().then(() => {
+        void component.deleteForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
                 'Das Formular wurde erfolgreich gelöscht.');
@@ -130,7 +132,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should not delete form', (done) => {
         spyOn(window, 'confirm').and.returnValue(false);
-        component.deleteForm().then(() => {
+        void component.deleteForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
             done();
         });
@@ -142,7 +144,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.deleteForm().then(() => {
+        void component.deleteForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
                 'Löschen fehlgeschlagen', 'fail');
@@ -159,7 +161,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.archiveForm().then(() => {
+        void component.archiveForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular archiviert',
                 'Das Formular wurde erfolgreich archiviert.');
@@ -169,7 +171,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should not archive form', (done) => {
         spyOn(window, 'confirm').and.returnValue(false);
-        component.archiveForm().then(() => {
+        void component.archiveForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
             done();
         });
@@ -180,7 +182,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'updateForm').and
             .returnValue(Promise.reject('Failed 2'));
         spyOn(window, 'confirm').and.returnValue(true);
-        component.archiveForm().then(() => {
+        void component.archiveForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
                 'Archivieren fehlgeschlagen', 'Failed 2');
@@ -201,9 +203,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.deleteTask(0).then(() => {
+        void component.deleteTask(0).then(() => {
             expect(component.tasks.length).toEqual(1);
-            component.deleteTask(0).then(() => {
+            void component.deleteTask(0).then(() => {
                 expect(component.tasks.length).toEqual(0);
                 expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
                 expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
@@ -216,7 +218,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should not delete task', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
         spyOn(window, 'confirm').and.returnValue(false);
-        component.deleteTask(0).then(() => {
+        void component.deleteTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
             done();
         });
@@ -225,7 +227,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail delete task', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-        component.deleteTask(-1).then(() => {
+        void component.deleteTask(-1).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -234,7 +236,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail delete task 2', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-        component.deleteTask(-1).then(() => {
+        void component.deleteTask(-1).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -246,7 +248,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.deleteTask(0).then(() => {
+        void component.deleteTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
                 'Löschen fehlgeschlagen', 'Failed 3');
@@ -267,7 +269,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.newPin(0).then(() => {
+        void component.newPin(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Neue Pin generiert',
                 'Die neue Pin wurde erfolgreich generiert.');
             done();
@@ -277,7 +279,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should not generate new pin', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
         spyOn(window, 'confirm').and.returnValue(false);
-        component.newPin(0).then(() => {
+        void component.newPin(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
             done();
         });
@@ -286,7 +288,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail generate new pin', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-        component.newPin(-1).then(() => {
+        void component.newPin(-1).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -295,7 +297,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail generate new pin 2', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-        component.newPin(-1).then(() => {
+        void component.newPin(-1).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -307,7 +309,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.newPin(0).then(() => {
+        void component.newPin(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
                 'Neue Pin generieren fehlgeschlagen', 'Failed 4');
@@ -328,7 +330,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.completeTask(0).then(() => {
+        void component.completeTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort abgeschlossen',
                 'Die Antwort wurde erfolgreich abgeschlossen.');
             done();
@@ -338,7 +340,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should not complete task', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
         spyOn(window, 'confirm').and.returnValue(false);
-        component.completeTask(0).then(() => {
+        void component.completeTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
             done();
         });
@@ -347,7 +349,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail complete task', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-        component.completeTask(-1).then(() => {
+        void component.completeTask(-1).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -356,7 +358,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail complete task 2', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-        component.completeTask(-1).then(() => {
+        void component.completeTask(-1).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -368,7 +370,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         spyOn(window, 'confirm').and.returnValue(true);
 
-        component.completeTask(0).then(() => {
+        void component.completeTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
                 'Antwort abschließen fehlgeschlagen', 'Failed 5');
@@ -390,14 +392,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             spyOn(component.preview, 'open');
         }
 
-        component.openTask(0).then(() => {
+        void component.openTask(0).then(() => {
             expect(component.preview?.open).toHaveBeenCalledTimes(1);
             done();
         });
     });
 
     it('should open task crash', () => {
-        component.openTask(-1);
+        void component.openTask(-1);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 
@@ -408,7 +410,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getTasks').and.returnValue(Promise.resolve(getTasks));
         component.id = '123';
 
-        component.updateTasks().then(() => {
+        void component.updateTasks().then(() => {
             expect(component.taskTotal).toEqual(2);
             done();
         });
@@ -423,7 +425,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.taskStatus = 'created';
         component.id = '123';
 
-        component.updateTasks().then(() => {
+        void component.updateTasks().then(() => {
             expect(component.taskPageSizes.length).toEqual(10);
             done();
         });
@@ -433,7 +435,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getTasks').and.returnValue(Promise.reject('Failed to update tasks'));
         component.id = '123';
 
-        component.updateTasks().then(() => {
+        void component.updateTasks().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
                 'Failed to update tasks');
             done();
@@ -468,7 +470,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should update tags', (done) => {
         spyOn(component.formapi, 'getTags').and.returnValue(Promise.resolve(getTags));
-        component.updateTags().then(() => {
+        void component.updateTags().then(() => {
             expect(component.availableTags.length).toEqual(2);
             done();
         });
@@ -476,7 +478,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should not update tags', (done) => {
         spyOn(component.formapi, 'getTags').and.returnValue(Promise.reject('fail'));
-        component.updateTags().then(() => {
+        void component.updateTags().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalled();
             done();
         });
@@ -488,7 +490,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should updateFormEvent', (done) => {
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component, 'updateForm');
-        component.updateFormEvent({
+        void component.updateFormEvent({
             id: '123',
             tags: ['Hello'],
             groups: ['X'],
@@ -502,7 +504,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should not updateFormEvent', (done) => {
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateForm');
-        component.updateFormEvent({
+        void component.updateFormEvent({
             id: '123',
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -516,7 +518,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should publishFormEvent', (done) => {
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component, 'updateForm');
-        component.publishFormEvent({
+        void component.publishFormEvent({
             id: '123',
             access: 'public',
         }).then(() => {
@@ -528,7 +530,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should not publishFormEvent', (done) => {
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateForm');
-        component.publishFormEvent({
+        void component.publishFormEvent({
             id: '123',
             access: 'public',
         }).then(() => {
@@ -543,7 +545,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should commentTaskEvent', (done) => {
         spyOn(component.formapi, 'updateTask').and.returnValue(Promise.resolve(getTask));
         spyOn(component, 'updateTasks');
-        component.commentTaskEvent({
+        void component.commentTaskEvent({
             id: '123',
             description: 'text',
         }).then(() => {
@@ -555,7 +557,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should not commentTaskEvent', (done) => {
         spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateTasks');
-        component.commentTaskEvent({
+        void component.commentTaskEvent({
             id: '123',
             description: 'text',
         }).then(() => {
@@ -581,7 +583,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             status: 200,
         }));
         spyOn(component, 'updateTasks');
-        component.createTaskEvent({
+        void component.createTaskEvent({
             amount: 10,
             copyvalue: true,
         }).then(() => {
@@ -594,7 +596,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'createTask').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateTasks');
-        component.createTaskEvent({
+        void component.createTaskEvent({
             amount: 10,
             copyvalue: true,
         }).then(() => {
@@ -610,7 +612,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'getGroups').and.returnValue(Promise.resolve({ groups: ['A'], total: 1, status: 200 }));
 
-        component.updateGroups().then(() => {
+        void component.updateGroups().then(() => {
             expect(component.availableGroups).toEqual(['A']);
             done();
         });
@@ -620,7 +622,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'getUsers').and.returnValue(Promise.resolve({ users: [{ name: 'X', id: '1' }], total: 1, status: 200 }));
 
-        component.updateUsers().then(() => {
+        void component.updateUsers().then(() => {
             expect(component.availableUsers).toEqual([{ name: 'X', id: '1' }]);
             done();
         });
@@ -630,7 +632,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'getGroups').and.returnValue(Promise.reject('fail'));
 
-        component.updateGroups().then(() => {
+        void component.updateGroups().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
@@ -640,7 +642,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'getUsers').and.returnValue(Promise.reject('fail'));
 
-        component.updateUsers().then(() => {
+        void component.updateUsers().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });

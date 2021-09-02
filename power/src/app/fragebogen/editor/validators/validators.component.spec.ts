@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 
 import { ValidatorsComponent } from './validators.component';
 import { LocaleInputComponent } from '../localeinput/localeinput.component';
@@ -8,10 +9,13 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     let fixture: ComponentFixture<ValidatorsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 ValidatorsComponent,
                 LocaleInputComponent
+            ],
+            imports: [
+                CommonModule
             ]
         }).compileComponents();
 

@@ -19,7 +19,7 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class DetailsComponent implements OnInit {
     @ViewChild('commentmodal') public modal?: ModalminiComponent;
-    @ViewChild('pagination') pagination?: PaginationComponent;
+    @ViewChild('pagination') public pagination?: PaginationComponent;
     @ViewChild('preview') public preview?: PreviewComponent;
 
     public id = '';
@@ -55,21 +55,21 @@ export class DetailsComponent implements OnInit {
     }
 
     /** @inheritdoc */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);
         const id = this.route.snapshot.paramMap.get('id');
         this.id = id ? id : '';
         if (this.id !== '') {
             // load data
-            this.updateForm(true);
-            this.updateTasks();
-            this.updateTags();
-            this.updateGroups();
-            this.updateUsers();
+            void this.updateForm(true);
+            void this.updateTasks();
+            void this.updateTags();
+            void this.updateGroups();
+            void this.updateUsers();
         } else {
             // missing id
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+            void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         }
     }
 
@@ -99,7 +99,7 @@ export class DetailsComponent implements OnInit {
 
             /* istanbul ignore else */
             if (navigate) {
-                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+                void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             }
         }
     }
@@ -118,7 +118,7 @@ export class DetailsComponent implements OnInit {
             await this.formapi.deleteForm(this.form?.id ? this.form.id : '');
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+            void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
 
         } catch (error) {
             // failed to delete form
@@ -419,7 +419,7 @@ export class DetailsComponent implements OnInit {
             this.taskSortDesc = false;
         }
         this.taskSort = sort;
-        this.updateTasks();
+        void this.updateTasks();
     }
 
     /**
@@ -445,7 +445,7 @@ export class DetailsComponent implements OnInit {
                 b.owner = event.owner;
             }
             await this.formapi.updateForm(event.id, b);
-            this.updateForm(true);
+            void this.updateForm(true);
         } catch (error) {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`, this.formapi.getErrorMessage(error));
@@ -462,7 +462,7 @@ export class DetailsComponent implements OnInit {
     public async publishFormEvent(event: { id: string; access: Access }): Promise<void> {
         try {
             await this.formapi.updateForm(event.id, { access: event.access, status: 'published' });
-            this.updateForm(false);
+            void this.updateForm(false);
         } catch (error) {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`, this.formapi.getErrorMessage(error));
@@ -479,7 +479,7 @@ export class DetailsComponent implements OnInit {
     public async commentTaskEvent(event: { id: string; description: string }): Promise<void> {
         try {
             await this.formapi.updateTask(event.id, { description: event.description });
-            this.updateTasks();
+            void this.updateTasks();
         } catch (error) {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`, this.formapi.getErrorMessage(error));
@@ -505,7 +505,7 @@ export class DetailsComponent implements OnInit {
             if (this.pagination) {
                 this.pagination.page = 1;
             }
-            this.updateTasks();
+            void this.updateTasks();
             // copy to clipboard
             /* istanbul ignore else */
             if (event.copyvalue) {

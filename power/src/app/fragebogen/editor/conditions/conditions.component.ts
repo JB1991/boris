@@ -29,7 +29,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     /** @inheritdoc */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         // make question list
         this.questions = [];
         for (let i = 0; i < this.model.pages.length; i++) {
@@ -58,7 +58,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
     }
 
     /** @inheritdoc */
-    ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
+    public ngOnChanges(changes: SimpleChanges): void { // eslint-disable-line complexity
         // check if data exists
         if (!this.data || this.struct.length > 0) {
             this.loadChoices();
@@ -162,6 +162,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
     /**
      * Converts value to surveyjs condition
      * @param val Value
+     * @returns SurveyJS Condition string
      */
     public parseValue(val: any): string { // eslint-disable-line complexity
         if (typeof val === 'undefined' || val === null || val === '') {

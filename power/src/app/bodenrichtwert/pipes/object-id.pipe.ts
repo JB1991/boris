@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ObjectIdPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: string): string {
+    public transform(value: string): string {
         if (value === null) {
             return '';
         }
