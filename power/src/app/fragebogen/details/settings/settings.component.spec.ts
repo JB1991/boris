@@ -1,5 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -16,8 +17,9 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                FormsModule,
                 RouterTestingModule.withRoutes([]),
+                CommonModule,
+                FormsModule,
                 SharedModule
             ],
             providers: [

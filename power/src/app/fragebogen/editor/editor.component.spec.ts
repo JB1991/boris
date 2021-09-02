@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
@@ -35,6 +36,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
                 BrowserAnimationsModule,
                 NgxSmoothDnDModule,
                 CollapseModule.forRoot(),
+                CommonModule,
                 SurveyjsModule,
                 SharedModule
             ],

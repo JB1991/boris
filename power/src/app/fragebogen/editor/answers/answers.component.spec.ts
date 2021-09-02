@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -10,6 +11,7 @@ describe('Fragebogen.Editor.AnswersComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
+                CommonModule,
                 FormsModule
             ],
             declarations: [

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConditionsComponent } from './conditions.component';
@@ -10,6 +11,9 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ConditionsComponent
+            ],
+            imports: [
+                CommonModule
             ]
         }).compileComponents();
 

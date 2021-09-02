@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 
 import { ValueComponent } from './value.component';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
@@ -10,6 +11,7 @@ describe('Fragebogen.Editor.ValueComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
+                CommonModule,
                 SurveyjsModule
             ],
             declarations: [

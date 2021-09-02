@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { LocaleInputComponent } from './localeinput.component';
@@ -11,6 +12,7 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
+                CommonModule,
                 FormsModule,
                 SurveyjsModule
             ],

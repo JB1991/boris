@@ -4,7 +4,7 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.compone
 import { SimpleChanges } from '@angular/core';
 import * as echarts from 'echarts';
 import { LOCALE_ID } from '@angular/core';
-import { DecimalPipe, registerLocaleData } from '@angular/common';
+import { CommonModule, DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
@@ -27,6 +27,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
                 DecimalPipe],
             imports: [
                 HttpClientTestingModule,
+                CommonModule
             ]
         }).compileComponents();
     }));

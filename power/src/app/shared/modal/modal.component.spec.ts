@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalComponent } from './modal.component';
@@ -10,6 +11,9 @@ describe('Shared.ModalComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ModalComponent
+            ],
+            imports: [
+                CommonModule
             ]
         }).compileComponents();
     }));

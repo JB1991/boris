@@ -52,7 +52,9 @@ export default class BodenrichtwertKarteLayerControl {
      * onRemove removes the html container and the map
      */
     onRemove() {
-        this.container.parentNode.removeChild(this.container);
+        if (this.container && this.container.parentNode) {
+            this.container.parentNode.removeChild(this.container);
+        }
         this.map = undefined;
     }
 }

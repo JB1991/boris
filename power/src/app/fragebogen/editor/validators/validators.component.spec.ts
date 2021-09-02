@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 
 import { ValidatorsComponent } from './validators.component';
 import { LocaleInputComponent } from '../localeinput/localeinput.component';
@@ -12,6 +13,9 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
             declarations: [
                 ValidatorsComponent,
                 LocaleInputComponent
+            ],
+            imports: [
+                CommonModule
             ]
         }).compileComponents();
 

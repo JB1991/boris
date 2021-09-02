@@ -6,6 +6,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
+        "watch": "ng build --watch --configuration staging",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -50,7 +51,7 @@
         "geojson": "^0.5.0",
         "hyphen": "^1.6.4",
         "maplibre-gl": "^1.14.0-rc.1",
-        "ngx-bootstrap": "^7.1.0",
+        "ngx-bootstrap": "^7.0.1",
         "ngx-showdown": "^6.0.0",
         "ngx-smooth-dnd": "^0.4.1",
         "nouislider": "^15.4.0",
@@ -114,7 +115,7 @@
         "stylelint": "^13.13.1",
         "stylelint-config-standard": "^22.0.0",
         "ts-node": "^10.2.1",
-        "typescript": "~4.2.4"
+        "typescript": "~4.3.5"
     },
     "browser": {
         "fs": false,

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation.component';
-import { BodenrichtwertComponent } from 'app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
+import { BodenrichtwertComponent } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule, DatePipe } from '@angular/common';

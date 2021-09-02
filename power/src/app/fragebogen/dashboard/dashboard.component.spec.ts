@@ -11,6 +11,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 import { FormAPIService } from '../formapi.service';
 import { Form } from '@angular/forms';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 /* eslint-disable max-lines */
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
@@ -28,7 +29,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockHomeComponent }
                 ]),
-                PaginationModule.forRoot()
+                PaginationModule.forRoot(),
+                SharedModule
             ],
             providers: [
                 Title,

@@ -6,7 +6,7 @@ import { join } from 'path';
 import { existsSync, readFileSync } from 'fs';
 import { createWindow } from 'domino';
 
-import { AppServerModule } from './src/main.server';
+import { AppServerModule } from './main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import { enableProdMode } from '@angular/core';
@@ -26,15 +26,14 @@ const createObjectURL = require('create-object-url');
 (global as any).location = window.location;
 (global as any).localStorage = window.localStorage;
 (global as any).HTMLElement = (window as any).HTMLElement;
-(global as any).HTMLElement.prototype.getBoundingClientRect = () => {
+(global as any).HTMLElement.prototype.getBoundingClientRect = function () {
     return {
         left: '',
         right: '',
         top: '',
         bottom: ''
-    };
+    }
 };
-//(global as any).self.navigator = {};
 const Blobx = require('node-blob');
 (global as any).Blob = Blobx;
 
@@ -64,6 +63,7 @@ export function app(lang: string): express.Express {
 
     // All regular routes use the Universal engine
     server.get('*', (req, res) => {
+        /* eslint-disable object-shorthand */
         res.render(indexHtml, {
             req,
             providers: [
@@ -107,4 +107,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
     run();
 }
 
-export * from './src/main.server';
+export * from './main.server';

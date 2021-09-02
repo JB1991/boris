@@ -11,6 +11,9 @@
             "schematics": {
                 "@schematics/angular:component": {
                     "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
                 }
             },
             "i18n": {
@@ -38,7 +41,8 @@
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
-                        "tsConfig": "src/tsconfig.app.json",
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
@@ -69,14 +73,14 @@
                         "production": {
                             "budgets": [
                                 {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb"
+                                    "type": "initial",
+                                    "maximumWarning": "1mb",
+                                    "maximumError": "2mb"
                                 },
                                 {
-                                    "type": "bundle",
-                                    "name": "main",
-                                    "maximumWarning": "768kb",
-                                    "maximumError": "1024kb"
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "10kb",
+                                    "maximumError": "50kb"
                                 }
                             ],
                             "fileReplacements": [
@@ -107,14 +111,14 @@
                         "staging": {
                             "budgets": [
                                 {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb"
+                                    "type": "initial",
+                                    "maximumWarning": "1mb",
+                                    "maximumError": "2mb"
                                 },
                                 {
-                                    "type": "bundle",
-                                    "name": "main",
-                                    "maximumWarning": "768kb",
-                                    "maximumError": "1024kb"
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "10kb",
+                                    "maximumError": "50kb"
                                 }
                             ],
                             "fileReplacements": [
@@ -160,7 +164,8 @@
                             ],
                             "baseHref": "/"
                         }
-                    }
+                    },
+                    "defaultConfiguration": "production"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
@@ -186,7 +191,8 @@
                         "en": {
                             "browserTarget": "power:build:en"
                         }
-                    }
+                    },
+                    "defaultConfiguration": "de"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -199,9 +205,9 @@
                     "options": {
                         "main": "src/test.ts",
                         "polyfills": "src/polyfills.ts",
-                        "tsConfig": "src/tsconfig.spec.json",
-                        "sourceMap": true,
-                        "karmaConfig": "src/karma.conf.js",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "inlineStyleLanguage": "scss",
                         "styles": [
                             "src/styles.scss"
                         ],
@@ -209,6 +215,8 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
+                            "src/robots.txt",
+                            "src/sitemap.xml",
                             "src/manifest.webmanifest"
                         ]
                     }
@@ -227,8 +235,9 @@
                     "options": {
                         "localize": false,
                         "outputPath": "dist/power/server",
-                        "main": "server.ts",
-                        "tsConfig": "src/tsconfig.server.json",
+                        "main": "src/server.ts",
+                        "tsConfig": "tsconfig.server.json",
+                        "inlineStyleLanguage": "scss",
                         "sourceMap": true,
                         "optimization": false
                     },
@@ -272,7 +281,8 @@
                                 "en"
                             ]
                         }
-                    }
+                    },
+                    "defaultConfiguration": "production"
                 },
                 "serve-ssr": {
                     "builder": "@nguniversal/builders:ssr-dev-server",
@@ -289,7 +299,8 @@
                             "browserTarget": "power:build:staging,de",
                             "serverTarget": "power:server:staging"
                         }
-                    }
+                    },
+                    "defaultConfiguration": "staging"
                 },
                 "prerender": {
                     "builder": "@nguniversal/builders:prerender",
@@ -332,7 +343,8 @@
                             "browserTarget": "power:build:production,en",
                             "serverTarget": "power:server:production,en"
                         }
-                    }
+                    },
+                    "defaultConfiguration": "de"
                 }
             }
         },
@@ -358,7 +370,7 @@
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": "e2e/tsconfig.e2e.json",
+                        "tsConfig": "tsconfig.e2e.json",
                         "exclude": [
                             "**/node_modules/**"
                         ]

@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlertsComponent } from './alerts.component';
+import { AlertsModule } from './alerts.module';
 import { AlertsService } from './alerts.service';
 
 describe('Shared.Alerts.AlertsComponent', () => {
@@ -14,6 +15,9 @@ describe('Shared.Alerts.AlertsComponent', () => {
             ],
             declarations: [
                 AlertsComponent
+            ],
+            imports: [
+                AlertsModule.forRoot()
             ]
         }).compileComponents();
 

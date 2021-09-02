@@ -39,7 +39,7 @@ describe('FlurstueckSearchComponent', () => {
             ],
             imports: [
                 SharedModule,
-                ModalModule,
+                ModalModule.forRoot(),
                 HttpClientTestingModule,
                 NgbTypeaheadModule
             ]

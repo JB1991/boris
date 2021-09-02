@@ -21,7 +21,7 @@ describe('AdvancedSearchComponent', () => {
             ],
             imports: [
                 SharedModule,
-                TabsModule,
+                TabsModule.forRoot(),
                 HttpClientTestingModule
             ]
         }).compileComponents();
