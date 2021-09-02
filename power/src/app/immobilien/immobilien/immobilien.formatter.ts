@@ -95,7 +95,13 @@ export class ImmobilienFormatter {
         return '';
     };
 
-    public findName = (name: string, legend = false, shortregion = false, shortname = true): string => {
+    public findName = (
+        name: string,
+        legend: boolean = false,
+        shortregion: boolean = false,
+        shortname: boolean = true
+    ): string => {
+
         let myname = '';
 
         if (legend && this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {

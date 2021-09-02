@@ -1,9 +1,9 @@
 interface NipixStaticTextOptions {
-    fontSizePage?: number;
-    fontSizeBase?: number;
-    fontSizeCopy?: number;
-    fontSizeAxisLabel?: number;
-    fontSizeMap?: number;
+    fontSizePage: number;
+    fontSizeBase: number;
+    fontSizeCopy: number;
+    fontSizeAxisLabel: number;
+    fontSizeMap: number;
 }
 
 interface NipixStaticData {
@@ -113,19 +113,20 @@ export class NipixStatic {
         };
 
         const regionenData: any = {};
-        const geoCoordMap = { 'left': [], 'right': [], 'top': [], 'bottom': [] };
+        const geoCoordMap: any = { 'left': [], 'right': [], 'top': [], 'bottom': [] };
         const nipixData: any = {};
 
         const lastAvailable = [];
 
         for (let i = 0; i < geoJson['features'].length; i++) {
 
-            const props = geoJson['features'][i]['properties'];
+            const feature = geoJson['features'][i];
+            const props = feature['properties'];
 
-            if (geoJson['features'][i]['geometry']['type'] !== 'Point') {
+            if (feature['geometry']['type'] !== 'Point') {
 
                 // Wohnungsmarktkarte
-                geoMap.features.push(geoJson['features'][i]);
+                geoMap.features.push(feature);
 
                 // Wohnungsmarktregionen
                 regionenData[props['name']] = {
@@ -155,7 +156,7 @@ export class NipixStatic {
                 // Point
                 geoCoordMap[props['position']].push({
                     'name': props['name'],
-                    'value': geoJson['features'][i]['geometry']['coordinates']
+                    'value': feature['geometry']['coordinates']
                 });
             }
         }
@@ -166,10 +167,8 @@ export class NipixStatic {
 
         // Get last available Data; Assume the last Data Interval is equal
         const las = lastAvailable[0].split('_');
-        las[0] = parseInt(las[0], 10);
-        las[1] = parseInt(las[1], 10);
 
-        return { 'map': geoMap, 'la': las };
+        return { 'map': geoMap, 'la': [parseInt(las[0], 10), parseInt(las[1], 10)]};
     }
 
 

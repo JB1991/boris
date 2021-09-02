@@ -88,7 +88,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataAggrIterate(drawitem: any, workdata: any, aggr: any, d: any) {
+    private calculateDrawDataAggrIterate(drawitem: any, workdata: any, aggr: any, d: number) {
         for (let i = 0; i < drawitem['values'].length; i++) {
             const value = drawitem['values'][i];
             const data = this.nipixStatic.data.nipix[drawitem.nipixCategory][value];

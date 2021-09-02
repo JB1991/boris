@@ -109,7 +109,7 @@ export class ImmobilienHelper {
      *
      * @returns Date
      */
-    static getDate() {
+    static getDate(): number {
         const dt = new Date();
 
         return dt.getFullYear();
@@ -121,7 +121,7 @@ export class ImmobilienHelper {
      * @param value String or float
      * @returns float
      */
-    static parseStringAsFloat(value: any) {
+    static parseStringAsFloat(value: string|number): number {
         if (typeof value === 'string') {
             return parseFloat(value.replace(',', '.'));
         } else {
@@ -137,7 +137,13 @@ export class ImmobilienHelper {
      * @param filetype Content-Type
      * @param isurl True if is url
      */
-    static downloadFile(data: any, filename: string, filetype = 'text/csv', isurl = false) {
+    static downloadFile(
+        data: string,
+        filename: string,
+        filetype: string = 'text/csv',
+        isurl: boolean = false
+    ): any {
+    
         let url = data;
         let blob;
 
@@ -194,7 +200,7 @@ export class ImmobilienHelper {
      * @param feld Quote character
      * @returns CSV String
      */
-    static convertArrayToCSV(array: any[], keys: any[], split = ';', feld = '"') {
+    static convertArrayToCSV(array: any[], keys: any[], split: string = ';', feld: string = '"'): string {
         const tmp = new Array<any>();
 
         for (let i = 0; i < array.length; i++) {

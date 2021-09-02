@@ -24,8 +24,8 @@ import { SEOService } from '@app/shared/seo/seo.service';
 export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     // echarts Components
-    @ViewChild('echartsMap') public echartsMap?: ElementRef;
-    @ViewChild('echartsChart') public echartsChart?: ElementRef;
+    @ViewChild('echartsMap') echartsMap!: ElementRef;
+    @ViewChild('echartsChart') echartsChart!: ElementRef;
 
     // Config URl
     public configUrl = 'assets/data/cfg.json';
@@ -47,6 +47,12 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     public animationFrameID: number[] | null[] = [null, null];
     public resizeSub: ResizeObserver[] | null[] = [null, null];
+
+    // Error Message
+    errorMsg: string[] = [];
+
+    // App Useable
+    useable: boolean = true;
 
     /**
      * Constructor:
@@ -71,14 +77,14 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         }
     }
 
-    public title = 'lgln';
+    public title: string = 'lgln';
 
     // show loading spinner:
-    public mapLoaded = false;
+    public mapLoaded: boolean = false;
 
     // Wohnungsmartregion suchen
-    public selectedWoMa = '';
-    public selectedWoMaValue?: string;
+    public selectedWoMa: string =  '';
+    public selectedWoMaValue?: string = '';
 
     public selectSingle(): number | null {
         let singleSelectionId = null;
@@ -158,7 +164,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             this.resizeSub[0] = new ResizeObserver(() => {
                 this.animationFrameID[0] = window.requestAnimationFrame(() => this.resize(0));
             });
-            this.resizeSub[0].observe(this.echartsMap.nativeElement);
+            if(this.resizeSub[0]) {
+                this.resizeSub[0].observe(this.echartsMap.nativeElement);
+            }
         }
 
         if (this.echartsChart) {
@@ -169,7 +177,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             this.resizeSub[1] = new ResizeObserver(() => {
                 this.animationFrameID[1] = window.requestAnimationFrame(() => this.resize(1));
             });
-            this.resizeSub[1].observe(this.echartsChart.nativeElement);
+            if (this.resizeSub[1]) {
+                this.resizeSub[1].observe(this.echartsChart.nativeElement);
+            }
         }
 
         this.initNipix();
@@ -224,7 +234,12 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(environment.baseurl + json['mapUrl']);
                 this.cdr.detectChanges();
-            });
+            },
+            error => {
+                this.errorMsg.push($localize`Die Anwenungskonfiguration konnte nicht geladen werden.\nBitte prüfen Sie ihre Internetverbindung!`);
+                this.useable = false;
+                this.cdr.detectChanges();
+            } );
     }
 
     /**
@@ -243,6 +258,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
                 // InitState
                 this.nipixRuntime.state.initState++;
+                this.cdr.detectChanges();
+            },
+            error => {
+                this.errorMsg.push($localize`Die Gemeindedaten konnten nicht geladen werden.\nBitte prüfen Sie ihre Internetverbindung!`);
                 this.cdr.detectChanges();
             });
     }
@@ -457,7 +476,12 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                     this.route.queryParams.subscribe(this.queryURL.bind(this));
 
                     this.cdr.detectChanges();
-                });
+                },
+                error => {
+                    this.errorMsg.push($localize`Die Wohnungsmarktregionen konnten nicht geladen werden.\nBitte prüfen Sie ihre Internetverbindung!`);
+                    this.useable = false;
+                    this.cdr.detectChanges();
+                } );
 
     }
 
@@ -466,7 +490,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Set Map Options
      * @param selectType
      */
-    public setMapOptions(selectType: any = 'multiple') {
+    public setMapOptions(selectType: string|boolean = 'multiple') {
 
         this.nipixRuntime.map.options = ImmobilienChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
@@ -545,7 +569,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param name
      * @param typ
      */
-    public toggleMapSelect(category: string, name: string, typ = 'undefined') {
+    public toggleMapSelect(category: string, name: string, typ: string = 'undefined') {
         // console.log('toggle', category, name, typ);
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -582,31 +606,6 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      */
     public updateMapSelect(id: string | null = null) {
         this.nipixRuntime.updateMapSelect(id);
-    }
-
-
-    /**
-     * Gets chart element for map
-     * @param ec
-     */
-    public onChartInit(ec: any) {
-        this.nipixRuntime.map.obj = ec;
-
-        if (this.nipixRuntime.state.initState === 3) {
-            this.updateMapSelect();
-        }
-    }
-
-    /**
-     * Gets chart element for Chart
-     * @param ec
-     */
-    public onChartChartInit(ec: any) {
-        this.nipixRuntime.chart.obj = ec;
-
-        if (this.nipixRuntime.state.initState === 3) {
-            this.updateChart();
-        }
     }
 
     /**
@@ -676,7 +675,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param start
      * @param end
      */
-    public onChangeQuartal(start: number, end: number) {
+    public onChangeQuartal(start: number | null, end: number | null) {
         if (start !== null) {
             this.nipixRuntime.state.rangeStartIndex = start;
         }
@@ -695,7 +694,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Switch between multiple Draw
      * @param name
      */
-    public onClickDrawRoot(name: any) {
+    public onClickDrawRoot(name: string) {
         this.updateMapSelect();
         this.updateChart();
     }

@@ -31,7 +31,12 @@ export class ImmobilienUtils {
      * @param bw
      * @param area
      */
-    static getMyMapRegionenGR(name: string, bc: string, bw: number, area: string) {
+    static getMyMapRegionenGR(
+        name: string,
+        bc: string,
+        bw: number,
+        area: string
+    ) {
         return {
             'name': name,
             'itemStyle': {
@@ -63,7 +68,12 @@ export class ImmobilienUtils {
      * @param lighten (default false) Lighten the areaColor
      * @returns MapRegionen array
      */
-    static getMyMapRegionen(regionen: any, myregion: any = null, selectionList: any = null, lighten: any = false) {
+    static getMyMapRegionen(
+        regionen: any,
+        myregion: string|null = null,
+        selectionList: string[]|null = null,
+        lighten: boolean = false
+    ) {
         const res = new Array<any>();
         const keys = Object.keys(regionen);
         for (let i = 0; i < keys.length; i++) {
@@ -75,11 +85,11 @@ export class ImmobilienUtils {
                 bc = '#ffffff';
             }
 
-            const region = this.getMyMapRegionenGR(
+            const region: any = this.getMyMapRegionenGR(
                 keys[i],
                 bc,
                 bw,
-                ImmobilienHelper.convertColor(regionen[keys[i]].color)
+                ImmobilienHelper.convertColor(regionen[keys[i]]['color'])
             );
 
             if (lighten === true) {
@@ -106,7 +116,14 @@ export class ImmobilienUtils {
      * @param labelFormatter
      * @param data
      */
-    static generateSeriesGS(name: any, seriesType: any, zindex: any, seriesColor: any, labelFormatter: any, data: any) {
+    static generateSeriesGS(
+        name: string,
+        seriesType: string,
+        zindex: number,
+        seriesColor: string,
+        labelFormatter: any,
+        data: any
+    ) {
         return {
             'name': name,
             'type': seriesType,
@@ -151,13 +168,13 @@ export class ImmobilienUtils {
     static generateSeries(
         name: string,
         data: any,
-        color: any,
+        color: string,
         labelFormatter: any = null,
-        selectedChartLine = '',
-        xIndex = 0,
-        yIndex = 0,
-        seriesType = 'line'
-    ) {
+        selectedChartLine: string = '',
+        xIndex: number = 0,
+        yIndex: number = 0,
+        seriesType: string = 'line'
+    ): any {
 
         let seriesColor = ImmobilienHelper.convertColor(color);
         let zindex = 0;
@@ -169,7 +186,7 @@ export class ImmobilienUtils {
         }
 
         // Series Object
-        const ret = this.generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data);
+        const ret: any = this.generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data);
 
         // Set the corresponding Grid/Axis id
         if (xIndex !== 0) {
@@ -193,7 +210,12 @@ export class ImmobilienUtils {
      * @param offset Offset for ercentage calculation
      * @returns Data array
      */
-    static generateDrawSeriesData(data: any, date = new Array<string>(), field: string | null = null, offset = 100) {
+    static generateDrawSeriesData(
+        data: any[],
+        date: string[] = [],
+        field: any = null,
+        offset: number = 100
+    ) {
 
         // Empty data array
         const ret = new Array<any>();
@@ -208,7 +230,7 @@ export class ImmobilienUtils {
                 if (field === null) {
                     val = data[d];
                 } else {
-                    val = data[date[d].replace('/', '_')][field];
+                    val = data[date[d].replace('/', '_') as any][field];
                 }
 
                 fval = ImmobilienHelper.parseStringAsFloat(val);
@@ -229,7 +251,13 @@ export class ImmobilienUtils {
      * @param position
      * @param posX
      */
-    static generateTextElement(name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any) {
+    static generateTextElement(
+        name: string,
+        color: string = '#000',
+        fontSizeBase: number = 1.2,
+        position: number = 0,
+        posX?: number
+    ): any {
         return {
             type: 'text',
             top: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase),
@@ -253,14 +281,14 @@ export class ImmobilienUtils {
      * @param border
      */
     static generateDotElement(
-        radius = 4,
-        color = '#fff',
-        fontSizeBase = 1.2,
-        position = 0,
-        posX = 0,
-        bordercolor = '#000',
-        border = 0
-    ) {
+        radius: number = 4,
+        color: string = '#fff',
+        fontSizeBase: number = 1.2,
+        position: number = 0,
+        posX: number = 0,
+        bordercolor: string = '#000',
+        border: number = 0
+    ): any {
         return {
             type: 'circle',
             cursor: 'normal',
@@ -284,7 +312,6 @@ export class ImmobilienUtils {
      * @param modifyArray
      */
     static modifyRegionen(regionen: any, modifyArray: any[]) {
-
         const newRegionen = JSON.parse(JSON.stringify(regionen));
 
         for (let i = 0; i < modifyArray.length; i++) {

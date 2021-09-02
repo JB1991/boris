@@ -11,15 +11,15 @@ interface NipixRuntimeMap {
 }
 
 interface NipixRuntimeState {
-    initState?: number;
-    selectedChartLine?: string;
-    rangeStartIndex?: number;
-    rangeEndIndex?: number;
-    selection?: any[];
-    activeSelection?: number;
-    highlightedSeries?: string;
-    selectedMyRegion?: string;
-    mapWidth?: number;
+    initState: number;
+    selectedChartLine: string;
+    rangeStartIndex: number;
+    rangeEndIndex: number;
+    selection: any;
+    activeSelection: number;
+    highlightedSeries: string;
+    selectedMyRegion: string;
+    mapWidth: number;
 }
 
 interface NipixRuntimeCalculated {
@@ -64,9 +64,9 @@ export class NipixRuntime {
         'mapWidth': 10000
     };
 
-    public availableQuartal = new Array<any>();
+    public availableQuartal = new Array<string>();
 
-    public availableNipixCategories = new Array<any>();
+    public availableNipixCategories = new Array<string>();
 
     public drawPresets = new Array<any>();
 
@@ -78,7 +78,7 @@ export class NipixRuntime {
         'legendText': {}
     };
 
-    public locale = {
+    public locale: any = {
         'Preisentwicklung Niedersachsen, gesamt': $localize`Preisentwicklung Niedersachsen, gesamt`,
         'gebrauchte Eigenheime': $localize`Gebrauchte Eigenheime`,
         'EH': $localize`EH`,
@@ -137,7 +137,7 @@ export class NipixRuntime {
         }
     }
 
-    public translateArray(input: any, key = 'name') {
+    public translateArray(input: string[], key: string = 'name'): string[] {
         const cpy = JSON.parse(JSON.stringify(input));
 
         for (let i = 0; i < cpy.length; i++) {
@@ -196,7 +196,7 @@ export class NipixRuntime {
      * @param name Name of the draw Object
      * @returns draw Object
      */
-    public getDrawPreset(name: string) {
+    public getDrawPreset(name: string): any {
         const result = this.drawPresets.filter(drawitem => drawitem['name'] === name);
 
         if (result.length === 1) {
@@ -271,7 +271,8 @@ export class NipixRuntime {
         if (this.state.rangeStartIndex === 0) {
             this.state.rangeStartIndex =
                 Math.round((this.availableQuartal.length - 1) / 100 * range_start);
-            this.nipixStatic.referenceDate = this.availableQuartal[this.state.rangeStartIndex].replace('/', '_');
+            this.nipixStatic.referenceDate =
+                ('' + this.availableQuartal[this.state.rangeStartIndex]).replace('/', '_');
         }
 
         if (this.state.rangeEndIndex === 0) {
@@ -285,13 +286,13 @@ export class NipixRuntime {
      * @param id id
      */
     public updateMapSelect(id: string | null = null) {
-        if (this.map.obj === null) {
+        if ((this.map.obj === null) || (this.state.activeSelection === undefined)) {
             return;
         }
 
         if (this.state.activeSelection !== 99) {
             if (this.nipixStatic.data.selections[this.state.activeSelection]['type'] === 'single') {
-                const draw = this.getDrawPreset(
+                const draw: any = this.getDrawPreset(
                     this.nipixStatic.data.selections[this.state.activeSelection]['preset'][0]
                 );
                 const reg = Object.keys(this.nipixStatic.data.regionen);
