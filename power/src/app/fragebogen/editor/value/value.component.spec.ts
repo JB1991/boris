@@ -9,7 +9,7 @@ describe('Fragebogen.Editor.ValueComponent', () => {
     let fixture: ComponentFixture<ValueComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 CommonModule,
                 SurveyjsModule

@@ -11,7 +11,7 @@ describe('Static.Feedback.FeedbackComponent', () => {
     let fixture: ComponentFixture<FeedbackComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),
@@ -45,12 +45,12 @@ describe('Static.Feedback.FeedbackComponent', () => {
     it('should search without email', () => {
         /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'BORIS';
-        component.doSearch();
+        void component.doSearch();
         expect(component.search).toEqual('BORIS');
 
         /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'dagobert@duck.net';
-        component.doSearch();
+        void component.doSearch();
         expect(component.search).toEqual('');
     });
 

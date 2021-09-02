@@ -13,7 +13,7 @@ describe('Static.Start.StartComponent', () => {
     let fixture: ComponentFixture<StartComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule.withRoutes([]),
                 FormsModule,

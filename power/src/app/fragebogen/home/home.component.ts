@@ -33,7 +33,7 @@ export class HomeComponent {
             this.alerts.NewAlert('danger', $localize`Eingabe ungültig`, $localize`Bitte geben Sie eine PIN ein.`);
             return;
         }
-        this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
+        void this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

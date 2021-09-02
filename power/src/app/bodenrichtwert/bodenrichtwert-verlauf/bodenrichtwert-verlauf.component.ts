@@ -28,14 +28,14 @@ export interface SeriesItem {
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit, OnDestroy {
 
-    @Input() STICHTAGE?: string[];
-    @Input() teilmarkt?: Teilmarkt;
+    @Input() public STICHTAGE?: string[];
+    @Input() public teilmarkt?: Teilmarkt;
 
-    @ViewChild('echartsInst') echartsInst?: ElementRef;
+    @ViewChild('echartsInst') public echartsInst?: ElementRef;
 
-    @Input() address?: Feature;
+    @Input() public address?: Feature;
 
-    @Input() features?: FeatureCollection;
+    @Input() public features?: FeatureCollection;
 
     public echartsInstance?: ECharts;
     public animationFrameID?: number = undefined;
@@ -45,7 +45,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     public srTableData: Array<any> = [];
     public srTableHeader: Array<string> = [];
 
-    seriesTemplate: Array<SeriesItem> = [
+    public seriesTemplate: Array<SeriesItem> = [
         { stag: '2012', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
         { stag: '2013', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
         { stag: '2014', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
@@ -138,7 +138,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     }
 
     /** @inheritdoc */
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         if (this.echartsInst) {
             this.echartsInstance = init(this.echartsInst.nativeElement);
 
@@ -150,7 +150,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     }
 
     /** @inheritdoc */
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         if (this.resizeSub) {
             this.resizeSub.disconnect();
             if (this.animationFrameID) {
@@ -162,7 +162,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     /**
      * Resizes echart
      */
-    public resize() {
+    public resize(): void {
         this.echartsInstance?.resize();
     }
 
@@ -452,7 +452,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series series
      * @returns a series with filled gaps
      */
-    public fillGapWithinAYear(series: Array<SeriesItem>) {
+    public fillGapWithinAYear(series: Array<SeriesItem>): SeriesItem[] {
         // check gap in series
         const seriesFilledGap: Array<SeriesItem> = this.deepCopy(this.seriesTemplate);
         let i = -1;
@@ -481,7 +481,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series array with series items
      * @returns the series including the last item copied
      */
-    public copyLastItem(series: Array<SeriesItem>) {
+    public copyLastItem(series: Array<SeriesItem>): SeriesItem[] {
         // Forwarding the last element of the series
         const seriesValues = series.filter(element => element.brw);
         if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
@@ -597,15 +597,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
         return nutzung;
     }
 
-
+    /* eslint-disable complexity */
     /**
      * setLegendFormat formats the labels of the legend block
      */
-    /* eslint-disable complexity */
-    /**
-     *
-     */
-    public setLegendFormat() {
+    public setLegendFormat(): void {
         const legend = this.chartOption.legend as LegendComponentOption;
         legend['formatter'] = function (name: string) {
             const splittedName = name.split('\n');
@@ -634,7 +630,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     /**
      * setTextStyleOfLegend sets some styling elements of the legend items
      */
-    public setTextStyleOfLegend() {
+    public setTextStyleOfLegend(): void {
         const legend: any = this.chartOption.legend;
         legend.textStyle.rich = {
             'nutzung': {
@@ -677,7 +673,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param data array with seriesItems
      * @returns returns JSON object
      */
-    public deepCopy(data: Array<SeriesItem>) {
+    public deepCopy(data: Array<SeriesItem>): any {
         return JSON.parse(JSON.stringify(data));
     }
 

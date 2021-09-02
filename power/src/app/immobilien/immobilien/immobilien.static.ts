@@ -44,10 +44,6 @@ export class NipixStatic {
     // Reference Date for the nipix
     public referenceDate = '2016_1';
 
-
-    public constructor() {
-    }
-
     /**
      * loadConfig
      * @param json data

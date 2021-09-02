@@ -9,7 +9,7 @@ export class ImmobilienUtils {
      * @param lastPeriod Period of the last available NIPIX Data
      * @returns DateArray array
      */
-    static getDateArray(lastYear: number, lastPeriod: number) {
+    public static getDateArray(lastYear: number, lastPeriod: number): any[] {
 
         const date = new Array<any>();
 
@@ -31,7 +31,7 @@ export class ImmobilienUtils {
      * @param bw
      * @param area
      */
-    static getMyMapRegionenGR(name: string, bc: string, bw: number, area: string) {
+    public static getMyMapRegionenGR(name: string, bc: string, bw: number, area: string): any {
         return {
             'name': name,
             'itemStyle': {
@@ -63,7 +63,8 @@ export class ImmobilienUtils {
      * @param lighten (default false) Lighten the areaColor
      * @returns MapRegionen array
      */
-    static getMyMapRegionen(regionen: any, myregion: any = null, selectionList: any = null, lighten: any = false) {
+    public static getMyMapRegionen(regionen: any, myregion: any = null,
+        selectionList: any = null, lighten: any = false): any[] {
         const res = new Array<any>();
         const keys = Object.keys(regionen);
         for (let i = 0; i < keys.length; i++) {
@@ -106,7 +107,8 @@ export class ImmobilienUtils {
      * @param labelFormatter
      * @param data
      */
-    static generateSeriesGS(name: any, seriesType: any, zindex: any, seriesColor: any, labelFormatter: any, data: any) {
+    public static generateSeriesGS(name: any, seriesType: any, zindex: any,
+        seriesColor: any, labelFormatter: any, data: any): any {
         return {
             'name': name,
             'type': seriesType,
@@ -148,7 +150,7 @@ export class ImmobilienUtils {
      * @param seriesType SeriesTyp (default line) (see echarts api)
      * @returns echarts Series Object
      */
-    static generateSeries(
+    public static generateSeries(
         name: string,
         data: any,
         color: any,
@@ -157,7 +159,7 @@ export class ImmobilienUtils {
         xIndex = 0,
         yIndex = 0,
         seriesType = 'line'
-    ) {
+    ): any {
 
         let seriesColor = ImmobilienHelper.convertColor(color);
         let zindex = 0;
@@ -193,7 +195,8 @@ export class ImmobilienUtils {
      * @param offset Offset for ercentage calculation
      * @returns Data array
      */
-    static generateDrawSeriesData(data: any, date = new Array<string>(), field: string | null = null, offset = 100) {
+    public static generateDrawSeriesData(data: any, date = new Array<string>(),
+        field: string | null = null, offset = 100): any[] {
 
         // Empty data array
         const ret = new Array<any>();
@@ -229,7 +232,7 @@ export class ImmobilienUtils {
      * @param position
      * @param posX
      */
-    static generateTextElement(name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any) {
+    public static generateTextElement(name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any): any {
         return {
             type: 'text',
             top: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase),
@@ -252,7 +255,7 @@ export class ImmobilienUtils {
      * @param bordercolor
      * @param border
      */
-    static generateDotElement(
+    public static generateDotElement(
         radius = 4,
         color = '#fff',
         fontSizeBase = 1.2,
@@ -260,7 +263,7 @@ export class ImmobilienUtils {
         posX = 0,
         bordercolor = '#000',
         border = 0
-    ) {
+    ): any {
         return {
             type: 'circle',
             cursor: 'normal',
@@ -283,7 +286,7 @@ export class ImmobilienUtils {
      * @param regionen
      * @param modifyArray
      */
-    static modifyRegionen(regionen: any, modifyArray: any[]) {
+    public static modifyRegionen(regionen: any, modifyArray: any[]): any {
 
         const newRegionen = JSON.parse(JSON.stringify(regionen));
 
@@ -304,7 +307,7 @@ export class ImmobilienUtils {
      * @param name name
      * @param select select
      */
-    static dispatchMapSelect(obj: any, name: string, select: boolean) {
+    public static dispatchMapSelect(obj: any, name: string, select: boolean): void {
         // check if is function
         if (typeof obj.dispatchAction !== 'function') {
             return;

@@ -29,7 +29,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     const getElement = require('../../../testdata/fragebogen/get-element.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),
@@ -128,7 +128,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     it('should load data', (done) => {
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component.formapi, 'getElements').and.returnValue(Promise.resolve(getElements));
-        component.loadData('123').then(() => {
+        void component.loadData('123').then(() => {
             clearTimeout(component.timerHandle as NodeJS.Timeout);
             expect(component.storage.model).toEqual(getForm.form.content);
             done();
@@ -137,7 +137,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
 
     it('should error to load data', (done) => {
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed to load data'));
-        component.loadData('123').then(() => {
+        void component.loadData('123').then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
                 'Failed to load data');

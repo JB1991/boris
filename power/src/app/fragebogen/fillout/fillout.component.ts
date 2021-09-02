@@ -46,18 +46,18 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /** @inheritdoc */
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         // get pin
         this.pin = this.route.snapshot.paramMap.get('pin') as string;
         if (this.pin) {
             // load data
-            this.loadData();
+            void this.loadData();
         } else {
             const id = this.route.snapshot.paramMap.get('id');
             if (id) {
                 this.loadForm(id);
             } else {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+                void this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }
@@ -66,7 +66,8 @@ export class FilloutComponent implements AfterViewInit {
      * canDeactivate event handler
      * @returns True if can leave page
      */
-    @HostListener('window:beforeunload') canDeactivate(): boolean {
+    @HostListener('window:beforeunload')
+    public canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
             return true;
@@ -110,7 +111,7 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            void this.router.navigate(['/forms'], { replaceUrl: true });
         });
     }
 
@@ -119,7 +120,7 @@ export class FilloutComponent implements AfterViewInit {
      * @param result response formapi
      * @param error error
      */
-    public handleSubmitFailedError(result: any, error: Error) {
+    public handleSubmitFailedError(result: any, error: Error): void {
         // failed to complete task
         console.error(error);
         result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
@@ -180,7 +181,7 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            void this.router.navigate(['/forms'], { replaceUrl: true });
         }
     }
 

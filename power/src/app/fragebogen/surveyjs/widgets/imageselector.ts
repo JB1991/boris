@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { CustomWidgetCollection, JsonObject, Question } from 'survey-angular';
 
 /* eslint-disable complexity */

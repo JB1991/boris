@@ -20,7 +20,7 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
     let fixture: ComponentFixture<BodenrichtwertPdfComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 BodenrichtwertPdfComponent
             ],

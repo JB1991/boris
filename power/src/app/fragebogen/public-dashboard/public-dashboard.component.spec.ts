@@ -17,7 +17,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     const getPublicForms = require('../../../testdata/fragebogen/get-public-forms.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
@@ -58,7 +58,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'something';
         component.sort = 'id';
-        component.update(false).then(() => {
+        void component.update(false).then(() => {
             expect(component.data).toBe(getPublicForms.forms);
             expect(component.total).toBe(getPublicForms.total);
             done();
@@ -73,7 +73,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         }));
         /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'something';
-        component.update(false).then(() => {
+        void component.update(false).then(() => {
             expect(component.pageSizes?.length).toBe(10);
             done();
         });
@@ -100,7 +100,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     */
     it('should fail', (done) => {
         spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.reject('fail'));
-        component.update(true).then(() => {
+        void component.update(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');

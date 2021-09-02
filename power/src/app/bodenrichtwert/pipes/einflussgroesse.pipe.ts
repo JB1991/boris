@@ -23,7 +23,7 @@ const einflussgroesse = {
 export class EinflussgroessePipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: string): string {
+    public transform(value: string): string {
         if (einflussgroesse.hasOwnProperty(value)) {
             return einflussgroesse[value as keyof typeof einflussgroesse];
         } else {

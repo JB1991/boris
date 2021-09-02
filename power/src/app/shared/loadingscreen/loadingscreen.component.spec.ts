@@ -9,7 +9,7 @@ describe('Shared.Loadingscreen.LoadingscreenComponent', () => {
     let fixture: ComponentFixture<LoadingscreenComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule.withRoutes([])
             ],

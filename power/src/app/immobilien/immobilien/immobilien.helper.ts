@@ -6,7 +6,7 @@ export class ImmobilienHelper {
      * @param rem size in rem
      * @returns size in px
      */
-    static convertRemToPixels(rem: number): number {
+    public static convertRemToPixels(rem: number): number {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
 
@@ -18,7 +18,7 @@ export class ImmobilienHelper {
      * @param {number} c Color Component
      * @returns {string} Hex Component
      */
-    static componentToHex(c: number): string {
+    public static componentToHex(c: number): string {
         const hex = c.toString(16);
         return hex.length === 1 ? '0' + hex : hex;
     }
@@ -31,7 +31,7 @@ export class ImmobilienHelper {
      * @param {number} b blue coor
      * @returns {string} Hex-Color
      */
-    static rgbToHex(r: number, g: number, b: number): string {
+    public static rgbToHex(r: number, g: number, b: number): string {
         return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
 
@@ -46,7 +46,7 @@ export class ImmobilienHelper {
      * @param color Input Color
      * @returns HexColor (#rrggbb)
      */
-    static convertColor(color: string | number[]): string {
+    public static convertColor(color: string | number[]): string {
         if (color !== undefined && color !== null) {
             if (typeof color === 'string' && color.slice(0, 3) === 'rgb') {
                 const cc = color.slice(4).replace(')', '').split(',');
@@ -69,7 +69,7 @@ export class ImmobilienHelper {
      * @param percent lighten or darken -1<=0<=1
      * @returns Modified color
      */
-    static modifyColor(color: string | number[], percent: number): string {
+    public static modifyColor(color: string | number[], percent: number): string {
 
         color = this.convertColor(color);
 
@@ -97,7 +97,7 @@ export class ImmobilienHelper {
      * @param n number
      * @returns zero padding number
      */
-    static appendLeadingZeroes(n: number): string {
+    public static appendLeadingZeroes(n: number): string {
         if (n <= 9) {
             return '0' + n;
         }
@@ -109,7 +109,7 @@ export class ImmobilienHelper {
      *
      * @returns Date
      */
-    static getDate() {
+    public static getDate(): number {
         const dt = new Date();
 
         return dt.getFullYear();
@@ -121,7 +121,7 @@ export class ImmobilienHelper {
      * @param value String or float
      * @returns float
      */
-    static parseStringAsFloat(value: any) {
+    public static parseStringAsFloat(value: any): number {
         if (typeof value === 'string') {
             return parseFloat(value.replace(',', '.'));
         } else {
@@ -137,7 +137,7 @@ export class ImmobilienHelper {
      * @param filetype Content-Type
      * @param isurl True if is url
      */
-    static downloadFile(data: any, filename: string, filetype = 'text/csv', isurl = false) {
+    public static downloadFile(data: any, filename: string, filetype = 'text/csv', isurl = false): void {
         let url = data;
         let blob;
 
@@ -180,7 +180,7 @@ export class ImmobilienHelper {
      * @param separator Separator used in path
      * @returns Resolved Property
      */
-    static resolve(path: string | string[], obj: any = self, separator = '.'): any {
+    public static resolve(path: string | string[], obj: any = self, separator = '.'): any {
         const properties = Array.isArray(path) ? path : path.split(separator);
         return properties.reduce((prev, curr) => prev && prev[curr], obj);
     }
@@ -194,7 +194,7 @@ export class ImmobilienHelper {
      * @param feld Quote character
      * @returns CSV String
      */
-    static convertArrayToCSV(array: any[], keys: any[], split = ';', feld = '"') {
+    public static convertArrayToCSV(array: any[], keys: any[], split = ';', feld = '"'): string {
         const tmp = new Array<any>();
 
         for (let i = 0; i < array.length; i++) {
@@ -225,7 +225,7 @@ export class ImmobilienHelper {
      * @param feature Feature which should be extracted
      * @returns Feature if found, empty object if not found
      */
-    static getSingleFeature(data: any, feature: any): any {
+    public static getSingleFeature(data: any, feature: any): any {
         for (let i = 0; i < data['features'].length; i++) {
             if (feature === data['features'][i]['properties']['name']) {
                 return data['features'][i];
@@ -242,7 +242,7 @@ export class ImmobilienHelper {
      * @param features Array of Features for the Collection
      * @returns GeometryCollection Object (Empty geometries property if no feature were found)
      */
-    static getGeometryArray(data: any, features: any): any {
+    public static getGeometryArray(data: any, features: any): any {
 
         const geoarray = new Array<any>();
 

@@ -8,7 +8,7 @@ describe('Shared.ModalComponent', () => {
     let fixture: ComponentFixture<ModalComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 ModalComponent
             ],

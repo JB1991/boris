@@ -81,6 +81,12 @@
                         ]
                     }
                 ],
+                "@typescript-eslint/no-unused-vars": [
+                    "warn",
+                    {
+                        "args": "none"
+                    }
+                ],
                 "quotes": [
                     "error",
                     "single"
@@ -91,7 +97,7 @@
                 "no-implied-eval": "off",
                 "@typescript-eslint/no-implied-eval": "error",
                 "no-empty-function": "off",
-                "@typescript-eslint/no-empty-function": "warn",
+                "@typescript-eslint/no-empty-function": "error",
                 "no-invalid-this": "off",
                 "@typescript-eslint/no-invalid-this": "error",
                 "no-loop-func": "off",
@@ -105,16 +111,22 @@
                 "@typescript-eslint/no-empty-interface": "error",
                 "@typescript-eslint/no-dynamic-delete": "error",
                 "@typescript-eslint/no-var-requires": "off",
-                "@typescript-eslint/no-explicit-any": "warn",
+                "@typescript-eslint/no-explicit-any": "off",
                 "@typescript-eslint/consistent-type-assertions": "error",
                 "@typescript-eslint/member-ordering": "off",
                 "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/prefer-for-of": "off",
                 "@angular-eslint/component-selector": "off",
                 "@angular-eslint/directive-selector": "off",
-                "@typescript-eslint/no-floating-promises": "warn",
+                "@typescript-eslint/no-floating-promises": "error",
+                "@typescript-eslint/explicit-module-boundary-types": [
+                    "error",
+                    {
+                        "allowArgumentsExplicitlyTypedAsAny": true
+                    }
+                ],
                 "@typescript-eslint/explicit-member-accessibility": [
-                    "warn",
+                    "error",
                     {
                         "overrides": {
                             "constructors": "off"

@@ -18,7 +18,7 @@ const bauw = {
 export class BauweisePipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: keyof typeof bauw): string {
+    public transform(value: keyof typeof bauw): string {
         return bauw[value];
     }
 }

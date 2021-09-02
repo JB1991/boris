@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
 import { ImmobilienUtils } from './immobilien.utils';

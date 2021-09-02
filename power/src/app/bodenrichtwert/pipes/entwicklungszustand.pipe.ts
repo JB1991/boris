@@ -14,7 +14,7 @@ const entw = {
 export class EntwicklungszustandPipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: keyof typeof entw): string {
+    public transform(value: keyof typeof entw): string {
         return entw[value];
     }
 }

@@ -14,7 +14,7 @@ describe('Fragebogen.Details.SettingsComponent', () => {
     let fixture: ComponentFixture<SettingsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),

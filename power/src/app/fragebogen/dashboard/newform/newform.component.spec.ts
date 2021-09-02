@@ -17,7 +17,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     const getForm = require('../../../../testdata/fragebogen/get-form.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 FormsModule,
@@ -110,7 +110,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         spyOn(component.formAPI, 'createForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component.out, 'emit');
         component.title = 'something';
-        component.makeForm({
+        void component.makeForm({
             title: {
                 default: 'example'
             }
@@ -126,7 +126,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     it('should fail', (done) => {
         spyOn(component.formAPI, 'createForm').and.returnValue(Promise.reject('fail'));
         component.title = 'something';
-        component.makeForm({
+        void component.makeForm({
             title: {
                 default: 'example'
             }
@@ -141,7 +141,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     it('should fail', (done) => {
         spyOn(component.formAPI, 'createForm');
         component.title = '';
-        component.makeForm({
+        void component.makeForm({
             title: {
                 default: 'example'
             }
@@ -156,7 +156,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     it('should fail', (done) => {
         spyOn(component.formAPI, 'createForm');
         component.title = '';
-        component.makeForm(null).then(() => {
+        void component.makeForm(null).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: template is required');

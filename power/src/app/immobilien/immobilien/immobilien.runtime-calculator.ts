@@ -228,7 +228,7 @@ export class NipixRuntimeCalculator {
     /**
      * Generates the drawdata from the given draw array
      */
-    public calculateDrawData() {
+    public calculateDrawData(): void {
 
         // Empty result
         this.nipixRuntime.calculated.drawData = [];

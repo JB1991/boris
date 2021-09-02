@@ -11,7 +11,7 @@ describe('BodenrichtwertKartePitchControl', () => {
     // let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [BodenrichtwertKarteComponent],
             imports: [],
             providers: [

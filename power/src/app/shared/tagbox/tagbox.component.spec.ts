@@ -8,7 +8,7 @@ describe('Shared.TagboxComponent', () => {
     let fixture: ComponentFixture<TagboxComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 FormsModule
             ],

@@ -14,7 +14,7 @@ import { AuthGuard } from './auth.guard';
 })
 export class AuthModule {
     /* eslint-disable-next-line jsdoc/require-jsdoc */
-    static forRoot(): ModuleWithProviders<AuthModule> {
+    public static forRoot(): ModuleWithProviders<AuthModule> {
         return {
             ngModule: AuthModule,
             providers: [AuthService, AuthGuard]

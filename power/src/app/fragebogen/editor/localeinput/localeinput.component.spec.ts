@@ -10,7 +10,7 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
     let fixture: ComponentFixture<LocaleInputComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 CommonModule,
                 FormsModule,

@@ -14,7 +14,7 @@ describe('AdvancedSearchComponent', () => {
     let fixture: ComponentFixture<AdvancedSearchComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 AdvancedSearchComponent,
                 ModalminiComponent

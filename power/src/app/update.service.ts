@@ -10,7 +10,7 @@ export class UpdateService {
         // check for update
         /* istanbul ignore else */
         if (updates.isEnabled) {
-            this.updates.checkForUpdate();
+            void this.updates.checkForUpdate();
 
             // handle an unrecoverable state
             /* istanbul ignore next */
@@ -32,7 +32,7 @@ export class UpdateService {
             /* istanbul ignore next */
             this.updates.available.subscribe(() => {
                 // do update
-                this.updates.activateUpdate().then(() => {
+                void this.updates.activateUpdate().then(() => {
                     console.warn('Reloading to complete update');
                     this.cleanupServiceWorker(false);
                     window.location.reload();
@@ -50,15 +50,15 @@ export class UpdateService {
         // delete cache
         if ('caches' in window) {
             console.warn('Deleting cache');
-            caches.keys().then(keyList => Promise.all(keyList.map(key => caches.delete(key))));
+            void caches.keys().then(keyList => Promise.all(keyList.map(key => caches.delete(key))));
         }
 
         // unregister service worker
         if (del && window.navigator && navigator.serviceWorker) {
-            navigator.serviceWorker.getRegistrations().then(registrations => {
+            void navigator.serviceWorker.getRegistrations().then(registrations => {
                 console.warn('Deleting service workers');
                 for (const registration of registrations) {
-                    registration.unregister();
+                    void registration.unregister();
                 }
             });
         }

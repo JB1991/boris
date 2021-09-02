@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'zone.js/node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
@@ -37,6 +38,11 @@ const Blobx = require('node-blob');
 (global as any).Blob = Blobx;
 
 // The Express app is exported so that it can be used by serverless Functions.
+/**
+ * Creates app instance
+ * @param lang Language string
+ * @returns Express
+ */
 export function app(lang: string): express.Express {
     const server = express();
     const distFolder = join(process.cwd(), `dist/power/browser/${lang}`);

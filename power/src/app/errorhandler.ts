@@ -18,7 +18,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         public http: HttpClient) { }
 
     /** @inheritdoc */
-    handleError(error: Error): void {
+    public handleError(error: Error): void {
         // check if app needs reload
         console.error(error);
         if (error.message.indexOf('Loading chunk') !== -1) {

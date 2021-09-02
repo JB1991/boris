@@ -9,7 +9,7 @@ describe('MarkdownInstructionsComponent', () => {
     let fixture: ComponentFixture<MarkdownInstructionsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 MarkdownInstructionsComponent,
             ],

@@ -50,21 +50,21 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     }
 
     /** @inheritdoc */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);
         const id = this.route.snapshot.paramMap.get('id');
         if (id) {
             // load data
-            this.loadData(id);
+            void this.loadData(id);
         } else {
             // missing id
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+            void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         }
     }
 
     /** @inheritdoc */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         // delete auto save method
         if (this.timerHandle) {
             clearInterval(this.timerHandle);
@@ -77,7 +77,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * CTRL+Z event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.z', ['$event'])
+    public onUndoHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.undoChanges();
         }
@@ -88,7 +89,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * CTRL+Y event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.y', ['$event'])
+    public onRedoHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.redoChanges();
         }
@@ -99,7 +101,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * CTRL+S event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.s', ['$event'])
+    public onSaveHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsSave();
@@ -111,7 +114,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * CTRL+V event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.v', ['$event'])
+    public onPasteHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsNewElement('elementcopy');
@@ -123,7 +127,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * CTRL+P event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.p', ['$event'])
+    public onAddPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsPageCreate(this.storage.selectedPageID + 1);
@@ -135,7 +140,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * CTRL+D event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.d', ['$event'])
+    public onDelPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsPageDelete(this.storage.selectedPageID);
@@ -147,7 +153,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Arrow left event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.arrowleft', ['$event'])
+    public onLeftPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID !== 0) {
                 this.wsPageSelect(this.storage.selectedPageID - 1);
@@ -160,7 +167,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Arrow right event handler
      * @param event Event
      */
-    @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent): void {
+    @HostListener('document:keydown.control.arrowright', ['$event'])
+    public onRightPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
                 this.wsPageSelect(this.storage.selectedPageID + 1);
@@ -172,7 +180,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * canDeactivate event handler
      * @returns True if can leave page
      */
-    @HostListener('window:beforeunload') canDeactivate(): boolean {
+    @HostListener('window:beforeunload')
+    public canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
             return true;
@@ -183,7 +192,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Scroll event handler
      */
-    @HostListener('window:scroll', ['$event']) onScroll(): void {
+    @HostListener('window:scroll', ['$event'])
+    public onScroll(): void {
         const tb = document.getElementById('toolbox')?.parentElement;
         const fr = document.getElementById('favorites')?.parentElement;
         if (!(tb && fr)) {
@@ -206,7 +216,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Resize event handler
      */
-    @HostListener('window:resize', ['$event']) onResize(): void {
+    @HostListener('window:resize', ['$event'])
+    public onResize(): void {
         // check if not mobile device
         const div = document.getElementById('toolbox')?.parentElement;
         if (div && window.innerWidth < 992) {
@@ -247,7 +258,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+            void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             return;
         }
     }

@@ -406,7 +406,11 @@ export class BodenrichtwertPdfComponent {
         return ret;
     }
 
-    private getSingleBRW(tmp: Content[], brw: Feature<Geometry, GeoJsonProperties>) { // eslint-disable-line complexity
+    // eslint-disable-next-line complexity
+    private getSingleBRW(
+        tmp: Content[],
+        brw: Feature<Geometry, GeoJsonProperties>
+    ): void { // eslint-disable-line complexity
         if (!brw.properties) {
             return;
         }

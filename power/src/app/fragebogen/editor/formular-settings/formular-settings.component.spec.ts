@@ -19,7 +19,7 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
     let fixture: ComponentFixture<FormularSettingsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),

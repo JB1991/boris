@@ -10,7 +10,7 @@ import { AuthService } from '@app/shared/auth/auth.service';
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-    @Output() out = new EventEmitter<{
+    @Output() public out = new EventEmitter<{
         id: string;
         tags: Array<string>;
         groups: Array<string>;

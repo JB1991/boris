@@ -16,17 +16,17 @@ export class AdvancedSearchComponent {
     @ViewChild('flurstueckForm') public flurstueckForm?: FlurstueckSearchComponent;
     @ViewChild('bodenrichtwertForm') public bodenrichtwertForm?: BodenrichwertnummerSearchComponent;
 
-    @Output() flurstueckChange = new EventEmitter<FeatureCollection>();
-    @Output() bodenrichtwertChange = new EventEmitter<FeatureCollection>();
+    @Output() public flurstueckChange = new EventEmitter<FeatureCollection>();
+    @Output() public bodenrichtwertChange = new EventEmitter<FeatureCollection>();
 
     // public title = $localize`Erweiterte Suche`;
 
-    @Input() title = $localize`Erweiterte Suche`;
-    @Input() stichtag?: string;
-    @Input() teilmarkt?: Teilmarkt;
+    @Input() public title = $localize`Erweiterte Suche`;
+    @Input() public stichtag?: string;
+    @Input() public teilmarkt?: Teilmarkt;
 
-    @Input() flurstueckSearchActive = true;
-    @Input() bodenrichtwertSearchActive = true;
+    @Input() public flurstueckSearchActive = true;
+    @Input() public bodenrichtwertSearchActive = true;
 
     constructor() {
         // This is intentional
@@ -36,7 +36,7 @@ export class AdvancedSearchComponent {
      * onFlurstueckChange emits the current flurstueck-features
      * @param fts features
      */
-    public onFlurstueckChange(fts: FeatureCollection) {
+    public onFlurstueckChange(fts: FeatureCollection): void {
         this.flurstueckChange.emit(fts);
     }
 
@@ -44,21 +44,21 @@ export class AdvancedSearchComponent {
      * onBodenrichtwertChange emits the current brw-features
      * @param fts features
      */
-    public onBodenrichtwertChange(fts: FeatureCollection) {
+    public onBodenrichtwertChange(fts: FeatureCollection): void {
         this.bodenrichtwertChange.emit(fts);
     }
 
     /**
      * closing closes the modal
      */
-    public closing() {
+    public closing(): void {
         this.modal?.close();
     }
 
     /**
      * Reset flurstueck-search and bodenrichtwertnummern-search onClose
      */
-    public onClose() {
+    public onClose(): void {
         if (this.flurstueckSearchActive) {
             this.flurstueckForm?.reset();
         }

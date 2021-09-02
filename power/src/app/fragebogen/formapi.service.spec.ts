@@ -58,7 +58,7 @@ describe('Fragebogen.FormAPIService', () => {
     */
 
     it('getTags should succeed', (done) => {
-        service.getTags({}).then((value) => {
+        void service.getTags({}).then((value) => {
             expect(value.tags).toEqual(getTags.tags);
             done();
         });
@@ -67,7 +67,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getGroups should succeed', (done) => {
-        service.getGroups({}).then((value) => {
+        void service.getGroups({}).then((value) => {
             expect(value.groups).toEqual(getGroups.groups);
             done();
         });
@@ -76,7 +76,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getForms should succeed', (done) => {
-        service.getForms({}).then((value) => {
+        void service.getForms({}).then((value) => {
             expect(value).toEqual(getForms);
             done();
         });
@@ -85,7 +85,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getForms should succeed', (done) => {
-        service.getForms({
+        void service.getForms({
             fields: ['id', 'owner.id'],
             extract: ['title.de', 'title.default'],
             filter: { id: '123' },
@@ -101,7 +101,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getForm should succeed', (done) => {
-        service.getForm('123', {
+        void service.getForm('123', {
             fields: ['id', 'owner.id'],
             extract: ['title.de', 'title.default'],
         }).then((value) => {
@@ -113,7 +113,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('createForm should succeed', (done) => {
-        service.createForm({
+        void service.createForm({
             content: JSON.parse(JSON.stringify(formContent)),
         }).then((value) => {
             expect(value).toEqual(getForm);
@@ -124,7 +124,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('updateForm should succeed', (done) => {
-        service.updateForm('123', {
+        void service.updateForm('123', {
             content: JSON.parse(JSON.stringify(formContent)),
         }).then((value) => {
             expect(value).toEqual(getForm);
@@ -135,7 +135,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('deleteForm should succeed', (done) => {
-        service.deleteForm('123').then((value) => {
+        void service.deleteForm('123').then((value) => {
             expect(value).toEqual({ id: '123', status: 200 });
             done();
         });
@@ -144,7 +144,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getTasks should succeed', (done) => {
-        service.getTasks({}).then((value) => {
+        void service.getTasks({}).then((value) => {
             expect(value).toEqual(getTasks);
             done();
         });
@@ -153,7 +153,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getTasks should succeed', (done) => {
-        service.getTasks({
+        void service.getTasks({
             fields: ['id'],
             extract: ['e1'],
             'form.extract': ['title.default'],
@@ -170,7 +170,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getTask should succeed', (done) => {
-        service.getTask('123', {
+        void service.getTask('123', {
             fields: ['id'],
             extract: ['e1'],
             'form.extract': ['title.default'],
@@ -183,7 +183,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('createTask should succeed', (done) => {
-        service.createTask('123', {
+        void service.createTask('123', {
             content: taskContent,
         }, 10).then((value) => {
             expect(value).toEqual(getTask);
@@ -194,7 +194,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('updateTask should succeed', (done) => {
-        service.updateTask('123', {
+        void service.updateTask('123', {
             content: taskContent,
         }).then((value) => {
             expect(value).toEqual(getTask);
@@ -205,7 +205,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('deleteTask should succeed', (done) => {
-        service.deleteTask('123').then((value) => {
+        void service.deleteTask('123').then((value) => {
             expect(value).toEqual(getTask);
             done();
         });
@@ -214,7 +214,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getElements should succeed', (done) => {
-        service.getElements({}).then((value) => {
+        void service.getElements({}).then((value) => {
             expect(value).toEqual(getElements);
             done();
         });
@@ -223,7 +223,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getElements should succeed', (done) => {
-        service.getElements({
+        void service.getElements({
             fields: ['id'],
             extract: ['title.de', 'title.default'],
             filter: { id: '123' },
@@ -239,7 +239,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getElement should succeed', (done) => {
-        service.getElement('123', {
+        void service.getElement('123', {
             fields: ['id'],
             extract: ['title.de', 'title.default'],
         }).then((value) => {
@@ -251,7 +251,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('createElement should succeed', (done) => {
-        service.createElement({
+        void service.createElement({
             content: elementContent,
         }).then((value) => {
             expect(value).toEqual(getElement);
@@ -262,7 +262,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('updateElement should succeed', (done) => {
-        service.updateElement('123', {
+        void service.updateElement('123', {
             content: elementContent,
         }).then((value) => {
             expect(value).toEqual(getElement);
@@ -273,7 +273,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('deleteElement should succeed', (done) => {
-        service.deleteElement('123').then((value) => {
+        void service.deleteElement('123').then((value) => {
             expect(value).toEqual({ id: '123', status: 200 });
             done();
         });
@@ -282,7 +282,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getPublicForms should succeed', (done) => {
-        service.getPublicForms({}).then((value) => {
+        void service.getPublicForms({}).then((value) => {
             expect(value).toEqual(getPublicForms);
             done();
         });
@@ -291,7 +291,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getPublicForms should succeed', (done) => {
-        service.getPublicForms({
+        void service.getPublicForms({
             fields: ['id'],
             extract: ['title.de', 'title.default'],
             filter: { id: '123' },
@@ -307,7 +307,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getPublicForm should succeed', (done) => {
-        service.getPublicForm('123', {
+        void service.getPublicForm('123', {
             fields: ['id'],
             extract: ['title.de', 'title.default'],
         }).then((value) => {
@@ -319,7 +319,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('createPublicTask should succeed', (done) => {
-        service.createPublicTask('123', {}).then((value) => {
+        void service.createPublicTask('123', {}).then((value) => {
             expect(value).toEqual(getPublicTask);
             done();
         });
@@ -328,7 +328,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getPublicTask should succeed', (done) => {
-        service.getPublicTask('123', {
+        void service.getPublicTask('123', {
             fields: ['id'],
             extract: ['e1'],
             'form.extract': ['title.default'],
@@ -341,7 +341,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('updatePublicTask should succeed', (done) => {
-        service.updatePublicTask('123', {}, true).then((value) => {
+        void service.updatePublicTask('123', {}, true).then((value) => {
             expect(value).toEqual(getPublicTask);
             done();
         });
@@ -350,7 +350,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getCSV should succeed', (done) => {
-        service.getCSV('123').then((value) => {
+        void service.getCSV('123').then((value) => {
             expect(value).toEqual('Toast');
             done();
         });

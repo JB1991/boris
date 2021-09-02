@@ -9,7 +9,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     let fixture: ComponentFixture<ValidatorsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 ValidatorsComponent,
                 LocaleInputComponent

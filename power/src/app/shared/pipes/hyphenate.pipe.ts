@@ -7,7 +7,7 @@ import { hyphenateHTMLSync } from 'hyphen/de';
 export class HyphenatePipe implements PipeTransform {
 
     /** @inheritdoc */
-    transform(value: string): string {
+    public transform(value: string): string {
         return hyphenateHTMLSync(value);
     }
 

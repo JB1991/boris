@@ -40,10 +40,10 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     /** @inheritdoc */
-    ngOnInit(): void {
+    public ngOnInit(): void {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
-            this.update(true);
+            void this.update(true);
         }
     }
 
@@ -54,7 +54,7 @@ export class PublicDashboardComponent implements OnInit {
             this.desc = false;
         }
         this.sort = sort;
-        this.update(false);
+        void this.update(false);
     }
 
     public async update(navigate: boolean): Promise<void> {
@@ -97,7 +97,7 @@ export class PublicDashboardComponent implements OnInit {
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             /* istanbul ignore else */
             if (navigate) {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+                void this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }

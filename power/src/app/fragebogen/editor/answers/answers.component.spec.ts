@@ -9,7 +9,7 @@ describe('Fragebogen.Editor.AnswersComponent', () => {
     let fixture: ComponentFixture<AnswersComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 CommonModule,
                 FormsModule

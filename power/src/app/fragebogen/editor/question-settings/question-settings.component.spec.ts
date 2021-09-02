@@ -25,7 +25,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     const formContent = require('../../../../testdata/fragebogen/form-content.json');
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),

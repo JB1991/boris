@@ -12,7 +12,7 @@ describe('Fragebogen.Home.HomeComponent', () => {
     let fixture: ComponentFixture<HomeComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 FormsModule,

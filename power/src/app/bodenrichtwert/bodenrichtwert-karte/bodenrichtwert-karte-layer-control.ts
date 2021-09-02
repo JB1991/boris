@@ -14,7 +14,7 @@ export default class BodenrichtwertKarteLayerControl {
      * @param map Map
      * @returns a div container including a button and i element
      */
-    onAdd(map: Map) {
+    public onAdd(map: Map): HTMLDivElement {
         this.map = map;
         this.btn = document.createElement('button');
         this.btn.className = 'btn';
@@ -51,7 +51,7 @@ export default class BodenrichtwertKarteLayerControl {
     /**
      * onRemove removes the html container and the map
      */
-    onRemove() {
+    public onRemove(): void {
         if (this.container && this.container.parentNode) {
             this.container.parentNode.removeChild(this.container);
         }

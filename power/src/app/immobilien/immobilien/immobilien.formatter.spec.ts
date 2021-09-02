@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';

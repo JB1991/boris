@@ -18,7 +18,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     const teilmarkt = { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' };
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 BodenrichtwertDetailComponent,
                 BeitragPipe,

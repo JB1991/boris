@@ -18,7 +18,7 @@ export class UmlautCorrectionPipe implements PipeTransform {
     ]);
 
     /** @inheritdoc */
-    transform(value: string): string {
+    public transform(value: string): string {
         if (!value) {
             return '';
         }

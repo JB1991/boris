@@ -71,7 +71,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private location: Location) { }
 
     /** @inheritdoc */
-    ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes: SimpleChanges): void {
         if (this.latLng &&
             (changes['latLng'] || changes['teilmarkt'] || changes['stichtag'])) {
             this.updateData();
@@ -81,7 +81,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     /**
      * updateData updates the address, bodenrichtwerte and the flurstueck
      */
-    public updateData() {
+    public updateData(): void {
         const lat = this.latLng.lat;
         const lng = this.latLng.lng;
         this.getAddressFromLatLng(lat, lng);
@@ -197,7 +197,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onAddressChange emits the selected location (latLng) on gesearch item is selected
      * @param feature feature
      */
-    public onAddressChange(feature: Feature<Point>) {
+    public onAddressChange(feature: Feature<Point>): void {
         this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][0], feature?.geometry['coordinates'][1]));
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
@@ -234,7 +234,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     /**
      * resetMap resets all configurations set/made by the user
      */
-    public resetMap() {
+    public resetMap(): void {
         if (this.latLng) {
             this.latLngChange.emit(undefined);
         }
@@ -273,7 +273,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     /**
      * onFocus emits the current location to trigger a map focus
      */
-    public onFocus() {
+    public onFocus(): void {
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }

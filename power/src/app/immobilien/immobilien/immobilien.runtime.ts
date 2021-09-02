@@ -137,7 +137,7 @@ export class NipixRuntime {
         }
     }
 
-    public translateArray(input: any, key = 'name') {
+    public translateArray(input: any, key = 'name'): any {
         const cpy = JSON.parse(JSON.stringify(input));
 
         for (let i = 0; i < cpy.length; i++) {
@@ -149,15 +149,15 @@ export class NipixRuntime {
         return cpy;
     }
 
-    public resetDrawPresets() {
+    public resetDrawPresets(): void {
         this.drawPresets = JSON.parse(JSON.stringify(this.nipixStatic.data.presets));
     }
 
-    public updateAvailableNipixCategories() {
+    public updateAvailableNipixCategories(): void {
         this.availableNipixCategories = Object.keys(this.nipixStatic.data.nipix);
     }
 
-    public updateAvailableQuartal(lastYear: number, lastPeriod: number) {
+    public updateAvailableQuartal(lastYear: number, lastPeriod: number): void {
 
         this.availableQuartal = new Array<any>();
 
@@ -177,7 +177,7 @@ export class NipixRuntime {
      *
      * @param drawname Name of the draw object.
      */
-    public toggleNipixCategory(drawname: string) {
+    public toggleNipixCategory(drawname: string): void {
         for (let i = 0; i < this.drawPresets.length; i++) {
             if (this.drawPresets[i]['name'] === drawname) {
                 if (this.drawPresets[i]['nipixCategory'] === 'gebrauchte Eigenheime') {
@@ -196,7 +196,7 @@ export class NipixRuntime {
      * @param name Name of the draw Object
      * @returns draw Object
      */
-    public getDrawPreset(name: string) {
+    public getDrawPreset(name: string): any {
         const result = this.drawPresets.filter(drawitem => drawitem['name'] === name);
 
         if (result.length === 1) {
@@ -209,7 +209,7 @@ export class NipixRuntime {
     /**
      * timeout handler for diable highlight
      */
-    public highlightTimeout() {
+    public highlightTimeout(): void {
         this.highlightedTimeout = null;
         this.state.highlightedSeries = '';
         this.updateMapSelect();
@@ -218,7 +218,7 @@ export class NipixRuntime {
     /**
      * Reset the highlighted Map (before) timeout
      */
-    public resetHighlight() {
+    public resetHighlight(): void {
         if (this.highlightedTimeout) {
             clearTimeout(this.highlightedTimeout);
         }
@@ -232,7 +232,7 @@ export class NipixRuntime {
      *
      * @param seriesName name of the series to highlight
      */
-    public highlightSeries(seriesName: string) {
+    public highlightSeries(seriesName: string): void {
         if (this.state.highlightedSeries !== seriesName) {
 
             if (this.highlightedTimeout !== null) {
@@ -262,12 +262,12 @@ export class NipixRuntime {
     /**
      * Generates the drawdata from the given draw array
      */
-    public calculateDrawData() {
+    public calculateDrawData(): void {
         this.calculator.calculateDrawData();
     }
 
 
-    public updateRange(range_start: number, range_end: number) {
+    public updateRange(range_start: number, range_end: number): void {
         if (this.state.rangeStartIndex === 0) {
             this.state.rangeStartIndex =
                 Math.round((this.availableQuartal.length - 1) / 100 * range_start);
@@ -284,7 +284,7 @@ export class NipixRuntime {
      * Update the Selection of the Map aware of the activer Draw Item
      * @param id id
      */
-    public updateMapSelect(id: string | null = null) {
+    public updateMapSelect(id: string | null = null): void {
         if (this.map.obj === null) {
             return;
         }

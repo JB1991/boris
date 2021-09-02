@@ -9,7 +9,7 @@ describe('Shared.Alerts.AlertsComponent', () => {
     let fixture: ComponentFixture<AlertsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             providers: [
                 AlertsService
             ],

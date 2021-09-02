@@ -8,7 +8,7 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
     let fixture: ComponentFixture<ConditionsComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [
                 ConditionsComponent
             ],

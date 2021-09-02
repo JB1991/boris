@@ -14,7 +14,7 @@ describe('Fragebogen.Details.PublishComponent', () => {
     let fixture: ComponentFixture<PublishComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),

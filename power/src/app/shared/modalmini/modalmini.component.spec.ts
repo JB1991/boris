@@ -9,7 +9,7 @@ describe('Shared.ModalminiComponent', () => {
     let fixture: ComponentFixture<ModalminiComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 CommonModule,
                 ModalModule.forRoot()

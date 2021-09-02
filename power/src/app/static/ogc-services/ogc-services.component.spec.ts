@@ -10,7 +10,7 @@ describe('OgcServicesComponent', () => {
     let fixture: ComponentFixture<OgcServicesComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule.withRoutes([]),
                 BrowserAnimationsModule,

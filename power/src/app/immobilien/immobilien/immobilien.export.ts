@@ -17,7 +17,7 @@ export class ImmobilienExport {
 
     public exportChart = false;
 
-    static geoJsonHeader = {
+    public static geoJsonHeader = {
         'type': 'FeatureCollection',
         'name': 'womareg',
         'crs': { 'type': 'name', 'properties': { 'name': 'urn:ogc:def:crs:EPSG::3044' } },
@@ -29,7 +29,7 @@ export class ImmobilienExport {
         this.nipixRuntime = niRuntime;
     }
 
-    public exportMapAsImage() {
+    public exportMapAsImage(): void {
         const img = this.nipixRuntime.map.obj.getDataURL({
             type: 'png',
             pixelRatio: 2,
@@ -42,14 +42,14 @@ export class ImmobilienExport {
     /**
      * Download current Diagram Data as csv
      */
-    public exportAsImage() {
+    public exportAsImage(): void {
         this.exportChart = true;
         this.nipixRuntime.chart.obj.resize({ width: this.nipixStatic.chartExportWidth });
         this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeHide);
 
     }
 
-    private exportAsImageFinish() {
+    private exportAsImageFinish(): void {
 
         this.exportChart = false;
 
@@ -69,7 +69,7 @@ export class ImmobilienExport {
     /*
      * Download GeoJSON fronm Map
      */
-    public exportGeoJSON() {
+    public exportGeoJSON(): void {
         const data = echarts.getMap('NDS').geoJson;
 
         let exportFilter = [];
@@ -89,7 +89,7 @@ export class ImmobilienExport {
         ImmobilienHelper.downloadFile(JSON.stringify(data), 'Wohnungsmarktregionen.geojson');
     }
 
-    public chartRenderFinished() {
+    public chartRenderFinished(): void {
         if (this.exportChart) {
             this.exportAsImageFinish();
         }
@@ -99,7 +99,7 @@ export class ImmobilienExport {
      * Export GeoJSON with Nipix
      * @param geoJSON True for geoJSON export, otherwise CSV
      */
-    public exportNiPixGeoJson(geoJSON = true) {
+    public exportNiPixGeoJson(geoJSON = true): void {
         if (this.nipixRuntime.chart.obj === null) {
             return;
         }
@@ -168,7 +168,7 @@ export class ImmobilienExport {
     }
 
 
-    private exportNiPixGeoJsonCSV(drawitem: any, date: string, series: any, istart: number, iend: number) {
+    private exportNiPixGeoJsonCSV(drawitem: any, date: string, series: any, istart: number, iend: number): any[] {
         const tmp = [];
         if (drawitem['type'] === 'single') {
             for (let s = 0; s < drawitem['values'].length; s++) {
@@ -209,7 +209,7 @@ export class ImmobilienExport {
      * @param tend Timeslot end date
      * @returns Timeslot array or empty array if region not found
      */
-    private getNiPixTimeslot(date: string, series: any, region: string, tstart: number, tend: number) {
+    private getNiPixTimeslot(date: string, series: any, region: string, tstart: number, tend: number): any[] {
         let data = null;
         let datafaelle = 0;
 

@@ -14,7 +14,7 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
     let fixture: ComponentFixture<MaketaskComponent>;
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),
@@ -44,10 +44,6 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         expect(component.modal?.isOpen).toBeTrue();
         component.modal?.close();
         expect(component.modal?.isOpen).toBeFalse();
-    });
-
-    afterEach(() => {
-
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

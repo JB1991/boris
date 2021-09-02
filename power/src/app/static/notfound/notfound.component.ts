@@ -18,7 +18,7 @@ export class NotfoundComponent implements OnDestroy {
     }
 
     /** @inheritdoc */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         // reset robots
         this.seo.setAllowRobots(true);
     }

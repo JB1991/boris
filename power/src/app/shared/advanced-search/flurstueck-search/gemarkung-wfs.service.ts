@@ -38,7 +38,7 @@ export class GemarkungWfsService {
      * Updates the features by feeding a new value to the Subject
      * @param feature New feature
      */
-    public updateFeatures(feature: Feature) {
+    public updateFeatures(feature: Feature): void {
         this.features.next(feature);
     }
 

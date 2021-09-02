@@ -19,7 +19,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     registerLocaleData(localeDe);
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
             providers: [
                 { provide: LOCALE_ID, useValue: 'de' },

@@ -29,7 +29,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // set config
         environment.config = { modules: ['forms', 'feedback'], localized: false, languages: [], version: { version: '', branch: '' } };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/nipix' } as RouterStateSnapshot).then((value) => {
+        void guard.canActivate(new ActivatedRouteSnapshot(), { url: '/nipix' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeFalse();
             done();
         });
@@ -39,7 +39,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // set config
         environment.config = { modules: ['forms', 'feedback'], localized: false, languages: [], version: { version: '', branch: '' } };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/forms/dashboard' } as RouterStateSnapshot)
+        void guard.canActivate(new ActivatedRouteSnapshot(), { url: '/forms/dashboard' } as RouterStateSnapshot)
             .then((value) => {
                 expect(value).toBeTrue();
                 done();

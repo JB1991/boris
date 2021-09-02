@@ -23,7 +23,7 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
     const stichtag = '2018-12-31';
 
     beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
+        void TestBed.configureTestingModule({
             declarations: [BodenrichtwertNavigationComponent],
             imports: [
                 CommonModule,
