@@ -8,8 +8,7 @@ import { createWindow } from 'domino';
 
 import { AppServerModule } from './main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { LOCALE_ID } from '@angular/core';
-import { enableProdMode } from '@angular/core';
+import { LOCALE_ID, enableProdMode } from '@angular/core';
 
 enableProdMode();
 const template = readFileSync(join('dist/power/browser/de', 'index.html')).toString();

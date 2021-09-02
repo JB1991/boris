@@ -64,10 +64,6 @@
                     "error",
                     "never"
                 ],
-                "quotes": [
-                    "error",
-                    "single"
-                ],
                 "quote-props": "off",
                 "space-before-function-paren": "off",
                 "spaced-comment": [
@@ -85,19 +81,47 @@
                         ]
                     }
                 ],
-                "@typescript-eslint/no-empty-function": "off",
+                "quotes": [
+                    "error",
+                    "single"
+                ],
+                "@typescript-eslint/quotes": "off",
+                "no-duplicate-imports": "off",
+                "@typescript-eslint/no-duplicate-imports": "error",
+                "no-implied-eval": "off",
+                "@typescript-eslint/no-implied-eval": "error",
+                "no-empty-function": "off",
+                "@typescript-eslint/no-empty-function": "warn",
+                "no-invalid-this": "off",
+                "@typescript-eslint/no-invalid-this": "error",
+                "no-loop-func": "off",
+                "@typescript-eslint/no-loop-func": "error",
+                "no-shadow": "off",
+                "@typescript-eslint/no-shadow": "error",
+                "@typescript-eslint/no-misused-promises": "error",
+                "@typescript-eslint/no-misused-new": "error",
+                "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+                "@typescript-eslint/no-non-null-assertion": "error",
+                "@typescript-eslint/no-empty-interface": "error",
+                "@typescript-eslint/no-dynamic-delete": "error",
                 "@typescript-eslint/no-var-requires": "off",
+                "@typescript-eslint/no-explicit-any": "warn",
                 "@typescript-eslint/consistent-type-assertions": "error",
-                "@typescript-eslint/dot-notation": "off",
                 "@typescript-eslint/member-ordering": "off",
                 "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/prefer-for-of": "off",
-                "@typescript-eslint/quotes": "off",
-                "@typescript-eslint/no-unused-vars": "off",
-                "@typescript-eslint/no-explicit-any": "off",
-                "@typescript-eslint/explicit-module-boundary-types": "off",
                 "@angular-eslint/component-selector": "off",
                 "@angular-eslint/directive-selector": "off",
+                "@typescript-eslint/no-floating-promises": "warn",
+                "@typescript-eslint/explicit-member-accessibility": [
+                    "warn",
+                    {
+                        "overrides": {
+                            "constructors": "off"
+                        }
+                    }
+                ],
+                "@typescript-eslint/no-invalid-void-type": "error",
                 "jsdoc/require-jsdoc": [
                     "warn",
                     {
@@ -130,7 +154,7 @@
                 "scanjs-rules/accidental_assignment": 1,
                 "scanjs-rules/assign_to_hostname": 1,
                 "scanjs-rules/assign_to_href": 1,
-                "scanjs-rules/assign_to_location": 1,
+                "scanjs-rules/assign_to_location": "off",
                 "scanjs-rules/assign_to_onmessage": 1,
                 "scanjs-rules/assign_to_pathname": 1,
                 "scanjs-rules/assign_to_protocol": 1,
@@ -156,7 +180,7 @@
                 "scanjs-rules/property_crypto": 1,
                 "scanjs-rules/property_getUserMedia": 1,
                 "scanjs-rules/property_indexedDB": 1,
-                "scanjs-rules/property_localStorage": 1,
+                "scanjs-rules/property_localStorage": "off",
                 "scanjs-rules/property_mgmt": 1,
                 "scanjs-rules/property_sessionStorage": 1
             }

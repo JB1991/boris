@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
-import { SimpleChanges } from '@angular/core';
+import { SimpleChanges, LOCALE_ID } from '@angular/core';
 import * as echarts from 'echarts';
-import { LOCALE_ID } from '@angular/core';
 import { CommonModule, DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 

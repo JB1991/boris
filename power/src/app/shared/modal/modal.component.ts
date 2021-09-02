@@ -32,7 +32,7 @@ export class ModalComponent implements OnDestroy {
     ) { }
 
     /** @inheritdoc */
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();
         }
@@ -42,7 +42,8 @@ export class ModalComponent implements OnDestroy {
      * Handles escape key pressed event
      * @param event KeyboardEvent
      */
-    @HostListener('document:keyup.escape', ['$event']) onKeydownHandler(event: KeyboardEvent): void {
+    @HostListener('document:keyup.escape', ['$event'])
+    public onKeydownHandler(event: KeyboardEvent): void {
         /* istanbul ignore next */
         if (document.getElementsByClassName('modal-backdrop').length !== 0) {
             return;

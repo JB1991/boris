@@ -82,6 +82,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         expect(res).toEqual('value');
     });
 
+    /*
     it('ImmobilienHelper.downloadFile works', function () {
         let clicked = false;
         const anchor = Object.create(HTMLElement.prototype);
@@ -119,6 +120,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         expect(clicked).toEqual(true);
 
     });
+    */
 
     it('ImmobilienHelper.convertArrayToCSV works', function () {
         const data = [

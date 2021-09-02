@@ -20,7 +20,7 @@ export class AuthService {
         /* istanbul ignore else */
         if (localStorage) {
             // load session
-            this.loadSession(true);
+            void this.loadSession(true);
         }
     }
 
@@ -113,8 +113,8 @@ export class AuthService {
 
             // set refresh timeout
             /* eslint-disable-next-line scanjs-rules/call_setTimeout */
-            this.timerHandle = setTimeout(async () => {
-                await this.loadSession(true);
+            this.timerHandle = setTimeout(() => {
+                void this.loadSession(true);
             }, 5 * 60000);
         }
     }
@@ -336,9 +336,9 @@ export type Role = 'user' | 'editor' | 'manager' | 'admin';
  * Represents userdata
  */
 export class User {
-    expires?: Date;
-    token?: JWTToken;
-    data?: UserDetails;
+    public expires?: Date;
+    public token?: JWTToken;
+    public data?: UserDetails;
 }
 
 /**
