@@ -20,8 +20,7 @@ const bodTypes = [
 })
 export class BodenartPipe implements PipeTransform {
 
-
-    public regex: RegExp[] = [
+    public readonly regex: RegExp[] = [
         // 3 chars
         /^([a-z]{1})([A-Z]{2})/, // aBC , z.B. sLT
         /^([A-Z]{1})([A-Z]{1}[a-z]{1})/, // ABc , z.B. SMo

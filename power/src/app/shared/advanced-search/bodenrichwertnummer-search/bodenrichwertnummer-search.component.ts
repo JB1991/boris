@@ -63,7 +63,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param feature GeoJSON feature
      * @returns inputFormatter
      */
-    public inputFormatter = (feature: Feature): string =>
+    public readonly inputFormatter = (feature: Feature): string =>
         feature.properties?.['wnum'] + ' - ' + feature.properties?.['brzname'];
 
     /**
@@ -144,7 +144,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param text$ Input as Observable
      * @returns search
      */
-    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
+    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

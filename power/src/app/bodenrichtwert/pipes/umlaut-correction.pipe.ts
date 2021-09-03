@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class UmlautCorrectionPipe implements PipeTransform {
 
-    public corrections: Map<string, string> = new Map([
+    public readonly corrections: Map<string, string> = new Map([
         ['Buero, hochw. Dienste', 'Büro, hochw. Dienste'],
         ['Handel, Geschaefte', 'Handel, Geschäfte'],
         ['Verbrauchermaerkte', 'Verbrauchermärkte'],

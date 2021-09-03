@@ -12,7 +12,7 @@ import { environment } from '@env/environment';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartComponent {
-    public config = environment.config;
+    public readonly config = environment.config;
     public cardorder = new Array<string>();
     public pin = '';
 

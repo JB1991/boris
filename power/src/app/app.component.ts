@@ -31,10 +31,10 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public showBrowserNotice = true;
     public showOfflineNotice = true;
     public showIENotice = false;
-    public config = environment.config;
+    public readonly config = environment.config;
     public appVersion: FrontendVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
-    public uri = location;
+    public readonly uri = location;
     public baseurl = location.pathname + location.search;
 
     private _subscription: Subscription;

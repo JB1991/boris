@@ -10,7 +10,7 @@ import { Feature, FeatureCollection } from 'geojson';
 export class GeosearchService {
 
     // Geosearch URL
-    private url = '/geocoding/geosearch/';
+    private readonly url = '/geocoding/geosearch/';
 
     // Subject with feature object which contains a geometry and associated properties
     private features = new Subject<Feature>();

@@ -24,16 +24,16 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public map: Map;
 
     // baseUrl
-    public baseUrl = environment.baseurl;
+    public readonly baseUrl = environment.baseurl;
 
     // map style url
-    public MAP_STYLE_URL = environment.basemap;
+    public readonly MAP_STYLE_URL = environment.basemap;
 
     // font
     // public font = 'Klokantech Noto Sans Regular';
 
     // NDS Bounds Maplibre Type
-    public bounds = new LngLatBounds([
+    public readonly bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
 
@@ -46,9 +46,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     });
 
     // Bremen - Tile Source, Bounds, Source
-    public brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
+    public readonly brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
 
-    public brTiles = '/geoserver/gwc/service/wmts?'
+    public readonly brTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -59,17 +59,17 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public bremenSource: VectorSource = {
+    public readonly bremenSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.brTiles],
         bounds: this.brBounds
     };
 
     // NDS - Tile Sources, Bounds, Source
-    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+    public readonly ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
 
     // Bodenrichtwerte
-    public ndsTiles = '/geoserver/gwc/service/wmts?'
+    public readonly ndsTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -80,14 +80,14 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsSource: VectorSource = {
+    public readonly ndsSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsTiles],
         bounds: this.ndsBounds
     };
 
     // Sanierungsgebiete - Verg (Verfahrensgrundlage)
-    public ndsVergTiles = '/geoserver/gwc/service/wmts?'
+    public readonly ndsVergTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -98,14 +98,14 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsVergSource: VectorSource = {
+    public readonly ndsVergSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsVergTiles],
         bounds: this.ndsBounds
     };
 
     // Flurstuecke
-    public ndsFstTiles = '/geoserver/gwc/service/wmts?'
+    public readonly ndsFstTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -116,7 +116,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsFstSource: VectorSource = {
+    public readonly ndsFstSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsFstTiles],
         bounds: this.ndsBounds

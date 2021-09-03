@@ -29,7 +29,7 @@ export class GeosearchComponent implements OnChanges {
      * @param feature GeoJSON feature
      * @returns text property of the feature
      */
-    public inputFormatter = (feature: Feature): string => {
+    public readonly inputFormatter = (feature: Feature): string => {
         if (feature.properties) {
             return feature.properties['text'];
         }
@@ -77,7 +77,7 @@ export class GeosearchComponent implements OnChanges {
      * @param text$ Input as Observable
      * @returns Observable
      */
-    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
+    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

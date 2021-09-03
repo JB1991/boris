@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import { Injectable, SimpleChange } from '@angular/core';
-import { Feature, FeatureCollection, Geometry } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { FillExtrusionLayer, Map } from 'maplibre-gl';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
@@ -17,12 +17,12 @@ export interface ExtrusionLayerOptions {
 export class BodenrichtwertKarte3dLayerService {
 
     // layer ids for label layer (Bauland, Landwirtschaft)
-    public layerNamesB = ['bauland', 'bauland_bremen'];
-    public layerNamesLF = ['landwirtschaft', 'landwirtschaft_bremen'];
+    public readonly layerNamesB = ['bauland', 'bauland_bremen'];
+    public readonly layerNamesLF = ['landwirtschaft', 'landwirtschaft_bremen'];
 
     // layer ids of label layer (Bauland, Landwirtschaft)
-    public layerLabelB = 'bauland_labels';
-    public layerLabelLF = 'landwirtschaft_labels';
+    public readonly layerLabelB = 'bauland_labels';
+    public readonly layerLabelLF = 'landwirtschaft_labels';
 
     // active3dLayer contains the current 3d layer state
     public active3dLayer = false;
@@ -31,7 +31,7 @@ export class BodenrichtwertKarte3dLayerService {
     public minPitch = 20;
 
     // baulandOptions contains the display options for the bauland extrustion layer
-    public baulandOptions: ExtrusionLayerOptions = {
+    public readonly baulandOptions: ExtrusionLayerOptions = {
         extrusionHeight: 50,
         gapHeight: 25,
         minZoom: 11,
@@ -39,7 +39,7 @@ export class BodenrichtwertKarte3dLayerService {
     };
 
     // landwirtschaftOptions contains the display options for the landwirtschaft extrustion layer
-    public landwirtschaftOptions: ExtrusionLayerOptions = {
+    public readonly landwirtschaftOptions: ExtrusionLayerOptions = {
         extrusionHeight: 250,
         gapHeight: 100,
         minZoom: 10,
@@ -47,7 +47,7 @@ export class BodenrichtwertKarte3dLayerService {
     };
 
     // extrusionLayer template for the extrusion layers
-    public extrusionLayer: FillExtrusionLayer = {
+    public readonly extrusionLayer: FillExtrusionLayer = {
         'id': '',
         'type': 'fill-extrusion',
         'source': 'geoserver_nds_br',
@@ -56,7 +56,7 @@ export class BodenrichtwertKarte3dLayerService {
     };
 
     // gapLayer tamplate for the hidden gap layers
-    public gapLayer: FillExtrusionLayer = {
+    public readonly gapLayer: FillExtrusionLayer = {
         'id': '',
         'type': 'fill-extrusion',
         'source': 'geoserver_nds_br',
@@ -179,8 +179,8 @@ export class BodenrichtwertKarte3dLayerService {
      * @param stichtag stichtag
      * @returns returns the filtered features
      */
-    public filterCollectionByStag(fts: FeatureCollection, stichtag: string
-    ): Array<Feature<Geometry, { [name: string]: any; }>> {
+    public filterCollectionByStag(fts: FeatureCollection, stichtag: string):
+        Array<Feature<Geometry, GeoJsonProperties>> {
         const filteredFts = fts.features.filter(ft =>
             ft.properties?.['stag'].substr(0, 10) === stichtag
         );

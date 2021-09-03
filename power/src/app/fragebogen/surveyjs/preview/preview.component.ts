@@ -22,7 +22,7 @@ export class PreviewComponent {
     public language = 'de';
     public showInvisible = false;
     public isVisible = false;
-    public languages = surveyLocalization.localeNames;
+    public readonly languages = surveyLocalization.localeNames;
 
     constructor(public cdr: ChangeDetectorRef) { }
 

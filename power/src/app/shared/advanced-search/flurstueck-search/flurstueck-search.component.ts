@@ -70,7 +70,7 @@ export class FlurstueckSearchComponent {
      * @param feature GeoJSON feature
      * @returns formatted input
      */
-    public inputFormatter = (feature: Feature): string => {
+    public readonly inputFormatter = (feature: Feature): string => {
         if (feature.properties?.['gemarkung']) {
             return feature.properties['gemarkung'] + ' (' +
                 feature.properties['gemarkungsschluessel'] + ')' +
@@ -134,7 +134,7 @@ export class FlurstueckSearchComponent {
      * @param text$ Input as Observable
      * @returns Search Observable
      */
-    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
+    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

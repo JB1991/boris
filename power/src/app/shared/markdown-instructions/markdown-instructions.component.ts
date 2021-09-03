@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./markdown-instructions.component.scss']
 })
 export class MarkdownInstructionsComponent {
-    public title = $localize`Hilfe zur Formatierung`;
+    public readonly title = $localize`Hilfe zur Formatierung`;
 
     constructor() {
         // This is intentional

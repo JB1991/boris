@@ -20,7 +20,7 @@ export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper?: WrapperComponent;
     public language = 'de';
     public submitted = false;
-    public languages = surveyLocalization.localeNames;
+    public readonly languages = surveyLocalization.localeNames;
 
     public pin = '';
     public form?: PublicForm;

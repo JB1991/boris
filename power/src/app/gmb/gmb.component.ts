@@ -21,9 +21,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     // echarts Components
     @ViewChild('echartsMap') public echartsMap?: ElementRef;
 
-    public downloadPath = '/download';
-    public berichte = GMB_DATA;
-    public kreise = KREISE_DATA;
+    public readonly downloadPath = '/download';
+    public readonly berichte = GMB_DATA;
+    public readonly kreise = KREISE_DATA;
 
     public mode?: string = undefined;
 

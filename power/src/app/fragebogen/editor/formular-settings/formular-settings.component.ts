@@ -19,7 +19,7 @@ export class FormularSettingsComponent {
     @Input() public model: any;
     @Output() public modelChange = new EventEmitter<any>();
     public copy = '';
-    public languages = surveyLocalization.localeNames;
+    public readonly languages = surveyLocalization.localeNames;
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,
