@@ -47,10 +47,12 @@ describe('Fragebogen.Details.SettingsComponent', () => {
      */
     it('should open and close', () => {
         component.open({
-            id: '123',
+            id: '123'
         });
         expect(component.modal?.isOpen).toBeTrue();
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.modal?.isOpen).toBeFalse();
     });
 
@@ -65,7 +67,9 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         expect(component.tags).toEqual(['a']);
         expect(component.groups).toEqual(['b']);
         expect(component.owner).toEqual('1');
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
     });
 
 });

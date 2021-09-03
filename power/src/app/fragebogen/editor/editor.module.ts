@@ -49,7 +49,7 @@ import { SharedModule } from '@app/shared/shared.module';
     ],
     providers: [
         StorageService,
-        HistoryService,
+        HistoryService
     ]
 })
 export class EditorModule { }

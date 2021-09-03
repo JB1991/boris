@@ -77,7 +77,7 @@ export class GeosearchComponent implements OnChanges {
      * @param text$ Input as Observable
      * @returns Observable
      */
-    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
+    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, { [name: string]: any; }>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

@@ -111,10 +111,12 @@ export class ModalComponent implements OnDestroy {
      */
     public scrollToFooter(): void {
         const footer = document.getElementById('footer-' + this.uniqId);
-        footer?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        });
+        if (footer) {
+            footer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 
     /**

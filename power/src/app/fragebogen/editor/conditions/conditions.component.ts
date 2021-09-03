@@ -276,7 +276,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
             question: '',
             operator: 'equal',
             value: null,
-            choices: null,
+            choices: null
         });
         this.modelChanged();
     }

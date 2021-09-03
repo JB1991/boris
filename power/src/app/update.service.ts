@@ -50,7 +50,8 @@ export class UpdateService {
         // delete cache
         if ('caches' in window) {
             console.warn('Deleting cache');
-            void caches.keys().then(keyList => Promise.all(keyList.map(key => caches.delete(key))));
+            void caches.keys().then(async (keyList: string[]) =>
+                Promise.all(keyList.map(async (key: string) => caches.delete(key))));
         }
 
         // unregister service worker

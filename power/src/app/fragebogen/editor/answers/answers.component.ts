@@ -133,7 +133,7 @@ export class AnswersComponent {
 
         // image selected
         input.onchange = (e: Event) => {
-            if (e && e.target) {
+            if (e?.target) {
                 return;
             }
             const file = (e.target as HTMLInputElement).files?.[0];

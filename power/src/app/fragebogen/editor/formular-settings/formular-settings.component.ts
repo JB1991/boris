@@ -31,7 +31,9 @@ export class FormularSettingsComponent {
     public open(): void {
         this.copy = JSON.stringify(this.model);
         this.storage.setAutoSaveEnabled(false);
-        this.modal?.open($localize`Formular Einstellungen`);
+        if (this.modal) {
+            this.modal.open($localize`Formular Einstellungen`);
+        }
     }
 
     /**

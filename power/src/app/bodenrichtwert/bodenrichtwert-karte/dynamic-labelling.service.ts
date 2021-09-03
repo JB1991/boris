@@ -3,7 +3,7 @@ import intersect from '@turf/intersect';
 import union from '@turf/union';
 import { Feature, Geometry } from 'geojson';
 import polylabel from 'polylabel';
-import pointInPolygon from '@turf/boolean-point-in-polygon'
+import pointInPolygon from '@turf/boolean-point-in-polygon';
 
 @Injectable({
     providedIn: 'root'
@@ -15,17 +15,17 @@ export class DynamicLabellingService {
      * @param arr array with longitude, latitude and properties of each point feature
      * @returns array of point features
      */
-    public generatePointFeatures(arr: {
+    public generatePointFeatures(arr: Array<{
         lng: number,
         lat: number,
         properties: any,
-    }[]): Array<Feature<Point>> {
+    }>): Array<Feature<Point>> {
         const features: Array<Feature<Point>> = [];
         arr.forEach(p => {
             features.push(this.makeFeature({
                 type: 'Point',
-                coordinates: [p.lng, p.lat],
-            }, p.properties))
+                coordinates: [p.lng, p.lat]
+            }, p.properties));
         });
 
         return features;
@@ -52,7 +52,7 @@ export class DynamicLabellingService {
                     data[p * bytesPerPixel + 1] = 255;
                     data[p * bytesPerPixel + 2] = 255;
                     data[p * bytesPerPixel + 3] = 255;
-                    continue
+                    continue;
                 }
                 data[p * bytesPerPixel] = 0;
                 data[p * bytesPerPixel + 1] = 0;
@@ -69,10 +69,10 @@ export class DynamicLabellingService {
      * @param mp multiPolygon
      * @returns array of polygons
      */
-    private multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
+    private multiPolygonToPolygons(mp: MultiPolygon): Polygon[] {
         return mp.coordinates.map(f => ({
             type: 'Polygon',
-            coordinates: f,
+            coordinates: f
         }));
     }
 
@@ -86,8 +86,8 @@ export class DynamicLabellingService {
         return {
             type: 'Feature',
             geometry: geom,
-            properties: properties,
-        }
+            properties: properties
+        };
     }
 
 
@@ -100,7 +100,7 @@ export class DynamicLabellingService {
     public unionVectorTilesFeatures(
         fts: Feature[],
         idGetter: (n: Feature) => string
-    ): Feature<Polygon | MultiPolygon>[] {
+    ): Array<Feature<Polygon | MultiPolygon>> {
 
         const unionedFts: Map<string, Feature<Polygon | MultiPolygon>> = new Map();
 
@@ -131,7 +131,7 @@ export class DynamicLabellingService {
      * @param bbox bounding box of the current view
      * @returns intersected polygon feature
      */
-    public intersectFeatureWithBBox(ft: Feature<Polygon | MultiPolygon>, bbox: Polygon): Feature<Polygon>[] {
+    public intersectFeatureWithBBox(ft: Feature<Polygon | MultiPolygon>, bbox: Polygon): Array<Feature<Polygon>> {
         const intersection = intersect(ft, bbox);
         if (!intersection) {
             switch (ft.geometry.type) {

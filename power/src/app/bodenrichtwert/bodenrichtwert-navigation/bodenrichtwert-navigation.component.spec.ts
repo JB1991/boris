@@ -29,11 +29,11 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
                 CommonModule,
                 HttpClientTestingModule,
                 SharedModule,
-                RouterModule.forRoot([]),
+                RouterModule.forRoot([])
             ],
             providers: [
                 DatePipe,
-                BodenrichtwertComponent],
+                BodenrichtwertComponent]
         })
             .compileComponents();
     }));
@@ -62,11 +62,11 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
     it('ngOnChanges should work for changes', () => {
         spyOn(component, 'updateData');
         component.ngOnChanges({
-            latLng: new SimpleChange(false, true, false),
+            latLng: new SimpleChange(false, true, false)
         });
         expect(component.updateData).toHaveBeenCalledTimes(1);
         component.ngOnChanges({
-            teilmarkt: new SimpleChange(true, false, false),
+            teilmarkt: new SimpleChange(true, false, false)
         });
         expect(component.updateData).toHaveBeenCalledTimes(2);
         component.ngOnChanges({

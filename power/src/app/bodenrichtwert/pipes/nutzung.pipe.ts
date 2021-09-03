@@ -40,7 +40,7 @@ const art_der_nutzung = {
     'LG': $localize`Lagerfläche`,
     'AB': $localize`Abbauland`,
     'GF': $localize`Gemeinbedarfsfläche (kein Bauland)`,
-    'SN': $localize`Sondernutzungsfläche`,
+    'SN': $localize`Sondernutzungsfläche`
 };
 
 const ergaenzende_art_der_nutzung = {
@@ -78,11 +78,11 @@ const ergaenzende_art_der_nutzung = {
     'TON': $localize`Abbauland von Ton und Mergel`,
     'TOF': $localize`Abbauland von Torf`,
     'STN': $localize`Steinbruch`,
-    'KOH': $localize`Braunkohletagebau`,
+    'KOH': $localize`Braunkohletagebau`
 };
 
 @Pipe({
-    name: 'nutzung',
+    name: 'nutzung'
 })
 export class NutzungPipe implements PipeTransform {
 

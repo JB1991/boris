@@ -68,7 +68,7 @@ describe('Fragebogen.Editor.StorageService', () => {
                 }, {
                     elements: [
                         { name: 'e3' },
-                        { name: 'e5' },
+                        { name: 'e5' }
                     ]
                 }
             ]

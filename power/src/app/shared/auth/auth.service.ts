@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/array-type */
 /* eslint-disable max-lines */
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
@@ -43,7 +44,7 @@ export class AuthService {
         }
         this.user = JSON.parse(tmp);
         // fix wrong timezone after parsing from json
-        if (this.user && this.user.expires) {
+        if (this.user?.expires) {
             this.user.expires = new Date(this.user.expires);
         }
 
@@ -212,7 +213,7 @@ export class AuthService {
      * @returns User info
      */
     public parseUserinfo(): UserDetails | undefined {
-        if (this.user && this.user.token) {
+        if (this.user?.token) {
             const b64 = this.user.token.access_token.split('.')[1];
             return JSON.parse(atob(b64));
         }
@@ -235,7 +236,7 @@ export class AuthService {
      * @returns True if user is authenticated
      */
     public IsAuthenticated(): boolean {
-        if (this.user && this.user.token && this.user.expires && new Date() < this.user.expires) {
+        if (this.user?.token && this.user?.expires && new Date() < this.user.expires) {
             return true;
         }
         return false;
@@ -269,7 +270,7 @@ export class AuthService {
      * Get groups of user
      * @returns Groups
      */
-    private getGroups(): Array<string> {
+    private getGroups(): string[] {
         if (this.user?.data && this.user?.data.groups && Array.isArray(this.user.data.groups)) {
             return this.user.data.groups;
         }
@@ -283,7 +284,7 @@ export class AuthService {
      * @param groups Groups
      * @returns True if authorized
      */
-    public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
+    public IsAuthorized(roles: Role[], owner: string, groups: string[]): boolean {
         if (!this.IsAuthEnabled()) {
             return true;
         }
@@ -354,7 +355,7 @@ export type JWTToken = {
     'not-before-policy': number;
     session_state: string;
     scope: string;
-}
+};
 
 /**
  * JWT Error
@@ -362,7 +363,7 @@ export type JWTToken = {
 export type JWTError = {
     error: string;
     error_description: string;
-}
+};
 
 /**
  * Keycloak user details
@@ -380,5 +381,5 @@ export type UserDetails = {
     roles: string[];
     auth_time: number;
     exp: number;
-}
+};
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -49,7 +49,9 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         expect(component.modal?.isVisible()).toBeTrue();
         expect(component.mode).toEqual('display');
 
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.modal?.isVisible()).toBeFalse();
         expect(component.data).toBeNull();
 

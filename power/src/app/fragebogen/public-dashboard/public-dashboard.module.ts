@@ -16,7 +16,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
         PublicDashboardRoutingModule,
         HttpClientModule,
         FormsModule,
-        PaginationModule.forRoot(),
+        PaginationModule.forRoot()
     ],
     providers: []
 })

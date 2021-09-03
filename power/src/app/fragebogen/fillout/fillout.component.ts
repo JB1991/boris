@@ -79,7 +79,7 @@ export class FilloutComponent implements AfterViewInit {
      * Set language
      */
     public setLanguage(): void {
-        if (this.wrapper && this.wrapper.survey) {
+        if (this.wrapper?.survey) {
             this.wrapper.survey.locale = this.language;
         }
     }
@@ -98,7 +98,7 @@ export class FilloutComponent implements AfterViewInit {
 
             // check if user language exists in survey
             /* istanbul ignore next */
-            if (this.wrapper && this.wrapper.survey && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
+            if (this.wrapper?.survey?.getUsedLocales().includes(this.locale)) {
                 this.language = this.locale;
                 this.setLanguage();
             }

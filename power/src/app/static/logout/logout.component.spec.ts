@@ -25,7 +25,7 @@ describe('Static.Logout.LogoutComponent', () => {
             ],
             providers: [
                 AuthService,
-                LoadingscreenService,
+                LoadingscreenService
             ]
         }).compileComponents();
 

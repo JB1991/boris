@@ -1,8 +1,8 @@
 export interface Form {
     id?: string;
     owner?: User;
-    groups?: Array<string>;
-    tags?: Array<string>;
+    groups?: string[];
+    tags?: string[];
     extract?: string;
     content?: any;
     access?: Access;
@@ -26,7 +26,7 @@ export interface Task {
 export interface Element {
     id?: string;
     owner?: string;
-    groups?: Array<string>;
+    groups?: string[];
     content?: any;
     created?: string;
     updated?: string;
@@ -37,13 +37,13 @@ export interface User {
     id?: string;
     name?: string;
     role?: string;
-    groups?: Array<string>;
+    groups?: string[];
 }
 
 export interface PublicForm {
     id?: string;
     content?: any;
-    tags?: Array<string>;
+    tags?: string[];
     access?: Access;
     extract?: string;
 }
@@ -57,10 +57,10 @@ export interface PublicTask {
 
 export type FormFilter =
     | {
-        and: Array<FormFilter>;
+        and: FormFilter[];
     }
     | {
-        or: Array<FormFilter>;
+        or: FormFilter[];
     }
     | {
         not: FormFilter;
@@ -95,10 +95,10 @@ export type FormFilter =
 
 export type PublicFormFilter =
     | {
-        and: Array<FormFilter>;
+        and: FormFilter[];
     }
     | {
-        or: Array<FormFilter>;
+        or: FormFilter[];
     }
     | {
         not: FormFilter;
@@ -118,10 +118,10 @@ export type PublicFormFilter =
 
 export type TaskFilter =
     | {
-        and: Array<TaskFilter>;
+        and: TaskFilter[];
     }
     | {
-        or: Array<TaskFilter>;
+        or: TaskFilter[];
     }
     | {
         not: TaskFilter;
@@ -153,10 +153,10 @@ export type TaskFilter =
 
 export type UserFilter =
     | {
-        and: Array<UserFilter>;
+        and: UserFilter[];
     }
     | {
-        or: Array<UserFilter>;
+        or: UserFilter[];
     }
     | {
         not: UserFilter;
@@ -176,10 +176,10 @@ export type UserFilter =
 
 export type ElementFilter =
     | {
-        and: Array<ElementFilter>;
+        and: ElementFilter[];
     }
     | {
-        or: Array<ElementFilter>;
+        or: ElementFilter[];
     }
     | {
         not: ElementFilter;
@@ -205,16 +205,16 @@ export type ElementFilter =
 
 export type GroupTagFilter =
     | {
-    and: Array<GroupTagFilter>;
-}
+        and: GroupTagFilter[];
+    }
     | {
-    or: Array<GroupTagFilter>;
-}
+        or: GroupTagFilter[];
+    }
     | {
-    not: GroupTagFilter;
-} | {
-    name: TextFilter;
-};
+        not: GroupTagFilter;
+    } | {
+        name: TextFilter;
+    };
 
 export type TextFilter =
     | {

@@ -11,11 +11,11 @@ export class SwUpdateServerMock {
     public unrecoverable: Observable<UnrecoverableStateEvent> = new Subject();
     public isEnabled = true;
 
-    public checkForUpdate(): Promise<void> {
-        return new Promise((resolve) => resolve());
+    public checkForUpdate(): void {
+        return;
     }
-    public activateUpdate(): Promise<void> {
-        return new Promise((resolve) => resolve());
+    public activateUpdate(): void {
+        return;
     }
 }
 

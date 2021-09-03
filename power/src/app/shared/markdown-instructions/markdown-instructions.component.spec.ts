@@ -11,14 +11,13 @@ describe('MarkdownInstructionsComponent', () => {
     beforeEach(waitForAsync(() => {
         void TestBed.configureTestingModule({
             declarations: [
-                MarkdownInstructionsComponent,
+                MarkdownInstructionsComponent
             ],
             imports: [
                 CommonModule,
                 SharedModule
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {

@@ -114,7 +114,7 @@ export class BodenrichtwertService {
      * @param entw Teilmarkt
      * @returns returns feature
      */
-    public getFeatureByLatLonEntw(lat: number, lon: number, entw: Array<string>): Observable<FeatureCollection> {
+    public getFeatureByLatLonEntw(lat: number, lon: number, entw: string[]): Observable<FeatureCollection> {
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';
@@ -173,7 +173,7 @@ export class BodenrichtwertService {
      * @param error HTTP error to be handled
      * @returns returns error
      */
-    private static handleError(error: HttpErrorResponse) {
+    private static handleError(error: HttpErrorResponse): Observable<never> {
         return throwError(error);
     }
 }

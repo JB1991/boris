@@ -9,7 +9,7 @@ const bauw = {
     'dh': $localize`Doppelhaushälften`,
     'rh': $localize`Reihenhäuser`,
     'rm': $localize`Reihenmittelhäuser`,
-    're': $localize`Reihenendhäuser`,
+    're': $localize`Reihenendhäuser`
 };
 
 @Pipe({

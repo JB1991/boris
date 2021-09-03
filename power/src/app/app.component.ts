@@ -21,7 +21,7 @@ export type FrontendVersion = {
 @Component({
     selector: 'power-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsed = true;
@@ -102,7 +102,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             this.httpClient.get<FrontendVersion>('/assets/version.json?cache-bust=' + Math.random(),
                 { headers: header, responseType: 'json' }
             ).subscribe(data => {
-                if (data && data['version']) {
+                if (data?.['version']) {
                     this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
                 }
@@ -126,6 +126,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             // eslint-disable-next-line
             // @ts-ignore
             const isIE = /*@cc_on!@*/false || !!document['documentMode']; // eslint-disable-line
+            // eslint-disable-next-line
+            // @ts-ignore
             const isEdge = !isIE && !!window.StyleMedia;
             /* istanbul ignore next */
             if (isIE || isEdge) {

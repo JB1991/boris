@@ -30,7 +30,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 HttpClientTestingModule,
                 BsDropdownModule.forRoot(),
                 SharedModule,
-                RouterModule.forRoot([]),
+                RouterModule.forRoot([])
             ],
             providers: [
                 BodenrichtwertKarteService

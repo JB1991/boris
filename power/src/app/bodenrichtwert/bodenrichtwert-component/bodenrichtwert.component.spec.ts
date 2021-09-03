@@ -76,7 +76,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.features = JSON.parse(JSON.stringify(features));
 
         // Bremerhaven
-        if (component.features && component.features.features[0].properties) {
+        if (component.features?.features[0].properties) {
             component.features.features[0].properties['gema'] = 'Bremerhaven';
         }
         expect(component.features?.features[0]?.properties?.['gema']).toEqual('Bremerhaven');
@@ -85,7 +85,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         expect(component.getStichtag()).toEqual('2019-12-31');
 
         // Bremen
-        if (component.features && component.features.features[0].properties) {
+        if (component.features?.features[0].properties) {
             component.features.features[0].properties['gema'] = 'Bremen';
             component.features.features[0].properties['gabe'] = 'Gutachterausschuss für Grundstückswerte in Bremen';
         }

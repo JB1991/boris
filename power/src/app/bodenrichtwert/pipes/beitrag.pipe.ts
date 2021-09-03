@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 const beitrag = {
     '1': $localize`Erschließungsbeitrags- und kostenerstattungsbetragsfrei`,
     '2': $localize`Erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz`,
-    '3': $localize`Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz`,
+    '3': $localize`Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz`
 };
 
 @Pipe({

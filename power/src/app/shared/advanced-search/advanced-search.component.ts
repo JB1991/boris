@@ -52,18 +52,20 @@ export class AdvancedSearchComponent {
      * closing closes the modal
      */
     public closing(): void {
-        this.modal?.close();
+        if (this.modal) {
+            this.modal.close();
+        }
     }
 
     /**
      * Reset flurstueck-search and bodenrichtwertnummern-search onClose
      */
     public onClose(): void {
-        if (this.flurstueckSearchActive) {
-            this.flurstueckForm?.reset();
+        if (this.flurstueckForm && this.flurstueckSearchActive) {
+            this.flurstueckForm.reset();
         }
-        if (this.bodenrichtwertSearchActive) {
-            this.bodenrichtwertForm?.reset();
+        if (this.bodenrichtwertForm && this.bodenrichtwertSearchActive) {
+            this.bodenrichtwertForm.reset();
         }
     }
 }

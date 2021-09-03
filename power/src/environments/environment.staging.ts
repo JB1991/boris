@@ -10,13 +10,13 @@ export const environment = {
         'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',
         'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-color.json',
         'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-light.json',
-        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-grayscale.json',
+        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-grayscale.json'
     ],
     formAPI: '/formapi/',
     auth: {
         clientid: 'power',
         clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
-        url: 'https://iam.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/',
+        url: 'https://iam.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/'
     },
     config: {
         modules: [
@@ -36,7 +36,7 @@ export const environment = {
         languages: [
             { short: 'de', name: 'Deutsch', url: '' },
             { short: 'de-simple', name: 'Einfache Sprache', url: '/de-simple' },
-            { short: 'en', name: 'English', url: '/en' },
+            { short: 'en', name: 'English', url: '/en' }
         ],
         version: {
             version: 'local',

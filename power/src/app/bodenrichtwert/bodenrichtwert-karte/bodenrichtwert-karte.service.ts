@@ -38,7 +38,7 @@ export class BodenrichtwertKarteService {
      * @returns Height
      */
     public getMapHeight(): number {
-        return this.map.getCanvas().height
+        return this.map.getCanvas().height;
     }
 
     /**
@@ -46,6 +46,6 @@ export class BodenrichtwertKarteService {
      * @returns Width
      */
     public getMapWidth(): number {
-        return this.map.getCanvas().width
+        return this.map.getCanvas().width;
     }
 }

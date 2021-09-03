@@ -117,7 +117,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'deleteForm').and.returnValue(Promise.resolve({
             id: '123',
-            status: 200,
+            status: 200
         }));
 
         spyOn(window, 'confirm').and.returnValue(true);
@@ -198,7 +198,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         spyOn(component.formapi, 'deleteTask').and.returnValue(Promise.resolve({
             id: '123',
-            status: 200,
+            status: 200
         }));
 
         spyOn(window, 'confirm').and.returnValue(true);
@@ -264,7 +264,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         spyOn(component.formapi, 'updateTask').and.returnValue(Promise.resolve({
             message: 'success',
-            status: 200,
+            status: 200
         }));
 
         spyOn(window, 'confirm').and.returnValue(true);
@@ -325,7 +325,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         spyOn(component.formapi, 'updateTask').and.returnValue(Promise.resolve({
             message: 'success',
-            status: 200,
+            status: 200
         }));
 
         spyOn(window, 'confirm').and.returnValue(true);
@@ -420,7 +420,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getTasks').and.returnValue(Promise.resolve({
             tasks: [],
             total: 100,
-            status: 200,
+            status: 200
         }));
         component.taskStatus = 'created';
         component.id = '123';
@@ -505,7 +505,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateForm');
         void component.updateFormEvent({
-            id: '123',
+            id: '123'
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
@@ -520,7 +520,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateForm');
         void component.publishFormEvent({
             id: '123',
-            access: 'public',
+            access: 'public'
         }).then(() => {
             expect(component.updateForm).toHaveBeenCalledTimes(1);
             done();
@@ -532,7 +532,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateForm');
         void component.publishFormEvent({
             id: '123',
-            access: 'public',
+            access: 'public'
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
@@ -547,7 +547,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         void component.commentTaskEvent({
             id: '123',
-            description: 'text',
+            description: 'text'
         }).then(() => {
             expect(component.updateTasks).toHaveBeenCalledTimes(1);
             done();
@@ -559,7 +559,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         void component.commentTaskEvent({
             id: '123',
-            description: 'text',
+            description: 'text'
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
@@ -580,12 +580,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'createTask').and.returnValue(Promise.resolve({
             ids: ['123'],
             pins: ['123456'],
-            status: 200,
+            status: 200
         }));
         spyOn(component, 'updateTasks');
         void component.createTaskEvent({
             amount: 10,
-            copyvalue: true,
+            copyvalue: true
         }).then(() => {
             expect(component.updateTasks).toHaveBeenCalledTimes(1);
             done();
@@ -598,7 +598,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         void component.createTaskEvent({
             amount: 10,
-            copyvalue: true,
+            copyvalue: true
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();

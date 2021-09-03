@@ -65,7 +65,10 @@ export class StartComponent {
      * @param id Element id
      */
     public scrollToElement(id: string): void {
-        document.getElementById(id)?.scrollIntoView();
+        const ele = document.getElementById(id);
+        if (ele) {
+            ele.scrollIntoView();
+        }
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

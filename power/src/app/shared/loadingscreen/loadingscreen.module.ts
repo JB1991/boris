@@ -9,7 +9,7 @@ import { LoadingscreenService } from './loadingscreen.service';
         LoadingscreenComponent
     ],
     imports: [
-        CommonModule,
+        CommonModule
     ],
     exports: [
         LoadingscreenComponent

@@ -36,11 +36,11 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                 Title,
                 AlertsService,
                 LoadingscreenService,
-                FormAPIService,
+                FormAPIService
             ],
             declarations: [
                 DashboardComponent,
-                MockNewformComponent,
+                MockNewformComponent
             ]
         }).compileComponents();
 
@@ -119,7 +119,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve({
             tasks: [],
             total: 100,
-            status: 200,
+            status: 200
         }));
         component.taskStatus = 'created';
         void component.updateTasks(false).then(() => {
@@ -140,7 +140,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed deleteForm', (done) => {
         spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.resolve({
             id: '123',
-            status: 200,
+            status: 200
         }));
         spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(true);
@@ -153,7 +153,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed deleteForm 2', (done) => {
         spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.resolve({
             id: '123',
-            status: 200,
+            status: 200
         }));
         spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(false);
@@ -278,7 +278,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 class MockNewformComponent {
     @ViewChild('modal') public modal?: ModalminiComponent;
     @Output() public out = new EventEmitter<Form>();
-    @Input() public tags: Array<string> = [];
+    @Input() public tags = new Array<string>();
 }
 @Component({
     selector: 'power-forms-home',

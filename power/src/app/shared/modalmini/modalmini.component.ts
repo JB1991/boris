@@ -74,7 +74,9 @@ export class ModalminiComponent implements OnDestroy {
 
         // close modal
         this.isOpen = false;
-        this.modal?.hide();
+        if (this.modal) {
+            this.modal.hide();
+        }
         this.cdr.detectChanges();
 
         // focus

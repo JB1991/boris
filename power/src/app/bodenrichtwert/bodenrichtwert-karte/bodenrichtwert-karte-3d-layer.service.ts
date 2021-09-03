@@ -180,7 +180,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @returns returns the filtered features
      */
     public filterCollectionByStag(fts: FeatureCollection, stichtag: string
-    ): Feature<Geometry, { [name: string]: any; }>[] {
+    ): Array<Feature<Geometry, { [name: string]: any; }>> {
         const filteredFts = fts.features.filter(ft =>
             ft.properties?.['stag'].substr(0, 10) === stichtag
         );

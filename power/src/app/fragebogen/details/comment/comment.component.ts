@@ -25,7 +25,9 @@ export class CommentComponent {
     public open(task: Task): void {
         this.id = task.id ? task.id : '';
         this.description = task.description ? task.description : '';
-        this.modal?.open($localize`Kommentar`);
+        if (this.modal) {
+            this.modal.open($localize`Kommentar`);
+        }
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

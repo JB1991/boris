@@ -22,7 +22,7 @@ export const Bootstrap4_CSS = {
         next: 'btn btn-primary',
         start: 'btn btn-success',
         preview: 'btn btn-primary',
-        edit: 'btn btn-primary',
+        edit: 'btn btn-primary'
     },
     progress: 'progress m-4',
     progressBar: 'progress-bar m-0',
@@ -69,7 +69,7 @@ export const Bootstrap4_CSS = {
         hasError: 'has-error',
         indent: 20,
         formGroup: 'form-group m-0',
-        other: 'form-control',
+        other: 'form-control'
     },
     panel: {
         title: 'sv_p_title',
@@ -81,7 +81,7 @@ export const Bootstrap4_CSS = {
         container: 'sv_p_container',
         footer: 'sv_p_footer',
         number: 'sv_q_num',
-        requiredText: 'sv_q_required_text',
+        requiredText: 'sv_q_required_text'
     },
     error: {
         root: 'alert alert-danger',
@@ -105,7 +105,7 @@ export const Bootstrap4_CSS = {
         itemDecorator: 'sv-item__svg  sv-boolean__svg',
         checkedPath: 'sv-boolean__checked-path',
         uncheckedPath: 'sv-boolean__unchecked-path',
-        indeterminatePath: 'sv-boolean__indeterminate-path',
+        indeterminatePath: 'sv-boolean__indeterminate-path'
     },
     checkbox: {
         root: 'sv_qcbc sv_qcbx',
@@ -144,7 +144,7 @@ export const Bootstrap4_CSS = {
     multipletext: {
         root: 'table',
         itemTitle: '',
-        itemValue: 'sv_q_mt_item_value form-control',
+        itemValue: 'sv_q_mt_item_value form-control'
     },
     radiogroup: {
         root: 'sv_qcbc',
@@ -169,7 +169,7 @@ export const Bootstrap4_CSS = {
         itemText: 'sv_q_rating_item_text',
         maxText: 'sv_q_rating_max_text ml-2',
         disabled: '',
-        other: 'form-control',
+        other: 'form-control'
     },
     text: 'form-control',
     expression: 'form-control',
@@ -184,15 +184,15 @@ export const Bootstrap4_CSS = {
         fileDecorator: 'sv-hidden',
         fileSignBottom: 'sv-hidden',
         removeButtonBottom: 'sv-hidden',
-        other: 'form-control',
+        other: 'form-control'
     },
     nouislider: {
-        other: 'form-control',
+        other: 'form-control'
     },
     signaturepad: {
         root: 'sv_q_signaturepad sjs_sp_container',
         controls: 'sjs_sp_controls',
-        clearButton: 'sjs_sp_clear bg-lgln',
+        clearButton: 'sjs_sp_clear bg-lgln'
     },
     saveData: {
         root: '',

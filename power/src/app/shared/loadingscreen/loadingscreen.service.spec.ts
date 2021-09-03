@@ -49,7 +49,7 @@ class MockRouter {
     public ns = new NavigationStart(0, 'http://localhost:4200/login');
     public gc = new GuardsCheckEnd(1, 'http://localhost:4200/login', 'http://localhost:4200/login', {
         url: '',
-        root: new ActivatedRouteSnapshot(),
+        root: new ActivatedRouteSnapshot()
     }, true);
     public ne = new NavigationEnd(2, 'http://localhost:4200/login', 'http://localhost:4200/login');
     public nc = new NavigationCancel(1, 'http://localhost:4200/login', 'Guard');

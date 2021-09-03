@@ -71,7 +71,7 @@ export class FlurstueckSearchComponent {
      * @returns formatted input
      */
     public inputFormatter = (feature: Feature): string => {
-        if (feature.properties && feature.properties['gemarkung']) {
+        if (feature.properties?.['gemarkung']) {
             return feature.properties['gemarkung'] + ' (' +
                 feature.properties['gemarkungsschluessel'] + ')' +
                 ' - ' + feature.properties['gemeinde'];
@@ -86,7 +86,7 @@ export class FlurstueckSearchComponent {
     public searchFlurstueck(value: Flurstueckskennzeichen): void {
         this.fsk = value;
 
-        if (this.fsk && this.fsk.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
+        if (this.fsk?.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
             this.alkisWfsService.getFlurstueckByFsk(
                 this.fsk.gemarkung.properties['gemarkungsschluessel'],
                 this.fsk.flur,
@@ -134,7 +134,7 @@ export class FlurstueckSearchComponent {
      * @param text$ Input as Observable
      * @returns Search Observable
      */
-    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
+    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, { [name: string]: any; }>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

@@ -41,7 +41,7 @@ export class WrapperComponent implements OnChanges {
             tasklists: true,
             requireSpaceBeforeHeadingText: true,
             openLinksInNewWindow: true,
-            emoji: true,
+            emoji: true
         });
     }
 
@@ -94,7 +94,7 @@ export class WrapperComponent implements OnChanges {
 
         // build property model
         this.props = { model: this.survey, css: this.css };
-        if (this.model && this.model['data']) {
+        if (this.model?.['data']) {
             this.props.data = this.model['data'];
         } else if (this.data) {
             this.props.data = this.data;

@@ -98,7 +98,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                     }
                 },
                 'selectedMode': 'single',
-                'data': this.getRegionen(),
+                'data': this.getRegionen()
             }
         ],
         'color': ['#000000']
@@ -339,8 +339,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                         sha1: string;
                     };
                 };
-                if ((tmp2.bereich !== undefined) &&
-                    (tmp2.bereich.includes(this.selectedKreis as string))) {
+                if (tmp2.bereich?.includes(this.selectedKreis as string)) {
                     yr.push({
                         'key': yk[y],
                         'value': tmp2

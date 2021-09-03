@@ -32,7 +32,7 @@ const createObjectURL = require('create-object-url');
         right: '',
         top: '',
         bottom: ''
-    }
+    };
 };
 const Blobx = require('node-blob');
 (global as any).Blob = Blobx;
@@ -52,7 +52,7 @@ export function app(lang: string): express.Express {
     server.engine('html', ngExpressEngine({
         bootstrap: AppServerModule,
         inlineCriticalCss: false,
-        extraProviders: [{ provide: LOCALE_ID, useValue: lang }],
+        extraProviders: [{ provide: LOCALE_ID, useValue: lang }]
     } as any));
 
     server.set('view engine', 'html');
@@ -107,7 +107,7 @@ function run(): void {
 // The below code is to ensure that the server is run only when not requiring the bundle.
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
-const moduleFilename = mainModule && mainModule.filename || '';
+const moduleFilename = mainModule?.filename || '';
 if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
     run();
 }

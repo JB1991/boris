@@ -19,7 +19,7 @@ export class GemarkungPipe implements PipeTransform {
         return this.gemarkungService.getGemarkungByKey(value.toString()).pipe(
             map((gemarkung) => {
                 if (gemarkung['features'][0]?.properties) {
-                    return gemarkung['features'][0].properties['gemarkung']
+                    return gemarkung['features'][0].properties['gemarkung'];
                 }
                 return '';
             })

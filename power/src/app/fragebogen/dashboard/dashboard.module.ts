@@ -14,7 +14,7 @@ import { SharedModule } from '@app/shared/shared.module';
 @NgModule({
     declarations: [
         DashboardComponent,
-        NewformComponent,
+        NewformComponent
     ],
     imports: [
         DashboardRoutingModule,

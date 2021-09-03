@@ -24,7 +24,9 @@ export class PublishComponent {
      */
     public open(id: string): void {
         this.id = id;
-        this.modal?.open($localize`Veröffentlichen`);
+        if (this.modal) {
+            this.modal.open($localize`Veröffentlichen`);
+        }
     }
 
     /**
@@ -40,7 +42,7 @@ export class PublishComponent {
 
         this.out.emit({
             id: this.id,
-            access: this.access,
+            access: this.access
         });
         this.id = '';
         this.access = 'pin8';

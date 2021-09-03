@@ -62,7 +62,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public bremenSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.brTiles],
-        bounds: this.brBounds,
+        bounds: this.brBounds
     };
 
     // NDS - Tile Sources, Bounds, Source
@@ -83,7 +83,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public ndsSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsTiles],
-        bounds: this.ndsBounds,
+        bounds: this.ndsBounds
     };
 
     // Sanierungsgebiete - Verg (Verfahrensgrundlage)
@@ -101,7 +101,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public ndsVergSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsVergTiles],
-        bounds: this.ndsBounds,
+        bounds: this.ndsBounds
     };
 
     // Flurstuecke
@@ -119,7 +119,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public ndsFstSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsFstTiles],
-        bounds: this.ndsBounds,
+        bounds: this.ndsBounds
     };
 
     @Input() public latLng: LngLat;
@@ -171,7 +171,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             this.changedStichtag();
         }
         // latLng changed
-        if (changes['latLng'] && changes['latLng'].currentValue !== undefined) {
+        if (changes['latLng']?.currentValue !== undefined) {
             this.changedLatLng();
         }
         // collapsed
@@ -704,11 +704,11 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     { lat: 52.46679714990489, lng: 9.719547336560112, properties: { display: 130 } },
                     { lat: 52.4723241988992, lng: 9.7557494003822, properties: { display: 130 } },
                     { lat: 52.43336837635533, lng: 9.715375393126635, properties: { display: 130 } },
-                    { lat: 52.48606574248538, lng: 9.726679369115345, properties: { display: 130 } },
+                    { lat: 52.48606574248538, lng: 9.726679369115345, properties: { display: 130 } }
                 ]));
             baulandSource.setData({
                 type: 'FeatureCollection',
-                features: features,
+                features: features
             });
         } else if (landwirtschaftsSource) {
 
@@ -728,7 +728,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 []);
             landwirtschaftsSource.setData({
                 type: 'FeatureCollection',
-                features: features,
+                features: features
             });
         }
     }

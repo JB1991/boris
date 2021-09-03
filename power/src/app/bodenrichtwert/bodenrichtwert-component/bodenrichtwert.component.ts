@@ -22,7 +22,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
  * Teilmarkt
  */
 export interface Teilmarkt {
-    value: Array<string>;
+    value: string[];
     text: string;
     hexColor: string;
 }
@@ -53,7 +53,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
     public features?: FeatureCollection = undefined;
-    public filteredFeatures?: Array<Feature>;
+    public filteredFeatures?: Feature[];
     public hasUmrechnungsdateien = false;
 
     /**
@@ -143,7 +143,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Possible selections of Stichtage
      */
-    public STICHTAGE: Array<string> = [
+    public STICHTAGE: string[] = [
         '2020-12-31',
         '2019-12-31',
         '2018-12-31',
@@ -152,15 +152,15 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         '2015-12-31',
         '2014-12-31',
         '2013-12-31',
-        '2012-12-31',
+        '2012-12-31'
     ];
 
     /**
      * Possible selections of Teilmärkte
      */
-    public TEILMAERKTE: Array<Teilmarkt> = [
+    public TEILMAERKTE: Teilmarkt[] = [
         { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' },
-        { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
+        { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' }
     ];
 
     /**
@@ -456,7 +456,9 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Opens print modal
      */
     public openPrintModal(): void {
-        this.printModal?.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
+        if (this.printModal) {
+            this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
+        }
     }
 
     /**
