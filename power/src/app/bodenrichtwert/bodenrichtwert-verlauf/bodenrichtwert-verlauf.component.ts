@@ -437,7 +437,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
             seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
             seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
-            seriesVergValues = seriesVergValues.slice(0, idx + 2);
+            // seriesVergValues = seriesVergValues.slice(0, idx + 2);
 
         }
 
