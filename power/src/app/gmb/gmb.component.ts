@@ -189,7 +189,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Resizes echart
      */
     public resize(): void {
-        this.map?.resize();
+        if (this.map) {
+            this.map.resize();
+        }
     }
 
     /** @inheritdoc */

@@ -164,7 +164,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * Resizes echart
      */
     public resize(): void {
-        this.echartsInstance?.resize();
+        if (this.echartsInstance) {
+            this.echartsInstance.resize();
+        }
     }
 
     /**
@@ -310,7 +312,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             this.setLegendFormat();
             this.setTextStyleOfLegend();
         }
-        this.echartsInstance?.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        if (this.echartsInstance) {
+            this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        }
     }
 
     /**
