@@ -3,7 +3,7 @@ import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from '
 import { AlertsService } from '../../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
-import { Feature, FeatureCollection, Geometry } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
@@ -134,7 +134,7 @@ export class FlurstueckSearchComponent {
      * @param text$ Input as Observable
      * @returns Search Observable
      */
-    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, { [name: string]: any; }>>> =>
+    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

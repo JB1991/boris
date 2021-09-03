@@ -54,7 +54,7 @@
                 <span i18n>ID</span>: {{ form.id }}
             </p>
             <p class="font-weight-light mb-1">
-                <span i18n>Besitzer</span>: {{ form.owner.name }}
+                <span i18n>Besitzer</span>: {{ form.owner?.name }}
             </p>
             <p class="font-weight-light mb-1">
                 <span i18n>Erstellt</span>: {{ form.created | date:'short' }}
@@ -88,7 +88,7 @@
                     i18n-title
                     title="Formular bearbeiten"
                     [routerLink]="['/forms/editor', form.id]"
-                    *ngIf="form.status === 'created' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="form.status === 'created' && auth.IsAuthorized(['admin', 'manager'], form.owner?.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -110,7 +110,7 @@
                     class="btn btn-primary btn-sm mr-2"
                     i18n-title
                     title="Formular Vorschau"
-                    (click)="preview.open()">
+                    (click)="preview?.open()">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -161,7 +161,7 @@
                     i18n-title
                     title="Formular Einstellungen"
                     (click)="settings.open(form)"
-                    *ngIf="auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="auth.IsAuthorized(['admin', 'manager'], form.owner?.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -184,7 +184,7 @@
                     i18n-title
                     title="Formular veröffentlichen"
                     (click)="publish.open(form.id)"
-                    *ngIf="form.status === 'created' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="form.status === 'created' && auth.IsAuthorized(['admin', 'manager'], form.owner?.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -205,7 +205,7 @@
                     i18n-title
                     title="Formular archivieren"
                     (click)="archiveForm()"
-                    *ngIf="form.status !== 'cancelled' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="form.status !== 'cancelled' && auth.IsAuthorized(['admin', 'manager'], form.owner?.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -226,7 +226,7 @@
                     i18n-title
                     title="Formular löschen"
                     (click)="deleteForm()"
-                    *ngIf="form.status === 'cancelled' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="form.status === 'cancelled' && auth.IsAuthorized(['admin', 'manager'], form.owner?.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -270,7 +270,7 @@
                            i18n>Antworten filtern nach Status</label>
                     <select class="browser-default custom-select"
                             id="filter-task-status"
-                            (change)="taskStatus = getHTMLInputValue($event); this.updateTasks()">
+                            (change)="taskStatus = getHTMLInputValue($event); updateTasks()">
                         <option value="all"
                                 selected
                                 i18n>Status: Alle</option>
@@ -561,7 +561,7 @@
                         </td>
                         <td>
                             {{ task.description }}
-                            <span *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
+                            <span *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner?.id, form.groups)"
                                   class="ml-1 text-primary clickable"
                                   i18n-title
                                   title="Bearbeiten"
@@ -618,7 +618,7 @@
                                     i18n-title
                                     title="Neue PIN generieren"
                                     (click)="newPin(i)"
-                                    *ngIf="form.access !== 'public' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)">
+                                    *ngIf="form.access !== 'public' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner?.id, form.groups)">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -641,7 +641,7 @@
                                     i18n-title
                                     title="Antwort abschließen"
                                     (click)="completeTask(i)"
-                                    *ngIf="task.status !== 'completed' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)">
+                                    *ngIf="task.status !== 'completed' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner?.id, form.groups)">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -664,7 +664,7 @@
                                     i18n-title
                                     title="Antwort löschen"
                                     (click)="deleteTask(i)"
-                                    *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)">
+                                    *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner?.id, form.groups)">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -695,7 +695,7 @@
                     i18n-title
                     title="Neue PIN generieren"
                     (click)="maketask.open()"
-                    *ngIf="form.status === 'published' && form.access !== 'public' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)">
+                    *ngIf="form.status === 'published' && form.access !== 'public' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner?.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -716,7 +716,7 @@
                       i18n>Neue PIN generieren</span>
             </button>
 
-            <button *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
+            <button *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner?.id, form.groups)"
                     type="button"
                     class="btn btn-primary btn-sm mr-2"
                     i18n-title
@@ -760,7 +760,7 @@
                                 [itemsPerPage]="taskPerPage"
                                 [maxSize]="10"
                                 [totalItems]="taskTotal"
-                                (pageChanged)="taskPage = $event.page; this.updateTasks()"
+                                (pageChanged)="taskPage = $event.page; updateTasks()"
                                 previousText="&lsaquo;"
                                 nextText="&rsaquo;"
                                 firstText="&laquo;"

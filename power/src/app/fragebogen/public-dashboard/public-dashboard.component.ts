@@ -16,7 +16,7 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class PublicDashboardComponent implements OnInit {
     public data = new Array<PublicForm>();
-    public total?: number;
+    public total = 0;
     public page = 1;
     public perPage = 5;
     public pageSizes?: number[];

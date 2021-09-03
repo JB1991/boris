@@ -46,7 +46,8 @@
                 class="btn btn-success"
                 i18n-title
                 title="Formular teilen"
-                (click)="this.out.emit({id: old.id, tags: tags, groups: groups, owner: owner}); modal?.close();">
+                *ngIf="old"
+                (click)="out.emit({id: old.id, tags: tags, groups: groups, owner: owner}); modal?.close();">
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"

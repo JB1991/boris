@@ -1,5 +1,5 @@
 export interface Form {
-    id?: string;
+    id: string;
     owner?: User;
     groups?: string[];
     tags?: string[];
@@ -12,7 +12,7 @@ export interface Form {
 }
 
 export interface Task {
-    id?: string;
+    id: string;
     form?: Form;
     content?: any;
     pin?: string;
@@ -24,7 +24,7 @@ export interface Task {
 }
 
 export interface Element {
-    id?: string;
+    id: string;
     owner?: string;
     groups?: string[];
     content?: any;
@@ -34,14 +34,14 @@ export interface Element {
 }
 
 export interface User {
-    id?: string;
+    id: string;
     name?: string;
     role?: string;
     groups?: string[];
 }
 
 export interface PublicForm {
-    id?: string;
+    id: string;
     content?: any;
     tags?: string[];
     access?: Access;
@@ -49,7 +49,7 @@ export interface PublicForm {
 }
 
 export interface PublicTask {
-    id?: string;
+    id: string;
     form?: PublicForm;
     content?: any;
     extract?: string;

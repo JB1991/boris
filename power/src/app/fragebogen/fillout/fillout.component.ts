@@ -85,6 +85,15 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
+     * Returns true if survey is multi language
+     * @returns True
+     */
+    public hasMultipleLanguages(): boolean {
+        const tmp = this.wrapper?.survey?.getUsedLocales();
+        return Array.isArray(tmp) && tmp.length > 1;
+    }
+
+    /**
      * Loads form
      * @param id Form id
      */

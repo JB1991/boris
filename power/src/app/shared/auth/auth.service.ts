@@ -284,11 +284,14 @@ export class AuthService {
      * @param groups Groups
      * @returns True if authorized
      */
-    public IsAuthorized(roles: Role[], owner: string, groups: string[]): boolean {
+    public IsAuthorized(roles: Role[], owner: string | undefined, groups: string[] | undefined): boolean {
         if (!this.IsAuthEnabled()) {
             return true;
         }
         if (!this.IsAuthenticated()) {
+            return false;
+        }
+        if (!(owner && groups)) {
             return false;
         }
         const userRole = this.getRole();

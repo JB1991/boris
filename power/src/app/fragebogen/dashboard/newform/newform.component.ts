@@ -20,8 +20,8 @@ export class NewformComponent {
     public title = '';
     public service = '';
     public template = '';
-    public tagList = [];
-    public templateList: string[] = [];
+    public tagList = new Array<string>();
+    public templateList = new Array<string>();
     public searchText = '';
     public test = '';
 
@@ -33,8 +33,8 @@ export class NewformComponent {
     public open(): void {
         this.searchText = '';
         this.title = '';
-        this.tagList = [];
-        this.templateList = [];
+        this.tagList = new Array<string>();
+        this.templateList = new Array<string>();
         if (this.modal) {
             this.modal.open($localize`Neues Formular`);
         }

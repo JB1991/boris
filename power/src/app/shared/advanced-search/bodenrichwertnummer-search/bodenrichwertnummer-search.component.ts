@@ -144,7 +144,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param text$ Input as Observable
      * @returns search
      */
-    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, { [name: string]: any; }>>> =>
+    public search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
