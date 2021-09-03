@@ -6,6 +6,7 @@ import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe'
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { ECharts, EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
+import { ResizeObserver } from '@juggle/resize-observer';
 
 /**
  *
