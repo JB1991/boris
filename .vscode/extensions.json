@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "angular.ng-template",
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint",
+        "sibiraj-s.vscode-scss-formatter",
+        "redhat.vscode-yaml"
+    ]
+}

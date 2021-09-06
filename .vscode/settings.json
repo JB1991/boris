@@ -9,5 +9,7 @@
         "power"
     ],
     "editor.detectIndentation": false,
-    "scssFormatter.singleQuote": true
+    "scssFormatter.singleQuote": true,
+    "yaml.format.enable": true,
+    "yaml.format.singleQuote": true
 }
