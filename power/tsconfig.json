@@ -40,9 +40,6 @@
             ],
             "@env/*": [
                 "src/environments/*"
-            ],
-            "echarts": [
-                "node_modules/echarts/dist/echarts.min.js"
             ]
         }
     },

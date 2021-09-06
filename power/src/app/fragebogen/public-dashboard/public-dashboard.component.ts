@@ -15,8 +15,8 @@ import { SEOService } from '@app/shared/seo/seo.service';
     encapsulation: ViewEncapsulation.None
 })
 export class PublicDashboardComponent implements OnInit {
-    public data: Array<PublicForm> = [];
-    public total?: number;
+    public data = new Array<PublicForm>();
+    public total = 0;
     public page = 1;
     public perPage = 5;
     public pageSizes?: number[];
@@ -64,14 +64,14 @@ export class PublicDashboardComponent implements OnInit {
                 fields: ['id', 'content', 'tags', 'access', 'extract'],
                 extract: ['title.de', 'title.default'],
                 limit: Number(this.perPage),
-                offset: (this.page - 1) * this.perPage,
+                offset: (this.page - 1) * this.perPage
             };
             params.sort = { field: this.sort, desc: this.desc };
-            const filters: Array<PublicFormFilter> = [
-                { access: 'public' },
+            const filters: PublicFormFilter[] = [
+                { access: 'public' }
             ];
             if (this.search !== '') {
-                const or: Array<PublicFormFilter> = [];
+                const or: PublicFormFilter[] = [];
                 const search = { lower: true, contains: this.search };
                 or.push({ extract: search });
                 or.push({ tag: search });

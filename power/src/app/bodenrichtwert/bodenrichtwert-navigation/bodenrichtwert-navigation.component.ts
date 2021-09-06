@@ -98,7 +98,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param lng longitude
      * @param entw teilmarkt
      */
-    public getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>): void {
+    public getBodenrichtwertzonen(lat: number, lng: number, entw: string[]): void {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
             .subscribe(
                 res => {
@@ -218,7 +218,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             case 'MultiPolygon':
                 const p = fts.features[0].geometry.coordinates.map(f => ({
                     type: 'Polygon',
-                    coordinates: f,
+                    coordinates: f
                 })).sort((i, j) => area(i) - area(j)).shift();
 
                 if (p) {

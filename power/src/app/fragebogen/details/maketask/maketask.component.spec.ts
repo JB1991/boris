@@ -42,7 +42,9 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         fixture.detectChanges();
         component.open();
         expect(component.modal?.isOpen).toBeTrue();
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.modal?.isOpen).toBeFalse();
     });
 });

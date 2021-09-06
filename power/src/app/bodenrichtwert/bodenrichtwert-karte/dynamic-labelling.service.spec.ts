@@ -15,16 +15,16 @@ const f1: Feature = {
                 [9.742808416485786, 52.41330685860237],
                 [9.742808416485786, 52.413731409786635]
             ]
-        ],
+        ]
     },
     properties: {
         brw: '270.0',
         brzname: 'Vahrenheide',
         objid: 'DENIBR4321B04151',
         stag: '2020-12-31',
-        wnum: '04304151',
+        wnum: '04304151'
     }
-}
+};
 
 const f2: Feature = {
     type: 'Feature',
@@ -38,16 +38,16 @@ const f2: Feature = {
                 [9.742808416485786, 52.41330685860237],
                 [9.742808416485786, 52.413731409786635]
             ]
-        ],
+        ]
     },
     properties: {
         brw: '270.0',
         brzname: 'Vahrenheide',
         objid: 'DENIBR4321B04151',
         stag: '2020-12-31',
-        wnum: '123',
+        wnum: '123'
     }
-}
+};
 
 const f3: Feature = {
     type: 'Feature',
@@ -63,25 +63,25 @@ const f3: Feature = {
                     [9.742808416485786, 52.413731409786635]
                 ]
             ]
-        ],
+        ]
     },
     properties: {
         brw: '270.0',
         brzname: 'Vahrenheide',
         objid: 'DENIBR4321B04151',
         stag: '2020-12-31',
-        wnum: '123',
+        wnum: '123'
     }
-}
+};
 
 const p1: Feature<Point> = {
     type: 'Feature',
     geometry: {
         type: 'Point',
-        coordinates: [9.7433832, 52.4134995],
+        coordinates: [9.7433832, 52.4134995]
     },
     properties: {}
-}
+};
 
 describe('DynamicLabellingService', () => {
     let service: DynamicLabellingService;
@@ -108,7 +108,7 @@ describe('DynamicLabellingService', () => {
                         [9.743692528838665, 52.413328634053244],
                         [9.743262034291547, 52.413328634053244]
                     ]
-                ],
+                ]
             },
             (f) => f.properties?.['brw'],
             (f) => f.properties?.['wnum'],
@@ -134,9 +134,9 @@ describe('DynamicLabellingService', () => {
                     coordinates: [10, 20]
                 },
                 properties: {
-                    no: 'thing',
+                    no: 'thing'
                 }
             }
         ]);
-    })
+    });
 });

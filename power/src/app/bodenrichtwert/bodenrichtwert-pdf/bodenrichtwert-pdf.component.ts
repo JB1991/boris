@@ -30,7 +30,7 @@ export class BodenrichtwertPdfComponent {
     @Input() public flurstueck?: FeatureCollection;
     @Input() public stichtag?: string;
     @Input() public teilmarkt?: Teilmarkt;
-    @Input() public features?: Array<Feature>;
+    @Input() public features?: Feature[];
     public testMode = false;
 
     constructor(
@@ -121,8 +121,8 @@ export class BodenrichtwertPdfComponent {
                         paddingTop: /* istanbul ignore next */ () => 0,
                         paddingBottom: /* istanbul ignore next */ () => 0,
                         hLineColor: /* istanbul ignore next */ () => 'gray',
-                        vLineColor: /* istanbul ignore next */ () => 'gray',
-                    },
+                        vLineColor: /* istanbul ignore next */ () => 'gray'
+                    }
                 },
                 {
                     image: 'pin',
@@ -137,7 +137,7 @@ export class BodenrichtwertPdfComponent {
                     columns: [
                         {
                             text: $localize`Abbildung nicht maßstabsgetreu`,
-                            width: 200,
+                            width: 200
                         },
                         {
                             text: '',
@@ -266,7 +266,7 @@ export class BodenrichtwertPdfComponent {
                                     id: 'GOTO2',
                                     text: 'https://www.govdata.de/dl-de/by-2-0',
                                     link: 'https://www.govdata.de/dl-de/by-2-0'
-                                },
+                                }
                             ],
                             margin: [0, 10, 0, 0]
                         }
@@ -377,7 +377,7 @@ export class BodenrichtwertPdfComponent {
                 bold: true,
                 fontSize: 16,
                 margin: [0, 0, 0, 10]
-            },
+            }
         ];
 
         // for each brw

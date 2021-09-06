@@ -60,7 +60,7 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
             type: 'Feature',
             geometry: {
                 type: 'Point',
-                coordinates: [9.7433832, 52.4134995],
+                coordinates: [9.7433832, 52.4134995]
             },
             properties: {
                 text: 'Hanover 1 ABC'
@@ -69,7 +69,7 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
         component.teilmarkt = {
             value: ['B'],
             text: 'Alpha',
-            hexColor: '#000',
+            hexColor: '#000'
         };
         component.features = [
             {
@@ -186,7 +186,7 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
         component.teilmarkt = {
             value: ['LF'],
             text: 'Alpha',
-            hexColor: '#000',
+            hexColor: '#000'
         };
         component.features = [
             {

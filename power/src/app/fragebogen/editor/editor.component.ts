@@ -543,7 +543,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         this.formapi.updateForm(id, {
-            content: this.storage.model,
+            content: this.storage.model
         }).then(() => {
             // success
             this.storage.setUnsavedChanges(false);

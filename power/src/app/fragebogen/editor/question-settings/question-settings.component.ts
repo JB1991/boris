@@ -49,7 +49,9 @@ export class QuestionSettingsComponent {
         this.storage.setAutoSaveEnabled(false);
         this.migration();
         this.cdr.detectChanges();
-        this.modal?.open($localize`Fragen Einstellungen`);
+        if (this.modal) {
+            this.modal.open($localize`Fragen Einstellungen`);
+        }
     }
 
     /**

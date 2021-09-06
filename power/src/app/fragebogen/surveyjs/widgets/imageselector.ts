@@ -23,7 +23,7 @@ export function init(): void {
                 {
                     name: 'mobiletext:boolean',
                     category: 'imageselector',
-                    default: false,
+                    default: false
                 }
             ]);
         },
@@ -145,7 +145,7 @@ export function init(): void {
             }
 
             // value changed from surveyjs
-            const updateValueHandler = function () {
+            const updateValueHandler = function (): void {
                 // mark choices as checked / unchecked
                 if (!question['multiSelect']) {
                     // single value

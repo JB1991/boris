@@ -6,7 +6,7 @@
 
     <!-- language -->
     <div class="form-group row w-50"
-         *ngIf="wrapper && wrapper.survey.getUsedLocales().length > 1">
+         *ngIf="hasMultipleLanguages()">
         <label class="col-sm-3 col-form-label"
                for="language"
                i18n>Sprache</label>
@@ -16,7 +16,7 @@
                     (change)="setLanguage()"
                     id="language"
                     name="language">
-                <option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
+                <option *ngFor="let lang of wrapper?.survey?.getUsedLocales(); index as i"
                         [ngValue]="lang"
                         [lang]="lang">
                     {{ languages[lang] }}
@@ -27,7 +27,7 @@
     <power-forms-surveyjs-wrapper *ngIf="form.access !== 'public'"
                                   [model]="form.content"
                                   [css]="data.css_style"
-                                  [data]="task.content"
+                                  [data]="task?.content"
                                   (submitResult)="submit($event);"
                                   (interimResult)="progress($event)"
                                   (changes)="changed($event)"

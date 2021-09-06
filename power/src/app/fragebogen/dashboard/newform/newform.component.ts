@@ -10,18 +10,18 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 @Component({
     selector: 'power-forms-dashboard-newform',
     templateUrl: './newform.component.html',
-    styleUrls: ['./newform.component.scss'],
+    styleUrls: ['./newform.component.scss']
 })
 export class NewformComponent {
     @ViewChild('modal') public modal?: ModalminiComponent;
     @Output() public out = new EventEmitter<string>();
-    @Input() public tags: Array<string> = [];
+    @Input() public tags = new Array<string>();
 
     public title = '';
     public service = '';
     public template = '';
-    public tagList = [];
-    public templateList: string[] = [];
+    public tagList = new Array<string>();
+    public templateList = new Array<string>();
     public searchText = '';
     public test = '';
 
@@ -33,9 +33,11 @@ export class NewformComponent {
     public open(): void {
         this.searchText = '';
         this.title = '';
-        this.tagList = [];
-        this.templateList = [];
-        this.modal?.open($localize`Neues Formular`);
+        this.tagList = new Array<string>();
+        this.templateList = new Array<string>();
+        if (this.modal) {
+            this.modal.open($localize`Neues Formular`);
+        }
     }
 
     /**
@@ -45,10 +47,10 @@ export class NewformComponent {
         const queryParams: GetFormsParams = {
             fields: ['id', 'content', 'owner.name', 'extract'],
             filter: {
-                extract: { lower: true, contains: this.searchText },
+                extract: { lower: true, contains: this.searchText }
             },
             extract: ['title.de', 'title.default'],
-            sort: { field: 'extract', desc: false },
+            sort: { field: 'extract', desc: false }
         };
 
         this.formAPI
@@ -78,11 +80,13 @@ export class NewformComponent {
         if (this.template) {
             this.formAPI
                 .getForm(this.template, {
-                    fields: ['content'],
+                    fields: ['content']
                 })
                 .then((data) => {
                     void this.makeForm(data.form.content);
-                    this.modal?.close();
+                    if (this.modal) {
+                        this.modal.close();
+                    }
                 })
                 .catch((error) => {
                     console.error(error);
@@ -93,7 +97,9 @@ export class NewformComponent {
 
         // make new form
         void this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
-        this.modal?.close();
+        if (this.modal) {
+            this.modal.close();
+        }
     }
 
     /**

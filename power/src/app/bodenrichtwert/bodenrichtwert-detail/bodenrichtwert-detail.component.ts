@@ -45,7 +45,7 @@ export class BodenrichtwertDetailComponent implements OnChanges {
 
     @Input() public features?: FeatureCollection;
 
-    public filteredFeatures?: Array<Feature>;
+    public filteredFeatures?: Feature[];
 
     /* istanbul ignore next */
     /** @inheritdoc */

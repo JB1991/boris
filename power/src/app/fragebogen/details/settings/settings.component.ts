@@ -12,23 +12,21 @@ import { AuthService } from '@app/shared/auth/auth.service';
 export class SettingsComponent {
     @Output() public out = new EventEmitter<{
         id: string;
-        tags: Array<string>;
-        groups: Array<string>;
+        tags: string[];
+        groups: string[];
         owner: string;
     }>();
-    @Input() public availableTags: Array<string> = [];
-    @Input() public availableGroups: Array<string> = [];
-    @Input() public availableUsers: Array<User> = [];
+    @Input() public availableTags = new Array<string>();
+    @Input() public availableGroups = new Array<string>();
+    @Input() public availableUsers = new Array<User>();
     @ViewChild('settingsmodal') public modal?: ModalminiComponent;
 
-    public old: Form;
-    public tags: Array<string> = [];
-    public groups: Array<string> = [];
+    public old?: Form;
+    public tags = new Array<string>();
+    public groups = new Array<string>();
     public owner = '';
 
-    constructor(public auth: AuthService) {
-        this.old = { owner: {} };
-    }
+    constructor(public auth: AuthService) { }
 
     /**
      * Opens settings modal
@@ -36,21 +34,23 @@ export class SettingsComponent {
      */
     public open(form: Form): void {
         if (!form.tags) {
-            form.tags = [];
+            form.tags = new Array<string>();
         }
         if (!form.groups) {
-            form.groups = [];
+            form.groups = new Array<string>();
         }
         if (!form.owner) {
             form.owner = {
                 id: '',
-                name: '',
+                name: ''
             };
         }
         this.old = form;
         this.tags = JSON.parse(JSON.stringify(form.tags));
         this.groups = JSON.parse(JSON.stringify(form.groups));
         this.owner = JSON.parse(JSON.stringify(form.owner.id));
-        this.modal?.open($localize`Einstellungen`);
+        if (this.modal) {
+            this.modal.open($localize`Einstellungen`);
+        }
     }
 }

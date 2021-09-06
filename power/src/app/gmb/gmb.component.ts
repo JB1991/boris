@@ -21,9 +21,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     // echarts Components
     @ViewChild('echartsMap') public echartsMap?: ElementRef;
 
-    public downloadPath = '/download';
-    public berichte = GMB_DATA;
-    public kreise = KREISE_DATA;
+    public readonly downloadPath = '/download';
+    public readonly berichte = GMB_DATA;
+    public readonly kreise = KREISE_DATA;
 
     public mode?: string = undefined;
 
@@ -98,7 +98,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                     }
                 },
                 'selectedMode': 'single',
-                'data': this.getRegionen(),
+                'data': this.getRegionen()
             }
         ],
         'color': ['#000000']
@@ -189,7 +189,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * Resizes echart
      */
     public resize(): void {
-        this.map?.resize();
+        if (this.map) {
+            this.map.resize();
+        }
     }
 
     /** @inheritdoc */
@@ -339,8 +341,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                         sha1: string;
                     };
                 };
-                if ((tmp2.bereich !== undefined) &&
-                    (tmp2.bereich.includes(this.selectedKreis as string))) {
+                if (tmp2.bereich?.includes(this.selectedKreis as string)) {
                     yr.push({
                         'key': yk[y],
                         'value': tmp2

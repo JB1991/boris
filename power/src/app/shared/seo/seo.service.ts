@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
     providedIn: 'root'
 })
 export class SEOService {
-    public BASE_URL = 'https://immobilienmarkt.niedersachsen.de';
+    public readonly BASE_URL = 'https://immobilienmarkt.niedersachsen.de';
     public URL_PARAMETER: string[] = [];
 
     constructor(
@@ -90,14 +90,14 @@ export class SEOService {
      * Get the title of the current HTML document.
      * @returns Title
      */
-    public getTitle = (): string => this.title.getTitle();
+    public readonly getTitle = (): string => this.title.getTitle();
 
     /* eslint-disable-next-line jsdoc/require-returns */
     /**
      * Set the title of the current HTML document.
      * @param newTitle New title
      */
-    public setTitle = (newTitle: string): void => this.title.setTitle(newTitle);
+    public readonly setTitle = (newTitle: string): void => this.title.setTitle(newTitle);
 
     /**
      * Modifies an existing `<meta>` tag element in the current HTML document.
@@ -108,7 +108,7 @@ export class SEOService {
      * replacement tag.
      * @returns The modified element.
      */
-    public updateTag = (tag: MetaDefinition, selector?: string): HTMLMetaElement | null =>
+    public readonly updateTag = (tag: MetaDefinition, selector?: string): HTMLMetaElement | null =>
         this.meta.updateTag(tag, selector);
 
     /**

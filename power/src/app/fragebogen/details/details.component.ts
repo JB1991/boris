@@ -24,17 +24,17 @@ export class DetailsComponent implements OnInit {
 
     public id = '';
 
-    public availableTags: Array<string> = [];
-    public availableGroups: Array<string> = [];
-    public availableUsers: Array<User> = [];
+    public availableTags = new Array<string>();
+    public availableGroups = new Array<string>();
+    public availableUsers = new Array<User>();
 
     public form?: Form;
     public owner?: User;
-    public tasks: Array<Task> = [];
+    public tasks = new Array<Task>();
     public taskTotal = 0;
     public taskPerPage = 5;
     public taskPage = 1;
-    public taskPageSizes: Array<number> = [];
+    public taskPageSizes = new Array<number>();
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskField = 'updated';
@@ -87,7 +87,7 @@ export class DetailsComponent implements OnInit {
             this.loadingscreen.setVisible(true);
             const r = await this.formapi.getForm(this.id, {
                 fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated', 'tags', 'owner.name', 'owner.id', 'groups'],
-                extract: ['title.de', 'title.default'],
+                extract: ['title.de', 'title.default']
             });
             this.form = r.form;
             this.owner = r.form.owner;
@@ -282,12 +282,14 @@ export class DetailsComponent implements OnInit {
             }
 
             const params: GetTaskParams = {
-                fields: ['content'],
+                fields: ['content']
             };
 
             const r = await this.formapi.getTask(this.tasks[i].id as string, params);
 
-            this.preview?.open('display', r.task.content);
+            if (this.preview) {
+                this.preview.open('display', r.task.content);
+            }
         } catch (error) {
             // failed to delete task
             console.error(error);
@@ -377,14 +379,14 @@ export class DetailsComponent implements OnInit {
             filter: { form: { id: this.id } },
             limit: Number(this.taskPerPage),
             offset: (this.taskPage - 1) * this.taskPerPage,
-            sort: { field: this.taskSort, desc: this.taskSortDesc },
+            sort: { field: this.taskSort, desc: this.taskSortDesc }
         };
         if (this.taskStatus !== 'all') {
             params.filter = {
                 and: [
                     params.filter as TaskFilter,
                     {
-                        status: this.taskStatus,
+                        status: this.taskStatus
                     }
                 ]
             };
@@ -431,7 +433,7 @@ export class DetailsComponent implements OnInit {
      * @param event.owner Form owner
      * @returns Promise
      */
-    public async updateFormEvent(event: { id: string; tags?: Array<string>; groups?: Array<string>; owner?: string }
+    public async updateFormEvent(event: { id: string; tags?: string[]; groups?: string[]; owner?: string }
     ): Promise<void> {
         try {
             const b: any = {};

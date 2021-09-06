@@ -11,7 +11,7 @@ import {
  */
 export function FormFilterToString(f: FormFilter): string {
     if (f.hasOwnProperty('and')) {
-        const and = (f as { and: Array<FormFilter> }).and;
+        const and = (f as { and: FormFilter[] }).and;
         if (and.length === 1) {
             return FormFilterToString(and[0]);
         }
@@ -25,7 +25,7 @@ export function FormFilterToString(f: FormFilter): string {
         }
         return 'and(' + out + ')';
     } else if (f.hasOwnProperty('or')) {
-        const or = (f as { or: Array<FormFilter> }).or;
+        const or = (f as { or: FormFilter[] }).or;
         if (or.length === 1) {
             return FormFilterToString(or[0]);
         }
@@ -68,7 +68,7 @@ export function FormFilterToString(f: FormFilter): string {
  */
 export function TaskFilterToString(f: TaskFilter): string {
     if (f.hasOwnProperty('and')) {
-        const and = (f as { and: Array<TaskFilter> }).and;
+        const and = (f as { and: TaskFilter[] }).and;
         if (and.length === 1) {
             return TaskFilterToString(and[0]);
         }
@@ -82,7 +82,7 @@ export function TaskFilterToString(f: TaskFilter): string {
         }
         return 'and(' + out + ')';
     } else if (f.hasOwnProperty('or')) {
-        const or = (f as { or: Array<TaskFilter> }).or;
+        const or = (f as { or: TaskFilter[] }).or;
         if (or.length === 1) {
             return TaskFilterToString(or[0]);
         }
@@ -123,7 +123,7 @@ export function TaskFilterToString(f: TaskFilter): string {
  */
 export function UserFilterToString(f: UserFilter): string {
     if (f.hasOwnProperty('and')) {
-        const and = (f as { and: Array<UserFilter> }).and;
+        const and = (f as { and: UserFilter[] }).and;
         if (and.length === 1) {
             return UserFilterToString(and[0]);
         }
@@ -137,7 +137,7 @@ export function UserFilterToString(f: UserFilter): string {
         }
         return 'and(' + out + ')';
     } else if (f.hasOwnProperty('or')) {
-        const or = (f as { or: Array<UserFilter> }).or;
+        const or = (f as { or: UserFilter[] }).or;
         if (or.length === 1) {
             return UserFilterToString(or[0]);
         }
@@ -170,7 +170,7 @@ export function UserFilterToString(f: UserFilter): string {
  */
 export function GroupTagFilterToString(f: GroupTagFilter): string {
     if (f.hasOwnProperty('and')) {
-        const and = (f as { and: Array<GroupTagFilter> }).and;
+        const and = (f as { and: GroupTagFilter[] }).and;
         if (and.length === 1) {
             return GroupTagFilterToString(and[0]);
         }
@@ -184,7 +184,7 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
         }
         return 'and(' + out + ')';
     } else if (f.hasOwnProperty('or')) {
-        const or = (f as { or: Array<GroupTagFilter> }).or;
+        const or = (f as { or: GroupTagFilter[] }).or;
         if (or.length === 1) {
             return GroupTagFilterToString(or[0]);
         }
@@ -211,7 +211,7 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
  */
 export function ElementFilterToString(f: ElementFilter): string {
     if (f.hasOwnProperty('and')) {
-        const and = (f as { and: Array<ElementFilter> }).and;
+        const and = (f as { and: ElementFilter[] }).and;
         if (and.length === 1) {
             return ElementFilterToString(and[0]);
         }
@@ -225,7 +225,7 @@ export function ElementFilterToString(f: ElementFilter): string {
         }
         return 'and(' + out + ')';
     } else if (f.hasOwnProperty('or')) {
-        const or = (f as { or: Array<ElementFilter> }).or;
+        const or = (f as { or: ElementFilter[] }).or;
         if (or.length === 1) {
             return ElementFilterToString(or[0]);
         }

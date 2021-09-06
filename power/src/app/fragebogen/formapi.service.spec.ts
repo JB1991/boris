@@ -91,7 +91,7 @@ describe('Fragebogen.FormAPIService', () => {
             filter: { id: '123' },
             sort: { field: 'extract', desc: true },
             limit: 10,
-            offset: 2,
+            offset: 2
         }).then((value) => {
             expect(value).toEqual(getForms);
             done();
@@ -103,7 +103,7 @@ describe('Fragebogen.FormAPIService', () => {
     it('getForm should succeed', (done) => {
         void service.getForm('123', {
             fields: ['id', 'owner.id'],
-            extract: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default']
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
@@ -114,7 +114,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('createForm should succeed', (done) => {
         void service.createForm({
-            content: JSON.parse(JSON.stringify(formContent)),
+            content: JSON.parse(JSON.stringify(formContent))
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
@@ -125,7 +125,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('updateForm should succeed', (done) => {
         void service.updateForm('123', {
-            content: JSON.parse(JSON.stringify(formContent)),
+            content: JSON.parse(JSON.stringify(formContent))
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
@@ -160,7 +160,7 @@ describe('Fragebogen.FormAPIService', () => {
             filter: { id: '123' },
             sort: { field: 'extract', desc: true },
             limit: 10,
-            offset: 2,
+            offset: 2
         }).then((value) => {
             expect(value).toEqual(getTasks);
             done();
@@ -173,7 +173,7 @@ describe('Fragebogen.FormAPIService', () => {
         void service.getTask('123', {
             fields: ['id'],
             extract: ['e1'],
-            'form.extract': ['title.default'],
+            'form.extract': ['title.default']
         }).then((value) => {
             expect(value).toEqual(getTask);
             done();
@@ -184,7 +184,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('createTask should succeed', (done) => {
         void service.createTask('123', {
-            content: taskContent,
+            content: taskContent
         }, 10).then((value) => {
             expect(value).toEqual(getTask);
             done();
@@ -195,7 +195,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('updateTask should succeed', (done) => {
         void service.updateTask('123', {
-            content: taskContent,
+            content: taskContent
         }).then((value) => {
             expect(value).toEqual(getTask);
             done();
@@ -229,7 +229,7 @@ describe('Fragebogen.FormAPIService', () => {
             filter: { id: '123' },
             sort: { field: 'extract', desc: true },
             limit: 10,
-            offset: 2,
+            offset: 2
         }).then((value) => {
             expect(value).toEqual(getElements);
             done();
@@ -241,7 +241,7 @@ describe('Fragebogen.FormAPIService', () => {
     it('getElement should succeed', (done) => {
         void service.getElement('123', {
             fields: ['id'],
-            extract: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default']
         }).then((value) => {
             expect(value).toEqual(getElement);
             done();
@@ -252,7 +252,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('createElement should succeed', (done) => {
         void service.createElement({
-            content: elementContent,
+            content: elementContent
         }).then((value) => {
             expect(value).toEqual(getElement);
             done();
@@ -263,7 +263,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('updateElement should succeed', (done) => {
         void service.updateElement('123', {
-            content: elementContent,
+            content: elementContent
         }).then((value) => {
             expect(value).toEqual(getElement);
             done();
@@ -297,7 +297,7 @@ describe('Fragebogen.FormAPIService', () => {
             filter: { id: '123' },
             sort: { field: 'extract', desc: true },
             limit: 10,
-            offset: 2,
+            offset: 2
         }).then((value) => {
             expect(value).toEqual(getPublicForms);
             done();
@@ -309,7 +309,7 @@ describe('Fragebogen.FormAPIService', () => {
     it('getPublicForm should succeed', (done) => {
         void service.getPublicForm('123', {
             fields: ['id'],
-            extract: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default']
         }).then((value) => {
             expect(value).toEqual(getPublicForm);
             done();
@@ -331,7 +331,7 @@ describe('Fragebogen.FormAPIService', () => {
         void service.getPublicTask('123', {
             fields: ['id'],
             extract: ['e1'],
-            'form.extract': ['title.default'],
+            'form.extract': ['title.default']
         }).then((value) => {
             expect(value).toEqual(getPublicTask);
             done();
@@ -365,19 +365,19 @@ describe('Fragebogen.FormAPIService', () => {
                         {
                             group: {
                                 contains: 'World',
-                                lower: false,
-                            },
+                                lower: false
+                            }
                         },
                         {
                             extract: {
                                 contains: 'World',
-                                lower: false,
-                            },
+                                lower: false
+                            }
                         },
                         {
                             tag: {
                                 contains: 'World',
-                                lower: false,
+                                lower: false
                             }
                         },
                         {
@@ -405,7 +405,7 @@ describe('Fragebogen.FormAPIService', () => {
                 },
                 {
                     not: {
-                        id: '123',
+                        id: '123'
                     }
                 },
                 {
@@ -426,12 +426,12 @@ describe('Fragebogen.FormAPIService', () => {
                 {
                     or: [
                         {
-                            pin: '123456',
+                            pin: '123456'
                         },
                         {
                             'description': {
                                 contains: 'Hello',
-                                lower: false,
+                                lower: false
                             }
                         },
                         {
@@ -456,7 +456,7 @@ describe('Fragebogen.FormAPIService', () => {
                 },
                 {
                     not: {
-                        id: '123',
+                        id: '123'
                     }
                 },
                 {
@@ -479,7 +479,7 @@ describe('Fragebogen.FormAPIService', () => {
                         {
                             name: {
                                 contains: 'World',
-                                lower: false,
+                                lower: false
                             }
                         },
                         {
@@ -488,14 +488,14 @@ describe('Fragebogen.FormAPIService', () => {
                         {
                             group: {
                                 contains: 'World',
-                                lower: false,
+                                lower: false
                             }
-                        },
+                        }
                     ]
                 },
                 {
                     not: {
-                        id: '123',
+                        id: '123'
                     }
                 },
                 {
@@ -518,25 +518,25 @@ describe('Fragebogen.FormAPIService', () => {
                         {
                             name: {
                                 contains: 'Hello',
-                                lower: false,
+                                lower: false
                             }
                         },
                         {
                             name: {
                                 contains: 'World',
-                                lower: false,
+                                lower: false
                             }
-                        },
+                        }
                     ]
                 },
                 {
                     not: {
                         name: {
                             equals: 'earth',
-                            lower: true,
-                        },
+                            lower: true
+                        }
                     }
-                },
+                }
             ]
         });
 
@@ -557,12 +557,12 @@ describe('Fragebogen.FormAPIService', () => {
                             updated: {
                                 after: '2020-10-31T21:26:30Z'
                             }
-                        },
+                        }
                     ]
                 },
                 {
                     not: {
-                        id: '123',
+                        id: '123'
                     }
                 },
                 {
@@ -651,7 +651,7 @@ describe('Fragebogen.FormAPIService', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any) => {
+    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any): void => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
@@ -660,7 +660,7 @@ describe('Fragebogen.FormAPIService', () => {
         request.flush(deepCopy(body), opts);
     };
 
-    const deepCopy = (data: any) => JSON.parse(JSON.stringify(data));
+    const deepCopy = (data: any): any => JSON.parse(JSON.stringify(data));
 
     afterEach(() => {
         // Verify that no requests are remaining

@@ -20,7 +20,7 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
         MaketaskComponent,
         PublishComponent,
         CommentComponent,
-        SettingsComponent,
+        SettingsComponent
     ],
     imports: [
         DetailsRoutingModule,
@@ -29,7 +29,7 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
         FormsModule,
         SharedModule,
         PaginationModule.forRoot(),
-        SurveyjsModule,
+        SurveyjsModule
     ]
 })
 export class DetailsModule { }

@@ -69,7 +69,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve({
             forms: [],
             total: 100,
-            status: 200,
+            status: 200
         }));
         /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'something';

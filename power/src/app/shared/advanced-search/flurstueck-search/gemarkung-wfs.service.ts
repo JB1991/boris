@@ -46,6 +46,7 @@ export class GemarkungWfsService {
     /**
      * getGemarkungByKey by given key
      * @param gemarkung gemarkungsschlüssel
+     * @returns gemarkung
      */
     public getGemarkungByKey(gemarkung: string): Observable<FeatureCollection> {
         const filter = '<wfs:GetFeature ' +
@@ -79,6 +80,7 @@ export class GemarkungWfsService {
     /**
      * getGemarkungBySearchtext by given search text
      * @param searchText search text (gemarkungsschluessel, gemeinde, gemarkung)
+     * @returns gemarkung
      */
     public getGemarkungBySearchText(searchText: string): Observable<FeatureCollection> {
 
@@ -88,27 +90,31 @@ export class GemarkungWfsService {
         const words = searchText.match(regWords);
 
         let filterNumbers = '';
-        numbers?.forEach(n => {
-            filterNumbers +=
-                '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
-                '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
-                '<ogc:Literal>*' + n + '*</ogc:Literal>' +
-                '</ogc:PropertyIsLike>';
-        });
+        if (numbers) {
+            numbers.forEach(n => {
+                filterNumbers +=
+                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                    '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
+                    '<ogc:Literal>*' + n + '*</ogc:Literal>' +
+                    '</ogc:PropertyIsLike>';
+            });
+        }
 
         let filterWords = '';
-        words?.forEach(w => {
-            w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
-            filterWords +=
-                '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
-                '<ogc:PropertyName>gemarkung</ogc:PropertyName>' +
-                '<ogc:Literal>*' + w + '*</ogc:Literal>' +
-                '</ogc:PropertyIsLike>' +
-                '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
-                '<ogc:PropertyName>gemeinde</ogc:PropertyName>' +
-                '<ogc:Literal>*' + w + '*</ogc:Literal>' +
-                '</ogc:PropertyIsLike>';
-        });
+        if (words) {
+            words.forEach(w => {
+                w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+                filterWords +=
+                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                    '<ogc:PropertyName>gemarkung</ogc:PropertyName>' +
+                    '<ogc:Literal>*' + w + '*</ogc:Literal>' +
+                    '</ogc:PropertyIsLike>' +
+                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                    '<ogc:PropertyName>gemeinde</ogc:PropertyName>' +
+                    '<ogc:Literal>*' + w + '*</ogc:Literal>' +
+                    '</ogc:PropertyIsLike>';
+            });
+        }
 
         const filter = '<wfs:GetFeature ' +
             'xmlns:ogc="http://www.opengis.net/ogc" ' +
@@ -143,7 +149,7 @@ export class GemarkungWfsService {
      * @param searchText searchText
      * @returns first 10 filtered items by fuzzy search
      */
-    private fuzzySearch(res: Array<Feature>, searchText: string): Array<Feature> {
+    private fuzzySearch(res: Feature[], searchText: string): Feature[] {
         const options = {
             keys: [
                 'properties.gemarkung',
@@ -161,7 +167,7 @@ export class GemarkungWfsService {
      * @param error HTTP error to be handled
      * @returns observable error
      */
-    private static handleError(error: HttpErrorResponse) {
+    private static handleError(error: HttpErrorResponse): Observable<never> {
         return throwError(error);
     }
 }

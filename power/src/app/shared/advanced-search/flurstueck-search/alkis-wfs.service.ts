@@ -133,7 +133,7 @@ export class AlkisWfsService {
      * @param error HTTP error to be handled
      * @returns observable error
      */
-    private static handleError(error: HttpErrorResponse) {
+    private static handleError(error: HttpErrorResponse): Observable<never> {
         return throwError(error);
     }
 }

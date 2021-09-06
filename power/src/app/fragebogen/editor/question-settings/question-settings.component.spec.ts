@@ -66,7 +66,9 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
         component.model = JSON.parse(JSON.stringify(formContent));
         component.open(0, 0);
         expect(component.modal?.isVisible()).toBeTrue();
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.modal?.isVisible()).toBeFalse();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     });
@@ -81,7 +83,9 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
         component.open(0, 0);
         expect(component.storage.getUnsavedChanges()).toBeFalse();
         component.model.title.default = 'xxx';
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.storage.getUnsavedChanges()).toBeTrue();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.modal?.isVisible()).toBeFalse();

@@ -48,7 +48,9 @@ describe('Fragebogen.Details.PublishComponent', () => {
     it('should open and close', () => {
         component.open('123');
         expect(component.modal?.isOpen).toBeTrue();
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.modal?.isOpen).toBeFalse();
     });
 

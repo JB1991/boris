@@ -26,63 +26,63 @@ export function init(): void {
                     name: 'step:number',
                     category: 'slider',
                     categoryIndex: 1,
-                    default: 1,
+                    default: 1
                 },
                 {
                     name: 'rangeMin:number',
                     category: 'slider',
-                    default: 0,
+                    default: 0
                 },
                 {
                     name: 'rangeMax:number',
                     category: 'slider',
-                    default: 100,
+                    default: 100
                 },
                 {
                     name: 'pipsMode',
                     category: 'slider',
-                    default: 'positions',
+                    default: 'positions'
                 },
                 {
                     name: 'pipsDensity:number',
                     category: 'slider',
-                    default: 6,
+                    default: 6
                 },
                 {
                     name: 'orientation:string',
                     category: 'slider',
-                    default: 'horizontal',
+                    default: 'horizontal'
                 },
                 {
                     name: 'direction:string',
                     category: 'slider',
-                    default: 'ltr',
+                    default: 'ltr'
                 },
                 {
                     name: 'tooltips:boolean',
                     category: 'slider',
-                    default: true,
+                    default: true
                 },
                 {
                     name: 'inputbox:boolean',
                     category: 'slider',
-                    default: false,
+                    default: false
                 },
                 {
                     name: 'double:boolean',
                     category: 'slider',
-                    default: false,
+                    default: false
                 },
                 {
                     name: 'decimals:number',
                     category: 'slider',
-                    default: 2,
+                    default: 2
                 },
                 {
                     name: 'circa:boolean',
                     category: 'slider',
-                    default: false,
-                },
+                    default: false
+                }
             ]);
         },
         afterRender: function (question: Question, el: HTMLElement) {
@@ -151,7 +151,7 @@ export function init(): void {
                         from: function (pVal) {
                             return false;
                         }
-                    },
+                    }
                 },
                 format: {
                     to: function (value) {
@@ -163,10 +163,10 @@ export function init(): void {
                 },
                 range: {
                     min: Number(question['rangeMin']),
-                    max: Number(question['rangeMax']),
+                    max: Number(question['rangeMax'])
                 },
                 orientation: question['orientation'],
-                direction: question['direction'],
+                direction: question['direction']
             });
 
             slider.on('change', function () {
@@ -246,10 +246,10 @@ export function init(): void {
             }
 
             // handler
-            const updateValueHandler = function () {
+            const updateValueHandler = function (): void {
                 slider.set(question.value);
             };
-            const readOnlyChangedCallback = function () {
+            const readOnlyChangedCallback = function (): void {
                 if (!el.parentNode) {
                     return;
                 }

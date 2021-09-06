@@ -16,7 +16,7 @@ describe('AppComponent', () => {
         void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                RouterTestingModule,
+                RouterTestingModule
             ],
             providers: [
                 AuthService,
@@ -27,7 +27,7 @@ describe('AppComponent', () => {
                 AppComponent,
                 MockAlertsComponent,
                 MockLoadingscreenComponent
-            ],
+            ]
         }).compileComponents();
         fixture = TestBed.createComponent(AppComponent);
         app = fixture.componentInstance;
@@ -76,7 +76,7 @@ describe('AppComponent', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any) => {
+    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any): void => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
@@ -107,6 +107,6 @@ class MockLoadingscreenComponent {
 }
 class MockUpdateService {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    public checkForUpdates() { }
+    public checkForUpdates(): void { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

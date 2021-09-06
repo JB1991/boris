@@ -6,6 +6,7 @@ import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe'
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { ECharts, EChartsOption, init, LegendComponentOption, SeriesOption } from 'echarts';
+import { ResizeObserver } from '@juggle/resize-observer';
 
 /**
  *
@@ -42,10 +43,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     public resizeSub?: ResizeObserver;
 
     // table data for screenreader
-    public srTableData: Array<any> = [];
-    public srTableHeader: Array<string> = [];
+    public srTableData = new Array<any>();
+    public srTableHeader = new Array<string>();
 
-    public seriesTemplate: Array<SeriesItem> = [
+    public seriesTemplate: SeriesItem[] = [
         { stag: '2012', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
         { stag: '2013', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
         { stag: '2014', brw: '', nutzung: '', verg: '', verf: '', forwarded: false },
@@ -69,7 +70,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             padding: 10,
             textStyle: {
                 color: '#000'
-            },
+            }
         },
         legend: {
             data: [],
@@ -78,7 +79,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             top: '1%',
             textStyle: {
                 rich: {}
-            },
+            }
         },
         grid: {
             left: '1%',
@@ -98,12 +99,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             },
             axisTick: {
                 alignWithLabel: true
-            },
+            }
         },
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} €/m²',
+                formatter: '{value} €/m²'
             },
             axisLine: {
                 show: true,
@@ -113,7 +114,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             }
         },
         color: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
-        series: [],
+        series: []
     };
 
     constructor(
@@ -163,21 +164,23 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * Resizes echart
      */
     public resize(): void {
-        this.echartsInstance?.resize();
+        if (this.echartsInstance) {
+            this.echartsInstance.resize();
+        }
     }
 
     /**
      * clearChart clears the chartOptions
      */
     public clearChart(): void {
-        this.chartOption.series = [];
+        this.chartOption.series = new Array<any>();
         const legend: any = this.chartOption.legend;
-        legend['data'] = [];
+        legend['data'] = new Array<any>();
         legend['formatter'] = '';
         legend['textStyle'].rich = '';
 
-        this.srTableHeader = [];
-        this.srTableData = [];
+        this.srTableHeader = new Array<string>();
+        this.srTableData = new Array<any>();
     }
 
     /**
@@ -185,8 +188,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param params params
      * @returns returns the adjusted tooltip
      */
-    public tooltipFormatter(params: Array<any>): string {
-        const res = [];
+    public tooltipFormatter(params: any[]): string {
+        const res = new Array<string>();
         const year: number = params[0].axisValue;
         for (let j = 0; j < params.length; j++) {
             if (params[j].value && typeof (params[j].value) !== 'string') {
@@ -209,19 +212,21 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
         let smallestDiff: number;
         let index = 0;
 
-        this.STICHTAGE?.forEach((v, i) => {
-            const diff = Math.abs(new Date(year + '-01-01').getTime() - new Date(v).getTime());
-            if (!isSet) {
-                smallestDiff = diff;
-                index = i;
-                isSet = true;
-                return;
-            }
-            if (diff < smallestDiff) {
-                smallestDiff = diff;
-                index = i;
-            }
-        });
+        if (this.STICHTAGE) {
+            this.STICHTAGE.forEach((v, i) => {
+                const diff = Math.abs(new Date(year + '-01-01').getTime() - new Date(v).getTime());
+                if (!isSet) {
+                    smallestDiff = diff;
+                    index = i;
+                    isSet = true;
+                    return;
+                }
+                if (diff < smallestDiff) {
+                    smallestDiff = diff;
+                    index = i;
+                }
+            });
+        }
 
         return ([this.datePipe.transform(this.STICHTAGE?.[index]), '<br />', res.join('')].join(''));
     }
@@ -248,8 +253,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @returns a string with modified tooltip text
      */
     public formatTooltipforSmallViews(tooltipText: string): string {
-        const splittedName: Array<string> = tooltipText.split(/(?:\n| )/);
-        const concatSplittedName: Array<string> = [];
+        const splittedName: string[] = tooltipText.split(/(?:\n| )/);
+        const concatSplittedName = new Array<string>();
         splittedName.forEach((textElement: string) => {
             const idx = concatSplittedName.length - 1;
             // for first text element
@@ -270,7 +275,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param features features
      * @returns returns the filtered features
      */
-    public filterByStichtag(features: Array<Feature>): Array<Feature> {
+    public filterByStichtag(features: Feature[]): Feature[] {
         const firstYear = this.seriesTemplate[0].stag;
         const lastYear = this.seriesTemplate[this.seriesTemplate.length - 1].stag;
 
@@ -283,10 +288,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * generateChart generates a chart for given features
      * @param features features
      */
-    public generateChart(features: Array<Feature>): void {
+    public generateChart(features: Feature[]): void {
         const groupedByProperty = this.getKeyValuePairs(features);
         for (const [key, value] of groupedByProperty.entries()) {
-            const seriesArray: Array<Array<SeriesItem>> = [];
+            const seriesArray = new Array<SeriesItem[]>();
             features = Array.from(value);
 
             seriesArray[0] = this.getSeriesData(features);
@@ -307,7 +312,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             this.setLegendFormat();
             this.setTextStyleOfLegend();
         }
-        this.echartsInstance?.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        if (this.echartsInstance) {
+            this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        }
     }
 
     /**
@@ -315,9 +322,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param features feature array
      * @returns the feature items grouped
      */
-    public getKeyValuePairs(features: Array<Feature>): Map<string, Array<Feature>> {
+    public getKeyValuePairs(features: Feature[]): Map<string, Feature[]> {
         // grouped by Nutzungsart
-        let groupedByProperty: Map<string, Array<Feature>> =
+        let groupedByProperty: Map<string, Feature[]> =
             this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties?.['nutzung']));
         for (const [_, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
@@ -339,8 +346,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param keyGetter keyGetter
      * @returns returns a map object
      */
-    public groupBy(list: Array<Feature>, keyGetter: (item: Feature) => string): Map<string, Array<Feature>> {
-        const map = new Map<string, Array<Feature>>();
+    public groupBy(list: Feature[], keyGetter: (item: Feature) => string): Map<string, Feature[]> {
+        const map = new Map<string, Feature[]>();
         list.forEach((item) => {
             const key = keyGetter(item);
             if (key !== null && key !== '') {
@@ -360,7 +367,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param features features
      * @returns a series with feature values
      */
-    public getSeriesData(features: Array<Feature>): Array<SeriesItem> {
+    public getSeriesData(features: Feature[]): SeriesItem[] {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
             const feature = features.find(f => f.properties?.['stag'].includes(series[i].stag));
@@ -379,10 +386,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series series
      * @returns the separated series which includes Verfahrensgrund and Verfahrensart
      */
-    public getVergOfSeries(series: Array<SeriesItem>): Array<Array<SeriesItem>> {
-        const defaultVerg: Array<string> = ['San', 'Entw', 'SoSt', 'StUb'];
-        const defaultVerf: Array<string> = ['SU', 'EU', 'SB', 'EB'];
-        const seriesVergValuesTotal: Array<Array<SeriesItem>> = [];
+    public getVergOfSeries(series: SeriesItem[]): SeriesItem[][] {
+        const defaultVerg: string[] = ['San', 'Entw', 'SoSt', 'StUb'];
+        const defaultVerf: string[] = ['SU', 'EU', 'SB', 'EB'];
+        const seriesVergValuesTotal = new Array<SeriesItem[]>();
         let seriesVergValues;
 
         // extract each Verfahrensgrund
@@ -430,8 +437,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param idx index
      * @returns the series copied into new array
      */
-    public copySeriesData(series: Array<SeriesItem>,
-        seriesVergValues: Array<SeriesItem>, idx: number): Array<SeriesItem> {
+    public copySeriesData(series: SeriesItem[],
+        seriesVergValues: SeriesItem[], idx: number): SeriesItem[] {
         // series changes from a verg to normal
         if (idx < (series.length - 1) && series[idx + 1].brw !== null &&
             (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
@@ -455,9 +462,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series series
      * @returns a series with filled gaps
      */
-    public fillGapWithinAYear(series: Array<SeriesItem>): SeriesItem[] {
+    public fillGapWithinAYear(series: SeriesItem[]): SeriesItem[] {
         // check gap in series
-        const seriesFilledGap: Array<SeriesItem> = this.deepCopy(this.seriesTemplate);
+        const seriesFilledGap: SeriesItem[] = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
@@ -484,7 +491,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series array with series items
      * @returns the series including the last item copied
      */
-    public copyLastItem(series: Array<SeriesItem>): SeriesItem[] {
+    public copyLastItem(series: SeriesItem[]): SeriesItem[] {
         // Forwarding the last element of the series
         const seriesValues = series.filter(element => element.brw);
         if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
@@ -504,7 +511,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series series
      * @returns returns the series without verfahrensgrund items
      */
-    public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
+    public deleteSeriesVergItems(series: SeriesItem[]): SeriesItem[] {
         let i = 0;
         if (series.find((element: any, index: number): boolean => {
             // find first series element with no verg and brw
@@ -538,8 +545,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series array with seriesItems
      * @param label label
      */
-    public setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
-        (this.chartOption.series as Array<SeriesOption>).push({
+    public setChartOptionsSeries(series: SeriesItem[], label: string): void {
+        (this.chartOption.series as SeriesOption[]).push({
             name: label,
             type: 'line',
             step: 'end',
@@ -550,7 +557,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
                     return 4;
                 }
             },
-            data: series.map(t => t.brw),
+            data: series.map(t => t.brw)
         });
     }
 
@@ -560,7 +567,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param series array with seriesItems
      * @returns the label for the legend
      */
-    public createLegendLabel(key: string, series: Array<SeriesItem>): string {
+    public createLegendLabel(key: string, series: SeriesItem[]): string {
         let nutzung = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung as string;
         const wnum = Number(key);
         if (wnum && nutzung) {
@@ -653,7 +660,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             'wnum': {
                 fontSize: 10,
                 align: 'center'
-            },
+            }
         };
     }
 
@@ -662,8 +669,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param label label
      * @param series array with seriesItems
      */
-    public generateSrTable(label: string, series: Array<SeriesItem>): void {
-        const indexes: Array<number> = [];
+    public generateSrTable(label: string, series: SeriesItem[]): void {
+        const indexes = new Array<number>();
         indexes.forEach(idx => series[idx].brw = '');
         if (label) {
             this.srTableHeader.push(label);
@@ -676,7 +683,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @param data array with seriesItems
      * @returns returns JSON object
      */
-    public deepCopy(data: Array<SeriesItem>): any {
+    public deepCopy(data: SeriesItem[]): any {
         return JSON.parse(JSON.stringify(data));
     }
 

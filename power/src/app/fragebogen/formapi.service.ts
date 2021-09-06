@@ -24,15 +24,15 @@ import { Observable } from 'rxjs';
  *
  */
 export enum Method {
-    GET,
-    POST,
-    PUT,
-    DELETE,
+    GET = 0,
+    POST = 1,
+    PUT = 2,
+    DELETE = 3
 }
 
 /* eslint-disable max-lines */
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class FormAPIService {
     constructor(
@@ -48,7 +48,7 @@ export class FormAPIService {
      * @param body Body for POST
      * @returns Promise<ArrayBuffer>
      */
-    private async Do(method: Method, uri: string, params: Record<string, string>, body?: any) {
+    private async Do(method: Method, uri: string, params: Record<string, string>, body?: any): Promise<any> {
         const p = new URLSearchParams(params);
         const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
 
@@ -67,7 +67,7 @@ export class FormAPIService {
                 obs = this.httpClient.get(url, this.auth.getHeaders());
         }
 
-        const data = obs.toPromise();
+        const data = await obs.toPromise();
         return data as any;
     }
 
@@ -79,7 +79,7 @@ export class FormAPIService {
     public async getTags(
         params: GetGroupTagParams
     ): Promise<{
-        tags: Array<string>;
+        tags: string[];
         total: number;
         status: number;
     }> {
@@ -107,7 +107,7 @@ export class FormAPIService {
     public async getGroups(
         params: GetGroupTagParams
     ): Promise<{
-        groups: Array<string>;
+        groups: string[];
         total: number;
         status: number;
     }> {
@@ -135,7 +135,7 @@ export class FormAPIService {
     public async getUsers(
         params: GetUsersParams
     ): Promise<{
-        users: Array<User>;
+        users: User[];
         total: number;
         status: number;
     }> {
@@ -166,7 +166,7 @@ export class FormAPIService {
      */
     public async getUser(
         id: string,
-        fields?: Array<FormField>
+        fields?: FormField[]
     ): Promise<{
         user: User;
         status: number;
@@ -184,7 +184,7 @@ export class FormAPIService {
     public async getForms(
         params: GetFormsParams
     ): Promise<{
-        forms: Array<Form>;
+        forms: Form[];
         total: number;
         status: number;
     }> {
@@ -245,10 +245,10 @@ export class FormAPIService {
     public async createForm(body: {
         owner?: string;
         content?: any;
-        tags?: Array<string>;
+        tags?: string[];
         access?: Access;
         status?: FormStatus;
-        groups?: Array<string>;
+        groups?: string[];
     }): Promise<{
         id: string;
         status: number;
@@ -272,8 +272,8 @@ export class FormAPIService {
         body: {
             owner?: string;
             content?: any;
-            groups?: Array<string>;
-            tags?: Array<string>;
+            groups?: string[];
+            tags?: string[];
             access?: Access;
             group?: string;
             status?: FormStatus;
@@ -301,7 +301,7 @@ export class FormAPIService {
      * @param params
      */
     public async getTasks(params: GetTasksParams): Promise<{ // eslint-disable-line complexity
-        tasks: Array<Task>;
+        tasks: Task[];
         total: number;
         status: number;
     }> {
@@ -373,8 +373,8 @@ export class FormAPIService {
         },
         number?: number // eslint-disable-line id-blacklist
     ): Promise<{
-        ids: Array<string>;
-        pins: Array<string>;
+        ids: string[];
+        pins: string[];
         status: number;
     }> {
         const p: Record<string, string> = {};
@@ -423,7 +423,7 @@ export class FormAPIService {
     public async getElements(
         params: GetElementsParams
     ): Promise<{
-        elements: Array<Element>;
+        elements: Element[];
         total: number;
         status: number;
     }> {
@@ -482,7 +482,7 @@ export class FormAPIService {
         body: {
             owner?: string;
             content?: any;
-            groups?: Array<string>;
+            groups?: string[];
         }): Promise<{
             id: string;
             status: number;
@@ -525,7 +525,7 @@ export class FormAPIService {
     public async getPublicForms(
         params: GetPublicFormsParams
     ): Promise<{
-        forms: Array<PublicForm>;
+        forms: PublicForm[];
         total: number;
         status: number;
     }> {
@@ -580,7 +580,7 @@ export class FormAPIService {
      */
     public async createPublicTask(
         formID: string,
-        content: any,
+        content: any
     ): Promise<{
         message: string;
         status: number;
@@ -630,7 +630,7 @@ export class FormAPIService {
             p['submit'] = 'true';
         }
         return this.Do(Method.PUT, 'public/tasks/' + encodeURIComponent(pin), p, {
-            content: content,
+            content: content
         });
     }
 
@@ -662,7 +662,7 @@ export class FormAPIService {
      */
     public getErrorMessage(error: any): string { // eslint-disable-line complexity
         let msg = error.toString();
-        if (error['error'] && error['error']['message']) {
+        if (error['error']?.['message']) {
             msg = error['error']['message'];
         } else if (msg === '[object Object]') {
             msg = $localize`Es trat folgender HTTP-Fehler auf:` + ' ' + error['message'];
@@ -753,7 +753,7 @@ export interface GetGroupTagParams {
  *
  */
 export interface GetUsersParams {
-    fields?: Array<UserField>;
+    fields?: UserField[];
     filter?: UserFilter;
     sort?: UserSort;
     limit?: number;
@@ -764,8 +764,8 @@ export interface GetUsersParams {
  *
  */
 export interface GetFormsParams {
-    fields?: Array<FormField>;
-    extract?: Array<string>;
+    fields?: FormField[];
+    extract?: string[];
     filter?: FormFilter;
     sort?: FormSort;
     limit?: number;
@@ -776,8 +776,8 @@ export interface GetFormsParams {
  *
  */
 export interface GetPublicFormsParams {
-    fields?: Array<PublicFormField>;
-    extract?: Array<string>;
+    fields?: PublicFormField[];
+    extract?: string[];
     filter?: PublicFormFilter;
     sort?: PublicFormSort;
     limit?: number;
@@ -788,25 +788,25 @@ export interface GetPublicFormsParams {
  *
  */
 export interface GetFormParams {
-    fields?: Array<FormField>;
-    extract?: Array<string>;
+    fields?: FormField[];
+    extract?: string[];
 }
 
 /**
  *
  */
 export interface GetPublicFormParams {
-    fields?: Array<PublicFormField>;
-    extract?: Array<string>;
+    fields?: PublicFormField[];
+    extract?: string[];
 }
 
 /**
  *
  */
 export interface GetTasksParams {
-    fields?: Array<TaskField>;
-    extract?: Array<string>;
-    'form.extract'?: Array<string>;
+    fields?: TaskField[];
+    extract?: string[];
+    'form.extract'?: string[];
     filter?: TaskFilter;
     sort?: TaskSort;
     limit?: number;
@@ -817,26 +817,26 @@ export interface GetTasksParams {
  *
  */
 export interface GetTaskParams {
-    fields?: Array<TaskField>;
-    extract?: Array<string>;
-    'form.extract'?: Array<string>;
+    fields?: TaskField[];
+    extract?: string[];
+    'form.extract'?: string[];
 }
 
 /**
  *
  */
 export interface GetPublicTaskParams {
-    fields?: Array<PublicTaskField>;
-    extract?: Array<string>;
-    'form.extract'?: Array<string>;
+    fields?: PublicTaskField[];
+    extract?: string[];
+    'form.extract'?: string[];
 }
 
 /**
  *
  */
 export interface GetElementsParams {
-    fields?: Array<ElementField>;
-    extract?: Array<string>;
+    fields?: ElementField[];
+    extract?: string[];
     filter?: ElementFilter;
     sort?: ElementSort;
     limit?: number;
@@ -847,6 +847,6 @@ export interface GetElementsParams {
  *
  */
 export interface GetElementParams {
-    fields?: Array<ElementField>;
-    extract?: Array<string>;
+    fields?: ElementField[];
+    extract?: string[];
 }

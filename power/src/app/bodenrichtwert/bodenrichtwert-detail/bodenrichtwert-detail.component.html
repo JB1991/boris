@@ -13,7 +13,7 @@
                      role="row">
                     <div class="h5 col-md-5 mb-0"
                          role="rowheader"><strong>{{brzStrings.brz | hyphenate}}</strong>
-                        <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
+                        <svg *ngIf="teilmarkt?.value?.[0] === 'LF'; else svgBauland"
                              viewBox="0 0 20 22"
                              width="24"
                              height="20"
@@ -55,12 +55,12 @@
                         role="rowheader">
                         {{brzStrings.value | hyphenate}}
                     </dt>
-                    <dd *ngIf="teilmarkt.value.includes('B')"
+                    <dd *ngIf="teilmarkt?.value?.includes('B')"
                         class="col-md-7"
                         role="cell">
                         {{feature.properties?.['brw'] | number:'1.0-1'}} &euro; / m&#178;
                     </dd>
-                    <dd *ngIf="teilmarkt.value.includes('LF')"
+                    <dd *ngIf="teilmarkt?.value?.includes('LF')"
                         class="col-md-7"
                         role="cell">
                         {{feature.properties?.['brw'] | number:'1.2-2'}} &euro; / m&#178;
@@ -298,26 +298,25 @@
                          i18n-alt
                          alt="Freie Hansestadt Bremen Wappen"
                          src="./assets/logos/bremen_wappen.svg"
-                         *ngIf="features?.features[0].properties?.['gema'] === 'Bremerhaven' || features?.features[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen'">
+                         *ngIf="features?.features?.[0]?.properties?.['gema'] === 'Bremerhaven' || features?.features?.[0]?.properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen'">
                     <img width="200px"
                          height="50px"
                          i18n-alt
                          alt="Niedersachsen Wappen"
                          src="./assets/logos/niedersachsen.png"
-                         *ngIf="features?.features[0].properties?.['gema'] !== 'Bremerhaven' && features?.features[0].properties?.['gabe'] !== 'Gutachterausschuss für Grundstückswerte in Bremen'">
+                         *ngIf="features?.features?.[0]?.properties?.['gema'] !== 'Bremerhaven' && features?.features?.[0]?.properties?.['gabe'] !== 'Gutachterausschuss für Grundstückswerte in Bremen'">
                     <br><br>
-                    <a *ngIf="
-                         filteredFeatures[0]"
-                       [href]="filteredFeatures[0].properties?.['gabe'] | gagKontaktdaten"
+                    <a *ngIf="filteredFeatures?.[0]"
+                       [href]="filteredFeatures?.[0]?.properties?.['gabe'] | gagKontaktdaten"
                        target="_blank"
                        rel="noopener noreferrer nofollow"
                        i18n-alt
                        alt="Herausgegeben von"
                        title="Herausgegeben von"
-                       i18n-title>{{ filteredFeatures[0]?.properties?.['gabe'] }}</a>
+                       i18n-title>{{ filteredFeatures?.[0]?.properties?.['gabe'] }}</a>
                     <br><br>
                     <a *ngIf="
-                       filteredFeatures[0] && teilmarkt.value.includes('B')"
+                       filteredFeatures?.[0] && teilmarkt?.value?.includes('B')"
                        href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_bauland/"
                        target="_blank"
                        rel="noopener noreferrer nofollow"
@@ -326,7 +325,7 @@
                        title="Erläuterungen zur Bodenrichtwertkarte Bauland"
                        i18n-title>Erläuterungen zur Bodenrichtwertkarte Bauland</a>
                     <a *ngIf="
-                       filteredFeatures[0] && teilmarkt.value.includes('LF')"
+                       filteredFeatures?.[0] && teilmarkt?.value?.includes('LF')"
                        href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_landwirtschaft/"
                        target="_blank"
                        rel="noopener noreferrer nofollow"

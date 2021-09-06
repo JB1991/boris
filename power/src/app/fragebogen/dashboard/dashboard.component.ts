@@ -11,16 +11,16 @@ import { SEOService } from '@app/shared/seo/seo.service';
     selector: 'power-forms-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
-    public tags: Array<string> = [];
+    public tags = new Array<string>();
 
-    public forms: Array<Form> = [];
+    public forms = new Array<Form>();
     public formTotal = 0;
     public formPage = 1;
     public formPerPage = 5;
-    public formPageSizes: number[] = [];
+    public formPageSizes = new Array<number>();
 
     public formSearch = '';
     public formStatus: FormStatus | 'all' = 'all';
@@ -28,11 +28,11 @@ export class DashboardComponent implements OnInit {
     public formSort: FormField = 'updated';
     public formSortDesc = true;
 
-    public tasks: Array<Task> = [];
+    public tasks = new Array<Task>();
     public taskTotal = 0;
     public taskPage = 1;
     public taskPerPage = 5;
-    public taskPageSizes: number[] = [];
+    public taskPageSizes = new Array<number>();
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskField = 'updated';
@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
             reader.onload = () => {
                 try {
                     this.formAPI.createForm({
-                        content: JSON.parse(reader?.result ? reader.result.toString() : '{"error": "no result"}'),
+                        content: JSON.parse(reader?.result ? reader.result.toString() : '{"error": "no result"}')
                     }).then(() => {
                         this.formSortDesc = true;
                         this.formSort = 'created';
@@ -139,10 +139,10 @@ export class DashboardComponent implements OnInit {
                 fields: ['id', 'owner.name', 'extract', 'access', 'status', 'created', 'updated', 'tags', 'groups'],
                 extract: ['title.de', 'title.default'],
                 limit: Number(this.formPerPage),
-                offset: (this.formPage - 1) * this.formPerPage,
+                offset: (this.formPage - 1) * this.formPerPage
             };
             params.sort = { desc: this.formSortDesc, field: this.formSort };
-            const filters: Array<FormFilter> = [];
+            const filters = new Array<FormFilter>();
             if (this.formStatus !== 'all') {
                 filters.push({ status: this.formStatus });
             }
@@ -150,7 +150,7 @@ export class DashboardComponent implements OnInit {
                 filters.push({ access: this.formAccess });
             }
             if (this.formSearch !== '') {
-                const or: Array<FormFilter> = [];
+                const or = new Array<FormFilter>();
                 const search = { lower: true, contains: this.formSearch };
                 or.push({ extract: search });
                 or.push({ tag: search });
@@ -190,12 +190,12 @@ export class DashboardComponent implements OnInit {
                 fields: ['id', 'form.id', 'form.extract', 'pin', 'description', 'status', 'updated', 'created'],
                 'form.extract': ['title.de', 'title.default'],
                 limit: Number(this.taskPerPage),
-                offset: (this.taskPage - 1) * this.taskPerPage,
+                offset: (this.taskPage - 1) * this.taskPerPage
             };
 
             if (this.taskStatus !== 'all') {
                 params.filter = {
-                    status: this.taskStatus,
+                    status: this.taskStatus
                 };
             }
             params.sort = { field: this.taskSort, desc: this.taskSortDesc };

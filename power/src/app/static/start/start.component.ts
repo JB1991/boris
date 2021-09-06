@@ -12,7 +12,7 @@ import { environment } from '@env/environment';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartComponent {
-    public config = environment.config;
+    public readonly config = environment.config;
     public cardorder = new Array<string>();
     public pin = '';
 
@@ -65,7 +65,10 @@ export class StartComponent {
      * @param id Element id
      */
     public scrollToElement(id: string): void {
-        document.getElementById(id)?.scrollIntoView();
+        const ele = document.getElementById(id);
+        if (ele) {
+            ele.scrollIntoView();
+        }
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

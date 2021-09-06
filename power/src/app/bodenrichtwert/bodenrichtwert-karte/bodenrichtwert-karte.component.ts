@@ -24,16 +24,16 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public map: Map;
 
     // baseUrl
-    public baseUrl = environment.baseurl;
+    public readonly baseUrl = environment.baseurl;
 
     // map style url
-    public MAP_STYLE_URL = environment.basemap;
+    public readonly MAP_STYLE_URL = environment.basemap;
 
     // font
     // public font = 'Klokantech Noto Sans Regular';
 
     // NDS Bounds Maplibre Type
-    public bounds = new LngLatBounds([
+    public readonly bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
 
@@ -46,9 +46,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     });
 
     // Bremen - Tile Source, Bounds, Source
-    public brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
+    public readonly brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
 
-    public brTiles = '/geoserver/gwc/service/wmts?'
+    public readonly brTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -59,17 +59,17 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public bremenSource: VectorSource = {
+    public readonly bremenSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.brTiles],
-        bounds: this.brBounds,
+        bounds: this.brBounds
     };
 
     // NDS - Tile Sources, Bounds, Source
-    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+    public readonly ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
 
     // Bodenrichtwerte
-    public ndsTiles = '/geoserver/gwc/service/wmts?'
+    public readonly ndsTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -80,14 +80,14 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsSource: VectorSource = {
+    public readonly ndsSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsTiles],
-        bounds: this.ndsBounds,
+        bounds: this.ndsBounds
     };
 
     // Sanierungsgebiete - Verg (Verfahrensgrundlage)
-    public ndsVergTiles = '/geoserver/gwc/service/wmts?'
+    public readonly ndsVergTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -98,14 +98,14 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsVergSource: VectorSource = {
+    public readonly ndsVergSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsVergTiles],
-        bounds: this.ndsBounds,
+        bounds: this.ndsBounds
     };
 
     // Flurstuecke
-    public ndsFstTiles = '/geoserver/gwc/service/wmts?'
+    public readonly ndsFstTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
@@ -116,10 +116,10 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsFstSource: VectorSource = {
+    public readonly ndsFstSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsFstTiles],
-        bounds: this.ndsBounds,
+        bounds: this.ndsBounds
     };
 
     @Input() public latLng: LngLat;
@@ -171,7 +171,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             this.changedStichtag();
         }
         // latLng changed
-        if (changes['latLng'] && changes['latLng'].currentValue !== undefined) {
+        if (changes['latLng']?.currentValue !== undefined) {
             this.changedLatLng();
         }
         // collapsed
@@ -704,11 +704,11 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     { lat: 52.46679714990489, lng: 9.719547336560112, properties: { display: 130 } },
                     { lat: 52.4723241988992, lng: 9.7557494003822, properties: { display: 130 } },
                     { lat: 52.43336837635533, lng: 9.715375393126635, properties: { display: 130 } },
-                    { lat: 52.48606574248538, lng: 9.726679369115345, properties: { display: 130 } },
+                    { lat: 52.48606574248538, lng: 9.726679369115345, properties: { display: 130 } }
                 ]));
             baulandSource.setData({
                 type: 'FeatureCollection',
-                features: features,
+                features: features
             });
         } else if (landwirtschaftsSource) {
 
@@ -728,7 +728,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 []);
             landwirtschaftsSource.setData({
                 type: 'FeatureCollection',
-                features: features,
+                features: features
             });
         }
     }

@@ -34,7 +34,7 @@ export class BodenrichwertnummerSearchComponent {
     constructor(
         public alerts: AlertsService,
         public bodenrichtwertService: BodenrichtwertService,
-        private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef
     ) {
         this.brwNummer = undefined;
     }
@@ -63,7 +63,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param feature GeoJSON feature
      * @returns inputFormatter
      */
-    public inputFormatter = (feature: Feature): string =>
+    public readonly inputFormatter = (feature: Feature): string =>
         feature.properties?.['wnum'] + ' - ' + feature.properties?.['brzname'];
 
     /**
@@ -96,7 +96,7 @@ export class BodenrichwertnummerSearchComponent {
             case 'MultiPolygon':
                 const p = ft.geometry.coordinates.map(f => ({
                     type: 'Polygon',
-                    coordinates: f,
+                    coordinates: f
                 })).sort((i, j) => area(i) - area(j)).shift();
 
                 if (!p) {
@@ -144,7 +144,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param text$ Input as Observable
      * @returns search
      */
-    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
+    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
@@ -168,7 +168,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param fts result feature collection
      * @returns array with features
      */
-    public checkFeatures(fts: FeatureCollection): Feature<Geometry, GeoJsonProperties>[] {
+    public checkFeatures(fts: FeatureCollection): Array<Feature<Geometry, GeoJsonProperties>> {
         this.loading = false;
         // manual change detection necessary
         this.cdr.detectChanges();

@@ -19,20 +19,20 @@ export default class BodenrichtwertKarteLayerControl {
         this.btn = document.createElement('button');
         this.btn.className = 'btn';
         this.btn.type = 'button';
-        this.btn.title = 'Basemap wechseln - Standard';
+        this.btn.title = $localize`Basemap wechseln - Standard`;
         this.btn.onclick = () => {
             this.timesClicked++;
             this.mapIndex += 1;
 
             if (this.timesClicked % 2 === 0) {
                 this.map.setStyle(environment.basemap);
-                this.btn.title = 'Basemap wechseln - Standard';
+                this.btn.title = $localize`Basemap wechseln - Standard`;
             } else {
                 this.mapIndex = this.mapIndex % environment.baviStyles.length;
                 const style = environment.baviStyles[this.mapIndex];
                 this.map.setStyle(style);
                 const lastSlash = style.lastIndexOf('/');
-                this.btn.title = 'Basemap wechseln - ' + style.substr(lastSlash + 1, style.length).replace('.json', '');
+                this.btn.title = $localize`Basemap wechseln` + ' - ' + style.substr(lastSlash + 1, style.length).replace('.json', '');
                 this.mapIndex += 1;
             }
         };
@@ -52,7 +52,7 @@ export default class BodenrichtwertKarteLayerControl {
      * onRemove removes the html container and the map
      */
     public onRemove(): void {
-        if (this.container && this.container.parentNode) {
+        if (this.container?.parentNode) {
             this.container.parentNode.removeChild(this.container);
         }
         this.map = undefined;

@@ -50,7 +50,9 @@ describe('Fragebogen.Details.CommentComponent', () => {
     it('should open and close', () => {
         component.open(getTask.task);
         expect(component.modal?.isOpen).toBeTrue();
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

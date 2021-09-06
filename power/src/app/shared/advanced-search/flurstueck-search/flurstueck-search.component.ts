@@ -3,7 +3,7 @@ import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from '
 import { AlertsService } from '../../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
-import { Feature, FeatureCollection, Geometry } from 'geojson';
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
@@ -70,8 +70,8 @@ export class FlurstueckSearchComponent {
      * @param feature GeoJSON feature
      * @returns formatted input
      */
-    public inputFormatter = (feature: Feature): string => {
-        if (feature.properties && feature.properties['gemarkung']) {
+    public readonly inputFormatter = (feature: Feature): string => {
+        if (feature.properties?.['gemarkung']) {
             return feature.properties['gemarkung'] + ' (' +
                 feature.properties['gemarkungsschluessel'] + ')' +
                 ' - ' + feature.properties['gemeinde'];
@@ -86,7 +86,7 @@ export class FlurstueckSearchComponent {
     public searchFlurstueck(value: Flurstueckskennzeichen): void {
         this.fsk = value;
 
-        if (this.fsk && this.fsk.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
+        if (this.fsk?.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
             this.alkisWfsService.getFlurstueckByFsk(
                 this.fsk.gemarkung.properties['gemarkungsschluessel'],
                 this.fsk.flur,
@@ -134,7 +134,7 @@ export class FlurstueckSearchComponent {
      * @param text$ Input as Observable
      * @returns Search Observable
      */
-    public search = (text$: Observable<string>): Observable<Feature<Geometry, { [name: string]: any; }>[]> =>
+    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
-        FilloutComponent,
+        FilloutComponent
     ],
     imports: [
         CommonModule,

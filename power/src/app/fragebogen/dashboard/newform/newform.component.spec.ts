@@ -29,7 +29,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             ],
             providers: [
                 AlertsService,
-                FormAPIService,
+                FormAPIService
             ],
             declarations: [
                 NewformComponent
@@ -55,7 +55,9 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.tagList).toEqual([]);
         expect(component.searchText).toEqual('');
         expect(component.modal?.isOpen).toBeTrue();
-        component.modal?.close();
+        if (component.modal) {
+            component.modal.close();
+        }
         expect(component.modal?.isOpen).toBeFalse();
     });
 
@@ -81,7 +83,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                     }
                 ],
                 total: 2,
-                status: 200,
+                status: 200
             }
         ));
 

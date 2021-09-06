@@ -24,7 +24,9 @@ export class MaketaskComponent {
     public open(): void {
         this.amount = 1;
         this.pinList = [];
-        this.modal?.open($localize`PINs erstellen`);
+        if (this.modal) {
+            this.modal.open($localize`PINs erstellen`);
+        }
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

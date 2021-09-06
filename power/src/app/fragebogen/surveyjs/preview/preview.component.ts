@@ -22,7 +22,7 @@ export class PreviewComponent {
     public language = 'de';
     public showInvisible = false;
     public isVisible = false;
-    public languages = surveyLocalization.localeNames;
+    public readonly languages = surveyLocalization.localeNames;
 
     constructor(public cdr: ChangeDetectorRef) { }
 
@@ -46,10 +46,10 @@ export class PreviewComponent {
         this.language = this.form.locale;
         this.isVisible = true;
         this.cdr.detectChanges();
-        if (this.data) {
-            this.modal?.open($localize`Ergebnisvorschau`);
-        } else {
-            this.modal?.open($localize`Formularvorschau`);
+        if (this.data && this.modal) {
+            this.modal.open($localize`Ergebnisvorschau`);
+        } else if (this.modal) {
+            this.modal.open($localize`Formularvorschau`);
         }
     }
 
@@ -76,7 +76,7 @@ export class PreviewComponent {
      * Set language
      */
     public setLanguage(): void {
-        if (this.wrapper && this.wrapper.survey) {
+        if (this.wrapper?.survey) {
             this.wrapper.survey.locale = this.language;
         }
     }

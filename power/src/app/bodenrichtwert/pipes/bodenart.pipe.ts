@@ -12,7 +12,7 @@ const bodTypes = [
     { key: 'LT', value: $localize`Schwerer Lehm`, slash: $localize`schwerem Lehm`, comma: $localize`schwerer Lehm`, plus: $localize`schwerem Lehm` },
     { key: 'T', value: $localize`Ton`, slash: $localize`Ton`, comma: $localize`Ton`, plus: $localize`Ton` },
     { key: 'Fe', value: $localize`Felsen`, slash: $localize`Felsen`, comma: $localize`Felsen`, plus: $localize`Felsen` },
-    { key: 'Mo', value: $localize`Moor`, slash: $localize`Moor`, comma: $localize`Moor`, plus: $localize`Moor` },
+    { key: 'Mo', value: $localize`Moor`, slash: $localize`Moor`, comma: $localize`Moor`, plus: $localize`Moor` }
 ];
 
 @Pipe({
@@ -20,8 +20,7 @@ const bodTypes = [
 })
 export class BodenartPipe implements PipeTransform {
 
-
-    public regex: RegExp[] = [
+    public readonly regex: RegExp[] = [
         // 3 chars
         /^([a-z]{1})([A-Z]{2})/, // aBC , z.B. sLT
         /^([A-Z]{1})([A-Z]{1}[a-z]{1})/, // ABc , z.B. SMo
@@ -29,7 +28,7 @@ export class BodenartPipe implements PipeTransform {
         // 4 chars
         /^([A-Z]{1}[a-z]{1})([a-z]{1}[A-Z]{1})/, // AbcD , z.B. MolS
         /^([A-Z]{1}[a-z]{1})([A-Z]{1}[a-z]{1})/, // AbCd , z.B. AbCd
-        /^([a-z]{1}[A-Z]{1})([A-Z]{1}[a-z]{1})/, // aBCd , z.B. lSMo
+        /^([a-z]{1}[A-Z]{1})([A-Z]{1}[a-z]{1})/ // aBCd , z.B. lSMo
         // more expressions ...
     ];
 
@@ -89,7 +88,7 @@ export class BodenartPipe implements PipeTransform {
      * @param operator defines how to combine multiple bodenarten
      * @returns returns string of concatenated bodenarten
      */
-    private buildDisplayValue(types: Array<string>, operator: string): string {
+    private buildDisplayValue(types: string[], operator: string): string {
         let displayValue = '';
         let trimSpaces = 2; // default
         let falseExp = false;
@@ -162,7 +161,7 @@ export class BodenartPipe implements PipeTransform {
 
         this.regex.forEach((r: RegExp) => {
             if (r.test(value)) {
-                const groups = value.match(r);
+                const groups = r.exec(value);
                 if (groups) {
                     types = groups.slice(1, groups.length);
                 }

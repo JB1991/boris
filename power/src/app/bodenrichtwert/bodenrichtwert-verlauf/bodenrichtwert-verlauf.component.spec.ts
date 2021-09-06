@@ -53,7 +53,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('clearChart should delete the chart data', () => {
-        (component.chartOption.series as Array<string>) = ['bar'];
+        (component.chartOption.series as string[]) = ['bar'];
         component.chartOption.legend['data'] = ['foo'];
         component.chartOption.legend['formatter'] = ['pluto'];
         component.chartOption.legend['textStyle'].rich = 'toto';

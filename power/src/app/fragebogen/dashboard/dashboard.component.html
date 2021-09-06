@@ -364,7 +364,7 @@
                             <td>
                                 <a i18n-title
                                    title="Formular öffnen"
-                                   [routerLink]="['/forms/details', task.form.id]">{{ task.form.extract }}</a>
+                                   [routerLink]="['/forms/details', task.form?.id]">{{ task.form?.extract }}</a>
                             </td>
                             <td><span *ngIf="task.pin">{{ task.pin }}</span></td>
                             <td>
@@ -784,7 +784,7 @@
                                 </a>
                             </td>
                             <td><span *ngIf="form.tags && form.tags.length > 0">{{ form.tags.join(', ') }}</span></td>
-                            <td>{{ form.owner.name }}</td>
+                            <td>{{ form.owner?.name }}</td>
                             <td>{form.status, select, created {Erstellt} published {Veröffentlicht} cancelled
                                 {Geschlossen}}
                                 <span *ngIf="form.status === 'published'">
@@ -909,5 +909,5 @@
 
 <power-forms-dashboard-newform #newform
                                [tags]="tags"
-                               (out)="this.formSort = 'created'; this.formSortDesc = true; this.formSort = 'created'; updateForms(false)">
+                               (out)="formSort = 'created'; formSortDesc = true; formSort = 'created'; updateForms(false)">
 </power-forms-dashboard-newform>

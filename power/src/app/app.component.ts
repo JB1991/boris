@@ -21,7 +21,7 @@ export type FrontendVersion = {
 @Component({
     selector: 'power-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsed = true;
@@ -31,10 +31,10 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public showBrowserNotice = true;
     public showOfflineNotice = true;
     public showIENotice = false;
-    public config = environment.config;
+    public readonly config = environment.config;
     public appVersion: FrontendVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
-    public uri = location;
+    public readonly uri = location;
     public baseurl = location.pathname + location.search;
 
     private _subscription: Subscription;
@@ -102,7 +102,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             this.httpClient.get<FrontendVersion>('/assets/version.json?cache-bust=' + Math.random(),
                 { headers: header, responseType: 'json' }
             ).subscribe(data => {
-                if (data && data['version']) {
+                if (data?.['version']) {
                     this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
                 }
@@ -126,6 +126,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             // eslint-disable-next-line
             // @ts-ignore
             const isIE = /*@cc_on!@*/false || !!document['documentMode']; // eslint-disable-line
+            // eslint-disable-next-line
+            // @ts-ignore
             const isEdge = !isIE && !!window.StyleMedia;
             /* istanbul ignore next */
             if (isIE || isEdge) {

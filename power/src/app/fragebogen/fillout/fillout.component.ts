@@ -20,7 +20,7 @@ export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper?: WrapperComponent;
     public language = 'de';
     public submitted = false;
-    public languages = surveyLocalization.localeNames;
+    public readonly languages = surveyLocalization.localeNames;
 
     public pin = '';
     public form?: PublicForm;
@@ -79,9 +79,18 @@ export class FilloutComponent implements AfterViewInit {
      * Set language
      */
     public setLanguage(): void {
-        if (this.wrapper && this.wrapper.survey) {
+        if (this.wrapper?.survey) {
             this.wrapper.survey.locale = this.language;
         }
+    }
+
+    /**
+     * Returns true if survey is multi language
+     * @returns True
+     */
+    public hasMultipleLanguages(): boolean {
+        const tmp = this.wrapper?.survey?.getUsedLocales();
+        return Array.isArray(tmp) && tmp.length > 1;
     }
 
     /**
@@ -98,7 +107,7 @@ export class FilloutComponent implements AfterViewInit {
 
             // check if user language exists in survey
             /* istanbul ignore next */
-            if (this.wrapper && this.wrapper.survey && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
+            if (this.wrapper?.survey?.getUsedLocales().includes(this.locale)) {
                 this.language = this.locale;
                 this.setLanguage();
             }
