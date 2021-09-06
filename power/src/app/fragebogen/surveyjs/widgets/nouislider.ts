@@ -274,7 +274,7 @@ export function init(): void {
             question.value = slider.get();
         },
         willUnmount: function (question: Question, el: HTMLElement) {
-            if (!!question['noUiSlider']) {
+            if (question['noUiSlider']) {
                 question['noUiSlider'].destroy();
                 question['noUiSlider'] = null;
             }

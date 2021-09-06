@@ -217,7 +217,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             case 'Polygon':
                 point = polylabel(fts.features[0].geometry.coordinates, 0.0001, false);
                 break;
-            case 'MultiPolygon':
+            case 'MultiPolygon': {
                 const p = fts.features[0].geometry.coordinates.map(f => ({
                     type: 'Polygon',
                     coordinates: f
@@ -226,6 +226,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 if (p) {
                     point = polylabel(p.coordinates, 0.0001, false);
                 }
+            }
         }
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));

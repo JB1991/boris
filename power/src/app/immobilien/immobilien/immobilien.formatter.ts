@@ -16,7 +16,7 @@ export class ImmobilienFormatter {
     }
 
     public mapTooltipFormatter = (params: any): string => {
-        if (this.nipixStatic.data.regionen.hasOwnProperty(params.name)) {
+        if (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, params.name)) {
             return this.nipixRuntime.translate(this.nipixStatic.data.regionen[params.name]['name']);
         } else {
             return this.nipixRuntime.translate(params.name);
@@ -27,12 +27,12 @@ export class ImmobilienFormatter {
 
         let faelle = 0;
 
-        if (this.nipixRuntime.calculated.hiddenData?.hasOwnProperty(params.seriesName)) {
-            faelle = this.nipixRuntime.calculated.hiddenData[params.seriesName][params.dataIndex];
+        if (Object.prototype.hasOwnProperty.call(this.nipixRuntime.calculated.hiddenData, params.seriesName)) {
+            faelle = this.nipixRuntime.calculated.hiddenData?.[params.seriesName][params.dataIndex];
         }
 
         let printName = params.seriesName;
-        if (this.nipixStatic.data.regionen.hasOwnProperty(params.seriesName)) {
+        if (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, params.seriesName)) {
             printName = this.nipixStatic.data.regionen[params.seriesName]['name'];
         }
 
@@ -104,13 +104,13 @@ export class ImmobilienFormatter {
 
         let myname = '';
 
-        if (legend && this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
+        if (legend && Object.prototype.hasOwnProperty.call(this.nipixRuntime.calculated.legendText, name)) {
             myname = this.nipixRuntime.calculated.legendText[name];
-        } else if (shortname && this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
+        } else if (shortname && Object.prototype.hasOwnProperty.call(this.nipixStatic.data.shortNames, name)) {
             myname = this.nipixStatic.data.shortNames[name];
-        } else if (!shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
+        } else if (!shortregion && Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, name)) {
             myname = this.nipixStatic.data.regionen[name]['name'];
-        } else if (shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
+        } else if (shortregion && Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, name)) {
             myname = this.nipixStatic.data.regionen[name]['short'];
         } else {
             myname = name;
@@ -179,7 +179,7 @@ export class ImmobilienFormatter {
                 addText = $localize`[ohne Daten]` + ' ';
             }
 
-            if (this.nipixStatic.data.regionen.hasOwnProperty(this.nipixRuntime.calculated.drawData[i]['name'])) {
+            if (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, this.nipixRuntime.calculated.drawData[i]['name'])) {
                 obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                     addText + element['name'] + ' (' + element['short'] + ')',
                     '#000',

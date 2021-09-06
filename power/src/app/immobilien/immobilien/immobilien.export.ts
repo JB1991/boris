@@ -141,7 +141,7 @@ export class ImmobilienExport {
         if (drawitem['type'] === 'single') {
             for (let s = 0; s < drawitem['values'].length; s++) {
                 const feature = ImmobilienHelper.getSingleFeature(geoData, drawitem['values'][s]);
-                if (!feature.hasOwnProperty('properties')) {
+                if (!Object.prototype.hasOwnProperty.call(feature, 'properties')) {
                     feature['properties'] = {};
                 }
                 feature['properties']['nipix'] = {
@@ -220,8 +220,8 @@ export class ImmobilienExport {
                 }
             }
         }
-        if (this.nipixRuntime.calculated.hiddenData?.hasOwnProperty(region)) {
-            datafaelle = this.nipixRuntime.calculated.hiddenData[region as any];
+        if (Object.prototype.hasOwnProperty.call(this.nipixRuntime.calculated.hiddenData, region)) {
+            datafaelle = this.nipixRuntime.calculated.hiddenData?.[region as any];
         }
         if (data !== null && datafaelle !== null) {
             const res = [];

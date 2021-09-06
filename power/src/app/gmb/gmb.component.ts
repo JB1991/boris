@@ -68,7 +68,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             'showDelay': 0,
             'transitionDuration': 0.2,
             'formatter': function (params: any) {
-                if (KREISE_DATA.hasOwnProperty(params.name)) {
+                if (Object.prototype.hasOwnProperty.call(KREISE_DATA, params.name)) {
                     return KREISE_DATA[params.name as keyof typeof KREISE_DATA];
                 } else {
                     return params.name;
@@ -161,7 +161,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                     const lk = params['landkreis'];
                     const lok = Object.keys(KREISE_DATA);
                     for (let i = 0; i < lok.length; i++) {
-                        if (KREISE_DATA.hasOwnProperty(lok[i])
+                        if (Object.prototype.hasOwnProperty.call(KREISE_DATA, lok[i])
                             && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
                             this.selectedKreis = lok[i] as keyof typeof KREISE_DATA;
                             this.updateMapSelect();
@@ -314,7 +314,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         const res = new Array<any>();
 
         for (let i = 0; i < arr.length; i++) {
-            if (KREISE_DATA.hasOwnProperty(arr[i])) {
+            if (Object.prototype.hasOwnProperty.call(KREISE_DATA, arr[i])) {
                 res.push(KREISE_DATA[arr[i] as keyof typeof KREISE_DATA]);
             } else {
                 res.push(arr[i]);
@@ -434,7 +434,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         const ok = Object.keys(KREISE_DATA);
         const item = ok[selectedlist[0]];
 
-        if (item && KREISE_DATA.hasOwnProperty(item)) {
+        if (item && Object.prototype.hasOwnProperty.call(KREISE_DATA, item)) {
             this.selectedKreis = item as keyof typeof KREISE_DATA;
             this.berichteOpened = new Array<any>();
             this.filterBerichte();

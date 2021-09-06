@@ -67,6 +67,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
         // convert condition to form
         this.struct = [];
+        // eslint-disable-next-line no-useless-escape
         const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm;
         const split = this.data.match(regex);
 

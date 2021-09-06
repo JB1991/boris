@@ -80,7 +80,7 @@ export class BodenrichtwertService {
                 '<ogc:PropertyName>stag</ogc:PropertyName>' +
                 '<ogc:Literal>' + stichtag + '</ogc:Literal>' +
                 '</ogc:PropertyIsEqualTo>' +
-                '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                 '<ogc:PropertyName>wnum</ogc:PropertyName>' +
                 '<ogc:Literal>' + brwNumber + '*' + '</ogc:Literal>' +
                 '</ogc:PropertyIsLike>' +

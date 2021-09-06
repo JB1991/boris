@@ -56,7 +56,7 @@ export class GemarkungWfsService {
             'service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="10">' +
             '<wfs:Query typeName="gemarkungen">' +
             '<ogc:Filter>' +
-            '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+            '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
             '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
             '<ogc:Literal>*' + gemarkung + '*</ogc:Literal>' +
             '</ogc:PropertyIsLike>' +
@@ -93,7 +93,7 @@ export class GemarkungWfsService {
         if (numbers) {
             numbers.forEach(n => {
                 filterNumbers +=
-                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                     '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
                     '<ogc:Literal>*' + n + '*</ogc:Literal>' +
                     '</ogc:PropertyIsLike>';
@@ -105,11 +105,11 @@ export class GemarkungWfsService {
             words.forEach(w => {
                 w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
                 filterWords +=
-                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                     '<ogc:PropertyName>gemarkung</ogc:PropertyName>' +
                     '<ogc:Literal>*' + w + '*</ogc:Literal>' +
                     '</ogc:PropertyIsLike>' +
-                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                    '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                     '<ogc:PropertyName>gemeinde</ogc:PropertyName>' +
                     '<ogc:Literal>*' + w + '*</ogc:Literal>' +
                     '</ogc:PropertyIsLike>';

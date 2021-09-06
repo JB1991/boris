@@ -24,7 +24,7 @@ export class EinflussgroessePipe implements PipeTransform {
 
     /** @inheritdoc */
     public transform(value: string): string {
-        if (einflussgroesse.hasOwnProperty(value)) {
+        if (Object.prototype.hasOwnProperty.call(einflussgroesse, value)) {
             return einflussgroesse[value as keyof typeof einflussgroesse];
         } else {
             return value;

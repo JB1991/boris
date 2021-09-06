@@ -93,7 +93,7 @@ export class BodenrichwertnummerSearchComponent {
             case 'Polygon':
                 point = polylabel(ft.geometry.coordinates, 0.0001, false);
                 break;
-            case 'MultiPolygon':
+            case 'MultiPolygon': {
                 const p = ft.geometry.coordinates.map(f => ({
                     type: 'Polygon',
                     coordinates: f
@@ -104,6 +104,7 @@ export class BodenrichwertnummerSearchComponent {
                 }
                 point = polylabel(p.coordinates, 0.0001, false);
                 break;
+            }
             default:
                 throw new Error('Unknown geometry');
         }

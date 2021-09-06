@@ -18,7 +18,7 @@ export class NipixRuntimeCalculator {
     private calculateDrawDataSingleOnRef(drawitem: any, value: any, nipix: any): void {
         // Calc reference value on referenceDate
         let reference = 100;
-        if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
+        if (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
             this.nipixStatic.referenceDate)) {
             reference = ImmobilienHelper.parseStringAsFloat(
                 this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]['index']
@@ -76,8 +76,8 @@ export class NipixRuntimeCalculator {
             // Region included, drawitem show and data available
             if (
                 drawitem['values'].includes(value) &&
-                (this.nipixStatic.data.nipix.hasOwnProperty(drawitem.nipixCategory)) &&
-                (this.nipixStatic.data.nipix[drawitem.nipixCategory].hasOwnProperty(value)) &&
+                (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.nipix, drawitem.nipixCategory)) &&
+                (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.nipix[drawitem.nipixCategory], value)) &&
                 (drawitem['show'] === true) &&
                 (Object.getOwnPropertyNames(
                     this.nipixStatic.data.nipix[drawitem.nipixCategory][value]).length > 0)
@@ -100,13 +100,13 @@ export class NipixRuntimeCalculator {
 
             if (data !== undefined) { // Data available?
                 workdata['reference'] = 100;
-                if (data.hasOwnProperty(this.nipixStatic.referenceDate)) {
+                if (Object.prototype.hasOwnProperty.call(data, this.nipixStatic.referenceDate)) {
                     workdata['reference'] = ImmobilienHelper.parseStringAsFloat(
                         data[this.nipixStatic.referenceDate].index
                     );
                 }
 
-                if (data.hasOwnProperty(this.nipixRuntime.availableQuartal[d].replace('/', '_'))) {
+                if (Object.prototype.hasOwnProperty.call(data, this.nipixRuntime.availableQuartal[d].replace('/', '_'))) {
                     let val = ImmobilienHelper.parseStringAsFloat(
                         data[this.nipixRuntime.availableQuartal[d].replace('/', '_')].index
                     );

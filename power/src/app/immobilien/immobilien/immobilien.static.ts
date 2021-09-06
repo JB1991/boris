@@ -138,7 +138,7 @@ export class NipixStatic {
 
                 for (let n = 0; n < nkey.length; n++) {
 
-                    if (!nipixData.hasOwnProperty(nkey[n])) {
+                    if (!Object.prototype.hasOwnProperty.call(nipixData, nkey[n])) {
                         nipixData[nkey[n]] = {};
                     }
 
@@ -164,7 +164,7 @@ export class NipixStatic {
         // Get last available Data; Assume the last Data Interval is equal
         const las = lastAvailable[0].split('_');
 
-        return { 'map': geoMap, 'la': [parseInt(las[0], 10), parseInt(las[1], 10)]};
+        return { 'map': geoMap, 'la': [parseInt(las[0], 10), parseInt(las[1], 10)] };
     }
 
 

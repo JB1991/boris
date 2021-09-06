@@ -130,7 +130,7 @@ export class NipixRuntime {
     }
 
     public translate(defaultID: string): string {
-        if (this.locale?.hasOwnProperty(defaultID)) {
+        if (Object.prototype.hasOwnProperty.call(this.locale, defaultID)) {
             return this.locale[defaultID];
         } else {
             return defaultID;

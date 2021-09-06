@@ -917,7 +917,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @returns WoMaReg Name
      */
     public regionName(id: string): string {
-        if ((id !== undefined) && (this.nipixStatic.data.regionen.hasOwnProperty(id))) {
+        if ((id !== undefined) && (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, id))) {
             if (this.nipixRuntime.state.selectedMyRegion !== id) {
                 this.nipixRuntime.state.selectedMyRegion = id;
 

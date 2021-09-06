@@ -217,7 +217,7 @@ export class ImmobilienUtils {
 
         // Iterate over all available data
         for (let d = 0; d < date.length; d++) {
-            if (data.hasOwnProperty(date[d].replace('/', '_')) || field === null) {
+            if (Object.prototype.hasOwnProperty.call(data, date[d].replace('/', '_')) || field === null) {
 
                 let val = '';
                 let fval = 0;

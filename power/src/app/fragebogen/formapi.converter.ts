@@ -10,7 +10,7 @@ import {
  * @returns filter query
  */
 export function FormFilterToString(f: FormFilter): string {
-    if (f.hasOwnProperty('and')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'and')) {
         const and = (f as { and: FormFilter[] }).and;
         if (and.length === 1) {
             return FormFilterToString(and[0]);
@@ -24,7 +24,7 @@ export function FormFilterToString(f: FormFilter): string {
             }
         }
         return 'and(' + out + ')';
-    } else if (f.hasOwnProperty('or')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'or')) {
         const or = (f as { or: FormFilter[] }).or;
         if (or.length === 1) {
             return FormFilterToString(or[0]);
@@ -38,23 +38,23 @@ export function FormFilterToString(f: FormFilter): string {
             }
         }
         return 'or(' + out + ')';
-    } else if (f.hasOwnProperty('not')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'not')) {
         return 'not(' + FormFilterToString((f as { not: FormFilter }).not) + ')';
-    } else if (f.hasOwnProperty('id')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'id')) {
         return 'id=' + (f as { id: string }).id;
-    } else if (f.hasOwnProperty('owner')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'owner')) {
         return 'owner(' + UserFilterToString((f as { owner: UserFilter }).owner) + ')';
-    } else if (f.hasOwnProperty('group')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'group')) {
         return 'group=' + TextFilterToString((f as { group: TextFilter }).group);
-    } else if (f.hasOwnProperty('extract')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'extract')) {
         return 'extract-' + TextFilterToString((f as { extract: TextFilter }).extract);
-    } else if (f.hasOwnProperty('tag')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'tag')) {
         return 'tag-' + TextFilterToString((f as { tag: TextFilter }).tag);
-    } else if (f.hasOwnProperty('access')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'access')) {
         return 'access=' + (f as { access: Access }).access;
-    } else if (f.hasOwnProperty('status')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'status')) {
         return 'status=' + (f as { status: FormStatus }).status;
-    } else if (f.hasOwnProperty('created')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'created')) {
         return 'created-' + TimeFilterToString((f as { created: TimeFilter }).created);
     } else {
         return 'updated-' + TimeFilterToString((f as { updated: TimeFilter }).updated);
@@ -67,7 +67,7 @@ export function FormFilterToString(f: FormFilter): string {
  * @returns filter query
  */
 export function TaskFilterToString(f: TaskFilter): string {
-    if (f.hasOwnProperty('and')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'and')) {
         const and = (f as { and: TaskFilter[] }).and;
         if (and.length === 1) {
             return TaskFilterToString(and[0]);
@@ -81,7 +81,7 @@ export function TaskFilterToString(f: TaskFilter): string {
             }
         }
         return 'and(' + out + ')';
-    } else if (f.hasOwnProperty('or')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'or')) {
         const or = (f as { or: TaskFilter[] }).or;
         if (or.length === 1) {
             return TaskFilterToString(or[0]);
@@ -95,21 +95,21 @@ export function TaskFilterToString(f: TaskFilter): string {
             }
         }
         return 'or(' + out + ')';
-    } else if (f.hasOwnProperty('not')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'not')) {
         return 'not(' + TaskFilterToString((f as { not: TaskFilter }).not) + ')';
-    } else if (f.hasOwnProperty('id')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'id')) {
         return 'id=' + (f as { id: string }).id;
-    } else if (f.hasOwnProperty('form')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'form')) {
         return 'form(' + FormFilterToString((f as { form: FormFilter }).form) + ')';
-    } else if (f.hasOwnProperty('extract')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'extract')) {
         return 'extract-' + TextFilterToString((f as { extract: TextFilter }).extract);
-    } else if (f.hasOwnProperty('pin')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'pin')) {
         return 'pin=' + (f as { pin: string }).pin;
-    } else if (f.hasOwnProperty('description')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'description')) {
         return 'description-' + TextFilterToString((f as { description: TextFilter }).description);
-    } else if (f.hasOwnProperty('status')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'status')) {
         return 'status=' + (f as { status: FormStatus }).status;
-    } else if (f.hasOwnProperty('created')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'created')) {
         return 'created-' + TimeFilterToString((f as { created: TimeFilter }).created);
     } else {
         return 'updated-' + TimeFilterToString((f as { updated: TimeFilter }).updated);
@@ -122,7 +122,7 @@ export function TaskFilterToString(f: TaskFilter): string {
  * @returns filter query
  */
 export function UserFilterToString(f: UserFilter): string {
-    if (f.hasOwnProperty('and')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'and')) {
         const and = (f as { and: UserFilter[] }).and;
         if (and.length === 1) {
             return UserFilterToString(and[0]);
@@ -136,7 +136,7 @@ export function UserFilterToString(f: UserFilter): string {
             }
         }
         return 'and(' + out + ')';
-    } else if (f.hasOwnProperty('or')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'or')) {
         const or = (f as { or: UserFilter[] }).or;
         if (or.length === 1) {
             return UserFilterToString(or[0]);
@@ -150,13 +150,13 @@ export function UserFilterToString(f: UserFilter): string {
             }
         }
         return 'or(' + out + ')';
-    } else if (f.hasOwnProperty('not')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'not')) {
         return 'not(' + UserFilterToString((f as { not: UserFilter }).not) + ')';
-    } else if (f.hasOwnProperty('id')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'id')) {
         return 'id=' + (f as { id: string }).id;
-    } else if (f.hasOwnProperty('name')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'name')) {
         return 'name-' + TextFilterToString((f as { name: TextFilter }).name);
-    } else if (f.hasOwnProperty('role')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'role')) {
         return 'role=' + (f as { role: Role }).role;
     } else {
         return 'group-' + TextFilterToString((f as { group: TextFilter }).group);
@@ -169,7 +169,7 @@ export function UserFilterToString(f: UserFilter): string {
  * @returns filter query
  */
 export function GroupTagFilterToString(f: GroupTagFilter): string {
-    if (f.hasOwnProperty('and')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'and')) {
         const and = (f as { and: GroupTagFilter[] }).and;
         if (and.length === 1) {
             return GroupTagFilterToString(and[0]);
@@ -183,7 +183,7 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
             }
         }
         return 'and(' + out + ')';
-    } else if (f.hasOwnProperty('or')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'or')) {
         const or = (f as { or: GroupTagFilter[] }).or;
         if (or.length === 1) {
             return GroupTagFilterToString(or[0]);
@@ -197,7 +197,7 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
             }
         }
         return 'or(' + out + ')';
-    } else if (f.hasOwnProperty('not')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'not')) {
         return 'not(' + UserFilterToString((f as { not: GroupTagFilter }).not) + ')';
     } else {
         return 'name-' + TextFilterToString((f as { name: TextFilter }).name);
@@ -210,7 +210,7 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
  * @returns filter query
  */
 export function ElementFilterToString(f: ElementFilter): string {
-    if (f.hasOwnProperty('and')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'and')) {
         const and = (f as { and: ElementFilter[] }).and;
         if (and.length === 1) {
             return ElementFilterToString(and[0]);
@@ -224,7 +224,7 @@ export function ElementFilterToString(f: ElementFilter): string {
             }
         }
         return 'and(' + out + ')';
-    } else if (f.hasOwnProperty('or')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'or')) {
         const or = (f as { or: ElementFilter[] }).or;
         if (or.length === 1) {
             return ElementFilterToString(or[0]);
@@ -238,17 +238,17 @@ export function ElementFilterToString(f: ElementFilter): string {
             }
         }
         return 'or(' + out + ')';
-    } else if (f.hasOwnProperty('not')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'not')) {
         return 'not(' + ElementFilterToString((f as { not: ElementFilter }).not) + ')';
-    } else if (f.hasOwnProperty('owner')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'owner')) {
         return 'owner(' + UserFilterToString((f as { owner: UserFilter }).owner) + ')';
-    } else if (f.hasOwnProperty('id')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'id')) {
         return 'id=' + (f as { id: string }).id;
-    } else if (f.hasOwnProperty('extract')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'extract')) {
         return 'extract' + TextFilterToString((f as { extract: TextFilter }).extract);
-    } else if (f.hasOwnProperty('group')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'group')) {
         return 'group' + TextFilterToString((f as { group: TextFilter }).group);
-    } else if (f.hasOwnProperty('created')) {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'created')) {
         return 'created-' + TimeFilterToString((f as { created: TimeFilter }).created);
     } else {
         return 'updated-' + TimeFilterToString((f as { updated: TimeFilter }).updated);
@@ -261,7 +261,7 @@ export function ElementFilterToString(f: ElementFilter): string {
  * @returns filter query
  */
 export function TextFilterToString(f: TextFilter): string {
-    if (f.hasOwnProperty('contains')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'contains')) {
         f = f as { lower: boolean; contains: string; };
         return (f.lower ? 'lower-' : '') + 'contains=' + f['contains'];
     }
@@ -275,7 +275,7 @@ export function TextFilterToString(f: TextFilter): string {
  * @returns filter query
  */
 export function TimeFilterToString(f: TimeFilter): string {
-    if (f.hasOwnProperty('after')) {
+    if (Object.prototype.hasOwnProperty.call(f, 'after')) {
         f = f as { after: string; };
         return 'after=' + f['after'];
     }

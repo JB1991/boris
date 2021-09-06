@@ -105,7 +105,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         text: validator.text
                     };
                     break;
-                case 'expression':
+                case 'expression': {
                     data = {
                         type: validator.type,
                         expression: validator.expression,
@@ -114,6 +114,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         value: '',
                         choices: null
                     } as any;
+                    // eslint-disable-next-line no-useless-escape
                     const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm;
                     const split = validator.expression.match(regex);
 
@@ -145,6 +146,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         }
                     }
                     break;
+                }
                 default:
                     throw new Error('Unkown validator type');
             }
