@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable max-lines */
 import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
@@ -30,6 +31,7 @@ export interface SeriesItem {
 export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     @Input() public STICHTAGE?: string[];
+
     @Input() public teilmarkt?: Teilmarkt;
 
     @ViewChild('echartsInst') public echartsInst?: ElementRef;
@@ -39,11 +41,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     @Input() public features?: FeatureCollection;
 
     public echartsInstance?: ECharts;
+
     public animationFrameID?: number = undefined;
+
     public resizeSub?: ResizeObserver;
 
     // table data for screenreader
     public srTableData = new Array<any>();
+
     public srTableHeader = new Array<string>();
 
     public seriesTemplate: SeriesItem[] = [
@@ -295,7 +300,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             features = Array.from(value);
 
             seriesArray[0] = this.getSeriesData(features);
-            this.getVergOfSeries(seriesArray[0]).forEach(element => {
+            this.getVergOfSeries(seriesArray[0]).forEach((element) => {
                 seriesArray.push(element);
             });
             seriesArray[0] = this.deleteSeriesVergItems(seriesArray[0]);
@@ -370,7 +375,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     public getSeriesData(features: Feature[]): SeriesItem[] {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
-            const feature = features.find(f => f.properties?.['stag'].includes(series[i].stag));
+            const feature = features.find((f) => f.properties?.['stag'].includes(series[i].stag));
             if (feature) {
                 series[i].brw = feature.properties?.['brw'];
                 series[i].nutzung = this.nutzungPipe.transform(feature.properties?.['nutzung']);
@@ -393,13 +398,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
         let seriesVergValues;
 
         // extract each Verfahrensgrund
-        defaultVerg.forEach(verg => {
+        defaultVerg.forEach((verg) => {
             seriesVergValues = this.deepCopy(this.seriesTemplate);
-            const seriesIncludesVerf = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
+            const seriesIncludesVerf = series.find((element) => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
                 element.verf === 'SB' || element.verf === 'EB'));
             if (seriesIncludesVerf) {
                 // separates each Verfahrensart of Verfahrensgrund
-                defaultVerf.forEach(verf => {
+                defaultVerf.forEach((verf) => {
                     seriesVergValues = this.deepCopy(this.seriesTemplate);
                     // goes through the series and gets the items with Verfahrensgrund and Verfahrensart
                     for (let i = 0; i < series.length; i++) {
@@ -493,10 +498,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      */
     public copyLastItem(series: SeriesItem[]): SeriesItem[] {
         // Forwarding the last element of the series
-        const seriesValues = series.filter(element => element.brw);
+        const seriesValues = series.filter((element) => element.brw);
         if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
             const lastItemStag = seriesValues[seriesValues.length - 1].stag;
-            const idx = series.findIndex(element => element.stag === lastItemStag);
+            const idx = series.findIndex((element) => element.stag === lastItemStag);
             series[idx + 1].brw = (series[idx].brw).toString();
             series[idx + 1].nutzung = series[idx].nutzung;
             series[idx + 1].verg = series[idx].verg;
@@ -536,7 +541,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             }
         }
         // if Verfahrensgrund is in the past
-        series.forEach(element => element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = ['', '', '', ''] : '');
+        series.forEach((element) => (element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = ['', '', '', ''] : ''));
         return series;
     }
 
@@ -553,11 +558,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             symbolSize: function (value: any) {
                 if (typeof (value) === 'string') {
                     return 0;
-                } else {
-                    return 4;
                 }
+                return 4;
             },
-            data: series.map(t => t.brw)
+            data: series.map((t) => t.brw)
         });
     }
 
@@ -568,21 +572,21 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @returns the label for the legend
      */
     public createLegendLabel(key: string, series: SeriesItem[]): string {
-        let nutzung = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung as string;
+        let nutzung = (series.find((seriesItem) => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung as string;
         const wnum = Number(key);
         if (wnum && nutzung) {
             nutzung += '\n' + wnum;
         }
         let seriesIncludesVerg = false;
-        series.forEach(element => {
+        series.forEach((element) => {
             if (element.verg && element.verg !== null && element.verg !== '') {
                 seriesIncludesVerg = true;
             }
         });
         if (seriesIncludesVerg) {
-            const verg = series.find(el => el.verg !== '' && el.verg !== null);
+            const verg = series.find((el) => el.verg !== '' && el.verg !== null);
             let verf = new Array<string>();
-            series.filter(el => {
+            series.filter((el) => {
                 if (el.verf !== '' && el.verf !== null) {
                     verf.push(el.verf);
                 }
@@ -590,15 +594,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
             verf = verf.filter((el, idx, self) => idx === self.indexOf(el));
             nutzung += '\n' + this.verfahrensartPipe.transform(verg?.verg as any);
             if (verf) {
-                verf.forEach(verfItem => {
+                verf.forEach((verfItem) => {
                     if (verfItem === 'SB') {
-                        nutzung += '\n' + 'sanierungsbeeinflusster Wert';
+                        nutzung += '\nsanierungsbeeinflusster Wert';
                     } else if (verfItem === 'SU') {
-                        nutzung += '\n' + 'sanierungsunbeeinflusster Wert';
+                        nutzung += '\nsanierungsunbeeinflusster Wert';
                     } else if (verfItem === 'EB') {
-                        nutzung += '\n' + 'entwicklungsbeeinflusster Wert';
+                        nutzung += '\nentwicklungsbeeinflusster Wert';
                     } else if (verfItem === 'EU') {
-                        nutzung += '\n' + 'entwicklungsunbeeinflusster Wert';
+                        nutzung += '\nentwicklungsunbeeinflusster Wert';
                     }
                 });
                 return nutzung;
@@ -615,9 +619,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
         const legend = this.chartOption.legend as LegendComponentOption;
         legend['formatter'] = function (name: string) {
             const splittedName = name.split('\n');
-            const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
-            const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
-            const wnum = splittedName.find(item => Number(item));
+            const verg = splittedName.find((item) => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
+            const verf = splittedName.find((item) => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
+            const wnum = splittedName.find((item) => Number(item));
             if (verf && wnum) {
                 return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, [[`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
             }
@@ -671,7 +675,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      */
     public generateSrTable(label: string, series: SeriesItem[]): void {
         const indexes = new Array<number>();
-        indexes.forEach(idx => series[idx].brw = '');
+        indexes.forEach((idx) => series[idx].brw = '');
         if (label) {
             this.srTableHeader.push(label);
             this.srTableData.push({ series: series });
@@ -701,12 +705,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
                 return this.STICHTAGE[1];
             }
             return this.STICHTAGE[0];
-        } else {
-            if (l === 'BREMERHAVEN') {
-                return this.STICHTAGE[0];
-            }
-            return this.STICHTAGE[1];
         }
+        if (l === 'BREMERHAVEN') {
+            return this.STICHTAGE[0];
+        }
+        return this.STICHTAGE[1];
     }
 
     /**

@@ -2,29 +2,29 @@ import { ImmobilienHelper } from './immobilien.helper';
 
 describe('Immobilien.Immobilien.ImmobilienHelper', () => {
 
-    it('ImmobilienHelper.rgbToHex should convert', function () {
+    it('ImmobilienHelper.rgbToHex should convert', () => {
         const res = ImmobilienHelper.rgbToHex(255, 255, 0);
         expect(res).toEqual('#ffff00');
     });
 
-    it('ImmobilienHelper.appendLeadingZeroes should append <= 9', function () {
+    it('ImmobilienHelper.appendLeadingZeroes should append <= 9', () => {
         const res = ImmobilienHelper.appendLeadingZeroes(2);
         expect(res).toEqual('02');
     });
 
-    it('ImmobilienHelper.appendLeadingZeroes should not append > 9', function () {
+    it('ImmobilienHelper.appendLeadingZeroes should not append > 9', () => {
         const res = ImmobilienHelper.appendLeadingZeroes(10);
         expect(res).toEqual('10');
     });
 
-    it('ImmobilienHelper.getDate returns Year', function () {
+    it('ImmobilienHelper.getDate returns Year', () => {
         const res = ImmobilienHelper.getDate();
         expect(res).toEqual(new Date().getFullYear());
     });
 
-    it('ImmobilienHelper.convertRemToPixels works correct', function () {
+    it('ImmobilienHelper.convertRemToPixels works correct', () => {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function (elt: Element, pseudoElt?: string | null | undefined): CSSStyleDeclaration {
+            (elt: Element, pseudoElt?: string | null | undefined): CSSStyleDeclaration => {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -34,50 +34,50 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         expect(res).toEqual(1);
     });
 
-    it('ImmobilienHelper.convertColor undefined returns #000000', function () {
+    it('ImmobilienHelper.convertColor undefined returns #000000', () => {
         const res = ImmobilienHelper.convertColor(undefined as any);
         expect(res).toEqual('#000000');
     });
 
 
-    it('ImmobilienHelper.convertColor null returns #000000', function () {
+    it('ImmobilienHelper.convertColor null returns #000000', () => {
         const res = ImmobilienHelper.convertColor(null as any);
         expect(res).toEqual('#000000');
     });
 
-    it('ImmobilienHelper.convertColor incompatible returns #000000', function () {
+    it('ImmobilienHelper.convertColor incompatible returns #000000', () => {
         const res = ImmobilienHelper.convertColor('foo');
         expect(res).toEqual('#000000');
     });
 
 
-    it('ImmobilienHelper.convertColor rgb(r,g,b) works', function () {
+    it('ImmobilienHelper.convertColor rgb(r,g,b) works', () => {
         const res = ImmobilienHelper.convertColor('rgb(255,255,0)');
         expect(res).toEqual('#ffff00');
     });
 
 
-    it('ImmobilienHelper.convertColor Array[r,g,b] works', function () {
+    it('ImmobilienHelper.convertColor Array[r,g,b] works', () => {
         const res = ImmobilienHelper.convertColor([255, 255, 0]);
         expect(res).toEqual('#ffff00');
     });
 
-    it('ImmobilienHelper.convertColor #123456 pass through', function () {
+    it('ImmobilienHelper.convertColor #123456 pass through', () => {
         const res = ImmobilienHelper.convertColor('#123456');
         expect(res).toEqual('#123456');
     });
 
-    it('ImmobilienHelper.modifyColor +% works', function () {
+    it('ImmobilienHelper.modifyColor +% works', () => {
         const res = ImmobilienHelper.modifyColor('#ff0096', 0.2);
         expect(res).toEqual('#ff33ab');
     });
 
-    it('ImmobilienHelper.modifyColor -% works', function () {
+    it('ImmobilienHelper.modifyColor -% works', () => {
         const res = ImmobilienHelper.modifyColor('#ff0096', -0.2);
         expect(res).toEqual('#cc0078');
     });
 
-    it('ImmobilienHelper.resolve works', function () {
+    it('ImmobilienHelper.resolve works', () => {
         const res = ImmobilienHelper.resolve('path.to', { 'path': { 'to': 'value' } }, '.');
         expect(res).toEqual('value');
     });
@@ -122,7 +122,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
     });
     */
 
-    it('ImmobilienHelper.convertArrayToCSV works', function () {
+    it('ImmobilienHelper.convertArrayToCSV works', () => {
         const data = [
             {
                 'key': 'key',
@@ -134,7 +134,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         expect(res).toEqual('"key";"value"');
     });
 
-    it('ImmobilienHelper.convertArrayToCSV works with parameter', function () {
+    it('ImmobilienHelper.convertArrayToCSV works with parameter', () => {
         const data = [
             {
                 'key': 'key',
@@ -146,7 +146,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         expect(res).toEqual('/key/:/1,2/');
     });
 
-    it('ImmobilienHelper.getSingleFeature works', function () {
+    it('ImmobilienHelper.getSingleFeature works', () => {
         const data = {
             'features': [
                 {
@@ -164,7 +164,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         });
     });
 
-    it('ImmobilienHelper.getSingleFeature not found works', function () {
+    it('ImmobilienHelper.getSingleFeature not found works', () => {
         const data = {
             'features': [
                 {
@@ -179,7 +179,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
     });
 
 
-    it('ImmobilienHelper.getGeometryArray works', function () {
+    it('ImmobilienHelper.getGeometryArray works', () => {
         const data = {
             'features': [
                 {

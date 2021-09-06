@@ -98,7 +98,7 @@ export class NutzungPipe implements PipeTransform {
             res += art_der_nutzung[nutzung['nutz'] as keyof typeof art_der_nutzung];
             if (nutzung['enuta'].length > 0) {
                 if (nutzung['enuta'][0] === 'G1' || nutzung['enuta'][0] === 'G2' || nutzung['enuta'][0] === 'G3' || nutzung['enuta'][0] === 'G4') {
-                    res += '';
+                    // do nothing
                 } else {
                     res += ' (' + ergaenzende_art_der_nutzung[nutzung['enuta'] as keyof typeof ergaenzende_art_der_nutzung] + ')';
                 }

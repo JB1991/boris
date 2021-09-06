@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { Component, Input } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';

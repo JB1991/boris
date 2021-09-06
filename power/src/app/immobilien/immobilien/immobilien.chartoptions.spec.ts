@@ -2,7 +2,7 @@ import { ImmobilienChartOptions } from './immobilien.chartoptions';
 
 describe('Immobilien.Immobilien.ImmobilienChartOptions', () => {
 
-    it('chartRange should return Object', function () {
+    it('chartRange should return Object', () => {
         const res = ImmobilienChartOptions.chartRange();
         expect(res).not.toBe(undefined);
     });

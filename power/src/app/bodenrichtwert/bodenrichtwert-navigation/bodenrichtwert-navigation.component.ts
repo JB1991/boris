@@ -24,43 +24,57 @@ import area from '@turf/area';
 export class BodenrichtwertNavigationComponent implements OnChanges {
 
     @Input() public latLng: LngLat;
+
     @Output() public latLngChange = new EventEmitter<LngLat>();
 
     @Input() public address?: Feature;
+
     @Output() public addressChange = new EventEmitter();
 
     @Input() public features?: FeatureCollection;
+
     @Output() public featuresChange = new EventEmitter();
 
     @Input() public teilmarkt?: Teilmarkt;
+
     @Output() public teilmarktChange = new EventEmitter<Teilmarkt>();
 
     @Input() public stichtag?: string;
+
     @Output() public stichtagChange = new EventEmitter<string>();
 
     @Input() public flurstueck?: FeatureCollection;
+
     @Output() public flurstueckChange = new EventEmitter();
 
     @Input() public isCollapsed?: boolean;
+
     @Output() public isCollapsedChange = new EventEmitter<boolean>();
 
     @Input() public resetMapFired?: boolean;
+
     @Output() public resetMapFiredChange = new EventEmitter<boolean>();
 
     @Input() public zoom?: number;
+
     @Output() public zoomChange = new EventEmitter<number>();
 
     @Input() public pitch?: number;
+
     @Output() public pitchChange = new EventEmitter<number>();
 
     @Input() public bearing?: number;
+
     @Output() public bearingChange = new EventEmitter<number>();
 
     @Input() public standardBaulandZoom?: number;
+
     @Input() public standardLandZoom?: number;
 
     public searchActive = false;
+
     public filterActive = false;
+
     public functionsActive = false;
 
     constructor(
@@ -103,10 +117,10 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public getBodenrichtwertzonen(lat: number, lng: number, entw: string[]): void {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
             .subscribe(
-                res => {
+                (res) => {
                     this.bodenrichtwertService.updateFeatures(res);
                 },
-                err => {
+                (err) => {
                     console.error(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
@@ -121,8 +135,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public getAddressFromLatLng(lat: number, lng: number): void {
         this.geosearchService.getAddressFromCoordinates(lat, lng)
             .subscribe(
-                res => this.geosearchService.updateFeatures(res.features[0]),
-                err => {
+                (res) => this.geosearchService.updateFeatures(res.features[0]),
+                (err) => {
                     console.error(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
@@ -136,8 +150,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public getFlurstueckFromLatLng(lat: number, lng: number): void {
         this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
-            res => this.alkisWfsService.updateFeatures(res),
-            err => {
+            (res) => this.alkisWfsService.updateFeatures(res),
+            (err) => {
                 console.error(err);
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
             }
@@ -218,7 +232,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 point = polylabel(fts.features[0].geometry.coordinates, 0.0001, false);
                 break;
             case 'MultiPolygon': {
-                const p = fts.features[0].geometry.coordinates.map(f => ({
+                const p = fts.features[0].geometry.coordinates.map((f) => ({
                     type: 'Polygon',
                     coordinates: f
                 })).sort((i, j) => area(i) - area(j)).shift();
@@ -226,7 +240,10 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 if (p) {
                     point = polylabel(p.coordinates, 0.0001, false);
                 }
+                break;
             }
+            default:
+                throw new Error('Unkown type');
         }
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));

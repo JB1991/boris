@@ -12,17 +12,18 @@ import * as echarts from 'echarts';
  */
 export class ImmobilienExport {
 
-    private nipixStatic: ImmobilenNipixStatic.NipixStatic;
-    private nipixRuntime: ImmobilenNipixRuntime.NipixRuntime;
-
-    public exportChart = false;
-
     public static geoJsonHeader = {
         'type': 'FeatureCollection',
         'name': 'womareg',
         'crs': { 'type': 'name', 'properties': { 'name': 'urn:ogc:def:crs:EPSG::3044' } },
         'features': []
     };
+
+    public exportChart = false;
+
+    private nipixStatic: ImmobilenNipixStatic.NipixStatic;
+
+    private nipixRuntime: ImmobilenNipixRuntime.NipixRuntime;
 
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic, niRuntime: ImmobilenNipixRuntime.NipixRuntime) {
         this.nipixStatic = niStatic;
@@ -48,23 +49,6 @@ export class ImmobilienExport {
         this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeHide);
 
     }
-
-    private exportAsImageFinish(): void {
-
-        this.exportChart = false;
-
-        const img = this.nipixRuntime.chart.obj.getDataURL({
-            type: 'png',
-            pixelRatio: 2,
-            backgroundColor: '#fff'
-        });
-
-        this.nipixRuntime.chart.obj.resize({ width: 'auto' });
-        this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeShow);
-
-        ImmobilienHelper.downloadFile(img, 'nipix.png', '', true);
-    }
-
 
     /*
      * Download GeoJSON fronm Map
@@ -134,6 +118,21 @@ export class ImmobilienExport {
         }
     }
 
+    private exportAsImageFinish(): void {
+
+        this.exportChart = false;
+
+        const img = this.nipixRuntime.chart.obj.getDataURL({
+            type: 'png',
+            pixelRatio: 2,
+            backgroundColor: '#fff'
+        });
+
+        this.nipixRuntime.chart.obj.resize({ width: 'auto' });
+        this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeShow);
+
+        ImmobilienHelper.downloadFile(img, 'nipix.png', '', true);
+    }
 
     private exportNiPixGeoJsonGeoJson(drawitem: any, geoData: any, date: string,
         series: any, istart: number, iend: number): any[] {
@@ -167,7 +166,6 @@ export class ImmobilienExport {
         return tmp;
     }
 
-
     private exportNiPixGeoJsonCSV(drawitem: any, date: string, series: any, istart: number, iend: number): any[] {
         const tmp = [];
         if (drawitem['type'] === 'single') {
@@ -197,7 +195,6 @@ export class ImmobilienExport {
         }
         return tmp;
     }
-
 
     /**
      * Get NiPix Data in given Timeslot
@@ -233,10 +230,8 @@ export class ImmobilienExport {
                 });
             }
             return res;
-        } else {
-            return [];
         }
+        return [];
     }
 }
-
 /* vim: set expandtab ts=4 sw=4 sts=4: */

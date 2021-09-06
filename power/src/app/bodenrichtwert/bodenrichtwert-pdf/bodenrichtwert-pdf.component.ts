@@ -27,10 +27,15 @@ import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
 })
 export class BodenrichtwertPdfComponent {
     @Input() public address?: Feature;
+
     @Input() public flurstueck?: FeatureCollection;
+
     @Input() public stichtag?: string;
+
     @Input() public teilmarkt?: Teilmarkt;
+
     @Input() public features?: Feature[];
+
     public testMode = false;
 
     constructor(
@@ -406,6 +411,40 @@ export class BodenrichtwertPdfComponent {
         return ret;
     }
 
+    /**
+     * Checks if current location is in bremen
+     * @returns True if Bremen
+     */
+    public isBremen(): boolean {
+        return this.features?.[0].properties?.['gema'] === 'Bremerhaven' || this.features?.[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
+    }
+
+    /**
+     * Returns y offset of map icon
+     * @returns y offset
+     */
+    public getMapIconOffset(): number {
+        const height = this.getRealImageHeight();
+        if (height >= 515) {
+            return -285;
+        }
+        return (Math.ceil(height / 2) * -1) - 32;
+    }
+
+    /**
+     * Returns real height of image
+     * @returns Height
+     */
+    public getRealImageHeight(): number {
+        const x = this.mapService.getMapWidth();
+        const y = this.mapService.getMapHeight();
+
+        if (x > y) {
+            return (y / x) * 515;
+        }
+        return 515;
+    }
+
     // eslint-disable-next-line complexity
     private getSingleBRW(
         tmp: Content[],
@@ -495,39 +534,5 @@ export class BodenrichtwertPdfComponent {
                 link: newUrl
             });
         }
-    }
-
-    /**
-     * Checks if current location is in bremen
-     * @returns True if Bremen
-     */
-    public isBremen(): boolean {
-        return this.features?.[0].properties?.['gema'] === 'Bremerhaven' || this.features?.[0].properties?.['gabe'] === 'Gutachterausschuss für Grundstückswerte in Bremen';
-    }
-
-    /**
-     * Returns y offset of map icon
-     * @returns y offset
-     */
-    public getMapIconOffset(): number {
-        const height = this.getRealImageHeight();
-        if (height >= 515) {
-            return -285;
-        }
-        return (Math.ceil(height / 2) * -1) - 32;
-    }
-
-    /**
-     * Returns real height of image
-     * @returns Height
-     */
-    public getRealImageHeight(): number {
-        const x = this.mapService.getMapWidth();
-        const y = this.mapService.getMapHeight();
-
-        if (x > y) {
-            return (y / x) * 515;
-        }
-        return 515;
     }
 }

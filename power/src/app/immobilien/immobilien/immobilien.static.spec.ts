@@ -8,7 +8,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         component = new ImmobilienStatic.NipixStatic();
     });
 
-    it('loadConfig works', function () {
+    it('loadConfig works', () => {
         const conf = {
             'layoutRtl': true,
             'agnbUrl': 'foo.bar',
@@ -32,7 +32,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         expect(component.data.selections).toEqual(['barfoo']);
     });
 
-    it('parseGemeinden works', function () {
+    it('parseGemeinden works', () => {
         const gem = '\r\n1234567;4411;bla\r\n';
 
         const res = component.parseGemeinden(gem);

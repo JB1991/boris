@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -277,7 +278,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 })
 class MockNewformComponent {
     @ViewChild('modal') public modal?: ModalminiComponent;
+
     @Output() public out = new EventEmitter<Form>();
+
     @Input() public tags = new Array<string>();
 }
 @Component({

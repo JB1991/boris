@@ -64,7 +64,7 @@ export function init(): void {
 
                 // click event
                 /* eslint-disable-next-line scanjs-rules/call_addEventListener */
-                figure.addEventListener('click', function (event) {
+                figure.addEventListener('click', (event) => {
                     if (!question['multiSelect']) {
                         // single value
                         question.value = choice.value;

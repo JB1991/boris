@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

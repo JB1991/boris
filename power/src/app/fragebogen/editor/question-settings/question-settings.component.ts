@@ -17,11 +17,17 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 })
 export class QuestionSettingsComponent {
     @ViewChild('questionsettingsmodal') public modal?: ModalComponent;
+
     @Input() public model: any;
+
     @Output() public modelChange = new EventEmitter<any>();
+
     public copy = '';
+
     public page?: number;
+
     public question?: number;
+
     public showDefault = false;
 
     constructor(public alerts: AlertsService,

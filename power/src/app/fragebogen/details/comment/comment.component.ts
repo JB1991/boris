@@ -13,9 +13,11 @@ export class CommentComponent {
         id: string;
         description: string;
     }>();
+
     @ViewChild('commentmodal') public modal?: ModalminiComponent;
 
     public id = '';
+
     public description = '';
 
     /**

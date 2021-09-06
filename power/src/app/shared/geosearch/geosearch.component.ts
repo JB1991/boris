@@ -13,9 +13,13 @@ import { AlertsService } from '../alerts/alerts.service';
 })
 export class GeosearchComponent implements OnChanges {
     @ViewChild('geosearchInput') public geosearchElement?: ElementRef;
+
     @Output() public selectResult = new EventEmitter();
+
     @Input() public address?: Feature;
+
     public model?: Feature;
+
     public loading = false;
 
     constructor(
@@ -81,13 +85,13 @@ export class GeosearchComponent implements OnChanges {
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            switchMap(term => term.length < 1 ? of([]) :
+            switchMap((term) => (term.length < 1 ? of([]) :
                 this.geosearchService.search(term).pipe(
                     catchError(() => {
                         this.alerts.NewAlert('danger', $localize`Angegebene Adresse konnte nicht gefunden werden.`, $localize`Adresse` + ': ' + term);
                         return of({} as any);
                     })
-                )
+                ))
             ),
             map((result: FeatureCollection) => {
                 this.loading = false;

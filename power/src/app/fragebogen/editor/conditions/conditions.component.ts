@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
     Component, OnInit, OnChanges, Input, Output, EventEmitter,
     SimpleChanges, InjectionToken, Inject, ChangeDetectionStrategy
@@ -20,10 +21,13 @@ let id = 0;
 })
 export class ConditionsComponent implements OnInit, OnChanges {
     @Input() public model: any;
+
     @Input() public data: any;
+
     @Output() public dataChange = new EventEmitter<any>();
 
     public struct = new Array<any>();
+
     public questions = new Array<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }

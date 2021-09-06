@@ -42,6 +42,11 @@ export interface Teilmarkt {
 export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
+     * Print modal
+     */
+    @ViewChild('print') public printModal?: ModalminiComponent;
+
+    /**
      * Address to be shown
      */
     public address?: Feature;
@@ -55,7 +60,9 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
     public features?: FeatureCollection = undefined;
+
     public filteredFeatures?: Feature[];
+
     public hasUmrechnungsdateien = false;
 
     /**
@@ -114,6 +121,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     // Flurstuecke become visible at Zoomfactor 15.1
     public standardBaulandZoom = 15.1;
+
     public standardLandZoom = 11;
 
     /**
@@ -142,6 +150,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
+
     /**
      * Possible selections of Stichtage
      */
@@ -165,11 +174,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' }
     ];
 
-    /**
-     * Print modal
-     */
-    @ViewChild('print') public printModal?: ModalminiComponent;
-
     /* istanbul ignore next */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
@@ -188,18 +192,18 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.seo.updateTag({ name: 'description', content: $localize`Bodenrichtwerte für Bauland und landwirtschaftliche Nutzflächen werden flächendeckend in BORIS.NI für das Land Niedersachsen und Bremen kostenfrei zur Verfügung gestellt.` });
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwertinformationssystem, Bodenrichtwert, BORIS.NI, BORIS, Bauland, Landwirtschaft, Nutzfläche, Bo­den­richt­wert­zo­ne, Bremen` });
 
-        this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
+        this.addressSubscription = this.geosearchService.getFeatures().subscribe((adr) => {
             this.address = adr;
             this.hintsActive = false;
             this.cdr.detectChanges();
         });
-        this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
+        this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe((ft) => {
             this.features = ft;
             this.hasUmrechnungsdateien = false;
 
             // filter features
             if (this.features || this.stichtag || this.teilmarkt) {
-                this.filteredFeatures = this.features.features.filter(ftx => ftx.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
+                this.filteredFeatures = this.features.features.filter((ftx) => ftx.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
             }
 
             // check for umrechnungsdateien
@@ -217,11 +221,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             this.cdr.detectChanges();
         });
         this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(
-            fst => {
+            (fst) => {
                 this.flurstueck = fst;
                 this.cdr.detectChanges();
             },
-            err => {
+            (err) => {
                 console.error(err);
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
             }
@@ -238,10 +242,10 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /** @inheritdoc */
     public ngOnInit(): void {
         // eslint-disable-next-line complexity
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.subscribe((params) => {
             // lat and lat
-            const lat = +params['lat'];
-            const lng = +params['lng'];
+            const lat = Number(params['lat']);
+            const lng = Number(params['lng']);
             if (lat && lng) {
                 if (this.validateLngLat(lat, lng)) {
                     this.latLng = new LngLat(lng, lat);
@@ -268,13 +272,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // zoom
-            this.zoom = this.validateZoom(+params['zoom']);
+            this.zoom = this.validateZoom(Number(params['zoom']));
 
             // rotation
-            this.pitch = this.validatePitch(+params['pitch']);
+            this.pitch = this.validatePitch(Number(params['pitch']));
 
             // bearing
-            this.bearing = this.validateBearing(+params['bearing']);
+            this.bearing = this.validateBearing(Number(params['bearing']));
 
             this.cdr.detectChanges();
             this.changeURL();
@@ -303,9 +307,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return 18;
         } else if (zoom <= 5) {
             return 5;
-        } else {
-            return zoom;
         }
+        return zoom;
     }
 
     /**
@@ -321,10 +324,10 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return 60;
         } else if (pitch <= 0) {
             return 0;
-        } else {
-            return pitch;
         }
+        return pitch;
     }
+
     /**
      * validateBearing validates the bearing url param
      * @param bearing bearing param
@@ -338,9 +341,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return 180;
         } else if (bearing <= -180) {
             return -180;
-        } else {
-            return bearing;
         }
+        return bearing;
     }
 
     /**
@@ -354,12 +356,10 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             const latLng = new LngLat(lng, lat);
             if (this.bounds.contains(latLng)) {
                 return true;
-            } else {
-                return false;
             }
-        } else {
             return false;
         }
+        return false;
     }
 
     /**
@@ -448,10 +448,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         );
         if (filteredFts?.length) {
             return true;
-        } else {
-            return false;
         }
-
+        return false;
     }
 
     /**

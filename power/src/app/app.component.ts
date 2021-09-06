@@ -25,19 +25,31 @@ export type FrontendVersion = {
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsed = true;
+
     public isCollapsedAcc = true;
+
     public isCollapsedBRW = true;
+
     public isCollapsedImmo = true;
+
     public showBrowserNotice = true;
+
     public showOfflineNotice = true;
+
     public showIENotice = false;
+
     public readonly config = environment.config;
+
     public appVersion: FrontendVersion = { version: 'dev', branch: 'local' };
+
     public hasInternet = navigator.onLine;
+
     public readonly uri = location;
+
     public baseurl = location.pathname + location.search;
 
     private _subscription: Subscription;
+
     private unsubscribe$: Subject<void> = new Subject<void>();
 
     constructor(
@@ -101,13 +113,13 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 .set('If-Modified-Since', '0');
             this.httpClient.get<FrontendVersion>('/assets/version.json?cache-bust=' + Math.random(),
                 { headers: header, responseType: 'json' }
-            ).subscribe(data => {
+            ).subscribe((data) => {
                 if (data?.['version']) {
                     this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
                 }
                 this.showOfflineNotice = false;
-            }, error => {
+            }, (error) => {
                 // failed to load
                 console.error(error);
                 console.error('could not load version.json');
@@ -128,6 +140,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             const isIE = /*@cc_on!@*/false || !!document['documentMode']; // eslint-disable-line
             // eslint-disable-next-line
             // @ts-ignore
+            // eslint-disable-next-line no-implicit-coercion
             const isEdge = !isIE && !!window.StyleMedia;
             /* istanbul ignore next */
             if (isIE || isEdge) {

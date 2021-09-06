@@ -20,23 +20,21 @@ let id = 0;
 })
 export class ModalComponent implements OnDestroy {
     @ViewChild('mymodal') public div?: ElementRef;
+
     @Input() public checkInvalid = false;
+
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
+
     public focusedElement?: HTMLElement;
+
     public isOpen = false;
+
     public title = '';
 
     constructor(
         @Inject(UNIQ_ID_TOKEN) public uniqId: number,
         public cdr: ChangeDetectorRef
     ) { }
-
-    /** @inheritdoc */
-    public ngOnDestroy(): void {
-        if (this.isOpen) {
-            this.close();
-        }
-    }
 
     /**
      * Handles escape key pressed event
@@ -50,6 +48,13 @@ export class ModalComponent implements OnDestroy {
         }
         if (this.isOpen) {
             event.stopPropagation();
+            this.close();
+        }
+    }
+
+    /** @inheritdoc */
+    public ngOnDestroy(): void {
+        if (this.isOpen) {
             this.close();
         }
     }

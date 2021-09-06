@@ -19,25 +19,37 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class DetailsComponent implements OnInit {
     @ViewChild('commentmodal') public modal?: ModalminiComponent;
+
     @ViewChild('pagination') public pagination?: PaginationComponent;
+
     @ViewChild('preview') public preview?: PreviewComponent;
 
     public id = '';
 
     public availableTags = new Array<string>();
+
     public availableGroups = new Array<string>();
+
     public availableUsers = new Array<User>();
 
     public form?: Form;
+
     public owner?: User;
+
     public tasks = new Array<Task>();
+
     public taskTotal = 0;
+
     public taskPerPage = 5;
+
     public taskPage = 1;
+
     public taskPageSizes = new Array<number>();
 
     public taskStatus: TaskStatus | 'all' = 'all';
+
     public taskSort: TaskField = 'updated';
+
     public taskSortDesc = true;
 
     constructor(
@@ -307,7 +319,7 @@ export class DetailsComponent implements OnInit {
         }
 
         // load form
-        this.formapi.getForm(this.form.id as string, { fields: ['content'] }).then(result => {
+        this.formapi.getForm(this.form.id as string, { fields: ['content'] }).then((result) => {
             // download json
             const blob = new Blob([JSON.stringify(result.form.content)], { type: 'application/json;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);

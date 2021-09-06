@@ -13,9 +13,11 @@ export class PublishComponent {
         id: string;
         access: Access;
     }>();
-    public id = '';
 
     @ViewChild('publishmodal') public modal?: ModalminiComponent;
+
+    public id = '';
+
     public access: Access = 'pin8';
 
     /**

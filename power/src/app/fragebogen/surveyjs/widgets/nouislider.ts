@@ -91,6 +91,7 @@ export function init(): void {
             el.style.paddingRight = '29px';
             el.style.paddingTop = '44px';
 
+            // eslint-disable-next-line no-param-reassign
             el = el.children[0] as HTMLElement;
             el.style.marginBottom = '60px';
             if (question['orientation'] === 'vertical') {
@@ -140,9 +141,7 @@ export function init(): void {
                 pips: {
                     mode: question['pipsMode'] || 'positions',
                     stepped: true,
-                    values: question['pipsValues'].map(function (pVal: any) {
-                        return Number(pVal).toFixed(question['decimals']);
-                    }),
+                    values: question['pipsValues'].map((pVal: any) => Number(pVal).toFixed(question['decimals'])),
                     density: 100,
                     format: {
                         to: function (pVal) {
@@ -169,7 +168,7 @@ export function init(): void {
                 direction: question['direction']
             });
 
-            slider.on('change', function () {
+            slider.on('change', () => {
                 question.value = slider.get();
             });
 
@@ -229,7 +228,7 @@ export function init(): void {
                         question.value = input.value;
                         slider.set(input.value);
                     };
-                    slider.on('update', function () {
+                    slider.on('update', () => {
                         input.value = slider.get().toString();
                     });
 

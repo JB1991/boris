@@ -15,12 +15,6 @@ import { Observable, of } from 'rxjs';
 
 export class FlurstueckSearchComponent {
 
-    public fsk?: Flurstueckskennzeichen;
-
-    public selected = false;
-
-    public loading = false;
-
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
 
     @Output() public flurstueckChange = new EventEmitter<FeatureCollection>();
@@ -28,6 +22,12 @@ export class FlurstueckSearchComponent {
     @Output() public selectGemarkungResult = new EventEmitter();
 
     @Input() public address?: string;
+
+    public fsk?: Flurstueckskennzeichen;
+
+    public selected = false;
+
+    public loading = false;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
@@ -138,13 +138,13 @@ export class FlurstueckSearchComponent {
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            switchMap(term => term.length < 1 ? of([]) :
+            switchMap((term) => (term.length < 1 ? of([]) :
                 this.gemarkungService.getGemarkungBySearchText(term).pipe(
                     catchError((error) => {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([] as any);
                     })
-                )
+                ))
             ),
             map((result: FeatureCollection) => {
                 this.loading = false;

@@ -15,17 +15,27 @@ import * as Image from './widgets/imageselector';
 })
 export class WrapperComponent implements OnChanges {
     @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv?: ElementRef;
+
     @Input() public model: any;
+
     @Input() public data: any;
+
     @Input() public mode: 'edit' | 'display' = 'edit';
+
     @Input() public theme = 'default';
+
     @Input() public css: any;
+
     @Input() public showInvisible = false;
+
     @Output() public submitResult: EventEmitter<any> = new EventEmitter();
+
     @Output() public interimResult: EventEmitter<any> = new EventEmitter();
+
     @Output() public changes: EventEmitter<any> = new EventEmitter();
 
     public survey?: Model;
+
     public props?: any;
 
     constructor(public showdownConverter: ShowdownConverter) {

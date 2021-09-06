@@ -103,33 +103,29 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         component = new ImmobilienFormatter.ImmobilienFormatter(niStatic, niRuntime);
 
         spyOn(ImmobilienUtils, 'generateTextElement').and.callFake(
-            function (name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any) {
-                return name as any;
-            }
+            (name: string, color = '#000', fontSizeBase = 1.2, position = 0, posX?: any) => name as any
         );
 
         spyOn(ImmobilienUtils, 'generateDotElement').and.callFake(
-            function (radius = 4, color = '#fff', fontSizeBase = 1.2, position = 0,
-                posX = 0, bordercolor = '#000', border = 0): any {
-                return 'dot';
-            }
+            (radius = 4, color = '#fff', fontSizeBase = 1.2, position = 0,
+                posX = 0, bordercolor = '#000', border = 0): any => 'dot'
         );
 
     });
 
 
-    it('mapTooltipFormatter should return params.name', function () {
+    it('mapTooltipFormatter should return params.name', () => {
         const res = component.mapTooltipFormatter({ 'name': 'test' });
         expect(res).toEqual('test');
     });
 
-    it('mapTooltipFormatter should return myregionname', function () {
+    it('mapTooltipFormatter should return myregionname', () => {
         const res = component.mapTooltipFormatter({ 'name': 'foo' });
         expect(res).toEqual('bar');
 
     });
 
-    it('chartTooltipFormatter should return name', function () {
+    it('chartTooltipFormatter should return name', () => {
 
         const res = component.chartTooltipFormatter(
             {
@@ -145,92 +141,92 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         expect(res).toEqual('<strong>blub</strong><br>Preisentwicklung seit : 0%<br>Zugrunde liegende Fälle (foo): 0');
     });
 
-    it('chartTooltipFormatter should return region', function () {
+    it('chartTooltipFormatter should return region', () => {
         const res = component.chartTooltipFormatter({ 'seriesName': 'foo', 'name': 'foo', 'marker': '', 'data': 200, 'dataIndex': 0 }, null, null);
         expect(res).toEqual('<strong>bar</strong><br>Preisentwicklung seit : +100%<br>Zugrunde liegende Fälle (foo): 100');
     });
 
 
-    it('formatLabel should return empty string if not rangeEnd', function () {
+    it('formatLabel should return empty string if not rangeEnd', () => {
         const res = component.formatLabel({ 'dataIndex': 1 });
         expect(res).toEqual('');
     });
 
-    it('formatLabel should not return seriesName', function () {
+    it('formatLabel should not return seriesName', () => {
         const res = component.formatLabel({ 'dataIndex': 10, seriesIndex: 0, 'seriesName': 'blub' });
         expect(res).toEqual('blub');
     });
 
-    it('formatLabel should not return empty string if no space for legend', function () {
+    it('formatLabel should not return empty string if no space for legend', () => {
         component.formatLabel({ 'dataIndex': 10, seriesIndex: 0, 'seriesName': 'blub' });
         const res = component.formatLabel({ 'dataIndex': 10, seriesIndex: 2, 'seriesName': 'blub' });
         expect(res).toEqual('');
     });
 
-    it('formatLabel should not return region name short', function () {
+    it('formatLabel should not return region name short', () => {
         const res = component.formatLabel({ 'dataIndex': 10, seriesIndex: 0, 'seriesName': 'foo' });
         expect(res).toEqual('ba');
     });
 
-    it('formatLabel should not return short name', function () {
+    it('formatLabel should not return short name', () => {
         const res = component.formatLabel({ 'dataIndex': 10, seriesIndex: 0, 'seriesName': 'shortName' });
         expect(res).toEqual('short');
     });
 
-    it('formatLabel should return name if selected', function () {
+    it('formatLabel should return name if selected', () => {
         niRuntime.state.selectedChartLine = 'sel';
         const res = component.formatLabel({ 'dataIndex': 10, seriesIndex: 0, 'seriesName': 'sel' });
         expect(res).toEqual('sel');
     });
 
-    it('formatLegend should return name', function () {
+    it('formatLegend should return name', () => {
         const res = component.formatLegend('blub');
         expect(res).toEqual('blub');
     });
 
-    it('formatLegend should return region name', function () {
+    it('formatLegend should return region name', () => {
         const res = component.formatLegend('foo');
         expect(res).toEqual('ba');
     });
 
-    it('formatLegend should return short name', function () {
+    it('formatLegend should return short name', () => {
         const res = component.formatLegend('shortName');
         expect(res).toEqual('short');
     });
 
-    it('getSeriesLabel work', function () {
+    it('getSeriesLabel work', () => {
         const res = component.getSeriesLabel('foo');
         expect(res).toEqual('bar (ba)');
     });
 
-    it('getSeriesColor', function () {
+    it('getSeriesColor', () => {
         const res = component.getSeriesColor('foo');
         expect(res).toEqual('#abcdef');
     });
 
-    it('simpleLEgend work', function () {
+    it('simpleLEgend work', () => {
         const res = component.simpleLegend();
         expect(res).toEqual(['dd (ohne Daten)', 'draw']);
     });
 
-    it('grapicLegend undefined work', function () {
+    it('grapicLegend undefined work', () => {
         const res = component.graphicLegend();
         expect(res).toEqual([]);
     });
 
-    it('graphicLegend Single work', function () {
+    it('graphicLegend Single work', () => {
         niRuntime.state.activeSelection = 'single';
         const res = component.graphicLegend();
         expect(res).toEqual(['[ohne Daten] dd (dd)', 'dot', 'draw (draw)', 'dot']);
     });
 
-    it('graphicLegend Multi work', function () {
+    it('graphicLegend Multi work', () => {
         niRuntime.state.activeSelection = 'multi';
         const res = component.graphicLegend();
         expect(res).toEqual(['foo (undefined)', 'dot']);
     });
 
-    it('graphicLegend MultiSelect work', function () {
+    it('graphicLegend MultiSelect work', () => {
         niRuntime.state.activeSelection = 'multiSelect';
         const res = component.graphicLegend();
         expect(res).toEqual(['dot', 'bar (ba)']);

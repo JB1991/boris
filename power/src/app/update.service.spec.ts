@@ -7,16 +7,18 @@ import { UpdateService } from './update.service';
 
 export class SwUpdateServerMock {
     public available: Observable<UpdateAvailableEvent> = new Subject();
+
     public activated: Observable<UpdateActivatedEvent> = new Subject();
+
     public unrecoverable: Observable<UnrecoverableStateEvent> = new Subject();
+
     public isEnabled = true;
 
-    public checkForUpdate(): void {
-        return;
-    }
-    public activateUpdate(): void {
-        return;
-    }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    public checkForUpdate(): void { }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    public activateUpdate(): void { }
 }
 
 describe('UpdateService', () => {

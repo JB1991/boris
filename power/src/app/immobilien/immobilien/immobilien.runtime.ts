@@ -77,19 +77,17 @@ const LOCALE_NIPIX = {
 /* eslint-disable max-lines */
 export class NipixRuntime {
 
-    private nipixStatic: ImmobilenNipixStatic.NipixStatic;
-
-    /* eslint-disable-next-line scanjs-rules/call_setTimeout */
-    private highlightedTimeout: NodeJS.Timeout | null = setTimeout(this.highlightTimeout.bind(this), 10000);
-
     public formatter: ImmobilienFormatter.ImmobilienFormatter;
+
     public export: ImmobilienExport.ImmobilienExport;
+
     public calculator: ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator;
 
     public map: NipixRuntimeMap = {
         'obj': null,
         'options': {}
     };
+
     public chart: NipixRuntimeMap = {
         'obj': null,
         'options': {}
@@ -122,6 +120,11 @@ export class NipixRuntime {
         'legendText': {}
     };
 
+    private nipixStatic: ImmobilenNipixStatic.NipixStatic;
+
+    /* eslint-disable-next-line scanjs-rules/call_setTimeout */
+    private highlightedTimeout: NodeJS.Timeout | null = setTimeout(this.highlightTimeout.bind(this), 10000);
+
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic) {
         this.nipixStatic = niStatic;
         this.formatter = new ImmobilienFormatter.ImmobilienFormatter(this.nipixStatic, this);
@@ -132,9 +135,8 @@ export class NipixRuntime {
     public translate(defaultID: string): string {
         if (Object.prototype.hasOwnProperty.call(LOCALE_NIPIX, defaultID)) {
             return LOCALE_NIPIX[defaultID as keyof typeof LOCALE_NIPIX];
-        } else {
-            return defaultID;
         }
+        return defaultID;
     }
 
     public translateArray(input: string[], key = 'name'): string[] {
@@ -197,13 +199,12 @@ export class NipixRuntime {
      * @returns draw Object
      */
     public getDrawPreset(name: string): any {
-        const result = this.drawPresets.filter(drawitem => drawitem['name'] === name);
+        const result = this.drawPresets.filter((drawitem) => drawitem['name'] === name);
 
         if (result.length === 1) {
             return result[0];
-        } else {
-            return {};
         }
+        return {};
     }
 
     /**
@@ -272,7 +273,7 @@ export class NipixRuntime {
             this.state.rangeStartIndex =
                 Math.round((this.availableQuartal.length - 1) / 100 * range_start);
             this.nipixStatic.referenceDate =
-                ('' + this.availableQuartal[this.state.rangeStartIndex]).replace('/', '_');
+                (String(this.availableQuartal[this.state.rangeStartIndex])).replace('/', '_');
         }
 
         if (this.state.rangeEndIndex === 0) {

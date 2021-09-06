@@ -120,7 +120,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         component.nipixStatic = niStatic;
         component.nipixRuntime = niRuntime;
 
-        spyOn(component, 'initNipix').and.callFake(function () {
+        spyOn(component, 'initNipix').and.callFake(() => {
         });
 
         fixture.detectChanges();
@@ -136,8 +136,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('loadConfig works', () => {
-        spyOn(ImmobilienUtils, 'getDateArray').and.callFake(function (par1, par2) { return []; });
-        spyOn(ImmobilienChartOptions, 'getChartOptions').and.callFake(function (par) { return {}; });
+        spyOn(ImmobilienUtils, 'getDateArray').and.callFake((par1, par2) => []);
+        spyOn(ImmobilienChartOptions, 'getChartOptions').and.callFake((par) => ({}));
 
         niStatic.data.selections = [{ 'name': 'foobar' }];
         component.loadGemeinden = jasmine.createSpy();
@@ -196,8 +196,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('setMapOptions works', () => {
         spyOn(window, 'setTimeout');
-        spyOn(ImmobilienChartOptions, 'getMapOptions').and.callFake(function (par, type) { return {}; });
-        spyOn(component, 'updateMapSelect').and.callFake(function () { });
+        spyOn(ImmobilienChartOptions, 'getMapOptions').and.callFake((par, type) => ({}));
+        spyOn(component, 'updateMapSelect').and.callFake(() => { });
 
         component.setMapOptions();
         expect(ImmobilienChartOptions.getMapOptions).toHaveBeenCalled();
@@ -207,7 +207,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('onMapSelectChange works', () => {
         niRuntime.drawPresets = [{ 'values': [] }];
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
 
         component.onMapSelectChange({
             'type': 'selectchanged',
@@ -224,8 +224,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         niRuntime.resetHighlight = jasmine.createSpy();
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar', 'values': ['bar'] }];
 
-        spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake(function (par1, par2, par3) { });
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake((par1, par2, par3) => { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
 
         component.toggleMapSelect('foo', 'bar', 'single');
         expect(niRuntime.resetHighlight).toHaveBeenCalled();
@@ -272,7 +272,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('onChangeCat works', () => {
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar' }];
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
 
         component.onChangeCat('foo', 'bar');
         expect(component.updateChart).toHaveBeenCalled();
@@ -282,8 +282,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('onClickDrawRoot works', () => {
-        spyOn(component, 'updateChart').and.callFake(function () { });
-        spyOn(component, 'updateMapSelect').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
+        spyOn(component, 'updateMapSelect').and.callFake(() => { });
 
         component.onClickDrawRoot('foobar');
 
@@ -292,7 +292,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('onToggleDrawRoot works', () => {
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
         niRuntime.drawPresets = [{ 'name': 'foobar', 'show': false }];
 
         component.onToggleDrawRoot('foobar');
@@ -301,7 +301,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('updateChart works', () => {
-        spyOn(component, 'updateChartMerge').and.callFake(function (par1, par2, par3, par4) { });
+        spyOn(component, 'updateChartMerge').and.callFake((par1, par2, par3, par4) => { });
         niRuntime.calculateDrawData = jasmine.createSpy();
         niRuntime.updateRange = jasmine.createSpy();
         niRuntime.availableQuartal = ['2000/2', '2000/3'];
@@ -320,7 +320,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('onDataZoom works', () => {
-        spyOn(component, 'updateChart').and.callFake(function (par1, par2) { });
+        spyOn(component, 'updateChart').and.callFake((par1, par2) => { });
         niRuntime.availableQuartal = ['2000/2', '2000/3'];
 
         component.onDataZoom({ 'start': 1, 'end': 100 });
@@ -331,7 +331,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('chartClicked works', () => {
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
 
         component.chartClicked({ 'componentType': 'series', 'seriesType': 'line', 'seriesName': 'foobar' });
         expect(niRuntime.state.selectedChartLine).toEqual('foobar');
@@ -339,10 +339,10 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('onPanelChangeWoMa works', () => {
-        spyOn(component, 'setMapOptions').and.callFake(function (par) { });
-        spyOn(component, 'updateMapSelect').and.callFake(function (par) { });
+        spyOn(component, 'setMapOptions').and.callFake((par) => { });
+        spyOn(component, 'updateMapSelect').and.callFake((par) => { });
         spyOn(ImmobilienUtils, 'getMyMapRegionen').and.callFake(
-            function (regionen, myregion = null, selectionList = null, lighten = false) { return ['foobar']; });
+            (regionen, myregion = null, selectionList = null, lighten = false) => ['foobar']);
 
         component.onPanelChangeWoMa();
 
@@ -354,12 +354,12 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('onPanelChangeIndex works', () => {
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar', 'values': ['bar'] }];
         niStatic.data.selections = { 1: { 'name': 'bar', 'type': 'multiSelect', 'preset': '', 'selected': false } };
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
         spyOn(ImmobilienUtils, 'getMyMapRegionen').and.callFake(
-            function (regionen, myregion = null, selectionList = null, lighten = false) { return ['foobar']; });
-        spyOn(ImmobilienUtils, 'modifyRegionen').and.callFake(function (regionen, modifyArray) { return {}; });
-        spyOn(component, 'setMapOptions').and.callFake(function (par) { });
-        spyOn(component, 'onSetSpecificDraw').and.callFake(function (par, par1) { });
+            (regionen, myregion = null, selectionList = null, lighten = false) => ['foobar']);
+        spyOn(ImmobilienUtils, 'modifyRegionen').and.callFake((regionen, modifyArray) => ({}));
+        spyOn(component, 'setMapOptions').and.callFake((par) => { });
+        spyOn(component, 'onSetSpecificDraw').and.callFake((par, par1) => { });
         component.onPanelChangeIndex(1);
 
         expect(component.onSetSpecificDraw).toHaveBeenCalled();
@@ -371,8 +371,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('toggleAllSelect works', () => {
         niRuntime.resetHighlight = jasmine.createSpy();
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar', 'values': ['bar'] }];
-        spyOn(component, 'updateChart').and.callFake(function () { });
-        spyOn(component, 'updateMapSelect').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
+        spyOn(component, 'updateMapSelect').and.callFake(() => { });
 
         component.toggleAllSelect('foo');
 
@@ -384,7 +384,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('regionName works', () => {
         niStatic.data.regionen = { '4102': { 'name': 'foo' } };
-        spyOn(component, 'updateMapSelect').and.callFake(function (par) { });
+        spyOn(component, 'updateMapSelect').and.callFake((par) => { });
 
         const ret = component.regionName('4102');
 
@@ -411,8 +411,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         niStatic.data.selections = [{ 'preset': ['foo'] }];
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar', 'values': ['bar'] }];
 
-        spyOn(component, 'updateChart').and.callFake(function () { });
-        spyOn(component, 'updateMapSelect').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
+        spyOn(component, 'updateMapSelect').and.callFake(() => { });
 
         component.onSelectWoMa();
 
@@ -462,7 +462,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         };
         niRuntime.getDrawPreset = (val: any) => di;
 
-        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
+        spyOn(component, 'unmakeValuesHumanReadable').and.callFake((val) => val);
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -488,7 +488,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         };
         niRuntime.getDrawPreset = (val: any) => di;
 
-        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
+        spyOn(component, 'unmakeValuesHumanReadable').and.callFake((val) => val);
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -508,8 +508,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             { 'name': 'bar' },
             { 'name': '1' }
         ];
-        spyOn(component, 'parseURLTimeRange').and.callFake(function (par) { });
-        spyOn(component, 'staticChange').and.callFake(function () { });
+        spyOn(component, 'parseURLTimeRange').and.callFake((par) => { });
+        spyOn(component, 'staticChange').and.callFake(() => { });
 
         spyOn(component, 'parseURLAggr').and.returnValue();
         spyOn(component, 'parseURLSingle').and.returnValue();
@@ -526,7 +526,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('onChangeQuartal works', () => {
-        spyOn(component, 'updateChart').and.callFake(function (t1, t2) { });
+        spyOn(component, 'updateChart').and.callFake((t1, t2) => { });
         niRuntime.availableQuartal = ['foo', 'bar', 'foobar'];
         component.onChangeQuartal(0, 2);
         expect(niRuntime.state.rangeStartIndex).toEqual(0);
@@ -537,7 +537,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('getCustomColor works', () => {
         niRuntime.getDrawPreset = jasmine.createSpy().and.returnValue({ 'colors': 'foobar' });
-        spyOn(ImmobilienHelper, 'convertColor').and.callFake(function (par: any) { return par; });
+        spyOn(ImmobilienHelper, 'convertColor').and.callFake((par: any) => par);
 
         const ret = component.getCustomColor('foobar');
         expect(ret).toEqual('foobar');
@@ -559,8 +559,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('onSetNumber works', () => {
         niStatic.data.selections = [{ 'name': 'foobar', 'selected': 0, 'preset': ['foo'] }];
-        spyOn(component, 'updateChart').and.callFake(function () { });
-        spyOn(component, 'onSetSpecificDraw').and.callFake(function (par, par1) { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
+        spyOn(component, 'onSetSpecificDraw').and.callFake((par, par1) => { });
 
         component.onSetNumber('foobar', 2);
 
@@ -569,7 +569,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('toggleNipixCategory works', () => {
-        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateChart').and.callFake(() => { });
         niRuntime.toggleNipixCategory = jasmine.createSpy();
         component.toggleNipixCategory('foobar');
         expect(niRuntime.toggleNipixCategory).toHaveBeenCalledWith('foobar');

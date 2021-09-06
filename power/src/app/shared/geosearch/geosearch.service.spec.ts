@@ -41,7 +41,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
     });
 
     it('updateFeatures should feed the feature to the subject', (done) => {
-        service.getFeatures().subscribe(next => {
+        service.getFeatures().subscribe((next) => {
             expect(next).toEqual(feature);
             done();
         });
@@ -49,7 +49,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
     });
 
     it('search should return a feature collection', (done) => {
-        service.search(searchQuery).subscribe(result => {
+        service.search(searchQuery).subscribe((result) => {
             expect(result.type).toEqual('FeatureCollection');
             expect(result.features.length).toEqual(10);
             done();
@@ -60,7 +60,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
 
     it('search should handle errors', (done) => {
         service.search(searchQuery).subscribe(() => {
-        }, error => {
+        }, (error) => {
             expect(error.error.type).toEqual('error');
             done();
         });
@@ -71,9 +71,9 @@ describe('Shared.Geosearch.GeosearchService', () => {
     it('getAddressFromCoordinates should return a feature collection', (done) => {
         const lat = 52.40739733323747;
         const lon = 9.80183706843431;
-        const url = '/geocoding/geosearch/?query=typ:%20haus&lat=' + lat + '&lon=' + lon + '&distance=' + '50';
+        const url = '/geocoding/geosearch/?query=typ:%20haus&lat=' + lat + '&lon=' + lon + '&distance=50';
 
-        service.getAddressFromCoordinates(lat, lon).subscribe(result => {
+        service.getAddressFromCoordinates(lat, lon).subscribe((result) => {
             expect(result.type).toEqual('FeatureCollection');
             expect(result.features.length).toEqual(10);
             done();

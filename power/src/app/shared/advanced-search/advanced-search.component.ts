@@ -13,19 +13,25 @@ import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search
 export class AdvancedSearchComponent {
 
     @ViewChild('advancedSearchModal') public modal?: ModalminiComponent;
+
     @ViewChild('flurstueckForm') public flurstueckForm?: FlurstueckSearchComponent;
+
     @ViewChild('bodenrichtwertForm') public bodenrichtwertForm?: BodenrichwertnummerSearchComponent;
 
     @Output() public flurstueckChange = new EventEmitter<FeatureCollection>();
+
     @Output() public bodenrichtwertChange = new EventEmitter<FeatureCollection>();
 
     // public title = $localize`Erweiterte Suche`;
 
     @Input() public title = $localize`Erweiterte Suche`;
+
     @Input() public stichtag?: string;
+
     @Input() public teilmarkt?: Teilmarkt;
 
     @Input() public flurstueckSearchActive = true;
+
     @Input() public bodenrichtwertSearchActive = true;
 
     constructor() {

@@ -41,7 +41,7 @@ describe('Shared.Flurstueck-search.AlkisWfsService', () => {
     });
 
     it('updateFeatures should feed the feature to the subject', (done) => {
-        service.getFeatures().subscribe(next => {
+        service.getFeatures().subscribe((next) => {
             expect(next).toEqual(fst);
             done();
         });
@@ -50,7 +50,7 @@ describe('Shared.Flurstueck-search.AlkisWfsService', () => {
 
     it('search should handle errors', (done) => {
         service.getFlurstueckByFsk('1205', '5', '113', '37').subscribe(() => {
-        }, error => {
+        }, (error) => {
             expect(error.error.type).toEqual('error');
             done();
         });

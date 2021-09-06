@@ -146,7 +146,7 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
         component = new ImmobilienRuntimeCalculator.NipixRuntimeCalculator(niStatic, niRuntime);
 
         spyOn(ImmobilienUtils, 'generateSeries').and.callFake(
-            function (
+            (
                 name,
                 data,
                 color,
@@ -155,14 +155,12 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
                 xIndex = 0,
                 yIndex = 0,
                 seriesType = 'line'
-            ) {
-                return name as any;
-            }
+            ) => name as any
         );
 
     });
 
-    it('RuntimeCalculator works', function () {
+    it('RuntimeCalculator works', () => {
         component.calculateDrawData();
         expect(niRuntime.calculated.drawData).toEqual(['4102', '4103', 'fooaggr']);
     });

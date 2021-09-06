@@ -599,7 +599,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getTags should fail', (done) => {
-        service.getTags({}).catch(error => {
+        service.getTags({}).catch((error) => {
             expect(error.status).toEqual(400);
             done();
         });

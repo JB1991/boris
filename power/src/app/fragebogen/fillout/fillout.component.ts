@@ -18,12 +18,17 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper?: WrapperComponent;
+
     public language = 'de';
+
     public submitted = false;
+
     public readonly languages = surveyLocalization.localeNames;
 
     public pin = '';
+
     public form?: PublicForm;
+
     public task?: PublicTask;
 
     public data = {
@@ -45,6 +50,19 @@ export class FilloutComponent implements AfterViewInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
+    /**
+     * canDeactivate event handler
+     * @returns True if can leave page
+     */
+    @HostListener('window:beforeunload')
+    public canDeactivate(): boolean {
+        // on test environment skip
+        if (!environment.production) {
+            return true;
+        }
+        return !this.getUnsavedChanges();
+    }
+
     /** @inheritdoc */
     public ngAfterViewInit(): void {
         // get pin
@@ -60,19 +78,6 @@ export class FilloutComponent implements AfterViewInit {
                 void this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
-    }
-
-    /**
-     * canDeactivate event handler
-     * @returns True if can leave page
-     */
-    @HostListener('window:beforeunload')
-    public canDeactivate(): boolean {
-        // on test environment skip
-        if (!environment.production) {
-            return true;
-        }
-        return !this.getUnsavedChanges();
     }
 
     /**
@@ -100,7 +105,7 @@ export class FilloutComponent implements AfterViewInit {
     public loadForm(id: string): void {
         // load form by id
         this.loadingscreen.setVisible(true);
-        this.formapi.getPublicForm(id, { fields: ['id', 'content', 'access'] }).then(result => {
+        this.formapi.getPublicForm(id, { fields: ['id', 'content', 'access'] }).then((result) => {
             // store form
             this.form = result.form;
             this.language = this.form.content.locale;
@@ -158,16 +163,6 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
-     * changesSaved
-     * @param result result
-     */
-    private changesSaved(result: any): void {
-        this.setUnsavedChanges(false);
-        result.options.showDataSavingClear();
-        this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
-    }
-
-    /**
      * Loads form data
      * @returns Promise
      */
@@ -207,8 +202,8 @@ export class FilloutComponent implements AfterViewInit {
         this.submitted = true;
 
         // complete
-        this.formapi.updatePublicTask(this.pin, result.result, true).then(() => this.changesSaved(result)).
-            catch((error: Error) => {
+        this.formapi.updatePublicTask(this.pin, result.result, true).then(() => this.changesSaved(result))
+            .catch((error: Error) => {
                 this.handleSubmitFailedError(result, error);
             });
     }
@@ -258,6 +253,16 @@ export class FilloutComponent implements AfterViewInit {
      */
     public getUnsavedChanges(): boolean {
         return this.data.UnsavedChanges;
+    }
+
+    /**
+     * changesSaved
+     * @param result result
+     */
+    private changesSaved(result: any): void {
+        this.setUnsavedChanges(false);
+        result.options.showDataSavingClear();
+        this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

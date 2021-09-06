@@ -71,6 +71,7 @@ export class ImmobilienHelper {
      */
     public static modifyColor(color: string | number[], percent: number): string {
 
+        // eslint-disable-next-line no-param-reassign
         color = this.convertColor(color);
 
         const f = parseInt(color.slice(1), 16);
@@ -124,9 +125,8 @@ export class ImmobilienHelper {
     public static parseStringAsFloat(value: string | number): number {
         if (typeof value === 'string') {
             return parseFloat(value.replace(',', '.'));
-        } else {
-            return value;
         }
+        return value;
     }
 
     /**
@@ -212,7 +212,7 @@ export class ImmobilienHelper {
                 let val = this.resolve(keys[k], array[i]);
 
                 if (typeof val === 'number') {
-                    val = ('' + val).replace('.', ',');
+                    val = (String(val)).replace('.', ',');
                 }
 
                 stmp += feld + val + feld;

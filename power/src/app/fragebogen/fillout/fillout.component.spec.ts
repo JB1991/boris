@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
@@ -133,7 +134,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     });
 
     it('should crash to load data', (done) => {
-        component.loadData().catch(error => {
+        component.loadData().catch((error) => {
             expect(error.toString()).toEqual('Error: pin is required');
             done();
         });

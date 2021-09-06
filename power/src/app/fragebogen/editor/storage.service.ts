@@ -12,11 +12,17 @@ import { AuthService } from '@app/shared/auth/auth.service';
 })
 export class StorageService {
     public model: any = JSON.parse(JSON.stringify(templates.defaultTemplate));
+
     public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
+
     public FormularFields = templates.FormularFields;
+
     public selectedPageID = 0;
+
     public selectedElementID?: number = undefined;
+
     public UnsavedChanges = false;
+
     public AutoSaveEnabled = true;
 
     constructor(public auth: AuthService) { }

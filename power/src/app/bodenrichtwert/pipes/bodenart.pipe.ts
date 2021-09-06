@@ -69,7 +69,7 @@ export class BodenartPipe implements PipeTransform {
      * @returns returns true/false if bodenart exists
      */
     private bodTypeExists(value: string): boolean {
-        return bodTypes.some(b => b.key === value);
+        return bodTypes.some((b) => b.key === value);
     }
 
     /**
@@ -78,7 +78,7 @@ export class BodenartPipe implements PipeTransform {
      * @returns Returns the bodenart for a given key
      */
     private getBodType(value: string): typeof bodTypes[0] | undefined {
-        return bodTypes.find(b => b.key === value);
+        return bodTypes.find((b) => b.key === value);
     }
 
     /**
@@ -146,6 +146,8 @@ export class BodenartPipe implements PipeTransform {
                 value += bodType.value + operator + ' ';
                 break;
             }
+            default:
+                throw new Error('Unknown operator');
         }
         return value;
     }

@@ -5,15 +5,44 @@ import { ImmobilienHelper } from './immobilien.helper';
 
 export class NipixRuntimeCalculator {
 
-
     private nipixStatic: ImmobilenNipixStatic.NipixStatic;
+
     private nipixRuntime: ImmobilenNipixRuntime.NipixRuntime;
 
-    public constructor(niStatic: ImmobilenNipixStatic.NipixStatic, niRuntime: ImmobilenNipixRuntime.NipixRuntime) {
+    constructor(niStatic: ImmobilenNipixStatic.NipixStatic, niRuntime: ImmobilenNipixRuntime.NipixRuntime) {
         this.nipixStatic = niStatic;
         this.nipixRuntime = niRuntime;
     }
 
+    /**
+     * Generates the drawdata from the given draw array
+     */
+    public calculateDrawData(): void {
+
+        // Empty result
+        this.nipixRuntime.calculated.drawData = [];
+
+        // Iterate over all draw items
+        for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
+            const drawitem = this.nipixRuntime.drawPresets[d];
+
+            // Type Single: display all values as an individual series
+            if (drawitem['type'] === 'single') {
+                this.calculateDrawDataSingle(drawitem);
+
+                // Type Aggr: display all values as an aggregated series
+            } else if (drawitem['type'] === 'aggr') {
+                this.calculateDrawDataAggr(drawitem);
+            }
+
+        }
+
+        // Filter empty Data
+        this.filterNaN();
+
+        // Fill Empty
+        this.fillEmpty();
+    }
 
     private calculateDrawDataSingleOnRef(drawitem: any, value: any, nipix: any): void {
         // Calc reference value on referenceDate
@@ -230,36 +259,6 @@ export class NipixRuntimeCalculator {
 
         }
 
-    }
-
-    /**
-     * Generates the drawdata from the given draw array
-     */
-    public calculateDrawData(): void {
-
-        // Empty result
-        this.nipixRuntime.calculated.drawData = [];
-
-        // Iterate over all draw items
-        for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
-            const drawitem = this.nipixRuntime.drawPresets[d];
-
-            // Type Single: display all values as an individual series
-            if (drawitem['type'] === 'single') {
-                this.calculateDrawDataSingle(drawitem);
-
-                // Type Aggr: display all values as an aggregated series
-            } else if (drawitem['type'] === 'aggr') {
-                this.calculateDrawDataAggr(drawitem);
-            }
-
-        }
-
-        // Filter empty Data
-        this.filterNaN();
-
-        // Fill Empty
-        this.fillEmpty();
     }
 }
 

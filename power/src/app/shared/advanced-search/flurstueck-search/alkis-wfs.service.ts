@@ -20,8 +20,15 @@ export class AlkisWfsService {
      */
     private features = new Subject<FeatureCollection>();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient) { }
 
+    /**
+     * Handling of HTTP errors by logging it to the console
+     * @param error HTTP error to be handled
+     * @returns observable error
+     */
+    private static handleError(error: HttpErrorResponse): Observable<never> {
+        return throwError(error);
     }
 
     /**
@@ -126,15 +133,6 @@ export class AlkisWfsService {
             filter,
             { 'headers': header, 'responseType': 'json' }
         ).pipe(catchError(AlkisWfsService.handleError));
-    }
-
-    /**
-     * Handling of HTTP errors by logging it to the console
-     * @param error HTTP error to be handled
-     * @returns observable error
-     */
-    private static handleError(error: HttpErrorResponse): Observable<never> {
-        return throwError(error);
     }
 }
 

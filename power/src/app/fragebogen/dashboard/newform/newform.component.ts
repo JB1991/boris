@@ -14,15 +14,23 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 })
 export class NewformComponent {
     @ViewChild('modal') public modal?: ModalminiComponent;
+
     @Output() public out = new EventEmitter<string>();
+
     @Input() public tags = new Array<string>();
 
     public title = '';
+
     public service = '';
+
     public template = '';
+
     public tagList = new Array<string>();
+
     public templateList = new Array<string>();
+
     public searchText = '';
+
     public test = '';
 
     constructor(public router: Router, public alerts: AlertsService, public formAPI: FormAPIService) { }
@@ -56,7 +64,7 @@ export class NewformComponent {
         this.formAPI
             .getForms(queryParams)
             .then((result) => {
-                this.templateList = result.forms.map(f => f?.extract ? f.extract : '').filter(title => title !== '');
+                this.templateList = result.forms.map((f) => (f?.extract ? f.extract : '')).filter((title) => title !== '');
             })
             .catch((error: Error) => {
                 // failed to load form

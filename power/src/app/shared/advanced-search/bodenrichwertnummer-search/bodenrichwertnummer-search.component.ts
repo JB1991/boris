@@ -94,7 +94,7 @@ export class BodenrichwertnummerSearchComponent {
                 point = polylabel(ft.geometry.coordinates, 0.0001, false);
                 break;
             case 'MultiPolygon': {
-                const p = ft.geometry.coordinates.map(f => ({
+                const p = ft.geometry.coordinates.map((f) => ({
                     type: 'Polygon',
                     coordinates: f
                 })).sort((i, j) => area(i) - area(j)).shift();
@@ -149,7 +149,7 @@ export class BodenrichwertnummerSearchComponent {
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            switchMap(term => term.length < 1 ? of([]) :
+            switchMap((term) => (term.length < 1 ? of([]) :
                 this.bodenrichtwertService.getFeatureByBRWNumber(
                     term, this.stichtag as string,
                     this.teilmarkt as Teilmarkt
@@ -158,7 +158,7 @@ export class BodenrichwertnummerSearchComponent {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([] as any);
                     })
-                )
+                ))
             ),
             map((result: FeatureCollection) => this.checkFeatures(result))
         );
@@ -176,8 +176,7 @@ export class BodenrichwertnummerSearchComponent {
         if (fts.features?.length === 0) {
             this.alerts.NewAlert('info', $localize`Keine Ergebnisse`, $localize`Es konnte leider keine Bodenrichtwertzone gefunden werden.`);
             return [];
-        } else {
-            return fts.features;
         }
+        return fts.features;
     }
 }

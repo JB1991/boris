@@ -16,9 +16,13 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 })
 export class FormularSettingsComponent {
     @ViewChild('formsettingsmodal') public modal?: ModalComponent;
+
     @Input() public model: any;
+
     @Output() public modelChange = new EventEmitter<any>();
+
     public copy = '';
+
     public readonly languages = surveyLocalization.localeNames;
 
     constructor(public alerts: AlertsService,

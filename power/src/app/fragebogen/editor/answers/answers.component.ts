@@ -21,8 +21,11 @@ let id = 0;
 })
 export class AnswersComponent {
     @Input() public model: any;
+
     @Input() public hasImg = false;
+
     @Input() public data = new Array<any>();
+
     @Output() public dataChange = new EventEmitter<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }

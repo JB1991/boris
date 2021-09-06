@@ -13,6 +13,7 @@ import { environment } from '@env/environment';
 })
 export class AuthService {
     public user?: User = undefined;
+
     private timerHandle?: NodeJS.Timeout;
 
     constructor(@Inject(LOCALE_ID) public locale: string,
@@ -101,26 +102,6 @@ export class AuthService {
     }
 
     /**
-     * Refreshes session after 5 minutes
-     */
-    private sessionCheck(): void {
-        /* istanbul ignore next */
-        if (environment.production) {
-            // clear refresh timeout
-            if (this.timerHandle) {
-                clearTimeout(this.timerHandle);
-                this.timerHandle = undefined;
-            }
-
-            // set refresh timeout
-            /* eslint-disable-next-line scanjs-rules/call_setTimeout */
-            this.timerHandle = setTimeout(() => {
-                void this.loadSession(true);
-            }, 5 * 60000);
-        }
-    }
-
-    /**
      * Returns user object
      * @returns User object
      */
@@ -204,7 +185,6 @@ export class AuthService {
         } catch (error) {
             // failed to login
             console.error(error);
-            return;
         }
     }
 
@@ -238,6 +218,44 @@ export class AuthService {
     public IsAuthenticated(): boolean {
         if (this.user?.token && this.user?.expires && new Date() < this.user.expires) {
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * Validates if user is authorized
+     * @param roles Roles
+     * @param owner Owner
+     * @param groups Groups
+     * @returns True if authorized
+     */
+    public IsAuthorized(roles: Role[], owner: string | undefined, groups: string[] | undefined): boolean {
+        if (!this.IsAuthEnabled()) {
+            return true;
+        }
+        if (!this.IsAuthenticated()) {
+            return false;
+        }
+        if (!(owner && groups)) {
+            return false;
+        }
+        const userRole = this.getRole();
+        const userGroups = this.getGroups();
+
+        if (owner === this.user?.data?.sub || userRole === 'admin') {
+            return true;
+        }
+
+        if (!hasRole(userRole, roles)) {
+            return false;
+        }
+
+        for (const g of groups) {
+            for (const ug of userGroups) {
+                if (g === ug) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -278,41 +296,23 @@ export class AuthService {
     }
 
     /**
-     * Validates if user is authorized
-     * @param roles Roles
-     * @param owner Owner
-     * @param groups Groups
-     * @returns True if authorized
+     * Refreshes session after 5 minutes
      */
-    public IsAuthorized(roles: Role[], owner: string | undefined, groups: string[] | undefined): boolean {
-        if (!this.IsAuthEnabled()) {
-            return true;
-        }
-        if (!this.IsAuthenticated()) {
-            return false;
-        }
-        if (!(owner && groups)) {
-            return false;
-        }
-        const userRole = this.getRole();
-        const userGroups = this.getGroups();
-
-        if (owner === this.user?.data?.sub || userRole === 'admin') {
-            return true;
-        }
-
-        if (!hasRole(userRole, roles)) {
-            return false;
-        }
-
-        for (const g of groups) {
-            for (const ug of userGroups) {
-                if (g === ug) {
-                    return true;
-                }
+    private sessionCheck(): void {
+        /* istanbul ignore next */
+        if (environment.production) {
+            // clear refresh timeout
+            if (this.timerHandle) {
+                clearTimeout(this.timerHandle);
+                this.timerHandle = undefined;
             }
+
+            // set refresh timeout
+            /* eslint-disable-next-line scanjs-rules/call_setTimeout */
+            this.timerHandle = setTimeout(() => {
+                void this.loadSession(true);
+            }, 5 * 60000);
         }
-        return false;
     }
 }
 
@@ -341,7 +341,9 @@ export type Role = 'user' | 'editor' | 'manager' | 'admin';
  */
 export class User {
     public expires?: Date;
+
     public token?: JWTToken;
+
     public data?: UserDetails;
 }
 

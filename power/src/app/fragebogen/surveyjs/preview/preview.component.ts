@@ -14,14 +14,23 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 })
 export class PreviewComponent {
     @ViewChild('previewmodal') public modal?: ModalComponent;
+
     @ViewChild('wrapper') public wrapper?: WrapperComponent;
+
     @Input() public form: any;
+
     @Input() public data: any = null;
+
     public surveyjs_style = Bootstrap4_CSS;
+
     public mode: 'edit' | 'display' = 'display';
+
     public language = 'de';
+
     public showInvisible = false;
+
     public isVisible = false;
+
     public readonly languages = surveyLocalization.localeNames;
 
     constructor(public cdr: ChangeDetectorRef) { }

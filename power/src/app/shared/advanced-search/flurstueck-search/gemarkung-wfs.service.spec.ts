@@ -44,7 +44,7 @@ describe('GemarkungWfsService', () => {
     });
 
     it('updateFeatures should feed the feature to the subject', (done) => {
-        service.getFeatures().subscribe(next => {
+        service.getFeatures().subscribe((next) => {
             expect(next).toEqual(feature);
             done();
         });
@@ -52,7 +52,7 @@ describe('GemarkungWfsService', () => {
     });
 
     it('getGemarkungByKey should return a feature collection', (done) => {
-        service.getGemarkungBySearchText(searchText).subscribe(result => {
+        service.getGemarkungBySearchText(searchText).subscribe((result) => {
             expect(result.type).toEqual('FeatureCollection');
             expect(result.features.length).toEqual(1);
             done();
@@ -62,7 +62,7 @@ describe('GemarkungWfsService', () => {
     });
 
     it('getGemarkungBySearchText should return a feature collection', (done) => {
-        service.getGemarkungBySearchText(searchText).subscribe(result => {
+        service.getGemarkungBySearchText(searchText).subscribe((result) => {
             expect(result.type).toEqual('FeatureCollection');
             expect(result.features.length).toEqual(1);
             done();
@@ -73,7 +73,7 @@ describe('GemarkungWfsService', () => {
 
     it('getGemarkungBySearchText should handle errors', (done) => {
         service.getGemarkungBySearchText(searchText).subscribe(() => {
-        }, error => {
+        }, (error) => {
             expect(error.error.type).toEqual('error');
             done();
         });

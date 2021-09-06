@@ -14,8 +14,11 @@ export class MaketaskComponent {
     }>();
 
     @ViewChild('maketaskmodal') public modal?: ModalminiComponent;
+
     public amount = 1;
+
     public pinList = [];
+
     public copy = false;
 
     /**

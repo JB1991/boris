@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Injectable } from '@angular/core';
 import intersect from '@turf/intersect';
 import union from '@turf/union';
@@ -21,7 +22,7 @@ export class DynamicLabellingService {
         properties: any,
     }>): Array<Feature<Point>> {
         const features: Array<Feature<Point>> = [];
-        arr.forEach(p => {
+        arr.forEach((p) => {
             features.push(this.makeFeature({
                 type: 'Point',
                 coordinates: [p.lng, p.lat]
@@ -65,33 +66,6 @@ export class DynamicLabellingService {
     }
 
     /**
-     * Returns multiPolygon
-     * @param mp multiPolygon
-     * @returns array of polygons
-     */
-    private multiPolygonToPolygons(mp: MultiPolygon): Polygon[] {
-        return mp.coordinates.map(f => ({
-            type: 'Polygon',
-            coordinates: f
-        }));
-    }
-
-    /**
-     * makeFeature
-     * @param geom geometry
-     * @param properties properties
-     * @returns feature
-     */
-    private makeFeature<T extends Geometry>(geom: T, properties: any): Feature<T> {
-        return {
-            type: 'Feature',
-            geometry: geom,
-            properties: properties
-        };
-    }
-
-
-    /**
      * unionVectorTilesFeatures unions the features of the mapbox vector tiles by a given idGetter
      * @param fts rendered mapbox vector tile features
      * @param idGetter identification getter
@@ -104,7 +78,7 @@ export class DynamicLabellingService {
 
         const unionedFts: Map<string, Feature<Polygon | MultiPolygon>> = new Map();
 
-        fts.forEach(ft => {
+        fts.forEach((ft) => {
             if (!(ft.geometry.type === 'MultiPolygon' || ft.geometry.type === 'Polygon')) {
                 console.error('geom', ft);
                 return;
@@ -138,12 +112,14 @@ export class DynamicLabellingService {
                 case 'Polygon':
                     return [this.makeFeature(ft.geometry, ft.properties)];
                 case 'MultiPolygon':
-                    return this.multiPolygonToPolygons(ft.geometry).map(p => this.makeFeature(p, ft.properties));
+                    return this.multiPolygonToPolygons(ft.geometry).map((p) => this.makeFeature(p, ft.properties));
+                default:
+                    throw new Error('Unkown type');
             }
         }
 
         if (intersection.geometry.type === 'MultiPolygon') {
-            return this.multiPolygonToPolygons(intersection.geometry).map(p => this.makeFeature(p, ft.properties));
+            return this.multiPolygonToPolygons(intersection.geometry).map((p) => this.makeFeature(p, ft.properties));
         }
         return [{
             type: 'Feature',
@@ -183,7 +159,7 @@ export class DynamicLabellingService {
         output: Array<Feature<Point>>): Array<Feature<Point>> {
 
         if (output) {
-            output = output.filter(ft => pointInPolygon(ft.geometry.coordinates, bound));
+            output = output.filter((ft) => pointInPolygon(ft.geometry.coordinates, bound));
         }
 
         if (doNotDisplay) {
@@ -192,12 +168,38 @@ export class DynamicLabellingService {
 
         const unionedFts = this.unionVectorTilesFeatures(input, idGetter);
 
-        unionedFts.forEach(ft => {
+        unionedFts.forEach((ft) => {
             const intersection = this.intersectFeatureWithBBox(ft, bound);
             output.push(...intersection.map((i) => this.pointOnFeature(i)));
         });
 
         return output;
+    }
+
+    /**
+     * Returns multiPolygon
+     * @param mp multiPolygon
+     * @returns array of polygons
+     */
+    private multiPolygonToPolygons(mp: MultiPolygon): Polygon[] {
+        return mp.coordinates.map((f) => ({
+            type: 'Polygon',
+            coordinates: f
+        }));
+    }
+
+    /**
+     * makeFeature
+     * @param geom geometry
+     * @param properties properties
+     * @returns feature
+     */
+    private makeFeature<T extends Geometry>(geom: T, properties: any): Feature<T> {
+        return {
+            type: 'Feature',
+            geometry: geom,
+            properties: properties
+        };
     }
 }
 

@@ -38,7 +38,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     });
 
     it('updateFeatures should feed the feature collection to the subject', (done) => {
-        service.getFeatures().subscribe(next => {
+        service.getFeatures().subscribe((next) => {
             expect(next).toEqual(features);
             expect(next.type).toEqual('FeatureCollection');
             done();
@@ -47,7 +47,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     });
 
     it('getFeatureByLatLonEntw should return a feature', (done) => {
-        service.getFeatureByLatLonEntw(lat, lon, entw).subscribe(next => {
+        service.getFeatureByLatLonEntw(lat, lon, entw).subscribe((next) => {
             expect(next).toEqual(featureByLatLonEntw);
             expect(next.type).toEqual('FeatureCollection');
             done();
@@ -57,7 +57,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     });
 
     it('getFeatureByBRWNumber should return a feature', (done) => {
-        service.getFeatureByBRWNumber('1234', date.toString(), { value: entw, text: 'Bauland', hexColor: '#ffffffff' }).subscribe(next => {
+        service.getFeatureByBRWNumber('1234', date.toString(), { value: entw, text: 'Bauland', hexColor: '#ffffffff' }).subscribe((next) => {
             expect(next).toEqual(featureByLatLonEntw);
             expect(next.type).toEqual('FeatureCollection');
             done();

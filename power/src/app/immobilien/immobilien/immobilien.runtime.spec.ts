@@ -41,22 +41,22 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     });
 
-    it('resetDrawPresets works', function () {
+    it('resetDrawPresets works', () => {
         component.resetDrawPresets();
         expect(component.drawPresets).toEqual(presets);
     });
 
-    it('updateAvailableQuartal works', function () {
+    it('updateAvailableQuartal works', () => {
         component.updateAvailableQuartal(2000, 3);
         expect(component.availableQuartal).toEqual(['2000/2', '2000/3']);
     });
 
-    it('updateAvailableNipixCategories works', function () {
+    it('updateAvailableNipixCategories works', () => {
         component.updateAvailableNipixCategories();
         expect(component.availableNipixCategories).toEqual(['gebrauchte Eigenheime', 'gebrauchte Eigentumswohnungen']);
     });
 
-    it('toggleNipixCategory works', function () {
+    it('toggleNipixCategory works', () => {
         component.resetDrawPresets();
 
         component.toggleNipixCategory('foo');
@@ -65,7 +65,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(component.drawPresets[0]['nipixCategory']).toEqual('gebrauchte Eigenheime');
     });
 
-    it('getDrawPreset works', function () {
+    it('getDrawPreset works', () => {
         const res = component.getDrawPreset('bar');
         expect(res).toEqual({});
         component.resetDrawPresets();
@@ -82,7 +82,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     it('highlightTimeout works', () => {
         component.state.highlightedSeries = 'foo';
-        spyOn(component, 'updateMapSelect').and.callFake(function () { });
+        spyOn(component, 'updateMapSelect').and.callFake(() => { });
 
         component.highlightTimeout();
         expect(component.state.highlightedSeries).toEqual('');
@@ -90,7 +90,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     });
 
-    it('resetHighlight works', function () {
+    it('resetHighlight works', () => {
         spyOn(window, 'clearTimeout').and.callThrough();
         spyOn(component, 'updateMapSelect').and.callThrough();
         component.resetHighlight();
@@ -99,14 +99,14 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(component.state.highlightedSeries).toEqual('');
     });
 
-    it('highlightSeries works', function () {
+    it('highlightSeries works', () => {
         component.resetDrawPresets();
 
         component.state.highlightedSeries = 'foo';
         component.highlightSeries('foo');
 
         spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake(
-            function (mapobj, key, select) {
+            (mapobj, key, select) => {
             }
         );
         spyOn(window, 'clearTimeout').and.callThrough();
@@ -120,14 +120,14 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
     });
 
-    it('calculateDrawData works', function () {
-        spyOn(component.calculator, 'calculateDrawData').and.callFake(function () { });
+    it('calculateDrawData works', () => {
+        spyOn(component.calculator, 'calculateDrawData').and.callFake(() => { });
         component.calculateDrawData();
         expect(component.calculator.calculateDrawData).toHaveBeenCalled();
     });
 
 
-    it('updateRange works', function () {
+    it('updateRange works', () => {
         component.updateAvailableQuartal(2000, 4);
 
         component.updateRange(100 / 3 * 2, 100);
@@ -138,14 +138,14 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         component.updateRange(100 / 3 * 2, 100);
     });
 
-    it('updateMapSelect works', function () {
+    it('updateMapSelect works', () => {
         component.resetDrawPresets();
 
         component.map.obj = {};
         component.state.activeSelection = 99;
         niStatic.data.regionen = { '4201': {} };
         spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake(
-            function (mapobj, key, select) { }
+            (mapobj, key, select) => { }
         );
 
         component.updateMapSelect('1');

@@ -10,7 +10,13 @@ import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component'
 })
 export class BodenrichtwertDetailComponent implements OnChanges {
 
-    public brzStrings = {
+    @Input() public stichtag?: string;
+
+    @Input() public teilmarkt?: Teilmarkt;
+
+    @Input() public features?: FeatureCollection;
+
+    public readonly brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
         'umwert': $localize`Umrechnungstabelle`,
         'umdatei': $localize`Umrechnungsdatei`,
@@ -39,19 +45,13 @@ export class BodenrichtwertDetailComponent implements OnChanges {
         'bem': $localize`Bemerkung`
     };
 
-    @Input() public stichtag?: string;
-
-    @Input() public teilmarkt?: Teilmarkt;
-
-    @Input() public features?: FeatureCollection;
-
     public filteredFeatures?: Feature[];
 
     /* istanbul ignore next */
     /** @inheritdoc */
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['features'] || changes['stichtag'] || changes['teilmarkt']) {
-            this.filteredFeatures = this.features?.features.filter(ft => ft.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
+            this.filteredFeatures = this.features?.features.filter((ft) => ft.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
         }
     }
 

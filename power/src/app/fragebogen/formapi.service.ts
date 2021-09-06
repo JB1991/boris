@@ -41,37 +41,6 @@ export class FormAPIService {
     ) { }
 
     /**
-     * Helper function to reduce code duplication
-     * @param method Http method
-     * @param uri URL
-     * @param params Query parameters
-     * @param body Body for POST
-     * @returns Promise<ArrayBuffer>
-     */
-    private async Do(method: Method, uri: string, params: Record<string, string>, body?: any): Promise<any> {
-        const p = new URLSearchParams(params);
-        const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
-
-        let obs: Observable<ArrayBuffer>;
-        switch (method) {
-            case Method.POST:
-                obs = this.httpClient.post(url, body, this.auth.getHeaders());
-                break;
-            case Method.PUT:
-                obs = this.httpClient.put(url, body, this.auth.getHeaders());
-                break;
-            case Method.DELETE:
-                obs = this.httpClient.delete(url, this.auth.getHeaders());
-                break;
-            default:
-                obs = this.httpClient.get(url, this.auth.getHeaders());
-        }
-
-        const data = await obs.toPromise();
-        return data as any;
-    }
-
-    /**
      * Returns tag list
      * @param params Params
      * @returns Promise of tag list
@@ -379,7 +348,7 @@ export class FormAPIService {
     }> {
         const p: Record<string, string> = {};
         if (number && number > 0) { // eslint-disable-line id-blacklist
-            p['number'] = '' + number; // eslint-disable-line id-blacklist
+            p['number'] = String(number); // eslint-disable-line id-blacklist
         }
         return this.Do(Method.POST, 'intern/forms/' + encodeURIComponent(formID), p, body);
     }
@@ -736,6 +705,37 @@ export class FormAPIService {
         }
 
         return msg;
+    }
+
+    /**
+     * Helper function to reduce code duplication
+     * @param method Http method
+     * @param uri URL
+     * @param params Query parameters
+     * @param body Body for POST
+     * @returns Promise<ArrayBuffer>
+     */
+    private async Do(method: Method, uri: string, params: Record<string, string>, body?: any): Promise<any> {
+        const p = new URLSearchParams(params);
+        const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
+
+        let obs: Observable<ArrayBuffer>;
+        switch (method) {
+            case Method.POST:
+                obs = this.httpClient.post(url, body, this.auth.getHeaders());
+                break;
+            case Method.PUT:
+                obs = this.httpClient.put(url, body, this.auth.getHeaders());
+                break;
+            case Method.DELETE:
+                obs = this.httpClient.delete(url, this.auth.getHeaders());
+                break;
+            default:
+                obs = this.httpClient.get(url, this.auth.getHeaders());
+        }
+
+        const data = await obs.toPromise();
+        return data as any;
     }
 }
 

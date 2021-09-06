@@ -6,6 +6,16 @@ import * as PO from './immobilien.chartoptions-printoptions';
 
 export class ImmobilienChartOptions {
 
+    /**
+     * Chart Options (Merge) for hideing view components and show print components
+     */
+    public static mergeHide = JSON.parse(JSON.stringify(PO.mergeHide));
+
+    /**
+     * Chart Options (Merge) for show view components and hide print components
+     */
+    public static mergeShow = JSON.parse(JSON.stringify(PO.mergeShow));
+
     public static chartRange(): any {
         return JSON.parse(JSON.stringify(CO.chartRange));
     }
@@ -96,16 +106,5 @@ export class ImmobilienChartOptions {
 
         return ret;
     }
-
-    /**
-     * Chart Options (Merge) for hideing view components and show print components
-     */
-    public static mergeHide = JSON.parse(JSON.stringify(PO.mergeHide));
-
-    /**
-     * Chart Options (Merge) for show view components and hide print components
-     */
-    public static mergeShow = JSON.parse(JSON.stringify(PO.mergeShow));
-
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

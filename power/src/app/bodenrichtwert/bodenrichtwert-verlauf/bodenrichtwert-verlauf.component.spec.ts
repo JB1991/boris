@@ -87,13 +87,11 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         spyOn(component, 'removeTextInTooltip').and.callThrough();
         let result = component.tooltipFormatter(params);
         expect(component.removeTextInTooltip).toHaveBeenCalledTimes(1);
-        expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
-            '  : ' + 200 + ' € ' + '<br />');
+        expect(result).toEqual('31.12.2017<br />marker Wohngebiet  : ' + 200 + ' € <br />');
 
         component.teilmarkt = { text: 'LF', value: ['B'], hexColor: '#c4153a' };
         result = component.tooltipFormatter(params);
-        expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
-            '  : ' + '200,00' + ' € ' + '<br />');
+        expect(result).toEqual('31.12.2017<br />marker Wohngebiet  : 200,00 € <br />');
     });
 
     it('removeTextInTooltip should remove some strings in the tooltip text', () => {

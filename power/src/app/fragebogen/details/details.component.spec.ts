@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { Component, Input } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -104,7 +105,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should crash updateForm', (done) => {
-        component.updateForm(false).catch(error => {
+        component.updateForm(false).catch((error) => {
             expect(error.toString()).toEqual('Error: id is required');
             done();
         });
@@ -670,7 +671,9 @@ class MockPublishComponent { }
 })
 class MockSettingsComponent {
     @Input() public availableTags = new Array<string>();
+
     @Input() public availableGroups = new Array<string>();
+
     @Input() public availableUsers = new Array<User>();
 }
 @Component({

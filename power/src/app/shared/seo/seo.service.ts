@@ -12,6 +12,7 @@ import { environment } from '@env/environment';
 })
 export class SEOService {
     public readonly BASE_URL = 'https://immobilienmarkt.niedersachsen.de';
+
     public URL_PARAMETER: string[] = [];
 
     constructor(
@@ -60,7 +61,7 @@ export class SEOService {
         skip: for (let i = 0; i < environment.config.languages.length; i++) {
             // skip de-simple
             if (environment.config.languages[i].short === 'de-simple') {
-                continue skip;
+                continue;
             }
 
             // check if already exists
@@ -74,7 +75,7 @@ export class SEOService {
 
             // skip current lang
             if (environment.config.languages[i].short === this.locale) {
-                continue skip;
+                continue;
             }
 
             // create new

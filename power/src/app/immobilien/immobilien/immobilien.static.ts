@@ -20,8 +20,11 @@ interface NipixStaticData {
 export class NipixStatic {
 
     public layoutRtl = false;
+
     public agnbUrl = '';
+
     public chartExportWidth = 1800;
+
     public textOptions: NipixStaticTextOptions = {
         'fontSizePage': 1,
         'fontSizeBase': 0.8,
@@ -29,6 +32,7 @@ export class NipixStatic {
         'fontSizeAxisLabel': 0.8,
         'fontSizeMap': 0.8
     };
+
     public data: NipixStaticData = {
         'nipix': {},
         'gemeinden': [],

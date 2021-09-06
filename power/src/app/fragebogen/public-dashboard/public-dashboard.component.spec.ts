@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';

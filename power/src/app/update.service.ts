@@ -14,7 +14,7 @@ export class UpdateService {
 
             // handle an unrecoverable state
             /* istanbul ignore next */
-            updates.unrecoverable.subscribe(event => {
+            updates.unrecoverable.subscribe((event) => {
                 console.error(event);
                 this.cleanupServiceWorker(true);
                 window.location.reload();
@@ -56,7 +56,7 @@ export class UpdateService {
 
         // unregister service worker
         if (del && window.navigator && navigator.serviceWorker) {
-            void navigator.serviceWorker.getRegistrations().then(registrations => {
+            void navigator.serviceWorker.getRegistrations().then((registrations) => {
                 console.warn('Deleting service workers');
                 for (const registration of registrations) {
                     void registration.unregister();

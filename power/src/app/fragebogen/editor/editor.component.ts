@@ -25,9 +25,13 @@ import { SEOService } from '@app/shared/seo/seo.service';
 })
 export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
     @ViewChild('preview') public preview?: PreviewComponent;
+
     public elementCopy: any;
+
     public isCollapsedToolBox = false;
+
     public timerHandle?: NodeJS.Timeout;
+
     public favorites = new Array<any>();
 
     constructor(
@@ -47,29 +51,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         this.storage.resetService();
         this.history.resetService();
-    }
-
-    /** @inheritdoc */
-    public ngOnInit(): void {
-        // get id
-        this.loadingscreen.setVisible(true);
-        const id = this.route.snapshot.paramMap.get('id');
-        if (id) {
-            // load data
-            void this.loadData(id);
-        } else {
-            // missing id
-            void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        }
-    }
-
-    /** @inheritdoc */
-    public ngOnDestroy(): void {
-        // delete auto save method
-        if (this.timerHandle) {
-            clearInterval(this.timerHandle);
-            this.timerHandle = undefined;
-        }
     }
 
     /* istanbul ignore next */
@@ -225,6 +206,29 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /** @inheritdoc */
+    public ngOnInit(): void {
+        // get id
+        this.loadingscreen.setVisible(true);
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            // load data
+            void this.loadData(id);
+        } else {
+            // missing id
+            void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        }
+    }
+
+    /** @inheritdoc */
+    public ngOnDestroy(): void {
+        // delete auto save method
+        if (this.timerHandle) {
+            clearInterval(this.timerHandle);
+            this.timerHandle = undefined;
+        }
+    }
+
     /**
      * Load form data
      * @param id Form id
@@ -259,23 +263,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
             void this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-            return;
-        }
-    }
-
-    /* istanbul ignore next */
-    /**
-     * Migrates survey to newest version
-     */
-    private migration(): void { // eslint-disable-line complexity
-        for (const page of this.storage.model.pages) {
-            for (const element of page.elements) {
-                // convert imagepicker to imageselector
-                if (element.type === 'imagepicker') {
-                    element.type = 'imageselector';
-                    this.storage.setUnsavedChanges(true);
-                }
-            }
         }
     }
 
@@ -436,7 +423,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         // get template
-        let data = this.storage.FormularFields.filter(p => p.type === type)[0];
+        let data = this.storage.FormularFields.filter((p) => p.type === type)[0];
         if (data) {
             // toolbox element
             data = JSON.parse(JSON.stringify(data.template));
@@ -799,6 +786,22 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @returns Icon svg code
      */
     public getIcon(type: string): string {
-        return this.storage.FormularFields.filter(p => p.type === type)[0].icon;
+        return this.storage.FormularFields.filter((p) => p.type === type)[0].icon;
+    }
+
+    /* istanbul ignore next */
+    /**
+     * Migrates survey to newest version
+     */
+    private migration(): void { // eslint-disable-line complexity
+        for (const page of this.storage.model.pages) {
+            for (const element of page.elements) {
+                // convert imagepicker to imageselector
+                if (element.type === 'imagepicker') {
+                    element.type = 'imageselector';
+                    this.storage.setUnsavedChanges(true);
+                }
+            }
+        }
     }
 }

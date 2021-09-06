@@ -19,6 +19,15 @@ export class GeosearchService {
     }
 
     /**
+     * Handling of HTTP errors by logging it to the console
+     * @param error HTTP error to be handled
+     * @returns Error Observable
+     */
+    private static handleError(error: HttpErrorResponse): Observable<never> {
+        return throwError(error);
+    }
+
+    /**
      * Returns the features as an Observable
      * @returns Feature Observable
      */
@@ -76,15 +85,6 @@ export class GeosearchService {
         }).pipe(
             catchError(GeosearchService.handleError)
         );
-    }
-
-    /**
-     * Handling of HTTP errors by logging it to the console
-     * @param error HTTP error to be handled
-     * @returns Error Observable
-     */
-    private static handleError(error: HttpErrorResponse): Observable<never> {
-        return throwError(error);
     }
 }
 

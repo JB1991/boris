@@ -9,6 +9,7 @@ import { StorageService } from './storage.service';
 })
 export class HistoryService {
     public undoBuffer = new Array<any>();
+
     public redoBuffer = new Array<any>();
 
     constructor(public storage: StorageService) { }

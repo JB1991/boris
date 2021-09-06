@@ -17,25 +17,39 @@ export class DashboardComponent implements OnInit {
     public tags = new Array<string>();
 
     public forms = new Array<Form>();
+
     public formTotal = 0;
+
     public formPage = 1;
+
     public formPerPage = 5;
+
     public formPageSizes = new Array<number>();
 
     public formSearch = '';
+
     public formStatus: FormStatus | 'all' = 'all';
+
     public formAccess: Access | 'all' = 'all';
+
     public formSort: FormField = 'updated';
+
     public formSortDesc = true;
 
     public tasks = new Array<Task>();
+
     public taskTotal = 0;
+
     public taskPage = 1;
+
     public taskPerPage = 5;
+
     public taskPageSizes = new Array<number>();
 
     public taskStatus: TaskStatus | 'all' = 'all';
+
     public taskSort: TaskField = 'updated';
+
     public taskSortDesc = true;
 
     constructor(

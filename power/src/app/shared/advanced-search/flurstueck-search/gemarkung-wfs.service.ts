@@ -22,8 +22,15 @@ export class GemarkungWfsService {
      */
     private features = new Subject<Feature>();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient) { }
 
+    /**
+     * Handling of HTTP errors by logging it to the console
+     * @param error HTTP error to be handled
+     * @returns observable error
+     */
+    private static handleError(error: HttpErrorResponse): Observable<never> {
+        return throwError(error);
     }
 
     /**
@@ -91,7 +98,7 @@ export class GemarkungWfsService {
 
         let filterNumbers = '';
         if (numbers) {
-            numbers.forEach(n => {
+            numbers.forEach((n) => {
                 filterNumbers +=
                     '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                     '<ogc:PropertyName>gemarkungsschluessel</ogc:PropertyName>' +
@@ -102,16 +109,16 @@ export class GemarkungWfsService {
 
         let filterWords = '';
         if (words) {
-            words.forEach(w => {
-                w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+            words.forEach((w) => {
+                const search = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
                 filterWords +=
                     '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                     '<ogc:PropertyName>gemarkung</ogc:PropertyName>' +
-                    '<ogc:Literal>*' + w + '*</ogc:Literal>' +
+                    '<ogc:Literal>*' + search + '*</ogc:Literal>' +
                     '</ogc:PropertyIsLike>' +
                     '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                     '<ogc:PropertyName>gemeinde</ogc:PropertyName>' +
-                    '<ogc:Literal>*' + w + '*</ogc:Literal>' +
+                    '<ogc:Literal>*' + search + '*</ogc:Literal>' +
                     '</ogc:PropertyIsLike>';
             });
         }
@@ -137,7 +144,7 @@ export class GemarkungWfsService {
             this.url,
             filter,
             { 'headers': header, 'responseType': 'json' }
-        ).pipe(map(response => {
+        ).pipe(map((response) => {
             response.features = this.fuzzySearch(response.features, searchText);
             return response;
         }), catchError(GemarkungWfsService.handleError));
@@ -159,15 +166,6 @@ export class GemarkungWfsService {
         };
         const fuse = new Fuse(res, options);
 
-        return fuse.search(searchText).map(items => items.item).slice(0, 10);
-    }
-
-    /**
-     * Handling of HTTP errors by logging it to the console
-     * @param error HTTP error to be handled
-     * @returns observable error
-     */
-    private static handleError(error: HttpErrorResponse): Observable<never> {
-        return throwError(error);
+        return fuse.search(searchText).map((items) => items.item).slice(0, 10);
     }
 }

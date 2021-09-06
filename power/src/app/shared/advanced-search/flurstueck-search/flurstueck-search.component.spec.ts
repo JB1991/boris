@@ -130,7 +130,7 @@ describe('FlurstueckSearchComponent', () => {
 
     it('selectItem selects an item from the result list', (done) => {
         spyOn(component.gemarkungService, 'updateFeatures');
-        component.selectGemarkungResult.subscribe(next => {
+        component.selectGemarkungResult.subscribe((next) => {
             expect(next).toEqual(feature);
             done();
         });

@@ -12,12 +12,19 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class ModalminiComponent implements OnDestroy {
     @ViewChild('modalmini') public modal?: ModalDirective;
+
     @ViewChild('mymodal') public div?: ElementRef;
+
     @Input() public checkInvalid = false;
+
     @Input() public easyclose = true;
+
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
+
     public focusedElement?: HTMLElement;
+
     public isOpen = false;
+
     public title = '';
 
     constructor(

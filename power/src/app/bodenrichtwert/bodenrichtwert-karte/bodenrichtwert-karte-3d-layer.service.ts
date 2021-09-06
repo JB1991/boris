@@ -20,10 +20,12 @@ export class BodenrichtwertKarte3dLayerService {
 
     // layer ids for label layer (Bauland, Landwirtschaft)
     public readonly layerNamesB = ['bauland', 'bauland_bremen'];
+
     public readonly layerNamesLF = ['landwirtschaft', 'landwirtschaft_bremen'];
 
     // layer ids of label layer (Bauland, Landwirtschaft)
     public readonly layerLabelB = 'bauland_labels';
+
     public readonly layerLabelLF = 'landwirtschaft_labels';
 
     // active3dLayer contains the current 3d layer state
@@ -183,7 +185,7 @@ export class BodenrichtwertKarte3dLayerService {
      */
     public filterCollectionByStag(fts: FeatureCollection, stichtag: string):
         Array<Feature<Geometry, GeoJsonProperties>> {
-        const filteredFts = fts.features.filter(ft =>
+        const filteredFts = fts.features.filter((ft) =>
             ft.properties?.['stag'].substr(0, 10) === stichtag
         );
         return filteredFts;
@@ -204,7 +206,7 @@ export class BodenrichtwertKarte3dLayerService {
         // update opacity for filtered features if layer exists
         // otherwise create layer first
         if (this.active3dLayer) {
-            filteredFts.forEach(ft => {
+            filteredFts.forEach((ft) => {
                 map.setPaintProperty(ft.properties?.['objectid'], 'fill-extrusion-opacity', opacityLayer);
             });
         } else if (fts.features.length) {

@@ -21,10 +21,13 @@ let id = 0;
 })
 export class ValidatorsComponent implements OnInit, OnChanges {
     @Input() public model: any;
+
     @Input() public data: any;
+
     @Output() public dataChange = new EventEmitter<any>();
 
     public struct = new Array<any>();
+
     public questions = new Array<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }

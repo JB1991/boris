@@ -16,14 +16,21 @@ export class SettingsComponent {
         groups: string[];
         owner: string;
     }>();
+
     @Input() public availableTags = new Array<string>();
+
     @Input() public availableGroups = new Array<string>();
+
     @Input() public availableUsers = new Array<User>();
+
     @ViewChild('settingsmodal') public modal?: ModalminiComponent;
 
     public old?: Form;
+
     public tags = new Array<string>();
+
     public groups = new Array<string>();
+
     public owner = '';
 
     constructor(public auth: AuthService) { }

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoadingscreenService implements OnDestroy {
     public visible = false;
+
     private _subscription: Subscription;
 
     constructor(public router: Router) {

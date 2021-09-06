@@ -3,10 +3,13 @@ import { environment } from '@env/environment';
 
 export default class BodenrichtwertKarteLayerControl {
     private map: Map;
+
     private btn: HTMLButtonElement;
+
     private container: HTMLDivElement;
 
     private mapIndex = 0;
+
     private timesClicked = 0;
 
     /**

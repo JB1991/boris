@@ -9,6 +9,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
     public errorList: Error[] = [];
+
     public container?: HTMLDivElement;
 
     constructor(@Inject(LOCALE_ID) public locale: string,

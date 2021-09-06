@@ -13,32 +13,32 @@ const routes: Routes = [
     {
         path: 'immobilienpreisindex',
         loadChildren: async () => import('./immobilien/immobilien.module')
-            .then(m => m.ImmobilienModule),
+            .then((m) => m.ImmobilienModule),
         canActivate: [ModuleGuard]
     },
     {
         path: 'bodenrichtwerte',
         loadChildren: async () => import('./bodenrichtwert/bodenrichtwert.module')
-            .then(m => m.BodenrichtwertModule),
+            .then((m) => m.BodenrichtwertModule),
         canActivate: [ModuleGuard]
     },
     {
         path: 'forms',
         loadChildren: async () => import('./fragebogen/fragebogen.module')
-            .then(m => m.FragebogenModule),
+            .then((m) => m.FragebogenModule),
         canActivate: [ModuleGuard]
     },
     {
         path: 'grundstuecksmarktberichte',
         loadChildren: async () => import('./gmb/gmb.module')
-            .then(m => m.GmbModule),
+            .then((m) => m.GmbModule),
         canActivate: [ModuleGuard],
         data: { 'mode': 'gmb' }
     },
     {
         path: 'landesgrundstuecksmarktberichte',
         loadChildren: async () => import('./gmb/gmb.module')
-            .then(m => m.GmbModule),
+            .then((m) => m.GmbModule),
         canActivate: [ModuleGuard],
         data: { 'mode': 'lmb' }
     },

@@ -26,7 +26,15 @@ export class BodenrichtwertService {
      */
     private features = new Subject<FeatureCollection>();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient) { }
+
+    /**
+     * Handling of HTTP errors by logging it to the console
+     * @param error HTTP error to be handled
+     * @returns returns error
+     */
+    private static handleError(error: HttpErrorResponse): Observable<never> {
+        return throwError(error);
     }
 
     /**
@@ -54,7 +62,7 @@ export class BodenrichtwertService {
         // OGC Filter for each teilmarkt/entwicklungszustand
         let ogcFilter = '';
 
-        entws.forEach(entwType => {
+        entws.forEach((entwType) => {
             ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
                 '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
                 '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
@@ -70,7 +78,7 @@ export class BodenrichtwertService {
         // OGC Query for each layer to be searched
         let ogcQuery = '';
 
-        this.borisLayer.forEach(layer => {
+        this.borisLayer.forEach((layer) => {
             ogcQuery +=
                 '<wfs:Query typeName="' + layer + '" srsName="EPSG:4326">' +
                 '<ogc:Filter>' +
@@ -82,7 +90,7 @@ export class BodenrichtwertService {
                 '</ogc:PropertyIsEqualTo>' +
                 '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/">' +
                 '<ogc:PropertyName>wnum</ogc:PropertyName>' +
-                '<ogc:Literal>' + brwNumber + '*' + '</ogc:Literal>' +
+                '<ogc:Literal>' + brwNumber + '*</ogc:Literal>' +
                 '</ogc:PropertyIsLike>' +
                 '</ogc:And>' +
                 '</ogc:Filter>' +
@@ -119,7 +127,7 @@ export class BodenrichtwertService {
         // OGC Query for each layer to be searched
         let ogcQuery = '';
 
-        this.borisLayer.forEach(layer => {
+        this.borisLayer.forEach((layer) => {
             ogcQuery +=
                 '  <wfs:Query typeName="' + layer + '" srsName="EPSG:4326">\n' +
                 '    <ogc:Filter>\n' +
@@ -154,8 +162,8 @@ export class BodenrichtwertService {
             .set('If-Modified-Since', '0');
         return this.http.post<FeatureCollection>(this.url, filter, { 'headers': header, 'responseType': 'json' })
             .pipe(
-                map(response => {
-                    response.features = response.features.map(f => {
+                map((response) => {
+                    response.features = response.features.map((f) => {
                         if (f.properties) {
                             f.properties['nutzung'] = JSON.parse(f.properties['nutzung']);
                             f.properties['umrechnungstabellendatei'] = JSON.parse(f.properties['umrechnungstabellendatei']);
@@ -166,15 +174,6 @@ export class BodenrichtwertService {
                     return response;
                 }),
                 catchError(BodenrichtwertService.handleError));
-    }
-
-    /**
-     * Handling of HTTP errors by logging it to the console
-     * @param error HTTP error to be handled
-     * @returns returns error
-     */
-    private static handleError(error: HttpErrorResponse): Observable<never> {
-        return throwError(error);
     }
 }
 

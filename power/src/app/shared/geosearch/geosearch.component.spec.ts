@@ -56,7 +56,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
 
     it('selectItem selects an item from the result list', (done) => {
         spyOn(component.geosearchService, 'updateFeatures');
-        component.selectResult.subscribe(next => {
+        component.selectResult.subscribe((next) => {
             expect(next).toEqual(feature);
             done();
         });

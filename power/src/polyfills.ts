@@ -77,7 +77,7 @@ import '@angular/localize/init';
 // Add remove() to ChildNode
 /* istanbul ignore next */
 (function (arr) {
-    arr.forEach(function (item) {
+    arr.forEach((item) => {
         if (Object.prototype.hasOwnProperty.call(item, 'remove')) {
             return;
         }

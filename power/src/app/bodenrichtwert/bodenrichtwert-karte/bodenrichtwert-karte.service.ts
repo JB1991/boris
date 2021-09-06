@@ -11,6 +11,7 @@ import { Map, Marker } from 'maplibre-gl';
 export class BodenrichtwertKarteService {
 
     public map: Map;
+
     public marker: Marker;
 
     /**

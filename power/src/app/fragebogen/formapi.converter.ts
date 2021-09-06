@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
     Access,
     ElementFilter, FormFilter, FormStatus, GroupTagFilter, Role, TaskFilter, TextFilter, TimeFilter, UserFilter
@@ -56,9 +57,10 @@ export function FormFilterToString(f: FormFilter): string {
         return 'status=' + (f as { status: FormStatus }).status;
     } else if (Object.prototype.hasOwnProperty.call(f, 'created')) {
         return 'created-' + TimeFilterToString((f as { created: TimeFilter }).created);
-    } else {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'updated')) {
         return 'updated-' + TimeFilterToString((f as { updated: TimeFilter }).updated);
     }
+    return '';
 }
 
 /**
@@ -111,9 +113,10 @@ export function TaskFilterToString(f: TaskFilter): string {
         return 'status=' + (f as { status: FormStatus }).status;
     } else if (Object.prototype.hasOwnProperty.call(f, 'created')) {
         return 'created-' + TimeFilterToString((f as { created: TimeFilter }).created);
-    } else {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'updated')) {
         return 'updated-' + TimeFilterToString((f as { updated: TimeFilter }).updated);
     }
+    return '';
 }
 
 /**
@@ -158,9 +161,10 @@ export function UserFilterToString(f: UserFilter): string {
         return 'name-' + TextFilterToString((f as { name: TextFilter }).name);
     } else if (Object.prototype.hasOwnProperty.call(f, 'role')) {
         return 'role=' + (f as { role: Role }).role;
-    } else {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'group')) {
         return 'group-' + TextFilterToString((f as { group: TextFilter }).group);
     }
+    return '';
 }
 
 /**
@@ -199,9 +203,10 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
         return 'or(' + out + ')';
     } else if (Object.prototype.hasOwnProperty.call(f, 'not')) {
         return 'not(' + UserFilterToString((f as { not: GroupTagFilter }).not) + ')';
-    } else {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'name')) {
         return 'name-' + TextFilterToString((f as { name: TextFilter }).name);
     }
+    return '';
 }
 
 /**
@@ -250,9 +255,10 @@ export function ElementFilterToString(f: ElementFilter): string {
         return 'group' + TextFilterToString((f as { group: TextFilter }).group);
     } else if (Object.prototype.hasOwnProperty.call(f, 'created')) {
         return 'created-' + TimeFilterToString((f as { created: TimeFilter }).created);
-    } else {
+    } else if (Object.prototype.hasOwnProperty.call(f, 'updated')) {
         return 'updated-' + TimeFilterToString((f as { updated: TimeFilter }).updated);
     }
+    return '';
 }
 
 /**

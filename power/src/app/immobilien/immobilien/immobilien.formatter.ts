@@ -6,6 +6,7 @@ import { ImmobilienUtils } from './immobilien.utils';
 export class ImmobilienFormatter {
 
     private nipixStatic: ImmobilenNipixStatic.NipixStatic;
+
     private nipixRuntime: ImmobilenNipixRuntime.NipixRuntime;
 
     private legendposition = new Array<number>();
@@ -18,9 +19,8 @@ export class ImmobilienFormatter {
     public mapTooltipFormatter = (params: any): string => {
         if (Object.prototype.hasOwnProperty.call(this.nipixStatic.data.regionen, params.name)) {
             return this.nipixRuntime.translate(this.nipixStatic.data.regionen[params.name]['name']);
-        } else {
-            return this.nipixRuntime.translate(params.name);
         }
+        return this.nipixRuntime.translate(params.name);
     };
 
     public chartTooltipFormatter = (params: any, ticket: any, callback: any): string => {
@@ -133,9 +133,8 @@ export class ImmobilienFormatter {
                 ' (' +
                 this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['short']) +
                 ')';
-        } else {
-            return '';
         }
+        return '';
     }
 
     /**
@@ -147,9 +146,8 @@ export class ImmobilienFormatter {
     public getSeriesColor(series: string): string {
         if (this.nipixStatic.data.regionen[series] !== undefined) {
             return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
-        } else {
-            return '#000000';
         }
+        return '#000000';
     }
 
     public simpleLegend(): string[] {
@@ -166,6 +164,29 @@ export class ImmobilienFormatter {
         return legend;
     }
 
+    public graphicLegend(): any[] {
+        const workdata = {
+            'infoLegend': new Array<any>(),
+            'infoLegendPosition': 0
+        };
+
+        if (this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection
+            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
+            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
+            if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'single')) {
+                this.graphicLegendSingle(workdata);
+            } else if (
+                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multi') ||
+                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiIndex')
+            ) {
+                this.graphicLegendMulti(workdata);
+            } else if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiSelect')) {
+                this.graphicLegendMultiSelect(workdata);
+            }
+        }
+
+        return workdata['infoLegend'];
+    }
 
     private graphicLegendSingle(obj: any): void {
         if (!this.nipixRuntime.calculated.drawData) {
@@ -252,31 +273,6 @@ export class ImmobilienFormatter {
             obj.infoLegendPosition++;
         }
     }
-
-    public graphicLegend(): any[] {
-        const workdata = {
-            'infoLegend': new Array<any>(),
-            'infoLegendPosition': 0
-        };
-
-        if (this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection
-            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
-            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
-            if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'single')) {
-                this.graphicLegendSingle(workdata);
-            } else if (
-                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multi') ||
-                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiIndex')
-            ) {
-                this.graphicLegendMulti(workdata);
-            } else if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiSelect')) {
-                this.graphicLegendMultiSelect(workdata);
-            }
-        }
-
-        return workdata['infoLegend'];
-    }
-
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

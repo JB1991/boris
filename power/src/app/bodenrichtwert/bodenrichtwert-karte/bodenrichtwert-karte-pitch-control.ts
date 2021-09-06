@@ -4,10 +4,13 @@ import { Map, Marker } from 'maplibre-gl';
 
 export default class BodenrichtwertKartePitchControl {
     public map: Map;
+
     public btn?: HTMLButtonElement;
+
     public container?: HTMLDivElement;
 
     public currentZoom?: number;
+
     public marker: Marker;
 
     constructor(marker: Marker) {

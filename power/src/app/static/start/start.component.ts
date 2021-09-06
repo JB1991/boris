@@ -13,7 +13,9 @@ import { environment } from '@env/environment';
 })
 export class StartComponent {
     public readonly config = environment.config;
+
     public cardorder = new Array<string>();
+
     public pin = '';
 
     constructor(
@@ -28,7 +30,7 @@ export class StartComponent {
 
         // check if logged out
         /* istanbul ignore next */
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.subscribe((params) => {
             if (params['logout']) {
                 this.alerts.NewAlert('success', $localize`Logout erfolgreich`,
                     $localize`Sie wurden erfolgreich ausgeloggt.`);

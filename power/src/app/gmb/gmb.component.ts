@@ -22,7 +22,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('echartsMap') public echartsMap?: ElementRef;
 
     public readonly downloadPath = '/download';
+
     public readonly berichte = GMB_DATA;
+
     public readonly kreise = KREISE_DATA;
 
     public mode?: string = undefined;
@@ -30,11 +32,15 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     public map?: ECharts = undefined;
 
     public selectedKreis?: keyof typeof KREISE_DATA = undefined;
+
     public berichteFiltered = new Array<any>();
+
     public berichteOpened = new Array<string>();
+
     public isBrowser = true;
 
     public animationFrameID?: number = undefined;
+
     public resizeSub?: ResizeObserver;
 
     /**
@@ -70,10 +76,9 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             'formatter': function (params: any) {
                 if (Object.prototype.hasOwnProperty.call(KREISE_DATA, params.name)) {
                     return KREISE_DATA[params.name as keyof typeof KREISE_DATA];
-                } else {
-                    return params.name;
                 }
-            }.bind(this),
+                return params.name;
+            },
             'textStyle': { 'fontSize': this.convertRemToPixels(1) }
         },
         'geo': {
@@ -154,7 +159,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         }
 
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.subscribe((params) => {
             if (this.mode === 'gmb') {
                 if (params['landkreis']) {
                     this.mode = 'gmb';
@@ -210,7 +215,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             this.mapInit();
         }
 
-        this.route.data.subscribe(routedata => {
+        this.route.data.subscribe((routedata) => {
             if (routedata['mode'] === 'lmb') {
                 this.mode = 'lmb';
                 this.filterBerichte(true);
@@ -235,7 +240,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     public loadGeoMap(url: string): void {
         this.http.get(url)
             .subscribe(
-                geoJson => {
+                (geoJson) => {
                     registerMap('NDS', geoJson as any);
                     if (this.map) {
                         this.map.setOption(this.myMapOptions);
@@ -292,7 +297,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                 'value': KREISE_DATA[ok[i] as keyof typeof KREISE_DATA]
             });
         }
-        res.sort(function (a, b) {
+        res.sort((a, b) => {
             if (a['value'] < b['value']) { return -1; }
             if (a['value'] > b['value']) { return 1; }
             return 0;
@@ -350,9 +355,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             }
 
             if (yr.length > 0) {
-                yr.sort(function (b, a) {
-                    return a['key'] - b['key'];
-                });
+                yr.sort((b, a) => a['key'] - b['key']);
 
                 bf.push({
                     'name': ber[i],
@@ -362,9 +365,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         }
 
-        bf.sort(function (b, a) {
-            return a['start'] - b['start'];
-        });
+        bf.sort((b, a) => a['start'] - b['start']);
 
         return bf;
     }
@@ -383,9 +384,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
         }
 
-        bb.sort(function (b, a) {
-            return a['key'] - b['key'];
-        });
+        bb.sort((b, a) => a['key'] - b['key']);
 
         bf.push({
             'name': 'Niedersachsen',
@@ -426,7 +425,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                 param['fromAction'] === 'unselect') &&
             param['selected'].length === 1) {
 
-            param['selected'][0]['dataIndex'].forEach(function (index: number) {
+            param['selected'][0]['dataIndex'].forEach((index: number) => {
                 selectedlist.push(index);
             });
         }
@@ -447,17 +446,6 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    private updateMapSelect(): void {
-        if (!this.map) {
-            return;
-        }
-        if (this.map.dispatchAction !== undefined) {
-            this.map.dispatchAction({
-                type: 'select',
-                name: this.selectedKreis
-            });
-        }
-    }
     /**
      * Handle Landkreis Select change
      *
@@ -550,6 +538,18 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      */
     public convertRemToPixels(rem: number): number {
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    }
+
+    private updateMapSelect(): void {
+        if (!this.map) {
+            return;
+        }
+        if (this.map.dispatchAction !== undefined) {
+            this.map.dispatchAction({
+                type: 'select',
+                name: this.selectedKreis
+            });
+        }
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
