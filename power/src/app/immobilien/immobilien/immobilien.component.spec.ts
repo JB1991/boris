@@ -244,6 +244,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(niRuntime.updateMapSelect).toHaveBeenCalledWith('foobar');
     });
 
+    /*
     it('Init with initState=3 works', () => {
         spyOn(component, 'updateChart').and.callFake(function () { });
         spyOn(component, 'updateMapSelect').and.callFake(function () { });
@@ -256,7 +257,6 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(component.updateMapSelect).toHaveBeenCalled();
     });
 
-    /*
     it('onChartFinished works', () => {
         niRuntime.export = {
             'chartRenderFinished': jasmine.createSpy()
@@ -266,8 +266,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         expect(niRuntime.export.chartRenderFinished).toHaveBeenCalled();
     });
-
-*/
+    */
 
     it('onChangeCat works', () => {
         niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar' }];
