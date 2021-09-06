@@ -63,6 +63,7 @@ export class ImmobilienUtils {
      * @param lighten (default false) Lighten the areaColor
      * @returns MapRegionen array
      */
+    // eslint-disable-next-line complexity
     public static getMyMapRegionen(
         regionen: any,
         myregion: string | null = null,
@@ -70,6 +71,9 @@ export class ImmobilienUtils {
         lighten = false
     ): any[] {
         const res = new Array<any>();
+        if (!regionen) {
+            return res;
+        }
         const keys = Object.keys(regionen);
         for (let i = 0; i < keys.length; i++) {
             let bw = 1;
