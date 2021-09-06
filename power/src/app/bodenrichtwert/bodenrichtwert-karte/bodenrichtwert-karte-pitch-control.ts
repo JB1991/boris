@@ -3,7 +3,7 @@
 import { Map, Marker } from 'maplibre-gl';
 
 export default class BodenrichtwertKartePitchControl {
-    public map: Map;
+    public map?: Map;
 
     public btn?: HTMLButtonElement;
 
@@ -30,7 +30,7 @@ export default class BodenrichtwertKartePitchControl {
         this.btn.type = 'button';
         this.btn.title = $localize`3D aktivieren/deaktivieren`;
         this.btn.onclick = () => {
-            if (this.map.getPaintProperty('building-extrusion', 'fill-extrusion-height') === 0) {
+            if (this.map?.getPaintProperty('building-extrusion', 'fill-extrusion-height') === 0) {
                 this.activate3dView();
             } else {
                 this.deactivate3dView();
@@ -52,28 +52,28 @@ export default class BodenrichtwertKartePitchControl {
      * activate3dView adds a building transition layer to the map
      */
     public activate3dView(): void {
-        this.currentZoom = this.map.getZoom();
+        this.currentZoom = this.map?.getZoom();
         if (this.currentZoom && this.currentZoom < 11) {
             this.currentZoom = 15.1;
         }
-        this.map.easeTo({
+        this.map?.easeTo({
             pitch: 60,
             zoom: 17,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.marker ? this.marker.getLngLat() : this.map?.getCenter()
         });
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
+        this.map?.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
 
     /**
      * deactivate3dView removes the building extrusion layer from the map
      */
     public deactivate3dView(): void {
-        this.map.easeTo({
+        this.map?.easeTo({
             pitch: 0,
             zoom: this.currentZoom,
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        this.map?.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
     }
 
     /**

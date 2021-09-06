@@ -135,18 +135,22 @@ export class BodenrichtwertKarte3dLayerService {
             this.extrusionLayer.id = layerId;
             this.extrusionLayer.maxzoom = opt.maxZoom;
             this.extrusionLayer.minzoom = opt.minZoom;
-            this.extrusionLayer.paint['fill-extrusion-color'] = teilmarkt.hexColor;
-            this.extrusionLayer.paint['fill-extrusion-opacity'] = opacity;
-            this.extrusionLayer.paint['fill-extrusion-height'] = height;
-            this.extrusionLayer.paint['fill-extrusion-base'] = prevHeight + opt.gapHeight;
-            this.extrusionLayer.filter = ['==', 'objectid', id];
+            if (this.extrusionLayer.paint) {
+                this.extrusionLayer.paint['fill-extrusion-color'] = teilmarkt.hexColor;
+                this.extrusionLayer.paint['fill-extrusion-opacity'] = opacity;
+                this.extrusionLayer.paint['fill-extrusion-height'] = height;
+                this.extrusionLayer.paint['fill-extrusion-base'] = prevHeight + opt.gapHeight;
+                this.extrusionLayer.filter = ['==', 'objectid', id];
+            }
 
             // set options for hidden gap layer
             this.gapLayer.id = layerId + 'hidden';
             this.extrusionLayer.maxzoom = opt.maxZoom;
             this.extrusionLayer.minzoom = opt.minZoom;
-            this.gapLayer.paint['fill-extrusion-height'] = opt.gapHeight;
-            this.gapLayer.paint['fill-extrusion-base'] = prevHeight;
+            if (this.gapLayer.paint) {
+                this.gapLayer.paint['fill-extrusion-height'] = opt.gapHeight;
+                this.gapLayer.paint['fill-extrusion-base'] = prevHeight;
+            }
             this.gapLayer.filter = ['==', 'objectid', id];
 
             // add layers

@@ -18,7 +18,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
-    @Input() public latLng: LngLat;
+    @Input() public latLng?: LngLat;
 
     @Output() public latLngChange = new EventEmitter<LngLat>();
 
@@ -58,7 +58,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public mapContainer?: ElementRef<HTMLElement>;
 
     // Maplibre GL Map Object
-    public map: Map;
+    public map?: Map;
 
     // baseUrl
     public readonly baseUrl = environment.baseurl;
@@ -211,24 +211,26 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public ngAfterViewInit(): void {
         // create Maplibre object
         try {
-            this.map = new Map({
-                container: this.mapContainer?.nativeElement,
-                style: this.MAP_STYLE_URL,
-                zoom: 7,
-                transformRequest: this.transformRequest,
-                bounds: this.bounds,
-                maxZoom: 18,
-                minZoom: 5,
-                trackResize: true,
-                preserveDrawingBuffer: true
-            });
-            this.mapService.map = this.map;
-            this.mapService.marker = this.marker;
+            if (this.mapContainer) {
+                this.map = new Map({
+                    container: this.mapContainer.nativeElement,
+                    style: this.MAP_STYLE_URL,
+                    zoom: 7,
+                    transformRequest: this.transformRequest,
+                    bounds: this.bounds,
+                    maxZoom: 18,
+                    minZoom: 5,
+                    trackResize: true,
+                    preserveDrawingBuffer: true
+                });
+                this.mapService.map = this.map;
+                this.mapService.marker = this.marker;
 
-            // add load handler
-            this.map.on('load', () => {
-                this.loadMap();
-            });
+                // add load handler
+                this.map.on('load', () => {
+                    this.loadMap();
+                });
+            }
         } catch (error) {
             // WebGL missing
             console.error(error);
@@ -241,6 +243,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * loadMap initializes the Maplibre GL map object
      */
     public loadMap(): void {
+        if (!this.map) {
+            return;
+        }
         this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
         this.map.addSource('baulandSource', {
             type: 'geojson', data: {
@@ -517,22 +522,22 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * onZoomEnd emits the current zoom level onZoomEnd
      */
     public onZoomEnd(): void {
-        this.zoomChange.emit(this.map.getZoom());
+        this.zoomChange.emit(this.map?.getZoom());
     }
 
     /**
      * onPitchEnd emits the current pitch onPitchEnd
      */
     public onPitchEnd(): void {
-        this.pitchChange.emit(this.map.getPitch());
+        this.pitchChange.emit(this.map?.getPitch());
     }
 
     /**
      * onRotate emits the current rotation level onRotate
      */
     public onRotate(): void {
-        this.pitchChange.emit(this.map.getPitch());
-        this.bearingChange.emit(this.map.getBearing());
+        this.pitchChange.emit(this.map?.getPitch());
+        this.bearingChange.emit(this.map?.getBearing());
 
         // 3D-Layer temporarly deactivated
         // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
@@ -557,14 +562,16 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * flyTo executes a flyTo for a given latLng
      */
     public fly(): void {
-        this.map.flyTo({
-            center: [this.latLng.lng, this.latLng.lat],
-            zoom: this.zoom,
-            speed: 1,
-            curve: 1,
-            bearing: this.bearing,
-            pitch: this.pitch
-        });
+        if (this.map && this.latLng) {
+            this.map.flyTo({
+                center: [this.latLng.lng, this.latLng.lat],
+                zoom: this.zoom,
+                speed: 1,
+                curve: 1,
+                bearing: this.bearing,
+                pitch: this.pitch
+            });
+        }
     }
 
     /**
@@ -592,16 +599,16 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      */
     public onResetMap(): void {
         if (this.marker) {
-            this.marker.setLngLat([null, null]);
+            this.marker.setLngLat([0, 0]);
             this.marker.remove();
         }
 
-        this.map.fitBounds(this.bounds, {
+        this.map?.fitBounds(this.bounds, {
             pitch: this.pitch,
             bearing: this.bearing
         });
 
-        if (this.map.getLayer('building-extrusion')) {
+        if (this.map?.getLayer('building-extrusion')) {
             this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         }
         this.resetMapFiredChange.emit(false);
@@ -610,9 +617,13 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * relabel
      */
+    // eslint-disable-next-line complexity
     public relabel(): void {
-        const mapSW = this.map.getBounds().getSouthWest();
-        const mapNE = this.map.getBounds().getNorthEast();
+        const mapSW = this.map?.getBounds().getSouthWest();
+        const mapNE = this.map?.getBounds().getNorthEast();
+        if (!(mapSW && mapNE)) {
+            return;
+        }
 
         const mapViewBound: Polygon = {
             type: 'Polygon',
@@ -627,10 +638,10 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             ]
         };
 
-        const landwirtschaftsSource = this.map.getSource('landwirtschaftSource') as GeoJSONSource;
-        const baulandSource = this.map.getSource('baulandSource') as GeoJSONSource;
+        const landwirtschaftsSource = this.map?.getSource('landwirtschaftSource') as GeoJSONSource;
+        const baulandSource = this.map?.getSource('baulandSource') as GeoJSONSource;
 
-        if (this.teilmarkt?.value.includes('B') && baulandSource) {
+        if (this.map && this.teilmarkt?.value.includes('B') && baulandSource) {
 
             if (landwirtschaftsSource) {
                 landwirtschaftsSource.setData({
@@ -640,7 +651,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             }
 
             const features = this.dynamicLabellingService.dynamicLabelling(
-                this.map.queryRenderedFeatures(null, { layers: ['bauland', 'bauland_bremen'] }),
+                this.map.queryRenderedFeatures(null as any, { layers: ['bauland', 'bauland_bremen'] }),
                 mapViewBound,
                 (f) => f.properties?.['objektidentifikator'],
                 (f) => f.properties?.['wnum'],
@@ -661,7 +672,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 type: 'FeatureCollection',
                 features: features
             });
-        } else if (landwirtschaftsSource) {
+        } else if (this.map && landwirtschaftsSource) {
 
             if (baulandSource && baulandSource.type === 'geojson') {
                 baulandSource.setData({
@@ -671,7 +682,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             }
 
             const features = this.dynamicLabellingService.dynamicLabelling(
-                this.map.queryRenderedFeatures(null, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
+                this.map.queryRenderedFeatures(null as any, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
                 mapViewBound,
                 (f) => f.properties?.['objektidentifikator'],
                 () => '',
@@ -701,6 +712,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * changedTeilmarkt
      */
     private changedTeilmarkt(): void {
+        if (!this.map) {
+            return;
+        }
         // update layer
         this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
         this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt?.value.includes('B') ? 'visible' : 'none');
@@ -719,6 +733,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * changedStichtag
      */
     private changedStichtag(): void {
+        if (!this.map) {
+            return;
+        }
         // update layer
         this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
         this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
@@ -737,9 +754,11 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * changedLatLng
      */
     private changedLatLng(): void {
-        this.marker.setLngLat(this.latLng).addTo(this.map);
-        if (this.expanded) {
-            this.fly();
+        if (this.latLng && this.map) {
+            this.marker.setLngLat(this.latLng).addTo(this.map);
+            if (this.expanded) {
+                this.fly();
+            }
         }
     }
 
@@ -747,7 +766,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * changedCollapsed
      */
     private changedCollapsed(): void {
-        this.map.resize();
+        this.map?.resize();
         // resetMap only if details was expanded
         if (this.resetMapFired) {
             this.onResetMap();

@@ -23,7 +23,7 @@ import area from '@turf/area';
 
 export class BodenrichtwertNavigationComponent implements OnChanges {
 
-    @Input() public latLng: LngLat;
+    @Input() public latLng?: LngLat;
 
     @Output() public latLngChange = new EventEmitter<LngLat>();
 
@@ -98,6 +98,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * updateData updates the address, bodenrichtwerte and the flurstueck
      */
     public updateData(): void {
+        if (!this.latLng) {
+            return;
+        }
         const lat = this.latLng.lat;
         const lng = this.latLng.lng;
         this.getAddressFromLatLng(lat, lng);
@@ -296,6 +299,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public onFocus(): void {
         if (this.teilmarkt && this.zoom && this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        }
+        if (!this.latLng) {
+            return;
         }
         this.latLngChange.emit(new LngLat(this.latLng.lng, this.latLng.lat));
     }

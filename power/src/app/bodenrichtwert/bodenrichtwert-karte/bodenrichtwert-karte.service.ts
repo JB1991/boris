@@ -10,20 +10,20 @@ import { Map, Marker } from 'maplibre-gl';
 
 export class BodenrichtwertKarteService {
 
-    public map: Map;
+    public map?: Map;
 
-    public marker: Marker;
+    public marker?: Marker;
 
     /**
      * Zooms view to selection
      */
     public zoomToSelection(): void {
         // update marker and andress
-        const longlat = this.marker.getLngLat();
+        const longlat = this.marker?.getLngLat();
         if (longlat) {
-            this.map.jumpTo({
+            this.map?.jumpTo({
                 center: [longlat.lng, longlat.lat],
-                zoom: this.map.getZoom()
+                zoom: this.map?.getZoom()
             });
         }
     }
@@ -33,7 +33,10 @@ export class BodenrichtwertKarteService {
      * @returns base64 encoded image
      */
     public getScreenshot(): string {
-        return this.map.getCanvas().toDataURL('image/png');
+        if (this.map) {
+            return this.map.getCanvas().toDataURL('image/png');
+        }
+        return '';
     }
 
     /**
@@ -41,7 +44,10 @@ export class BodenrichtwertKarteService {
      * @returns Height
      */
     public getMapHeight(): number {
-        return this.map.getCanvas().height;
+        if (this.map) {
+            return this.map.getCanvas().height;
+        }
+        return 0;
     }
 
     /**
@@ -49,6 +55,9 @@ export class BodenrichtwertKarteService {
      * @returns Width
      */
     public getMapWidth(): number {
-        return this.map.getCanvas().width;
+        if (this.map) {
+            return this.map.getCanvas().width;
+        }
+        return 0;
     }
 }

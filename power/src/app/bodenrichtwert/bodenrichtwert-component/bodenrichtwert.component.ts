@@ -90,7 +90,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public teilmarkt: Teilmarkt;
 
-    public latLng: LngLat;
+    public latLng?: LngLat;
 
     /**
      * isCollapsed holds the state for details component collapsed or not (click events)
