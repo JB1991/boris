@@ -24,8 +24,8 @@ import { SEOService } from '@app/shared/seo/seo.service';
 export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     // echarts Components
-    @ViewChild('echartsMap') echartsMap!: ElementRef;
-    @ViewChild('echartsChart') echartsChart!: ElementRef;
+    @ViewChild('echartsMap') public echartsMap!: ElementRef;
+    @ViewChild('echartsChart') public echartsChart!: ElementRef;
 
     // Config URl
     public configUrl = 'assets/data/cfg.json';
@@ -49,10 +49,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     public resizeSub: ResizeObserver[] | null[] = [null, null];
 
     // Error Message
-    errorMsg: string[] = [];
+    public errorMsg: string[] = [];
 
     // App Useable
-    useable: boolean = true;
+    public useable = true;
 
     /**
      * Constructor:
@@ -77,13 +77,13 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         }
     }
 
-    public title: string = 'lgln';
+    public title = 'lgln';
 
     // show loading spinner:
-    public mapLoaded: boolean = false;
+    public mapLoaded = false;
 
     // Wohnungsmartregion suchen
-    public selectedWoMa: string =  '';
+    public selectedWoMa = '';
     public selectedWoMaValue?: string = '';
 
     public selectSingle(): number | null {
@@ -164,7 +164,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             this.resizeSub[0] = new ResizeObserver(() => {
                 this.animationFrameID[0] = window.requestAnimationFrame(() => this.resize(0));
             });
-            if(this.resizeSub[0]) {
+            if (this.resizeSub[0]) {
                 this.resizeSub[0].observe(this.echartsMap.nativeElement);
             }
         }
@@ -234,12 +234,11 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(environment.baseurl + json['mapUrl']);
                 this.cdr.detectChanges();
-            },
-            error => {
+            }, (error) => {
                 this.errorMsg.push($localize`Die Anwenungskonfiguration konnte nicht geladen werden.\nBitte prüfen Sie ihre Internetverbindung!`);
                 this.useable = false;
                 this.cdr.detectChanges();
-            } );
+            });
     }
 
     /**
@@ -259,8 +258,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 // InitState
                 this.nipixRuntime.state.initState++;
                 this.cdr.detectChanges();
-            },
-            error => {
+            }, (error) => {
                 this.errorMsg.push($localize`Die Gemeindedaten konnten nicht geladen werden.\nBitte prüfen Sie ihre Internetverbindung!`);
                 this.cdr.detectChanges();
             });
@@ -481,7 +479,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                     this.errorMsg.push($localize`Die Wohnungsmarktregionen konnten nicht geladen werden.\nBitte prüfen Sie ihre Internetverbindung!`);
                     this.useable = false;
                     this.cdr.detectChanges();
-                } );
+                });
 
     }
 
@@ -490,7 +488,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * Set Map Options
      * @param selectType
      */
-    public setMapOptions(selectType: string | boolean = 'multiple') {
+    public setMapOptions(selectType: string | boolean = 'multiple'): void {
         this.nipixRuntime.map.options = ImmobilienChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
@@ -568,7 +566,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param name
      * @param typ
      */
-    public toggleMapSelect(category: string, name: string, typ: string = 'undefined') {
+    public toggleMapSelect(category: string, name: string, typ = 'undefined'): void {
         // console.log('toggle', category, name, typ);
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -674,7 +672,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param start
      * @param end
      */
-    public onChangeQuartal(start: number | null, end: number | null) {
+    public onChangeQuartal(start: number | null, end: number | null): void {
         if (start !== null) {
             this.nipixRuntime.state.rangeStartIndex = start;
         }
@@ -864,7 +862,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         } else {
             this.setMapOptions(false);
         }
-        setTimeout(function () { this.cdr.detectChanges() }.bind(this), 50);
+        setTimeout(function () {
+            this.cdr.detectChanges();
+        }.bind(this), 50);
     }
 
     /**

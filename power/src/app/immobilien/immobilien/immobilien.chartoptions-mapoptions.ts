@@ -3,7 +3,7 @@
  * @param position Position
  * @returns Object
  */
-function getScatter(position: string) {
+function getScatter(position: string): any {
     return {
         'type': 'effectScatter',
         'coordinateSystem': 'geo',
@@ -24,7 +24,7 @@ function getScatter(position: string) {
         'symbol': 'circle',
         'symbolSize': 4,
         'itemStyle': {
-            'show': true,
+            'show': true
         },
         'data': null
     };
@@ -112,7 +112,7 @@ export const mapOptions = {
                 }
             },
             'selectedMode': null,
-            'data': null,
+            'data': null
         },
         getScatter('right'),
         getScatter('bottom'),

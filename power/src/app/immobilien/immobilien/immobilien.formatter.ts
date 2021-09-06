@@ -97,9 +97,9 @@ export class ImmobilienFormatter {
 
     public findName = (
         name: string,
-        legend: boolean = false,
-        shortregion: boolean = false,
-        shortname: boolean = true
+        legend = false,
+        shortregion = false,
+        shortname = true
     ): string => {
 
         let myname = '';
@@ -167,7 +167,7 @@ export class ImmobilienFormatter {
     }
 
 
-    private graphicLegendSingle(obj: any) {
+    private graphicLegendSingle(obj: any): void {
         if (!this.nipixRuntime.calculated.drawData) {
             return;
         }
@@ -197,7 +197,7 @@ export class ImmobilienFormatter {
         }
     }
 
-    private graphicLegendMulti(obj: any) {
+    private graphicLegendMulti(obj: any): void {
         if (!(this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection)) {
             return;
         }
@@ -220,7 +220,7 @@ export class ImmobilienFormatter {
         }
     }
 
-    private graphicLegendMultiSelect(obj: any) {
+    private graphicLegendMultiSelect(obj: any): void {
         if (!(this.nipixStatic.data.selections && this.nipixRuntime.state.activeSelection
             && this.nipixStatic.data.allItems)) {
             return;

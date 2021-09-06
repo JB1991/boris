@@ -11,7 +11,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     let niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
     let niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
 
-    const prepareNiStatic = function () {
+    const prepareNiStatic = function (): void {
         niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
         niStatic.data = {
             'regionen': {
@@ -22,7 +22,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         };
     };
 
-    const prepareNiRuntime = function () {
+    const prepareNiRuntime = function (): void {
         niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
         niRuntime.state = {
             'activeSelection': 'na',
@@ -46,7 +46,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
     };
 
-    const prepareNiRuntimeChart = function () {
+    const prepareNiRuntimeChart = function (): void {
         niRuntime.chart = {
             'obj': {
                 'convertToPixel': function (par1: any, par2: any) { return 1; },

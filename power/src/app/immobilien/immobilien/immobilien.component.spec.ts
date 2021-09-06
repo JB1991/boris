@@ -31,7 +31,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         'replaceState': jasmine.createSpy()
     };
 
-    const prepareNiStatic = function () {
+    const prepareNiStatic = function (): void {
         niStatic = Object.create(ImmobilienNipixStatic.NipixStatic.prototype);
         niStatic.loadConfig = jasmine.createSpy();
         niStatic.textOptions = {
@@ -42,7 +42,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         };
     };
 
-    const prepareNiRuntime = function () {
+    const prepareNiRuntime = function (): void {
         niRuntime = Object.create(ImmobilienNipixRuntime.NipixRuntime.prototype);
         niRuntime.resetDrawPresets = jasmine.createSpy();
         niRuntime.calculated = {
@@ -91,7 +91,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 AccordionModule.forRoot(),
                 BsDropdownModule.forRoot(),
                 RouterTestingModule.withRoutes([]),
-                RouterTestingModule,
+                RouterTestingModule
             ],
             providers: [
                 ImmobilienUtils,
@@ -670,7 +670,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any) => {
+    const answerHTTPRequest = (url: string, method: string, body: any, opts?: any): void => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);

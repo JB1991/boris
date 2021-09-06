@@ -130,14 +130,14 @@ export class NipixRuntime {
     }
 
     public translate(defaultID: string): string {
-        if (this.locale && this.locale.hasOwnProperty(defaultID)) {
+        if (this.locale?.hasOwnProperty(defaultID)) {
             return this.locale[defaultID];
         } else {
             return defaultID;
         }
     }
 
-    public translateArray(input: string[], key: string = 'name'): string[] {
+    public translateArray(input: string[], key = 'name'): string[] {
         const cpy = JSON.parse(JSON.stringify(input));
 
         for (let i = 0; i < cpy.length; i++) {
@@ -285,7 +285,7 @@ export class NipixRuntime {
      * Update the Selection of the Map aware of the activer Draw Item
      * @param id id
      */
-    public updateMapSelect(id: string | null = null) {
+    public updateMapSelect(id: string | null = null): void {
         if ((this.map.obj === null) || (this.state.activeSelection === undefined)) {
             return;
         }

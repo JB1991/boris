@@ -15,7 +15,7 @@ export class NipixRuntimeCalculator {
     }
 
 
-    private calculateDrawDataSingleOnRef(drawitem: any, value: any, nipix: any) {
+    private calculateDrawDataSingleOnRef(drawitem: any, value: any, nipix: any): void {
         // Calc reference value on referenceDate
         let reference = 100;
         if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
@@ -45,7 +45,7 @@ export class NipixRuntimeCalculator {
         );
     }
 
-    private calculateDrawDataSinglePush(drawitem: any, value: any, nipix: any) {
+    private calculateDrawDataSinglePush(drawitem: any, value: any, nipix: any): void {
         if (this.nipixStatic.data.regionen[value] !== undefined) {
             this.nipixRuntime.calculated.drawData?.push(
                 ImmobilienUtils.generateSeries(
@@ -59,7 +59,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataSingle(drawitem: any) {
+    private calculateDrawDataSingle(drawitem: any): void {
 
         // Iterate over all Regions
         // let reg = Object.keys(this.nipixStatic.data.regionen);
@@ -88,7 +88,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataAggrIterate(drawitem: any, workdata: any, aggr: any, d: number) {
+    private calculateDrawDataAggrIterate(drawitem: any, workdata: any, aggr: any, d: number): void {
         for (let i = 0; i < drawitem['values'].length; i++) {
             const value = drawitem['values'][i];
             const data = this.nipixStatic.data.nipix[drawitem.nipixCategory][value];
@@ -120,7 +120,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataAggrDate(drawitem: any, workdata: any) {
+    private calculateDrawDataAggrDate(drawitem: any, workdata: any): void {
         for (let d = 0; d < this.nipixRuntime.availableQuartal.length; d++) {
 
             const aggr = {
@@ -141,7 +141,7 @@ export class NipixRuntimeCalculator {
         }
     }
 
-    private calculateDrawDataAggr(drawitem: any) {
+    private calculateDrawDataAggr(drawitem: any): void {
         const workdata = {
             'a_val': [],
             'a_faelle': [],
@@ -175,7 +175,7 @@ export class NipixRuntimeCalculator {
     /**
      * Find DrawSeries with no Data (NaN) and change it to undefined
      */
-    private filterNaN() {
+    private filterNaN(): void {
 
         if (this.nipixRuntime.calculated.drawData === undefined) {
             return;
@@ -201,7 +201,7 @@ export class NipixRuntimeCalculator {
     /**
      * Fill empty DrawSeries
      */
-    private fillEmpty() {
+    private fillEmpty(): void {
 
         if (this.nipixRuntime.calculated.drawData === undefined) {
             return;

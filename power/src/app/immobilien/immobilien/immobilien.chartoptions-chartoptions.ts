@@ -191,7 +191,7 @@ export const chartOptions = {
     },
     series: [
         null
-    ],
+    ]
 };
 
 export const chartOptionsMerge = {

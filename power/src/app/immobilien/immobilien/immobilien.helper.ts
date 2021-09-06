@@ -48,12 +48,12 @@ export class ImmobilienHelper {
      */
     public static convertColor(color: string | number[]): string {
         if (color !== undefined && color !== null) {
-            if (typeof color === 'string' && color.slice(0, 3) === 'rgb') {
+            if (typeof color === 'string' && color.startsWith('rgb')) {
                 const cc = color.slice(4).replace(')', '').split(',');
                 return this.rgbToHex(parseInt(cc[0], 10), parseInt(cc[1], 10), parseInt(cc[2], 10));
             } else if (Array.isArray(color) && color.length === 3) {
                 return this.rgbToHex(color[0], color[1], color[2]);
-            } else if (typeof color === 'string' && color.slice(0, 1) === '#') {
+            } else if (typeof color === 'string' && color.startsWith('#')) {
                 return color;
             }
         }
@@ -121,7 +121,7 @@ export class ImmobilienHelper {
      * @param value String or float
      * @returns float
      */
-    static static parseStringAsFloat(value: string|number): number {
+    public static parseStringAsFloat(value: string | number): number {
         if (typeof value === 'string') {
             return parseFloat(value.replace(',', '.'));
         } else {
@@ -137,11 +137,11 @@ export class ImmobilienHelper {
      * @param filetype Content-Type
      * @param isurl True if is url
      */
-    static downloadFile(
+    public static downloadFile(
         data: string,
         filename: string,
-        filetype: string = 'text/csv',
-        isurl: boolean = false
+        filetype = 'text/csv',
+        isurl = false
     ): void {
         let url = data;
         let blob;
@@ -187,7 +187,7 @@ export class ImmobilienHelper {
      */
     public static resolve(path: string | string[], obj: any = self, separator = '.'): any {
         const properties = Array.isArray(path) ? path : path.split(separator);
-        return properties.reduce((prev, curr) => prev && prev[curr], obj);
+        return properties.reduce((prev, curr) => prev?.[curr], obj);
     }
 
     /**
@@ -199,7 +199,7 @@ export class ImmobilienHelper {
      * @param feld Quote character
      * @returns CSV String
      */
-    static static convertArrayToCSV(array: any[], keys: any[], split: string = ';', feld: string = '"'): string {
+    public static convertArrayToCSV(array: any[], keys: any[], split = ';', feld = '"'): string {
         const tmp = new Array<any>();
 
         for (let i = 0; i < array.length; i++) {

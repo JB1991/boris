@@ -67,7 +67,7 @@ export class ImmobilienUtils {
         regionen: any,
         myregion: string | null = null,
         selectionList: string[] | null = null,
-        lighten: boolean = false
+        lighten = false
     ): any[] {
         const res = new Array<any>();
         const keys = Object.keys(regionen);
@@ -165,10 +165,10 @@ export class ImmobilienUtils {
         data: any,
         color: string,
         labelFormatter: any = null,
-        selectedChartLine: string = '',
-        xIndex: number = 0,
-        yIndex: number = 0,
-        seriesType: string = 'line'
+        selectedChartLine = '',
+        xIndex = 0,
+        yIndex = 0,
+        seriesType = 'line'
     ): any {
 
         let seriesColor = ImmobilienHelper.convertColor(color);
@@ -209,7 +209,7 @@ export class ImmobilienUtils {
         data: any,
         date = new Array<string>(),
         field: string | null = null,
-        offset: number = 100
+        offset = 100
     ): any[] {
 
         // Empty data array
@@ -248,9 +248,9 @@ export class ImmobilienUtils {
      */
     public static generateTextElement(
         name: string,
-        color: string = '#000',
-        fontSizeBase: number = 1.2,
-        position: number = 0,
+        color = '#000',
+        fontSizeBase = 1.2,
+        position = 0,
         posX?: number
     ): any {
         return {
@@ -276,13 +276,13 @@ export class ImmobilienUtils {
      * @param border
      */
     public static generateDotElement(
-        radius: number = 4,
-        color: string = '#fff',
-        fontSizeBase: number = 1.2,
-        position: number = 0,
-        posX: number = 0,
-        bordercolor: string = '#000',
-        border: number = 0
+        radius = 4,
+        color = '#fff',
+        fontSizeBase = 1.2,
+        position = 0,
+        posX = 0,
+        bordercolor = '#000',
+        border = 0
     ): any {
         return {
             type: 'circle',

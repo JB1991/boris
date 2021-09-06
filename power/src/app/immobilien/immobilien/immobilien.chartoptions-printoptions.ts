@@ -3,7 +3,7 @@
  */
 export const mergeHide = {
     title: {
-        show: true,
+        show: true
     },
     toolbox: {
         show: false

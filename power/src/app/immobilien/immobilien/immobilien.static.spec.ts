@@ -66,7 +66,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
                         'type': 'Point',
                         'coordinates': 'coord'
                     }
-                },
+                }
 
             ]
         };
