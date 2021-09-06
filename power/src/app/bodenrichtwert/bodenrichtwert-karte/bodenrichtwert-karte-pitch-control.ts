@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+// @ts-ignore
 import { Map, Marker } from 'maplibre-gl';
 
 export default class BodenrichtwertKartePitchControl {

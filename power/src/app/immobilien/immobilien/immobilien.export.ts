@@ -82,7 +82,7 @@ export class ImmobilienExport {
 
         for (let i = 0; i < data['features'].length; i++) {
             if (!exportFilter.includes(data['features'][i]['properties']['name'])) {
-                data['features'][i] = null;
+                data['features'][i] = null as any;
             }
         }
 
@@ -211,7 +211,7 @@ export class ImmobilienExport {
      */
     private getNiPixTimeslot(date: string, series: any, region: string, tstart: number, tend: number): any[] {
         let data = null;
-        let datafaelle = 0;
+        let datafaelle = new Array<any>();
 
         for (let i = 0; i < series.length; i++) {
             if (series[i]['name'] === region) {
@@ -221,7 +221,7 @@ export class ImmobilienExport {
             }
         }
         if (this.nipixRuntime.calculated.hiddenData?.hasOwnProperty(region)) {
-            datafaelle = this.nipixRuntime.calculated.hiddenData[region];
+            datafaelle = this.nipixRuntime.calculated.hiddenData[region as any];
         }
         if (data !== null && datafaelle !== null) {
             const res = [];

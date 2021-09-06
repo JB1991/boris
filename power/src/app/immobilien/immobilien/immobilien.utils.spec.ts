@@ -195,7 +195,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
     it('generateTextElement works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function (elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string | null | undefined): CSSStyleDeclaration {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -217,7 +217,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
     it('generateTextElement with parameter works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function (elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string | null | undefined): CSSStyleDeclaration {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -239,7 +239,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
     it('generateDotElement works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function (elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string | null | undefined): CSSStyleDeclaration {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -264,7 +264,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
     it('generateDotElement with parameter works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function (elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string | null | undefined): CSSStyleDeclaration {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;

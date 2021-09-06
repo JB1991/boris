@@ -7,6 +7,8 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
+// eslint-disable-next-line
+// @ts-ignore
 import { LngLat } from 'maplibre-gl';
 import polylabel from 'polylabel';
 import area from '@turf/area';

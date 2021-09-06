@@ -6,6 +6,8 @@ import {
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+// eslint-disable-next-line
+// @ts-ignore
 import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { Feature, FeatureCollection } from 'geojson';
 

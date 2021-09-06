@@ -1,5 +1,7 @@
 /* eslint-disable max-lines */
 import { Injectable } from '@angular/core';
+// eslint-disable-next-line
+// @ts-ignore
 import { Map, Marker } from 'maplibre-gl';
 
 @Injectable({

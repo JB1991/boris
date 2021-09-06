@@ -13,6 +13,7 @@ import * as ImmobilenNipixRuntime from './immobilien.runtime';
 
 import * as echarts from 'echarts';
 import { SEOService } from '@app/shared/seo/seo.service';
+import { SeriesOption } from 'echarts';
 
 /* eslint-disable max-lines */
 @Component({
@@ -83,7 +84,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     public mapLoaded = false;
 
     // Wohnungsmartregion suchen
-    public selectedWoMa = '';
+    public selectedWoMa: any = '';
     public selectedWoMaValue?: string = '';
 
     public selectSingle(): number | null {
@@ -137,7 +138,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             this.accOpen[singleSelectionId] = true;
         }
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
-            if (this.nipixRuntime.drawPresets[i]['name'] === this.nipixStatic.data.selections[singleSelectionId]['preset'][0]) {
+            if (this.nipixRuntime.drawPresets[i]['name'] === this.nipixStatic.data.selections?.[singleSelectionId]['preset'][0]) {
                 this.nipixRuntime.drawPresets[i].values = [this.selectedWoMa['woma_id']];
             }
         }
@@ -225,12 +226,12 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param {string} url Url to Configuration
      */
     public loadConfig(url: string): void {
-        this.http.get(url)
+        this.http.get<any>(url)
             .subscribe(json => {
                 this.nipixRuntime.state.initState = 1;
                 this.nipixStatic.loadConfig(json);
 
-                this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
+                this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections?.[0]['name'];
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(environment.baseurl + json['mapUrl']);
                 this.cdr.detectChanges();
@@ -301,7 +302,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     public parseURLAggr(selectionId: any, params: any): void {
 
         const prelist = params['a'].split(',');
-        const itm = this.nipixStatic.data.selections[selectionId];
+        const itm = this.nipixStatic.data.selections?.[selectionId];
 
         let ncat = null;
         if (itm['type'] === 'multiIndex' && params['i']) {
@@ -336,7 +337,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
         const val = this.unmakeValuesHumanReadable(list);
 
-        const itm = this.nipixStatic.data.selections[selectionId];
+        const itm = this.nipixStatic.data.selections?.[selectionId];
         const preset = this.nipixRuntime.getDrawPreset(itm['preset'][0]);
 
         if (preset && preset['type'] === 'single') {
@@ -356,7 +357,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
         const inp = params['m'].split(';');
 
-        const itm = this.nipixStatic.data.selections[selectionId];
+        const itm = this.nipixStatic.data.selections?.[selectionId];
 
         const itmpreset = JSON.parse(JSON.stringify(itm['preset']));
 
@@ -388,6 +389,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param params
      */
     public queryURL(params: any): void {
+        if (!this.nipixStatic.data.selections) {
+            return;
+        }
 
         this.parseURLTimeRange(params);
 
@@ -441,14 +445,20 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                         'text': this.nipixStatic.textOptions,
                         'date': this.nipixRuntime.availableQuartal,
                         'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
-                        'resetChart': function () {
+                        'resetChart': () => {
                             this.nipixRuntime.resetHighlight();
                             this.nipixRuntime.state.selectedChartLine = '';
                             this.updateChart();
-                        }.bind(this),
-                        'exportAsImage': function () { this.nipixRuntime.export.exportAsImage(); }.bind(this),
-                        'exportCSV': function () { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
-                        'exportNiPixGeoJson': function () { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
+                        },
+                        'exportAsImage': () => {
+                            this.nipixRuntime.export.exportAsImage();
+                        },
+                        'exportCSV': () => {
+                            this.nipixRuntime.export.exportNiPixGeoJson(false);
+                        },
+                        'exportNiPixGeoJson': () => {
+                            this.nipixRuntime.export.exportNiPixGeoJson(true);
+                        }
                     });
 
                     this.nipixRuntime.resetDrawPresets();
@@ -492,7 +502,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         this.nipixRuntime.map.options = ImmobilienChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
-            'exportGeoJSON': function () { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
+            'exportGeoJSON': () => {
+                this.nipixRuntime.export.exportGeoJSON();
+            },
             'mapRegionen': this.nipixRuntime.calculated.mapRegionen,
             'geoCoordMapLeft': this.nipixStatic.data.geoCoordMap['left'],
             'geoCoordMapRight': this.nipixStatic.data.geoCoordMap['right'],
@@ -521,7 +533,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
         }
 
         // Get List of selected items in map
-        const sdata = this.nipixRuntime.map.options.series[0]['data'];
+        if (!this.nipixRuntime.map.options) {
+            return;
+        }
+        const sdata: any = (this.nipixRuntime.map.options.series as SeriesOption[])[0]['data'];
         const selectedlist = new Array<string>();
         if (param['type'] === 'selectchanged' &&
             (param['fromAction'] === 'select' ||
@@ -541,11 +556,13 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
                 if ((this.nipixRuntime.drawPresets[i].type === 'aggr') &&
                     (this.nipixRuntime.drawPresets[i].name.length > 2) &&
                     (nval.length === 0)) {
-                    this.nipixRuntime.drawPresets[i].values =
-                        JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
+                    if (this.nipixStatic.data.presets) {
+                        this.nipixRuntime.drawPresets[i].values =
+                            JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
+                    }
                 } else if ((this.nipixRuntime.drawPresets[i].type === 'aggr') &&
                     (this.nipixRuntime.drawPresets[i].name.length > 2) &&
-                    (this.nipixStatic.data.presets[i].values.includes(nval[0]))) {
+                    (this.nipixStatic.data.presets?.[i].values.includes(nval[0]))) {
                     this.nipixRuntime.drawPresets[i].values = nval;
                 } else if ((this.nipixRuntime.drawPresets[i].type !== 'aggr') ||
                     (this.nipixRuntime.drawPresets[i].name.length <= 2)) {
@@ -737,7 +754,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
         this.nipixRuntime.calculateDrawData();
 
-        if (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
+        if (this.nipixStatic.data.selections?.[this.nipixRuntime.state.activeSelection] !== undefined
             && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
             if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'single')) {
                 const ccat = this.nipixRuntime.getDrawPreset(
@@ -759,7 +776,7 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
     public updateChartMerge(range_start: number, range_end: number, subAdd: string, range_text: string): void {
         const chartOptionMerge = ImmobilienChartOptions.getChartOptionsMerge({
             'text': this.nipixStatic.textOptions,
-            'graphic0': this.nipixRuntime.chart.options['graphic'][0],
+            'graphic0': (this.nipixRuntime.chart.options?.['graphic'] as any[])[0],
             'graphic1left': this.nipixStatic.chartExportWidth - 600 + 65,
             'graphic1children': new Array<any>().concat(this.nipixRuntime.formatter.graphicLegend()),
             'graphic2fontsize': ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage),
@@ -828,13 +845,15 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             if ((this.nipixRuntime.drawPresets[i].show) &&
                 (this.nipixRuntime.drawPresets[i].type === 'aggr') &&
                 (this.nipixRuntime.drawPresets[i].name.length > 3)) {
-                this.nipixRuntime.drawPresets[i].values =
-                    JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
+                if (this.nipixStatic.data.presets) {
+                    this.nipixRuntime.drawPresets[i].values =
+                        JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
+                }
             }
             this.nipixRuntime.drawPresets[i].show = false;
         }
-        if (this.nipixStatic.data.selections[selection_id] !== undefined
-            && this.nipixStatic.data.selections[selection_id] !== null
+        if (this.nipixStatic.data.selections?.[selection_id] !== undefined
+            && this.nipixStatic.data.selections?.[selection_id] !== null
         ) {
             if (this.nipixStatic.data.selections[selection_id]['type'] === 'multiSelect') {
                 this.onSetSpecificDraw(
@@ -854,17 +873,17 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             ImmobilienUtils.modifyRegionen(this.nipixStatic.data.regionen, this.nipixRuntime.drawPresets
                 .filter(drawitem => (drawitem['show'] === true && drawitem['type'] !== 'single'))),
             null, null, true);
-        if ((this.nipixStatic.data.selections[selection_id]['type'] === 'single') ||
-            (this.nipixStatic.data.selections[selection_id]['type'] === 'multiIndex')) {
+        if ((this.nipixStatic.data.selections?.[selection_id]['type'] === 'single') ||
+            (this.nipixStatic.data.selections?.[selection_id]['type'] === 'multiIndex')) {
             this.setMapOptions();
-        } else if (this.nipixStatic.data.selections[selection_id]['type'] === 'multi') {
+        } else if (this.nipixStatic.data.selections?.[selection_id]['type'] === 'multi') {
             this.setMapOptions('single');
         } else {
             this.setMapOptions(false);
         }
-        setTimeout(function () {
+        setTimeout(() => {
             this.cdr.detectChanges();
-        }.bind(this), 50);
+        }, 50);
     }
 
     /**
@@ -956,6 +975,9 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      * @param count Amount
      */
     public onSetNumber(selectname: string, count: number): void {
+        if (!this.nipixStatic.data.selections) {
+            return;
+        }
         for (let s = 0; s < this.nipixStatic.data.selections.length; s++) {
             if (this.nipixStatic.data.selections[s]['name'] === selectname) {
                 this.nipixStatic.data.selections[s]['selected'] = count;
@@ -1100,15 +1122,16 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex]
         );
 
-        if (this.urlIndex !== null) {
+        if (this.urlIndex) {
             params.append(
                 'c',
-                this.nipixStatic.data.selections[this.urlIndex].name.replace(/[^a-zA-Z0-9]/g, '')
+                this.nipixStatic.data.selections?.[this.urlIndex].name.replace(/[^a-zA-Z0-9]/g, '')
             );
-        }
-        const selection = this.nipixStatic.data.selections[this.urlIndex];
-        if (selection !== undefined) {
-            this.changeURLAppendPresets(selection, params);
+
+            const selection = this.nipixStatic.data.selections?.[this.urlIndex];
+            if (selection !== undefined) {
+                this.changeURLAppendPresets(selection, params);
+            }
         }
 
         this.location.replaceState('/immobilienpreisindex', params.toString());

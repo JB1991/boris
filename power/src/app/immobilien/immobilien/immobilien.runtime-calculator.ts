@@ -38,11 +38,13 @@ export class NipixRuntimeCalculator {
                 this.nipixRuntime.state.selectedChartLine
             )
         );
-        this.nipixRuntime.calculated.hiddenData[value] = ImmobilienUtils.generateDrawSeriesData(
-            this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
-            this.nipixRuntime.availableQuartal,
-            'faelle'
-        );
+        if (this.nipixRuntime.calculated.hiddenData) {
+            this.nipixRuntime.calculated.hiddenData[value] = ImmobilienUtils.generateDrawSeriesData(
+                this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
+                this.nipixRuntime.availableQuartal,
+                'faelle'
+            );
+        }
     }
 
     private calculateDrawDataSinglePush(drawitem: any, value: any, nipix: any): void {
@@ -60,6 +62,9 @@ export class NipixRuntimeCalculator {
     }
 
     private calculateDrawDataSingle(drawitem: any): void {
+        if (!this.nipixStatic.data.allItems) {
+            return;
+        }
 
         // Iterate over all Regions
         // let reg = Object.keys(this.nipixStatic.data.regionen);
@@ -166,8 +171,10 @@ export class NipixRuntimeCalculator {
                 )
             );
 
-            this.nipixRuntime.calculated.hiddenData[drawitem['name']] =
-                ImmobilienUtils.generateDrawSeriesData(workdata['a_faelle'], this.nipixRuntime.availableQuartal);
+            if (this.nipixRuntime.calculated.hiddenData) {
+                this.nipixRuntime.calculated.hiddenData[drawitem['name']] =
+                    ImmobilienUtils.generateDrawSeriesData(workdata['a_faelle'], this.nipixRuntime.availableQuartal);
+            }
 
         }
     }

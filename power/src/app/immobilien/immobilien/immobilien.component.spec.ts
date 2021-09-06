@@ -434,8 +434,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('parseURLAggr works', () => {
 
         spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
-        const di = {};
-        niRuntime.getDrawPreset = function (val: any) { return this; }.bind(di);
+        const di: any = {};
+        niRuntime.getDrawPreset = (val: any) => di;
 
         niStatic.data.selections = [{
             'type': 'multiIndex',
@@ -455,10 +455,10 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('parseURLSingle works', () => {
 
         spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
-        const di = {
+        const di: any = {
             'type': 'single'
         };
-        niRuntime.getDrawPreset = function (val: any) { return this; }.bind(di);
+        niRuntime.getDrawPreset = (val: any) => di;
 
         spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
 
@@ -481,10 +481,10 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('parseURLMultiSelect works', () => {
 
         spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
-        const di = {
+        const di: any = {
             'type': 'single'
         };
-        niRuntime.getDrawPreset = function (val) { return this; }.bind(di);
+        niRuntime.getDrawPreset = (val: any) => di;
 
         spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function (val) { return val; });
 
@@ -612,8 +612,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     it('changeURLAppendPresets works', () => {
 
-
-        let param = {};
+        let param: any = {};
         const params = {
             'append': function (k, v) { param[k] = v; }
         } as URLSearchParams;

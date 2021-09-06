@@ -291,7 +291,7 @@ export class NipixRuntime {
         }
 
         if (this.state.activeSelection !== 99) {
-            if (this.nipixStatic.data.selections[this.state.activeSelection]['type'] === 'single') {
+            if (this.nipixStatic.data.selections?.[this.state.activeSelection]['type'] === 'single') {
                 const draw: any = this.getDrawPreset(
                     this.nipixStatic.data.selections[this.state.activeSelection]['preset'][0]
                 );

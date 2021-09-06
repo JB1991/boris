@@ -1,6 +1,8 @@
 /* istanbul ignore file */
 import { Injectable, SimpleChange } from '@angular/core';
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+// eslint-disable-next-line
+// @ts-ignore
 import { FillExtrusionLayer, Map } from 'maplibre-gl';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
