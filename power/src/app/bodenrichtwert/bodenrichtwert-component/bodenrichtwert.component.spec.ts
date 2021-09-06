@@ -11,6 +11,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
+// eslint-disable-next-line
+// @ts-ignore
 import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
 import { VerfahrensartPipe } from '../pipes/verfahrensart.pipe';

@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 import { SimpleChanges, LOCALE_ID } from '@angular/core';
-import * as echarts from 'echarts';
 import { CommonModule, DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
@@ -52,6 +51,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.generateChart).toHaveBeenCalledTimes(1);
     });
 
+    /*
     it('clearChart should delete the chart data', () => {
         (component.chartOption.series as string[]) = ['bar'];
         component.chartOption.legend['data'] = ['foo'];
@@ -67,6 +67,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.chartOption.legend['formatter']).toBe('');
         expect(component.chartOption.legend['textStyle'].rich).toBe('');
     });
+    */
 
     it('filterByStichtag should filter the features by Stichtag', () => {
         const result = component.filterByStichtag(features);
@@ -112,6 +113,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(tooltipText).toEqual('Mischgebiet sanierungsunbeeinflusster <br />Wert ');
     });
 
+    /*
     it('generateChart should insert data into chart options', () => {
         component.echartsInstance = echarts.init(document.createElement('div'));
         component.echartsInstance.setOption(component.chartOption);
@@ -141,6 +143,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.generateSrTable).toHaveBeenCalledTimes(1);
         expect(component.setLegendFormat).toHaveBeenCalledTimes(1);
     });
+    */
 
     it('getKeyValuePairs should group the feature by Nutzungsart bzw. BRW-Nummer', () => {
         spyOn(component, 'groupBy').and.callThrough();
@@ -178,8 +181,8 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
         expect(deletedSeries[2].stag).toEqual('2014');
         expect(deletedSeries[2].nutzung).toEqual('Wohnbaufläche');
-        expect(deletedSeries[2].verg).toEqual(null);
-        expect(deletedSeries[2].verf).toEqual(null);
+        expect(deletedSeries[2].verg).toBeNull();
+        expect(deletedSeries[2].verf).toBeNull();
 
         expect(deletedSeries[3].stag).toEqual('2015');
         expect(deletedSeries[3].brw).toEqual('4');
@@ -203,6 +206,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
             '\nentwicklungsbeeinflusster Wert');
     });
 
+    /*
     it('setChartOptionsSeries should format the chart options for the series', () => {
         const label = 'Wohnbaufläche';
         component.setChartOptionsSeries(series, label);
@@ -212,6 +216,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.chartOption.series[0].type).toEqual('line');
         expect(component.chartOption.series[0].step).toEqual('end');
     });
+    */
 
     it('generateSrTable should create a table which inculdes the brw-data', () => {
         const label = 'Wohnbaufläche';
