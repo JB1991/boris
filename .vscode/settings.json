@@ -1,6 +1,7 @@
 {
     "files.trimTrailingWhitespace": true,
-    "files.trimFinalNewlines": true,
+    "files.trimFinalNewlines": false,
+    "files.insertFinalNewline": true,
     "html.format.endWithNewline": true,
     "html.format.indentHandlebars": true,
     "html.format.wrapAttributes": "force-aligned",
