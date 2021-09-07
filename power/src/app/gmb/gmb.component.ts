@@ -154,7 +154,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                 });
                 this.resizeSub.observe(this.echartsMap.nativeElement);
             }
-            if (this.selectedKreis !== undefined) {
+            if (this.selectedKreis) {
                 this.updateMapSelect();
             }
         }
@@ -162,7 +162,6 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         this.route.queryParams.subscribe((params) => {
             if (this.mode === 'gmb') {
                 if (params['landkreis']) {
-                    this.mode = 'gmb';
                     const lk = params['landkreis'];
                     const lok = Object.keys(KREISE_DATA);
                     for (let i = 0; i < lok.length; i++) {
@@ -172,10 +171,10 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                             this.updateMapSelect();
                             this.filterBerichte();
                             (this.myMapOptions['series'] as SeriesOption[])[0]['data'] = this.getRegionen();
-                            if (this.map?.setOption !== undefined) {
+                            if (this.map?.setOption) {
                                 this.map.setOption(this.myMapOptions);
                             }
-                            i = lok.length;
+                            break;
                         }
                     }
                 }
@@ -186,7 +185,6 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             }
 
             this.cdr.detectChanges();
-
         });
     }
 
@@ -238,10 +236,10 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param {string} url Url to Map GeoJSON
      */
     public loadGeoMap(url: string): void {
-        this.http.get(url)
+        this.http.get<any>(url)
             .subscribe(
                 (geoJson) => {
-                    registerMap('NDS', geoJson as any);
+                    registerMap('NDS', geoJson);
                     if (this.map) {
                         this.map.setOption(this.myMapOptions);
                     }
@@ -399,7 +397,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param lmb True if LBM
      */
     public filterBerichte(lmb = false): void {
-        if (this.selectedKreis === undefined && !lmb) {
+        if (!(this.selectedKreis && lmb)) {
             this.berichteFiltered = new Array<any>();
             return;
         }
@@ -544,7 +542,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.map) {
             return;
         }
-        if (this.map.dispatchAction !== undefined) {
+        if (this.map.dispatchAction) {
             this.map.dispatchAction({
                 type: 'select',
                 name: this.selectedKreis
