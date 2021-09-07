@@ -114,8 +114,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             this.httpClient.get<FrontendVersion>('/assets/version.json?cache-bust=' + Math.random(),
                 { headers: header, responseType: 'json' }
             ).subscribe((data) => {
-                if (data?.['version']) {
-                    this.appVersion = data as { version: string, branch: string };
+                if (data.version) {
+                    this.appVersion = data;
                     environment.config.version = this.appVersion;
                 }
                 this.showOfflineNotice = false;

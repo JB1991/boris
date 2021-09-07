@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } 
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
@@ -145,7 +145,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param text$ Input as Observable
      * @returns search
      */
-    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
+    public readonly search = (text$: Observable<string>): Observable<Feature[]> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
@@ -169,7 +169,7 @@ export class BodenrichwertnummerSearchComponent {
      * @param fts result feature collection
      * @returns array with features
      */
-    public checkFeatures(fts: FeatureCollection): Array<Feature<Geometry, GeoJsonProperties>> {
+    public checkFeatures(fts: FeatureCollection): Feature[] {
         this.loading = false;
         // manual change detection necessary
         this.cdr.detectChanges();

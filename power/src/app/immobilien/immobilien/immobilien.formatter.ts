@@ -67,7 +67,7 @@ export class ImmobilienFormatter {
             let printlegend = true;
             const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({ 'yAxisIndex': 0 }, params.data));
             const fontSizeInPx =
-                ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage as number);
+                ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage);
             const clearance = Math.round((fontSizeInPx + 2) / 2);
 
             for (let i = 0; i < this.legendposition.length; i++) {

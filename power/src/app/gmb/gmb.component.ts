@@ -344,7 +344,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                         sha1: string;
                     };
                 };
-                if (tmp2.bereich?.includes(this.selectedKreis as string)) {
+                if (tmp2.bereich.includes(this.selectedKreis as string)) {
                     yr.push({
                         'key': yk[y],
                         'value': tmp2
@@ -397,7 +397,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
      * @param lmb True if LBM
      */
     public filterBerichte(lmb = false): void {
-        if (!(this.selectedKreis && lmb)) {
+        if (this.selectedKreis === undefined && !lmb) {
             this.berichteFiltered = new Array<any>();
             return;
         }
@@ -471,7 +471,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public checkValue(event: Event): void {
         const target = event.target as HTMLInputElement;
-        if (target.checked === true) {
+        if (target.checked) {
             this.berichteOpened.push(target.id.substring(2));
         } else {
             const index = this.berichteOpened.indexOf(target.id.substring(2));

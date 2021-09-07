@@ -136,9 +136,6 @@ export class AnswersComponent {
 
         // image selected
         input.onchange = (e: Event) => {
-            if (e?.target) {
-                return;
-            }
             const file = (e.target as HTMLInputElement).files?.[0];
             const reader = new FileReader();
             reader.readAsDataURL(file as File);

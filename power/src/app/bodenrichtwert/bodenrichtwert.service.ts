@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
 import { Teilmarkt } from './bodenrichtwert-component/bodenrichtwert.component';
 
@@ -73,7 +73,7 @@ export class BodenrichtwertService {
     }
 
     public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt
-    ): Observable<FeatureCollection<Geometry, GeoJsonProperties>> {
+    ): Observable<FeatureCollection> {
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';

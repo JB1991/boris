@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
         // File selected
         input.onchange = (event: Event) => {
             const target = event.target as HTMLInputElement;
-            if (!target || !target.files) {
+            if (!target.files) {
                 return;
             }
             const file = target.files[0];
@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit {
             reader.onload = () => {
                 try {
                     this.formAPI.createForm({
-                        content: JSON.parse(reader?.result ? reader.result.toString() : '{"error": "no result"}')
+                        content: JSON.parse(reader.result ? reader.result.toString() : '{"error": "no result"}')
                     }).then(() => {
                         this.formSortDesc = true;
                         this.formSort = 'created';

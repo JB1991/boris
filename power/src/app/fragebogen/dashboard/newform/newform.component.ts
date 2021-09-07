@@ -64,7 +64,7 @@ export class NewformComponent {
         this.formAPI
             .getForms(queryParams)
             .then((result) => {
-                this.templateList = result.forms.map((f) => (f?.extract ? f.extract : '')).filter((title) => title !== '');
+                this.templateList = result.forms.map((f) => (f.extract ? f.extract : '')).filter((title) => title !== '');
             })
             .catch((error: Error) => {
                 // failed to load form

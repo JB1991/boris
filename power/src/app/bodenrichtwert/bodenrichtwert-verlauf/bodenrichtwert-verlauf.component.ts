@@ -331,6 +331,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
         // grouped by Nutzungsart
         let groupedByProperty: Map<string, Feature[]> =
             this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties?.['nutzung']));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (const [_, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter((item: Feature) =>

@@ -1031,10 +1031,10 @@ export class ImmobilienComponent implements OnDestroy, AfterViewInit {
      */
     public staticChange(id: number, event: boolean): void {
         this.accOpen[id] = event;
-        if ((id < 90) && (event === true)) {
+        if (id < 90 && event) {
             this.onPanelChangeIndex(id);
         }
-        if ((id === 99) && (event === true)) {
+        if (id === 99 && event) {
             this.onPanelChangeWoMa();
         }
 

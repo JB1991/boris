@@ -56,7 +56,7 @@ export class FormAPIService {
         if (params.filter) {
             p['filter'] = GroupTagFilterToString(params.filter);
         }
-        if (params.desc && params.desc === true) {
+        if (params.desc) {
             p['desc'] = 'true';
         }
         if (params.limit) {
@@ -84,7 +84,7 @@ export class FormAPIService {
         if (params.filter) {
             p['filter'] = GroupTagFilterToString(params.filter);
         }
-        if (params.desc && params.desc === true) {
+        if (params.desc) {
             p['desc'] = 'true';
         }
         if (params.limit) {

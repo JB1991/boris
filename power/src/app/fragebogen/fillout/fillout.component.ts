@@ -175,7 +175,7 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(true);
             const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
             this.task = t.task;
-            const f = await this.formapi.getPublicForm(t.task?.form?.id as string, { fields: ['id', 'content', 'access'] });
+            const f = await this.formapi.getPublicForm(t.task.form?.id as string, { fields: ['id', 'content', 'access'] });
             this.form = f.form;
             this.language = f.form.content.locale;
             this.loadingscreen.setVisible(false);

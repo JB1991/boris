@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import { Injectable, SimpleChange } from '@angular/core';
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 // eslint-disable-next-line
 // @ts-ignore
 import { FillExtrusionLayer, Map } from 'maplibre-gl';
@@ -187,8 +187,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @param stichtag stichtag
      * @returns returns the filtered features
      */
-    public filterCollectionByStag(fts: FeatureCollection, stichtag: string):
-        Array<Feature<Geometry, GeoJsonProperties>> {
+    public filterCollectionByStag(fts: FeatureCollection, stichtag: string): Feature[] {
         const filteredFts = fts.features.filter((ft) =>
             ft.properties?.['stag'].substr(0, 10) === stichtag
         );

@@ -91,7 +91,7 @@ export class ImmobilienUtils {
                 ImmobilienHelper.convertColor(regionen[keys[i]]['color'])
             );
 
-            if (lighten === true) {
+            if (lighten) {
                 region['itemStyle']['areaColor'] = ImmobilienHelper.modifyColor(regionen[keys[i]].color, 0.85);
             }
 

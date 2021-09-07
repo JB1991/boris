@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrat
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
@@ -81,7 +81,7 @@ export class GeosearchComponent implements OnChanges {
      * @param text$ Input as Observable
      * @returns Observable
      */
-    public readonly search = (text$: Observable<string>): Observable<Array<Feature<Geometry, GeoJsonProperties>>> =>
+    public readonly search = (text$: Observable<string>): Observable<Feature[]> =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),

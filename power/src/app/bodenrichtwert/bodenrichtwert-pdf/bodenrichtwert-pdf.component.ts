@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
 
 import { Content, TDocumentDefinitions } from 'pdfmake/interfaces';
@@ -448,7 +448,7 @@ export class BodenrichtwertPdfComponent {
     // eslint-disable-next-line complexity
     private getSingleBRW(
         tmp: Content[],
-        brw: Feature<Geometry, GeoJsonProperties>
+        brw: Feature
     ): void { // eslint-disable-line complexity
         if (!brw.properties) {
             return;

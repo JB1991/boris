@@ -209,7 +209,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie diese Antwort wirklich löschen?`)) {
                 return;
             }
-            await this.formapi.deleteTask(this.tasks[i].id as string);
+            await this.formapi.deleteTask(this.tasks[i].id);
             this.tasks.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
@@ -238,7 +238,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie eine neue Pin generieren?`)) {
                 return;
             }
-            await this.formapi.updateTask(this.tasks[i].id as string, { status: 'created' });
+            await this.formapi.updateTask(this.tasks[i].id, { status: 'created' });
             await this.updateTasks();
             this.alerts.NewAlert('success', $localize`Neue Pin generiert`,
                 $localize`Die neue Pin wurde erfolgreich generiert.`);
@@ -267,7 +267,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie die Antwort abschließen?`)) {
                 return;
             }
-            await this.formapi.updateTask(this.tasks[i].id as string, { status: 'completed' });
+            await this.formapi.updateTask(this.tasks[i].id, { status: 'completed' });
             await this.updateTasks();
             this.alerts.NewAlert('success', $localize`Antwort abgeschlossen`,
                 $localize`Die Antwort wurde erfolgreich abgeschlossen.`);
@@ -297,7 +297,7 @@ export class DetailsComponent implements OnInit {
                 fields: ['content']
             };
 
-            const r = await this.formapi.getTask(this.tasks[i].id as string, params);
+            const r = await this.formapi.getTask(this.tasks[i].id, params);
 
             if (this.preview) {
                 this.preview.open('display', r.task.content);
@@ -319,7 +319,7 @@ export class DetailsComponent implements OnInit {
         }
 
         // load form
-        this.formapi.getForm(this.form.id as string, { fields: ['content'] }).then((result) => {
+        this.formapi.getForm(this.form.id, { fields: ['content'] }).then((result) => {
             // download json
             const blob = new Blob([JSON.stringify(result.form.content)], { type: 'application/json;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
@@ -513,7 +513,7 @@ export class DetailsComponent implements OnInit {
         }
 
         try {
-            const r = await this.formapi.createTask(this.form.id as string, {}, event.amount);
+            const r = await this.formapi.createTask(this.form.id, {}, event.amount);
             this.taskSort = 'created';
             this.taskSortDesc = true;
             if (this.pagination) {
