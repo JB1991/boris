@@ -1,8 +1,8 @@
 {
     "files.trimTrailingWhitespace": true,
-    "files.trimFinalNewlines": false,
+    "files.trimFinalNewlines": true,
     "files.insertFinalNewline": true,
-    "html.format.endWithNewline": true,
+    "html.format.endWithNewline": false,
     "html.format.indentHandlebars": true,
     "html.format.wrapAttributes": "force-aligned",
     "editor.formatOnSave": true,
