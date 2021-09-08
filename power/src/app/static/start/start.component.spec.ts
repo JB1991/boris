@@ -76,5 +76,13 @@ describe('Static.Start.StartComponent', () => {
         expect(document.getElementById).toHaveBeenCalledTimes(1);
         expect(document.getElementById).toHaveBeenCalledWith('test');
     });
+
+    it('should not scroll', () => {
+        spyOn(document, 'getElementById').and.returnValue(null);
+        expect(() => {
+            component.scrollToElement('test');
+        }).not.toThrow();
+        expect(document.getElementById).toHaveBeenCalledTimes(1);
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

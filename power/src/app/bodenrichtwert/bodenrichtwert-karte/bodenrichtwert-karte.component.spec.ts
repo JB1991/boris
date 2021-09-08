@@ -1,4 +1,4 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 // import { SimpleChange } from '@angular/core';
@@ -18,8 +18,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     // const lat = 52.40729;
     // const lng = 9.80205;
 
-    // let component: BodenrichtwertKarteComponent;
-    // let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
+    let component: BodenrichtwertKarteComponent;
+    let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
 
     beforeEach(waitForAsync(() => {
         void TestBed.configureTestingModule({
@@ -38,7 +38,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         }).compileComponents();
     }));
 
-    /*
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         component = fixture.componentInstance;
@@ -50,6 +49,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component, 'ngAfterViewInit');
         fixture.detectChanges();
 
+        /*
         const map = new Map({
             container: component.mapContainer.nativeElement,
         });
@@ -71,17 +71,19 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component, 'determineZoomFactor').and.callThrough();
         spyOn(component.map, 'getPitch');
         spyOn(component.latLngChange, 'emit');
+        */
     });
 
     afterEach(() => {
         // Clean up and release all internal resources associated with this map
-        component.map.remove();
+        // component.map.remove();
     });
 
     it('should be created', () => {
         expect(component).toBeTruthy();
     });
 
+    /*
     it('ngOnChanges should work for changes', () => {
         component.resetMapFired = false;
         spyOn(component.map, 'resize');
@@ -193,6 +195,17 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.resetMapFiredChange.emit).toHaveBeenCalledTimes(1);
     });
     */
+
+    it('transformRequest', () => {
+        const url = component.transformRequest('http://', 'Tile');
+        expect(url).toEqual({ url: 'http://' });
+        const url1 = component.transformRequest('https://immobilienmarkt.niedersachsen.de', 'Tile');
+        expect(url1).toEqual({ url: 'https://immobilienmarkt.niedersachsen.de' });
+
+        const url2 = component.transformRequest('/01/12/tile.data', 'Tile');
+        expect(url2).toEqual({ url: 'http://localhost:9876/01/12/tile.data' });
+    });
+
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

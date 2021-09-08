@@ -28,8 +28,17 @@ describe('Shared.ModalminiComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('should open', () => {
+        component.div?.nativeElement.appendChild(document.createElement('div'));
+        component.div?.nativeElement.appendChild(document.createElement('div'));
+        component.div?.nativeElement.appendChild(document.createElement('div'));
+        component.open('Hallo Welt');
+        expect(component.isVisible()).toBeTrue();
+    });
+
     it('should close', () => {
         // ngOnDestroy
+        component.focusedElement = document.createElement('div');
         component.isOpen = true;
         component.ngOnDestroy();
         expect(component.isVisible()).toBeFalse();
@@ -43,5 +52,22 @@ describe('Shared.ModalminiComponent', () => {
         // ngOnDestroy
         component.ngOnDestroy();
         expect(component.isVisible()).toBeFalse();
+    });
+
+    it('should not crash if elements are missing', () => {
+        spyOn(component.cdr, 'detectChanges');
+        component.div = undefined;
+        component.modal = undefined;
+        component.isOpen = true;
+
+        expect(() => {
+            component.open('Hallo Welt');
+            component.focusedElement = undefined;
+            component.ngOnDestroy();
+        }).not.toThrow();
+    });
+
+    afterEach(() => {
+        component.ngOnDestroy();
     });
 });

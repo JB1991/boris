@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class GemarkungPipe implements PipeTransform {
 
-    constructor(private gemarkungService: GemarkungWfsService) { }
+    constructor(public gemarkungService: GemarkungWfsService) { }
 
     /**
      * transforms retrieves asynchronously the gemarkungsname to a given gemarkungsschlüssel

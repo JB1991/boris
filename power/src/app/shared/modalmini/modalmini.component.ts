@@ -53,12 +53,16 @@ export class ModalminiComponent implements OnDestroy {
             this.modal.config.keyboard = this.easyclose;
             this.modal.show();
         }
-        document.body.appendChild(this.div?.nativeElement);
+        if (this.div) {
+            document.body.appendChild(this.div.nativeElement);
+        }
         this.cdr.detectChanges();
 
         // focus
         this.focusedElement = document.activeElement as HTMLElement;
-        this.div?.nativeElement.children[2].focus();
+        if (this.div && this.div.nativeElement.children.length >= 3) {
+            this.div.nativeElement.children[2].focus();
+        }
     }
 
     /**
