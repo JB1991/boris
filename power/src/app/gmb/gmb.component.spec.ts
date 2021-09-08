@@ -117,5 +117,79 @@ describe('GmbComponent', () => {
         component.filterBerichte();
         expect(component.berichteFiltered.length).toEqual(0);
     });
+
+    it('should open or close bericht', () => {
+        spyOn(component, 'loadGeoMap');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = 'abcdef';
+        cb.checked = true;
+        component.checkValue({ target: cb } as any);
+        expect(component.berichteOpened.length).toEqual(1);
+
+        cb.checked = false;
+        component.checkValue({ target: cb } as any);
+        expect(component.berichteOpened.length).toEqual(0);
+    });
+
+    it('should aria enter keypress', () => {
+        spyOn(component, 'loadGeoMap');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = 'abcdef';
+        cb.checked = true;
+        component.keyPress({ target: cb, key: 'A' } as any);
+        expect(cb.checked).toBeTrue();
+
+        component.keyPress({ target: cb, key: 'Enter' } as any);
+        expect(cb.checked).toBeFalse();
+    });
+
+    it('should change landkreis selection', () => {
+        spyOn(component, 'loadGeoMap');
+        const cb = document.createElement('select');
+        const oe = document.createElement('option');
+        oe.value = '031010000';
+        oe.text = '031010000';
+        oe.selected = true;
+        cb.id = 'abcdef';
+
+        // set empty
+        component.onChange({ target: cb } as any);
+        expect(component.selectedKreis).toEqual('' as any);
+        component.onChange({ target: null } as any);
+        expect(component.selectedKreis).toBeUndefined();
+
+        // set value
+        cb.appendChild(oe);
+        cb.value = '031010000';
+        component.onChange({ target: cb } as any);
+        expect(component.selectedKreis).toEqual('031010000');
+        expect(component.berichteOpened.length).toEqual(0);
+    });
+
+    it('should map change select', () => {
+        component.onMapSelectChange({
+            type: 'selectchanged',
+            fromAction: 'select',
+            selected: [{
+                dataIndex: [
+                    0
+                ]
+            }]
+        });
+        expect(component.selectedKreis).toEqual('034620000');
+
+        component.onMapSelectChange({
+            type: 'selectchanged',
+            fromAction: 'select',
+            selected: [{
+                dataIndex: [
+                    '031010000'
+                ]
+            }]
+        });
+        expect(component.selectedKreis).toBeUndefined();
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
