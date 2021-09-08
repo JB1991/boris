@@ -18,4 +18,8 @@ describe('Bodenrichtwert.Pipes.ObjectIdPipe', () => {
     it('should do nothing if the string is empty', () => {
         expect(pipe.transform('')).toEqual('');
     });
+
+    it('should handle invalid input', () => {
+        expect(pipe.transform(null as any)).toEqual('');
+    });
 });

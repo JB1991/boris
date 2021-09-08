@@ -27,7 +27,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public readonly kreise = KREISE_DATA;
 
-    public mode?: string = undefined;
+    public mode?: 'gmb' | 'lmb' = undefined;
 
     public map?: ECharts = undefined;
 
@@ -112,15 +112,13 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
-        private http: HttpClient,
-        private route: ActivatedRoute,
+        public http: HttpClient,
+        public route: ActivatedRoute,
         private location: Location,
         private cdr: ChangeDetectorRef,
-        private seo: SEOService
+        public seo: SEOService
     ) {
         this.changeTitle();
-        this.seo.addURLParameter('landkreis');
-
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;
         }
@@ -136,6 +134,7 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             this.seo.updateTag({ name: 'description', content: $localize`Der Landesgrundstücksmarktbericht gibt einen Überblick über Immobilienverkäufe in Niedersachsen. Er ist das Ergebnis der Auswertung sämtlicher Grundstückskaufverträge durch die Gutachterausschüsse für Grundstückswerte.` });
             this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktbericht, Download, Grundstücksmarkt, Grundstück, Entwicklung, Umsatz, Bauland, Bodenrichtwert, Haus, Wohnung, Miete` });
         }
+        this.seo.addURLParameter('landkreis');
     }
 
     /** @inheritdoc */
@@ -144,38 +143,34 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
             return;
         }
 
-        if (this.mode === 'gmb') {
-            if (this.echartsMap) {
-                this.map = init(this.echartsMap.nativeElement);
-                this.map.on('selectchanged', this.onMapSelectChange.bind(this));
+        if (this.mode === 'gmb' && this.echartsMap) {
+            this.map = init(this.echartsMap.nativeElement);
+            this.map.on('selectchanged', this.onMapSelectChange.bind(this));
 
-                this.resizeSub = new ResizeObserver(() => {
-                    this.animationFrameID = window.requestAnimationFrame(() => this.resize());
-                });
-                this.resizeSub.observe(this.echartsMap.nativeElement);
-            }
-            if (this.selectedKreis) {
-                this.updateMapSelect();
-            }
+            this.resizeSub = new ResizeObserver(() => {
+                this.animationFrameID = window.requestAnimationFrame(() => this.resize());
+            });
+            this.resizeSub.observe(this.echartsMap.nativeElement);
+        }
+        if (this.mode === 'gmb' && this.selectedKreis) {
+            this.updateMapSelect();
         }
 
         this.route.queryParams.subscribe((params) => {
-            if (this.mode === 'gmb') {
-                if (params['landkreis']) {
-                    const lk = params['landkreis'];
-                    const lok = Object.keys(KREISE_DATA);
-                    for (let i = 0; i < lok.length; i++) {
-                        if (Object.prototype.hasOwnProperty.call(KREISE_DATA, lok[i])
-                            && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
-                            this.selectedKreis = lok[i] as keyof typeof KREISE_DATA;
-                            this.updateMapSelect();
-                            this.filterBerichte();
-                            (this.myMapOptions['series'] as SeriesOption[])[0]['data'] = this.getRegionen();
-                            if (this.map?.setOption) {
-                                this.map.setOption(this.myMapOptions);
-                            }
-                            break;
+            if (this.mode === 'gmb' && params['landkreis']) {
+                const lk = params['landkreis'];
+                const lok = Object.keys(KREISE_DATA);
+                for (let i = 0; i < lok.length; i++) {
+                    if (Object.prototype.hasOwnProperty.call(KREISE_DATA, lok[i])
+                        && KREISE_DATA[lok[i] as keyof typeof KREISE_DATA] === lk) {
+                        this.selectedKreis = lok[i] as keyof typeof KREISE_DATA;
+                        this.updateMapSelect();
+                        this.filterBerichte();
+                        (this.myMapOptions['series'] as SeriesOption[])[0]['data'] = this.getRegionen();
+                        if (this.map?.setOption) {
+                            this.map.setOption(this.myMapOptions);
                         }
+                        break;
                     }
                 }
             }

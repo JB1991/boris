@@ -12,13 +12,17 @@ describe('Bodenrichtwert.Pipes.NutzungPipe', () => {
     });
 
     it('should return the correct value', () => {
-        expect(pipe.transform([{'nutz': 'W', 'enuta': ['EFH']}]))
+        expect(pipe.transform([{ 'nutz': 'W', 'enuta': ['EFH'] }]))
             .toEqual('Wohnbaufläche (Ein- und Zweifamilienhäuser)');
     });
 
     it('should return undefined when there is no appropriate entry', () => {
-        expect(pipe.transform([{'nutz': '0', 'enuta': []}]))
+        expect(pipe.transform([{ 'nutz': '0', 'enuta': [] }]))
             .toEqual('undefined');
+    });
+
+    it('should handle invalid input', () => {
+        expect(pipe.transform(null as any)).toEqual('');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

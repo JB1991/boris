@@ -29,4 +29,10 @@ describe('BodenartPipe', () => {
         expect(pipe.transform(',MoS,S')).toEqual('');
         expect(pipe.transform('S+T,L')).toEqual('');
     });
+
+    it('should not allow invalid operator', () => {
+        expect(() => {
+            pipe.getValueByOperator({} as any, null as any);
+        }).toThrowError('Unknown operator');
+    });
 });

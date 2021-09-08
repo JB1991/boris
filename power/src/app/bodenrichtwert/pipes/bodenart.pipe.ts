@@ -20,7 +20,7 @@ const bodTypes = [
 })
 export class BodenartPipe implements PipeTransform {
 
-    public readonly regex: RegExp[] = [
+    private readonly regex: RegExp[] = [
         // 3 chars
         /^([a-z]{1})([A-Z]{2})/, // aBC , z.B. sLT
         /^([A-Z]{1})([A-Z]{1}[a-z]{1})/, // ABc , z.B. SMo
@@ -39,10 +39,7 @@ export class BodenartPipe implements PipeTransform {
         let types: string[] = [];
 
         if (this.bodTypeExists(value)) {
-            const tmp = this.getBodType(value)?.value;
-            if (tmp) {
-                res = tmp;
-            }
+            res = String(this.getBodType(value)?.value);
         } else if (value.includes(',')) {
             types = value.split(',');
             res = this.buildDisplayValue(types, 'und');
@@ -54,13 +51,44 @@ export class BodenartPipe implements PipeTransform {
             res = this.buildDisplayValue(types, 'mit');
         } else {
             types = this.matchRegExp(value);
-            if (types) {
+            if (types.length > 0) {
                 res = this.buildDisplayValue(types, ',');
             } else {
                 res = ''; // no match
             }
         }
         return res;
+    }
+
+    /**
+     * Returns the correct valueString of a bodType for a specific operator
+     * @param bodType bodType contains the bodenart with all values
+     * @param operator defines how to combine multiple bodenarten
+     * @returns Returns the correct valueString of a bodType for a specific operator
+     */
+    public getValueByOperator(bodType: typeof bodTypes[0], operator: 'und' | 'auf' | 'mit' | ','): string {
+        let value = '';
+        switch (operator) {
+            case 'und': {
+                value += bodType.comma + ' ' + operator + ' ';
+                break;
+            }
+            case 'auf': {
+                value += bodType.slash + ' ' + operator + ' ';
+                break;
+            }
+            case 'mit': {
+                value += bodType.plus + ' ' + operator + ' ';
+                break;
+            }
+            case ',': {
+                value += bodType.value + operator + ' ';
+                break;
+            }
+            default:
+                throw new Error('Unknown operator');
+        }
+        return value;
     }
 
     /**
@@ -88,7 +116,7 @@ export class BodenartPipe implements PipeTransform {
      * @param operator defines how to combine multiple bodenarten
      * @returns returns string of concatenated bodenarten
      */
-    private buildDisplayValue(types: string[], operator: string): string {
+    private buildDisplayValue(types: string[], operator: 'und' | 'auf' | 'mit' | ','): string {
         let displayValue = '';
         let trimSpaces = 2; // default
         let falseExp = false;
@@ -122,37 +150,6 @@ export class BodenartPipe implements PipeTransform {
     }
 
     /**
-     * Returns the correct valueString of a bodType for a specific operator
-     * @param bodType bodType contains the bodenart with all values
-     * @param operator defines how to combine multiple bodenarten
-     * @returns Returns the correct valueString of a bodType for a specific operator
-     */
-    private getValueByOperator(bodType: typeof bodTypes[0], operator: string): string {
-        let value = '';
-        switch (operator) {
-            case 'und': {
-                value += bodType.comma + ' ' + operator + ' ';
-                break;
-            }
-            case 'auf': {
-                value += bodType.slash + ' ' + operator + ' ';
-                break;
-            }
-            case 'mit': {
-                value += bodType.plus + ' ' + operator + ' ';
-                break;
-            }
-            case ',': {
-                value += bodType.value + operator + ' ';
-                break;
-            }
-            default:
-                throw new Error('Unknown operator');
-        }
-        return value;
-    }
-
-    /**
      * Checks a given string based on regular expressions for
      * different bodenarten combinations
      * @param value string with multiple bodenarten keys
@@ -162,11 +159,9 @@ export class BodenartPipe implements PipeTransform {
         let types: string[] = [];
 
         this.regex.forEach((r: RegExp) => {
-            if (r.test(value)) {
-                const groups = r.exec(value);
-                if (groups) {
-                    types = groups.slice(1, groups.length);
-                }
+            const groups = r.exec(value);
+            if (groups) {
+                types = groups.slice(1, groups.length);
             }
         });
         return types;
