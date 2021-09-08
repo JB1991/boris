@@ -66,7 +66,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     public hasUmrechnungsdateien = false;
 
-    public gemarkung: string = '';
+    public gemarkung = '';
+
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
      */
