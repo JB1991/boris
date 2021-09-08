@@ -167,9 +167,6 @@ export class GmbComponent implements OnInit, OnDestroy, AfterViewInit {
                         this.updateMapSelect();
                         this.filterBerichte();
                         (this.myMapOptions['series'] as SeriesOption[])[0]['data'] = this.getRegionen();
-                        if (this.map?.setOption) {
-                            this.map.setOption(this.myMapOptions);
-                        }
                         break;
                     }
                 }
