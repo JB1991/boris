@@ -133,7 +133,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['features']) {
             this.clearChart();
-            if (this.features && !changes['features'].firstChange) {
+            if (this.features) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
                 if (this.echartsInstance) {
@@ -152,6 +152,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
                 this.animationFrameID = window.requestAnimationFrame(() => this.resize());
             });
             this.resizeSub.observe(this.echartsInst.nativeElement);
+            if (this.features) {
+                this.generateChart(this.features.features);
+            }
         }
     }
 

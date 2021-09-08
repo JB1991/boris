@@ -129,7 +129,8 @@
                                                  [features]="features">
                     </power-bodenrichtwert-detail>
                 </div>
-                <div class="col-12 p-0">
+                <div *ngIf="features?.features?.length"
+                     class="col-12 p-0">
                     <power-bodenrichtwert-verlauf [features]="features"
                                                   [STICHTAGE]="STICHTAGE"
                                                   [teilmarkt]="teilmarkt"></power-bodenrichtwert-verlauf>
