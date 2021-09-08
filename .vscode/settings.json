@@ -2,7 +2,7 @@
     "files.trimTrailingWhitespace": true,
     "files.trimFinalNewlines": true,
     "files.insertFinalNewline": true,
-    "html.format.endWithNewline": false,
+    "html.format.endWithNewline": true,
     "html.format.indentHandlebars": true,
     "html.format.wrapAttributes": "force-aligned",
     "editor.formatOnSave": true,
