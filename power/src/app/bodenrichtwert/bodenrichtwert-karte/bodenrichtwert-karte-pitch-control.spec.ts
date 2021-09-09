@@ -1,4 +1,6 @@
 import { BodenrichtwertKartePitchControl } from './bodenrichtwert-karte-pitch-control';
+// eslint-disable-next-line
+// @ts-ignore
 import { Map, Marker } from 'maplibre-gl';
 
 describe('GrundsteuerviewerKartePitchControl', () => {
