@@ -25,9 +25,9 @@ import { SeriesOption } from 'echarts';
 export class ImmobilienComponent implements OnDestroy, AfterViewInit {
 
     // echarts Components
-    @ViewChild('echartsMap') public echartsMap!: ElementRef;
+    @ViewChild('echartsMap') public echartsMap?: ElementRef;
 
-    @ViewChild('echartsChart') public echartsChart!: ElementRef;
+    @ViewChild('echartsChart') public echartsChart?: ElementRef;
 
     // Config URl
     public configUrl = 'assets/data/cfg.json';

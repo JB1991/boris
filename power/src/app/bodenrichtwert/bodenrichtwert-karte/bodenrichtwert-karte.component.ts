@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrat
 // eslint-disable-next-line
 // @ts-ignore
 import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource, GeoJSONSource } from 'maplibre-gl';
-import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
+import { BodenrichtwertKartePitchControl } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Polygon } from 'geojson';

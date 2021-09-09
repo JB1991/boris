@@ -48,5 +48,10 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should rewriteUmrechnungstabURL', () => {
+        expect(component.rewriteUmrechnungstabURL('http://boris.niedersachsen.de/umretabs/2021/0430008_wgfz.html'))
+            .toEqual('http://localhost:9876/boris-umdatei/umretabs/2021/0430008_wgfz.pdf');
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

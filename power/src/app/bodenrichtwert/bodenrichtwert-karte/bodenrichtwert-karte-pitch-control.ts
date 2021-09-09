@@ -2,7 +2,7 @@
 // @ts-ignore
 import { Map, Marker } from 'maplibre-gl';
 
-export default class BodenrichtwertKartePitchControl {
+export class BodenrichtwertKartePitchControl {
     public map?: Map;
 
     public btn?: HTMLButtonElement;
