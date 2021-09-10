@@ -14,6 +14,8 @@ CVE-2019-13627
 CVE-2019-13115
 CVE-2021-33560
 CVE-2021-3580
+CVE-2021-3711
+CVE-2021-3712
 
 # amd64 architecture is not affected
 CVE-2020-1751
@@ -23,6 +25,7 @@ CVE-2020-10029
 CVE-2020-1752
 CVE-2019-3843
 CVE-2019-3844
+CVE-2021-33910
 
 # requires uncommon input encoding
 CVE-2021-3326
@@ -38,6 +41,11 @@ CVE-2019-12290
 
 # curl is not used
 CVE-2021-22898
+CVE-2021-22924
 
 # ldap is not used
 CVE-2020-20178
+
+# kerberos is not used
+CVE-2021-37750
+CVE-2021-36222
