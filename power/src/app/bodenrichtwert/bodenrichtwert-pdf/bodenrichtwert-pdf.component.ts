@@ -51,7 +51,7 @@ export class BodenrichtwertPdfComponent {
         private bauweisePipe: BauweisePipe,
         private bodenartPipe: BodenartPipe,
         private umlautCorrectionPipe: UmlautCorrectionPipe,
-        private gemarkungPipe: GemarkungPipe
+        public gemarkungPipe: GemarkungPipe
     ) {
         /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
         (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;

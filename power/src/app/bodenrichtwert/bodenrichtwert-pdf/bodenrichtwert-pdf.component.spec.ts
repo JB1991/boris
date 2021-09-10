@@ -15,10 +15,13 @@ import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
 import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf.component';
+import { of } from 'rxjs';
+import { FeatureCollection } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
     let component: BodenrichtwertPdfComponent;
     let fixture: ComponentFixture<BodenrichtwertPdfComponent>;
+    const gemarkungCollection: FeatureCollection = require('../../../testdata/flurstueck-search/gemarkung-collection.json');
 
     beforeEach(waitForAsync(() => {
         void TestBed.configureTestingModule({
@@ -55,7 +58,8 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should create pdf', () => {
+    it('should create pdf 1', (done) => {
+        spyOn(component.gemarkungPipe.gemarkungService, 'getGemarkungByKey').and.returnValue(of(gemarkungCollection));
         spyOn(component.mapService, 'getMapWidth').and.returnValue(500);
         spyOn(component.mapService, 'getMapHeight').and.returnValue(500);
         component.address = {
@@ -179,10 +183,13 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
         component.testMode = true;
 
         // test pdf
-        expect(component.create()).toBeTrue();
+        void component.create().then((ret: boolean) => {
+            expect(ret).toBeTrue();
+            done();
+        });
     });
 
-    it('should create pdf', () => {
+    it('should create pdf 2', (done) => {
         spyOn(component.mapService, 'getMapWidth').and.returnValue(600);
         spyOn(component.mapService, 'getMapHeight').and.returnValue(400);
         component.teilmarkt = {
@@ -257,6 +264,9 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
         component.testMode = true;
 
         // test pdf
-        expect(component.create()).toBeTrue();
+        void component.create().then((ret: boolean) => {
+            expect(ret).toBeTrue();
+            done();
+        });
     });
 });
