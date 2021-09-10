@@ -66,8 +66,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     public hasUmrechnungsdateien = false;
 
-    public gemarkung = '';
-
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
      */
@@ -207,11 +205,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             // filter features
             if (this.features || this.stichtag || this.teilmarkt) {
                 this.filteredFeatures = this.features.features.filter((ftx) => ftx.properties?.['stag'] === this.stichtag + 'Z').sort((i, j) => i.properties?.['brw'] - j.properties?.['brw']);
-                if (this.filteredFeatures.length) {
-                    this.gemarkung = this.filteredFeatures[0].properties?.['gema'];
-                } else {
-                    this.gemarkung = '';
-                }
             }
 
             // check for umrechnungsdateien

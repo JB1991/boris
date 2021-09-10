@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
+import { AsyncPipe, CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -68,6 +68,7 @@ import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
         BodenrichtwertKarteService,
         DatePipe,
         DecimalPipe,
+        AsyncPipe,
         EntwicklungszustandPipe,
         VerfahrensartPipe,
         EntwicklungszusatzPipe,

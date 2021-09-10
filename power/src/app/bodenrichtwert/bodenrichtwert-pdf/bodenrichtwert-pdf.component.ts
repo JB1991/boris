@@ -18,6 +18,7 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
+import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-pdf',
@@ -49,7 +50,8 @@ export class BodenrichtwertPdfComponent {
         private nutzungPipe: NutzungPipe,
         private bauweisePipe: BauweisePipe,
         private bodenartPipe: BodenartPipe,
-        private umlautCorrectionPipe: UmlautCorrectionPipe
+        private umlautCorrectionPipe: UmlautCorrectionPipe,
+        private gemarkungPipe: GemarkungPipe
     ) {
         /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
         (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -60,7 +62,7 @@ export class BodenrichtwertPdfComponent {
      * @returns True if successful
      */
     // eslint-disable-next-line complexity
-    public create(): boolean {
+    public async create(): Promise<boolean> {
         // pdf definition
         const docDefinition: TDocumentDefinitions = {
             pageSize: 'A4', // 595.28, 841.89
@@ -101,7 +103,7 @@ export class BodenrichtwertPdfComponent {
                     margin: [0, 20, 0, 10]
                 },
                 {
-                    text: this.getAddressFlurstueck(),
+                    text: await this.getAddressFlurstueck(),
                     margin: [0, 0, 0, 10]
                 },
                 {
@@ -347,7 +349,7 @@ export class BodenrichtwertPdfComponent {
      * Returns makepdf Array for address and flurstück info
      * @returns PDF Address and Flurstück
      */
-    public getAddressFlurstueck(): Content[] {
+    public async getAddressFlurstueck(): Promise<Content[]> {
         const ret = new Array<Content>();
 
         // address
@@ -360,7 +362,7 @@ export class BodenrichtwertPdfComponent {
         // check if Flurstück info
         if (this.flurstueck && this.flurstueck.features.length > 0) {
             ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties?.['gemarkungsnummer'] +
-                ' (' + this.features?.[0].properties?.['gema'] + '), ');
+                ' (' + await this.gemarkungPipe.transform(this.flurstueck.features[0].properties?.['gemarkungsnummer']).toPromise() + '), ');
             ret.push($localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties?.['flurnummer'] + ', ');
             ret.push($localize`Flurstück` + ': ' + this.flurstueck.features[0].properties?.['zaehler']);
             if (this.flurstueck.features[0].properties?.['nenner']) {

@@ -12,6 +12,7 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
+import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
 
 import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf.component';
 
@@ -39,7 +40,8 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
                 NutzungPipe,
                 BauweisePipe,
                 BodenartPipe,
-                UmlautCorrectionPipe
+                UmlautCorrectionPipe,
+                GemarkungPipe
             ]
         }).compileComponents();
 

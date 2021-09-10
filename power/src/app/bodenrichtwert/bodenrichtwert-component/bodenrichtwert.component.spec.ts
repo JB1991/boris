@@ -6,7 +6,7 @@ import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenr
 import { BodenrichtwertNavigationComponent } from '../bodenrichtwert-navigation/bodenrichtwert-navigation.component';
 import { BodenrichtwertPdfComponent } from '../bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
+import { AsyncPipe, CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -52,6 +52,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
             providers: [
                 DatePipe,
                 DecimalPipe,
+                AsyncPipe,
                 EntwicklungszustandPipe,
                 VerfahrensartPipe,
                 EntwicklungszusatzPipe,

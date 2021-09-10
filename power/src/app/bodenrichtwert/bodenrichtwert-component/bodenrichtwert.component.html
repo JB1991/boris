@@ -267,9 +267,8 @@
                           class="text-nowrap">
                         <small class="ml-2 mr-2">
                             <span i18n>Gemarkung</span>:
-                            {{ flurstueck.features[0]?.properties?.['gemarkungsnummer'] }}
-                            ({{gemarkung ? gemarkung :
-                            (flurstueck.features[0]?.properties?.['gemarkungsnummer'] | gemarkung | async)}})
+                            {{ flurstueck?.features?.[0]?.properties?.['gemarkungsnummer'] }}
+                            ({{ flurstueck?.features?.[0]?.properties?.['gemarkungsnummer'] | gemarkung | async }})
                         </small>
                     </span>
                     <wbr>
@@ -277,7 +276,7 @@
                           class="text-nowrap">
                         <small class="mr-2">
                             <span i18n>Flurnummer</span>:
-                            {{ flurstueck.features[0]?.properties?.['flurnummer'] }}
+                            {{ flurstueck?.features?.[0]?.properties?.['flurnummer'] }}
                         </small>
                     </span>
                     <wbr>
@@ -285,9 +284,9 @@
                           class="text-nowrap">
                         <small>
                             <span i18n>Flurstück</span>:
-                            {{ flurstueck.features[0]?.properties?.['zaehler'] }}</small>
+                            {{ flurstueck?.features?.[0]?.properties?.['zaehler'] }}</small>
                         <small *ngIf="flurstueck.features[0]?.properties?.['nenner']">/{{
-                            flurstueck.features[0]?.properties?.['nenner'] }}
+                            flurstueck?.features?.[0]?.properties?.['nenner'] }}
                         </small>
                     </span>
                 </span>
