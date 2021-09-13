@@ -18,6 +18,13 @@ export type FrontendVersion = {
     branch: string
 };
 
+export type DynamicMessage = {
+    visible: boolean;
+    date: Date;
+    title: string;
+    msg: string
+};
+
 @Component({
     selector: 'power-root',
     templateUrl: './app.component.html',
@@ -43,6 +50,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public appVersion: FrontendVersion = { version: 'dev', branch: 'local' };
 
     public hasInternet = navigator.onLine;
+
+    public dynMessages = new Array<DynamicMessage>();
 
     public readonly uri = location;
 
@@ -126,6 +135,33 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.appVersion = { version: 'cache', branch: 'offline' };
                 environment.config.version = this.appVersion;
                 this.hasInternet = false;
+            });
+
+            // load dynamic incidents
+            this.httpClient.get<any>('/status/incidents?status=0',
+                { headers: header, responseType: 'json' }
+            ).subscribe((data) => {
+                const incidents = data['data'];
+                const th = new Date();
+                th.setHours(th.getHours() - 4);
+                this.dynMessages = new Array<DynamicMessage>();
+
+
+
+                incidents.forEach( (incident: any) => {
+                    const incident_date = new Date(incident['scheduled_at']);
+                    if (incident_date > th) {
+                        this.dynMessages.push({
+                            'visible': true,
+                            'date': incident_date,
+                            'title': incident['name'],
+                            'msg': incident['message']
+                        });
+                    }
+                });
+            }, (error) => {
+                // failed to load
+                console.error(error);
             });
 
             // disable warning for known browsers

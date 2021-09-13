@@ -43,5 +43,14 @@
         "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
+    },
+    "/status/": {
+        "target": "https://status.immobilienmarkt.niedersachsen.de/api/v1/",
+	"pathRewrite": {
+		"^/status/": ""
+	},
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "debug"
     }
 }
