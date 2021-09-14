@@ -361,7 +361,7 @@ export class BodenrichtwertPdfComponent {
 
         // check if Flurstück info
         if (this.flurstueck && this.flurstueck.features.length > 0) {
-            ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties?.['gemarkungsnummer'] +
+            ret.push($localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties?.['gemarkungsnummer'].toString().padStart(4, '0') +
                 ' (' + await this.gemarkungPipe.transform(this.flurstueck.features[0].properties?.['gemarkungsnummer']).toPromise() + '), ');
             ret.push($localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties?.['flurnummer'] + ', ');
             ret.push($localize`Flurstück` + ': ' + this.flurstueck.features[0].properties?.['zaehler']);

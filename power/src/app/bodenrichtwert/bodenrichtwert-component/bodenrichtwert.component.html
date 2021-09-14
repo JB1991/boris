@@ -267,7 +267,7 @@
                           class="text-nowrap">
                         <small class="ml-2 mr-2">
                             <span i18n>Gemarkung</span>:
-                            {{ flurstueck?.features?.[0]?.properties?.['gemarkungsnummer'] }}
+                            {{ flurstueck?.features?.[0]?.properties?.['gemarkungsnummer'].toString().padStart(4, '0') }}
                             ({{ flurstueck?.features?.[0]?.properties?.['gemarkungsnummer'] | gemarkung | async }})
                         </small>
                     </span>
