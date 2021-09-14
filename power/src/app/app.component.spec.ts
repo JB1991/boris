@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
 import { SEOService } from './shared/seo/seo.service';
-import { LocationStrategy } from '@angular/common';
+import { CommonModule, LocationStrategy } from '@angular/common';
 
 describe('AppComponent', () => {
     let app: AppComponent;
@@ -18,7 +18,8 @@ describe('AppComponent', () => {
         void TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                RouterTestingModule
+                RouterTestingModule,
+                CommonModule
             ],
             providers: [
                 { provide: LocationStrategy, useClass: MockLocationStrategy },
