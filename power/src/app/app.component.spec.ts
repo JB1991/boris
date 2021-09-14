@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockLocationStrategy } from '@angular/common/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
 import { SEOService } from './shared/seo/seo.service';
+import { LocationStrategy } from '@angular/common';
 
 describe('AppComponent', () => {
     let app: AppComponent;
@@ -19,6 +21,7 @@ describe('AppComponent', () => {
                 RouterTestingModule
             ],
             providers: [
+                { provide: LocationStrategy, useClass: MockLocationStrategy },
                 AuthService,
                 SEOService,
                 { provide: UpdateService, useClass: MockUpdateService }
