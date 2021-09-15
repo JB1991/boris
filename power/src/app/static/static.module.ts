@@ -12,8 +12,24 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { OgcServicesComponent } from './ogc-services/ogc-services.component';
+import { ImprintComponent } from './imprint/imprint.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { AccessibilityComponent } from './accessibility/accessibility.component';
 
 @NgModule({
+    declarations: [
+        StartComponent,
+        LoginComponent,
+        LogoutComponent,
+        FeedbackComponent,
+        NotfoundComponent,
+        OgcServicesComponent,
+        ImprintComponent,
+        PrivacyComponent,
+        TermsOfServiceComponent,
+        AccessibilityComponent
+    ],
     imports: [
         StaticRoutingModule,
         CommonModule,
@@ -21,14 +37,6 @@ import { OgcServicesComponent } from './ogc-services/ogc-services.component';
         SharedModule,
         CarouselModule.forRoot(),
         AccordionModule.forRoot()
-    ],
-    declarations: [
-        StartComponent,
-        LoginComponent,
-        LogoutComponent,
-        FeedbackComponent,
-        NotfoundComponent,
-        OgcServicesComponent
     ]
 })
 export class StaticModule {

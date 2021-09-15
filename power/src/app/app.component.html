@@ -383,25 +383,24 @@
                          i18n>Informationen</div>
                     <ul class="list-unstyled text-small">
                         <li>
-                            <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/"
+                            <a [routerLink]="['/impressum']"
                                class="footer-link d-inline-block py-2"
-                               target="_blank"
-                               rel="noopener noreferrer nofollow"
                                i18n>Impressum</a>
                         </li>
                         <li>
-                            <a href="https://www.gag.niedersachsen.de/startseite/service/datenschutzerklarung/"
+                            <a [routerLink]="['/datenschutz']"
                                class="footer-link d-inline-block py-2"
-                               target="_blank"
-                               rel="noopener noreferrer nofollow"
                                i18n>Datenschutz</a>
                         </li>
                         <li>
-                            <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/nutzungsbedingungen/"
+                            <a [routerLink]="['/nutzungsbedingungen']"
                                class="footer-link d-inline-block py-2"
-                               target="_blank"
-                               rel="noopener noreferrer nofollow"
                                i18n>Nutzungsbedingungen</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/barrierefreiheit']"
+                               class="footer-link d-inline-block py-2"
+                               i18n>Barrierefreiheit</a>
                         </li>
                     </ul>
                 </div>

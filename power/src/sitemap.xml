@@ -28,4 +28,20 @@
       <loc>https://immobilienmarkt.niedersachsen.de/ogc-dienste</loc>
       <changefreq>monthly</changefreq>
    </url>
+   <url>
+      <loc>https://immobilienmarkt.niedersachsen.de/impressum</loc>
+      <changefreq>monthly</changefreq>
+   </url>
+   <url>
+      <loc>https://immobilienmarkt.niedersachsen.de/datenschutz</loc>
+      <changefreq>monthly</changefreq>
+   </url>
+   <url>
+      <loc>https://immobilienmarkt.niedersachsen.de/nutzungsbedingungen</loc>
+      <changefreq>monthly</changefreq>
+   </url>
+   <url>
+      <loc>https://immobilienmarkt.niedersachsen.de/barrierefreiheit</loc>
+      <changefreq>monthly</changefreq>
+   </url>
 </urlset>
