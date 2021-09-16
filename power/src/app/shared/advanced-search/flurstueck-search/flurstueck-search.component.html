@@ -133,16 +133,22 @@
         <ul *ngFor="let ft of resFuzzy.features; let i=index">
             <li class="btn btn-success btn-sm"
                 type="button"
+                title="Alternative Ergebnisse der Flurstueckssuche"
+                i18n-title
                 (click)="onSelectFlurstueck(i)"
-                (enter)="onSelectFlurstueck(i)">
+                (keyup.enter)="onSelectFlurstueck(i)">
                 <span *ngIf="ft.properties?.['gemarkungsnummer']"
-                      class="mr-1">Gemarkung: {{ ft.properties?.['gemarkungsnummer'] }},</span>
+                      class="mr-1"
+                      i18n>Gemarkung: {{ ft.properties?.['gemarkungsnummer'] }},</span>
                 <span *ngIf="ft.properties?.['flurnummer']"
-                      class="mr-1">Flur: {{ ft.properties?.['flurnummer'] }},</span>
+                      class="mr-1"
+                      i18n>Flur: {{ ft.properties?.['flurnummer'] }},</span>
                 <span *ngIf="ft.properties?.['zaehler']"
-                      class="mr-1">Zähler: {{ ft.properties?.['zaehler'] }},</span>
+                      class="mr-1"
+                      i18n>Zähler: {{ ft.properties?.['zaehler'] }},</span>
                 <span *ngIf="ft.properties?.['nenner']"
-                      class="mr-1">Nenner: {{ ft.properties?.['nenner'] }}</span>
+                      class="mr-1"
+                      i18n>Nenner: {{ ft.properties?.['nenner'] }}</span>
             </li>
         </ul>
     </div>
