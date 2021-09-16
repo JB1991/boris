@@ -7,6 +7,10 @@ import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { OgcServicesComponent } from './ogc-services/ogc-services.component';
+import { ImprintComponent } from './imprint/imprint.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { AccessibilityComponent } from './accessibility/accessibility.component';
 
 import { ModuleGuard } from '@app/module.guard';
 
@@ -34,6 +38,22 @@ const routes: Routes = [
         path: 'ogc-dienste',
         component: OgcServicesComponent,
         canActivate: [ModuleGuard]
+    },
+    {
+        path: 'impressum',
+        component: ImprintComponent
+    },
+    {
+        path: 'datenschutz',
+        component: PrivacyComponent
+    },
+    {
+        path: 'nutzungsbedingungen',
+        component: TermsOfServiceComponent
+    },
+    {
+        path: 'barrierefreiheit',
+        component: AccessibilityComponent
     },
     {
         path: 'notfound',
