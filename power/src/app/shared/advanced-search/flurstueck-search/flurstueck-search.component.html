@@ -94,29 +94,59 @@
         </div>
     </div>
     <hr>
-    <button type="submit"
-            class="btn btn-success float-right"
-            i18n-title
-            title="Flurstück suchen"
-            [disabled]="!form.valid || !selected">
-        <svg width="1em"
-             height="1em"
-             viewBox="0 0 16 16"
-             class="bi bi-search"
-             fill="currentColor"
-             xmlns="http://www.w3.org/2000/svg"
-             role="img"
-             focusable="false"
+    <div class="float-right">
+        <div [ngClass]="loadingAlkisWfs ? 'd-flex-inline mr-2' : 'd-none'"
+             class="spinner-border spinner-border-sm text-secondary"
+             role="status"
              aria-hidden="true">
-            <path fill-rule="evenodd"
-                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-            <path fill-rule="evenodd"
-                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-        </svg>
-        <span class="ml-1"
-              i18n>Suchen</span>
-    </button>
+            <span class="sr-only"
+                  i18n>Wird geladen....</span>
+        </div>
+        <button type="submit"
+                class="btn btn-success"
+                i18n-title
+                title="Flurstück suchen"
+                [disabled]="!form.valid || !selected">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-search"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                <path fill-rule="evenodd"
+                      d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+            </svg>
+            <span class="ml-1"
+                  i18n>Suchen</span>
+        </button>
+    </div>
 </form>
+<div class="row">
+    <div *ngIf="resFuzzy && resFuzzy.features.length > 0"
+         class="col-10">
+        <p class="alert alert-warning">Kein passendes Flurstück gefunden. Meinten Sie vielleicht:</p>
+        <ul *ngFor="let ft of resFuzzy.features; let i=index">
+            <li class="btn btn-success btn-sm"
+                type="button"
+                (click)="onSelectFlurstueck(i)"
+                (enter)="onSelectFlurstueck(i)">
+                <span *ngIf="ft.properties?.['gemarkungsnummer']"
+                      class="mr-1">Gemarkung: {{ ft.properties?.['gemarkungsnummer'] }},</span>
+                <span *ngIf="ft.properties?.['flurnummer']"
+                      class="mr-1">Flur: {{ ft.properties?.['flurnummer'] }},</span>
+                <span *ngIf="ft.properties?.['zaehler']"
+                      class="mr-1">Zähler: {{ ft.properties?.['zaehler'] }},</span>
+                <span *ngIf="ft.properties?.['nenner']"
+                      class="mr-1">Nenner: {{ ft.properties?.['nenner'] }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <!-- Flurstück Result Template -->
 <ng-template #results

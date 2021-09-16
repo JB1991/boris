@@ -22,8 +22,6 @@ export class AdvancedSearchComponent {
 
     @Output() public bodenrichtwertChange = new EventEmitter<FeatureCollection>();
 
-    // public title = $localize`Erweiterte Suche`;
-
     @Input() public title = $localize`Erweiterte Suche`;
 
     @Input() public stichtag?: string;

@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { FeatureCollection } from 'geojson';
-import { Observable, Subject, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, Subject, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -92,11 +92,49 @@ export class AlkisWfsService {
             .set('Pragma', 'no-cache')
             .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
             .set('If-Modified-Since', '0');
+
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
             { 'headers': header, 'responseType': 'json' }
-        ).pipe(catchError(AlkisWfsService.handleError));
+        ).pipe(
+            switchMap((res) => {
+                if (res.features.length === 0) {
+                    return this.getFuzzyFlurstueckByFsk(fsk, header);
+                }
+                return of(res);
+            }),
+            catchError(AlkisWfsService.handleError)
+        );
+    }
+
+    /**
+     * getFuzzyFlurstueckByFsk returns one or more flurstueck/e by given fsk with a fuzzy search
+     * @param fsk flurstueckskennzeichen as string
+     * @param header http header
+     * @returns FlurstueckCollection
+     */
+    public getFuzzyFlurstueckByFsk(fsk: string, header: HttpHeaders): Observable<FeatureCollection> {
+        const filter = '<wfs:GetFeature ' +
+        'xmlns:ogc="http://www.opengis.net/ogc" ' +
+        'xmlns:wfs="http://www.opengis.net/wfs" ' +
+        'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
+        'service="WFS" version="1.1.0" outputFormat="JSON">' +
+        '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:4326">' +
+        '<ogc:Filter>' +
+        '<ogc:PropertyIsLike wildCard="*" singleChar="%" escape="!">' +
+        '<ogc:PropertyName>flurstueckskennzeichen</ogc:PropertyName>' +
+        '<ogc:Literal>' + fsk.substring(0, 14) + '*</ogc:Literal>' +
+        '</ogc:PropertyIsLike>' +
+        '</ogc:Filter>' +
+        '</wfs:Query>' +
+        '</wfs:GetFeature>';
+
+
+        return this.http.post<FeatureCollection>(
+            this.url,
+            filter,
+            { 'headers': header, 'responseType': 'json' });
     }
 
     /**
