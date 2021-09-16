@@ -1,5 +1,5 @@
-<main class="mainpage"
-      id="content">
+<div class="mainpage"
+     id="content">
     <h1 class="sr-only"
         i18n>Immobilienmarkt Portal Niedersachsen</h1>
     <div class="mb-5">
@@ -21,12 +21,14 @@
                         <h3 class="h5"
                             i18n="@@bodenrichtwerte_fulltitle">Bodenrichtwert&shy;informations&shy;system
                             Niedersachsen und Bremen</h3>
-                        <p i18n="@@bodenrichtwerte_shortdescription">Auskünfte über Bodenrichtwerte für Bauland und
+                        <p id="bodenrichtwerte_shortdescription"
+                           i18n="@@bodenrichtwerte_shortdescription">Auskünfte über Bodenrichtwerte für Bauland und
                             Flächen der Land- und Forstwirtschaft</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('bodenrichtwerte')"
                            role="button"
+                           aria-describedby="bodenrichtwerte_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -43,12 +45,14 @@
                               i18n="@@grundstuecksmarktberichte_fulltitle">Grundstücks&shy;markt&shy;berichte</span>
                     </h2>
                     <div class="lead text-dark">
-                        <p i18n="@@grundstuecksmarktberichte_shortdescription">Einblicke in den Grundstücksmarkt und der
+                        <p id="grundstuecksmarktberichte_shortdescription"
+                           i18n="@@grundstuecksmarktberichte_shortdescription">Einblicke in den Grundstücksmarkt und der
                             Entwicklung des Preisniveau der einzelnen Gutachterausschüsse</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('grundstuecksmarktberichte')"
                            role="button"
+                           aria-describedby="grundstuecksmarktberichte_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -65,12 +69,14 @@
                               i18n="@@landesgrundstuecksmarktdaten_fulltitle">Landesgrund&shy;stücks&shy;markt&shy;daten</span>
                     </h2>
                     <div class="lead text-dark">
-                        <p i18n="@@landesgrundstuecksmarktdaten_shortdescription">Eine Analyse des Grundstücksmarktes in
+                        <p id="landesgrundstuecksmarktdaten_shortdescription"
+                           i18n="@@landesgrundstuecksmarktdaten_shortdescription">Eine Analyse des Grundstücksmarktes in
                             ganz Niedersachsen vom oberen Gutachterausschuss</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('landesgrundstuecksmarktdaten')"
                            role="button"
+                           aria-describedby="landesgrundstuecksmarktdaten_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -89,12 +95,14 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Niedersächsischer Immobilienpreisindex</h3>
-                        <p i18n="@@immobilienpreisindex_shortdescription">Darstellung der Preisentwicklung von
+                        <p id="immobilienpreisindex_shortdescription"
+                           i18n="@@immobilienpreisindex_shortdescription">Darstellung der Preisentwicklung von
                             Eigenheimen und Eigentumswohnungen</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('immobilienpreisindex')"
                            role="button"
+                           aria-describedby="immobilienpreisindex_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -113,12 +121,14 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Immobilien-Preis-Kalkulator</h3>
-                        <p i18n="@@immobilienpreiskalkulator_shortdescription">Ein Rechner zum ermitteln eines
+                        <p id="immobilienpreiskalkulator_shortdescription"
+                           i18n="@@immobilienpreiskalkulator_shortdescription">Ein Rechner zum ermitteln eines
                             geschätzten Preisniveau einer Immobilien</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('immobilienpreiskalkulator')"
                            role="button"
+                           aria-describedby="immobilienpreiskalkulator_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -137,12 +147,14 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Online Formular Service</h3>
-                        <p i18n="@@forms_shortdescription">Wenn Sie ein Formular einreichen wollen, finden Sie hier
+                        <p id="forms_shortdescription"
+                           i18n="@@forms_shortdescription">Wenn Sie ein Formular einreichen wollen, finden Sie hier
                             unsere Formulare</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('forms')"
                            role="button"
+                           aria-describedby="forms_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -161,12 +173,14 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>OGC Darstellungs- und Downloaddienste</h3>
-                        <p i18n>Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS
+                        <p id="ogcservices_shortdescription"
+                           i18n>Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS
                             Schnittstellen bereit</p>
                         <a class="btn btn-primary"
                            href=""
                            (click)="$event.preventDefault(); scrollToElement('ogc-dienste')"
                            role="button"
+                           aria-describedby="ogcservices_shortdescription"
                            i18n>Mehr dazu</a>
                     </div>
                 </div>
@@ -203,16 +217,19 @@
              id="bodenrichtwerte">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenrichtwerte')">
-                <a class="h2 display-4"
-                   [routerLink]="['/bodenrichtwerte']">
-                    <span class="lgln-black">BORIS</span>
-                    <span class="lgln-red">.NI</span>
-                </a>
+                <h2 class="display-4">
+                    <a [routerLink]="['/bodenrichtwerte']"
+                       aria-describedby="bodenrichtwerte_description">
+                        <span class="lgln-black">BORIS</span>
+                        <span class="lgln-red">.NI</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <h3 class="h5 text-break"
                         i18n="@@bodenrichtwerte_fulltitle">Bodenrichtwert&shy;informations&shy;system Niedersachsen und
                         Bremen</h3>
                     <p class="text-justify"
+                       id="bodenrichtwerte_description"
                        i18n="@@bodenrichtwerte_description">Die Gutachterausschüsse und der Obere Gutachterausschuss für
                         Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI
                         Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen,
@@ -241,13 +258,16 @@
              id="grundstuecksmarktberichte">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('grundstuecksmarktberichte')">
-                <a class="h2 display-4"
-                   [routerLink]="['/grundstuecksmarktberichte']">
-                    <span class="lgln-black"
-                          i18n="@@grundstuecksmarktberichte_fulltitle">Grundstücks&shy;markt&shy;berichte</span>
-                </a>
+                <h2 class="display-4">
+                    <a [routerLink]="['/grundstuecksmarktberichte']"
+                       aria-describedby="grundstuecksmarktberichte_description">
+                        <span class="lgln-black"
+                              i18n="@@grundstuecksmarktberichte_fulltitle">Grundstücks&shy;markt&shy;berichte</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <p class="text-justify"
+                       id="grundstuecksmarktberichte_description"
                        i18n="@@grundstuecksmarktberichte_description">Grundstücksmarktberichte geben einen fundierten
                         Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen
                         sowie Preisniveau in den Teilmärkten, aber auch zu detaillierteren Zahlen und Kenngrößen. Die
@@ -279,15 +299,18 @@
              id="landesgrundstuecksmarktdaten">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('landesgrundstuecksmarktdaten')">
-                <a class="h2 display-4"
-                   href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow">
-                    <span class="lgln-black"
-                          i18n="@@landesgrundstuecksmarktdaten_fulltitle">Landesgrund&shy;stücks&shy;markt&shy;daten</span>
-                </a>
+                <h2 class="display-4">
+                    <a href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       aria-describedby="landesgrundstuecksmarktdaten_description">
+                        <span class="lgln-black"
+                              i18n="@@landesgrundstuecksmarktdaten_fulltitle">Landesgrund&shy;stücks&shy;markt&shy;daten</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <p class="text-justify"
+                       id="landesgrundstuecksmarktdaten_description"
                        i18n="@@landesgrundstuecksmarktdaten_description">Als Ergänzung zu den örtlichen
                         Grundstücksmarktberichten der Gutachterausschüsse stellen die Landesgrundstücksmarktdaten
                         überregionale und weiter generalisierte Zusammenhänge zum Grundstücksmarkt dar. Sie sind
@@ -320,15 +343,18 @@
              id="immobilienpreisindex">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('immobilienpreisindex')">
-                <a class="h2 display-4"
-                   [routerLink]="['/immobilienpreisindex']">
-                    <span class="lgln-red">NI</span>
-                    <span class="lgln-black">PIX</span>
-                </a>
+                <h2 class="display-4">
+                    <a [routerLink]="['/immobilienpreisindex']"
+                       aria-describedby="immobilienpreisindex_description">
+                        <span class="lgln-red">NI</span>
+                        <span class="lgln-black">PIX</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <h3 class="h5 text-break"
                         i18n>Niedersächsischer Immobilienpreisindex</h3>
                     <p class="text-justify"
+                       id="immobilienpreisindex_description"
                        i18n="@@immobilienpreisindex_description">Zur Darstellung der Preisentwicklung von Eigenheimen
                         (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und
                         Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen
@@ -358,17 +384,20 @@
              id="immobilienpreiskalkulator">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('immobilienpreiskalkulator')">
-                <a class="h2 display-4"
-                   href="https://www.boris.niedersachsen.de/boris/ipk"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow">
-                    <span class="lgln-black"
-                          i18n>IPK</span>
-                </a>
+                <h2 class="display-4">
+                    <a href="https://www.boris.niedersachsen.de/boris/ipk"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       aria-describedby="immobilienpreiskalkulator_description">
+                        <span class="lgln-black"
+                              i18n>IPK</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <h3 class="h5 text-break"
                         i18n>Immobilien-Preis-Kalkulator</h3>
-                    <p class="text-justify">
+                    <p class="text-justify"
+                       id="immobilienpreiskalkulator_description">
                         <span i18n>Mit Hilfe des Immobilien-Preis-Kalkulators können
                             Sie schnell und einfach das Preisniveau für Ihr freistehendes Ein-/Zweifamilienhaus, Ihr
                             Reihenhaus, Ihre Doppelhaushälfte oder Ihre Eigentumswohnung abschätzen. Der
@@ -405,15 +434,18 @@
              id="forms">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('forms')">
-                <a class="h2 display-4"
-                   [routerLink]="['/forms']">
-                    <span class="lgln-black"
-                          i18n>Formulare</span>
-                </a>
+                <h2 class="display-4">
+                    <a [routerLink]="['/forms']"
+                       aria-describedby="forms_description">
+                        <span class="lgln-black"
+                              i18n>Formulare</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <h3 class="h5 text-break"
                         i18n>Online Formular Service</h3>
                     <p class="text-justify"
+                       id="forms_description"
                        i18n="@@forms_description">Hier können öffentliche und private Formulare des LGLN online
                         ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie
                         diesen direkt über die PIN abrufen und ausfüllen.</p>
@@ -482,14 +514,17 @@
              id="ogc-dienste">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('ogc-dienste')">
-                <a class="h2 display-4"
-                   [routerLink]="['/ogc-dienste']">
-                    <span class="lgln-black">OGC Dienste</span>
-                </a>
+                <h2 class="display-4">
+                    <a [routerLink]="['/ogc-dienste']"
+                       aria-describedby="ogcservice_description">
+                        <span class="lgln-black">OGC Dienste</span>
+                    </a>
+                </h2>
                 <div class="lead">
                     <h3 class="h5 text-break"
                         i18n>OGC Darstellungs- und Downloaddienste</h3>
                     <p class="text-justify"
+                       id="ogcservice_description"
                        i18n>Mithilfe der OGC konformen Dienste Web Map Service (WMS) und Web Feature Service (WFS) der
                         Bodenrichtwerte können Nutzende die Daten in Ihren eigenen GIS-Systemen nutzen, bzw. in eigene
                         Applikationen einbinden.</p>
@@ -510,4 +545,4 @@
             </div>
         </div>
     </div>
-</main>
+</div>

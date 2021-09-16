@@ -3,7 +3,7 @@
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="model">
-        <accordion [isAnimated]="true"
+        <accordion [isAnimated]="false"
                    [closeOthers]="true">
             <!-- common -->
             <accordion-group i18n-heading
@@ -344,7 +344,7 @@
                              heading="Seiten"
                              class="mb-1 mb-lg-3">
                 <!-- render pages -->
-                <accordion [isAnimated]="true"
+                <accordion [isAnimated]="false"
                            [closeOthers]="true">
                     <accordion-group *ngFor="let page of model.pages; index as i"
                                      class="mb-1 mb-lg-3">

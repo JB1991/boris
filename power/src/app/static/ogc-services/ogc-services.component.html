@@ -12,22 +12,26 @@
            href="https://www.govdata.de/dl-de/by-2-0"
            target="_blank"
            rel="noopener noreferrer nofollow"
+           i18n-aria-label
+           aria-label="Mehr Informationen zur Datenlizenz Deutschland Namensnennung 2.0"
            i18n>Mehr über die Lizenz</a>
         <a class="btn btn-primary d-block d-sm-inline"
            role="button"
            href="http://www.adv-online.de/AdV-Produkte/Weitere-Produkte/VBORIS/"
            target="_blank"
            rel="noopener noreferrer nofollow"
+           i18n-aria-label
+           aria-label="Mehr Informationen über unser VBORIS2 Datenschema"
            i18n>Mehr über VBORIS2</a>
     </div>
 
     <div class="mb-5">
-        <div class="h4 m-0"
-             i18n>Technischer Support</div>
+        <h2 class="h4 m-0"
+            i18n>Technischer Support</h2>
 
         <table class="table table-responsive borderless">
             <caption class="sr-only"
-                     i18n>Support Kontaktinformationen</caption>
+                     i18n>Technischer Support Kontaktinformationen</caption>
             <tbody>
                 <tr>
                     <th scope="row">
@@ -73,7 +77,9 @@
                     </th>
                     <td>
                         <a href="mailto:geodatendienste@lgln.niedersachsen.de"
-                           rel="noopener noreferrer nofollow">geodatendienste@lgln.niedersachsen.de</a>
+                           rel="noopener noreferrer nofollow"
+                           i18n-aria-label
+                           aria-label="Technischen Support über E-Mail anschreiben">geodatendienste@lgln.niedersachsen.de</a>
                     </td>
                 </tr>
                 <tr>
@@ -89,18 +95,20 @@
         </table>
     </div>
 
-    <accordion [isAnimated]="true"
+    <accordion [isAnimated]="false"
                [closeOthers]="true">
         <!-- WMS -->
         <accordion-group class="mb-2">
-            <button class="btn btn-link btn-block text-left p-0"
-                    accordion-heading
-                    type="button">
-                <i class="bi bi-map mr-2"
-                   role="img"
-                   aria-hidden="true"></i>
-                <span i18n>WMS (Version 1.1 und 1.3)</span>
-            </button>
+            <h2 class="m-0"
+                accordion-heading>
+                <button class="btn btn-link btn-block text-left p-0"
+                        type="button">
+                    <i class="bi bi-map mr-2"
+                       role="img"
+                       aria-hidden="true"></i>
+                    <span i18n>WMS (Version 1.1 und 1.3)</span>
+                </button>
+            </h2>
 
             <div class="h5"
                  i18n>Aktuelles Jahr</div>
@@ -139,14 +147,16 @@
 
         <!-- WFS -->
         <accordion-group>
-            <button class="btn btn-link btn-block text-left p-0"
-                    accordion-heading
-                    type="button">
-                <i class="bi bi-map mr-2"
-                   role="img"
-                   aria-hidden="true"></i>
-                <span i18n>WFS (Version 1.0.0, 1.1.0 und 2.0.0)</span>
-            </button>
+            <h2 class="m-0"
+                accordion-heading>
+                <button class="btn btn-link btn-block text-left p-0"
+                        type="button">
+                    <i class="bi bi-map mr-2"
+                       role="img"
+                       aria-hidden="true"></i>
+                    <span i18n>WFS (Version 1.0.0, 1.1.0 und 2.0.0)</span>
+                </button>
+            </h2>
 
             <div class="h5"
                  i18n>Aktuelles Jahr</div>

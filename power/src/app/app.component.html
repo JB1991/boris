@@ -1,3 +1,7 @@
+<a href=""
+   class="sr-only"
+   (click)="$event.preventDefault(); maincontent.focus()"
+   i18n>Springe zum Inhalt der Seite</a>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white">
         <a class="navbar-brand lgln-black"
@@ -20,16 +24,21 @@
 
         <button class="navbar-toggler border-0 pr-0"
                 type="button"
+                i18n-title
+                title="Navigation öffnen"
                 (click)="isCollapsed = !isCollapsed"
-                i18n-aria-label
-                aria-label="Navigation umschalten"
+                aria-controls="navbarContent"
+                aria-haspopup="true"
+                [attr.aria-expanded]="!isCollapsed"
                 *ngIf="config.modules.length > 0">
             <span class="navbar-toggler-icon"
                   aria-hidden="true"></span>
+            <span class="sr-only"
+                  i18n>Navigation öffnen</span>
         </button>
 
         <div class="collapse navbar-collapse"
-             id="navbarToggler"
+             id="navbarContent"
              [ngbCollapse]="isCollapsed"
              *ngIf="config.modules.length > 0">
             <ul class="navbar-nav ml-auto">
@@ -50,12 +59,16 @@
                        href=""
                        id="navbarImmo"
                        role="button"
-                       data-toggle="dropdown"
+                       i18n-aria-label
+                       aria-label="Immobilien Menü öffnen"
+                       aria-controls="navbarImmoDropdown"
                        aria-haspopup="true"
+                       [attr.aria-expanded]="!isCollapsedImmo"
                        (click)="$event.preventDefault(); isCollapsedImmo = !isCollapsedImmo"
                        i18n>Immobilien</a>
 
                     <div class="dropdown-menu dropdown-menu-right"
+                         id="navbarImmoDropdown"
                          aria-labelledby="navbarImmo"
                          [collapse]="isCollapsedImmo">
 
@@ -196,16 +209,14 @@
          *ngIf="showOfflineNotice && !hasInternet">
         <alert type="danger"
                role="alert">
-            <button i18n-aria-label
-                    aria-label="Schließen"
-                    i18n-title
+            <button i18n-title
                     title="Schließen"
                     class="close ng-star-inserted"
                     type="button"
                     (click)="showOfflineNotice = false;">
                 <span aria-hidden="true">×</span>
                 <span class="sr-only"
-                      i18n>Alert schließen</span>
+                      i18n>Hinweis schließen</span>
             </button>
             <span class="h4 alert-heading">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -235,16 +246,14 @@
          *ngIf="showBrowserNotice">
         <alert type="warning"
                role="alert">
-            <button i18n-aria-label
-                    aria-label="Schließen"
-                    i18n-title
+            <button i18n-title
                     title="Schließen"
                     class="close ng-star-inserted"
                     type="button"
                     (click)="showBrowserNotice = false;">
                 <span aria-hidden="true">×</span>
                 <span class="sr-only"
-                      i18n>Alert schließen</span>
+                      i18n>Hinweis schließen</span>
             </button>
             <span class="h4 alert-heading">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -274,16 +283,14 @@
          *ngIf="showIENotice">
         <alert type="danger"
                role="alert">
-            <button i18n-aria-label
-                    aria-label="Schließen"
-                    i18n-title
+            <button i18n-title
                     title="Schließen"
                     class="close ng-star-inserted"
                     type="button"
                     (click)="showIENotice = false;">
                 <span aria-hidden="true">×</span>
                 <span class="sr-only"
-                      i18n>Alert schließen</span>
+                      i18n>Hinweis schließen</span>
             </button>
             <span class="h4 alert-heading">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -315,16 +322,14 @@
              *ngIf="incident.visible">
             <alert type="info"
                    role="alert">
-                <button i18n-aria-label
-                        aria-label="Schließen"
-                        i18n-title
+                <button i18n-title
                         title="Schließen"
                         class="close ng-star-inserted"
                         type="button"
                         (click)="incident.visible = false;">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only"
-                          i18n>Alert schließen</span>
+                          i18n>Hinweis schließen</span>
                 </button>
                 <span class="h4 alert-heading">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -350,9 +355,11 @@
         </div>
     </ng-container>
 
-    <div (mouseenter)="isCollapsed = true; isCollapsedBRW = true; isCollapsedImmo = true; isCollapsedAcc = true;">
+    <main (mouseenter)="isCollapsed = true; isCollapsedBRW = true; isCollapsedImmo = true; isCollapsedAcc = true;"
+          #maincontent
+          tabindex="-1">
         <router-outlet></router-outlet>
-    </div>
+    </main>
 
     <div class="container-fluid p-0 m-0">
         <footer class="mt-5 pb-2 px-1 px-md-5 overflow-hidden">
