@@ -29,6 +29,11 @@ export class FlurstueckSearchComponent {
 
     public loading = false;
 
+    public resFuzzy?: FeatureCollection;
+
+    // control for loading spinner if alkisWfs request is running
+    public loadingAlkisWfs = false;
+
     constructor(
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
@@ -52,6 +57,7 @@ export class FlurstueckSearchComponent {
             nenner: '',
             zaehler: ''
         };
+        this.resFuzzy = undefined;
         this.selected = false;
     }
 
@@ -85,7 +91,7 @@ export class FlurstueckSearchComponent {
      */
     public searchFlurstueck(value: Flurstueckskennzeichen): void {
         this.fsk = value;
-
+        this.loadingAlkisWfs = !this.loadingAlkisWfs;
         if (this.fsk?.gemarkung?.properties && this.fsk.flur && this.fsk.zaehler) {
             this.alkisWfsService.getFlurstueckByFsk(
                 this.fsk.gemarkung.properties['gemarkungsschluessel'],
@@ -93,10 +99,11 @@ export class FlurstueckSearchComponent {
                 this.fsk.zaehler,
                 this.fsk?.nenner
             ).subscribe(
-                (res: FeatureCollection) => this.handleHttpResponse(res),
+                (res: FeatureCollection) => {
+                    this.loadingAlkisWfs = !this.loadingAlkisWfs;
+                    this.handleHttpResponse(res);},
                 (err: HttpErrorResponse) => this.handleHttpError(err)
             );
-            this.closing.emit(true);
         }
     }
 
@@ -105,7 +112,13 @@ export class FlurstueckSearchComponent {
      * @param res response as text/xml
      */
     public handleHttpResponse(res: FeatureCollection): void {
-        if (res.features.length > 0) {
+        if (res.features.length > 1) {
+            this.resFuzzy = res;
+            this.cdr.detectChanges();
+            return;
+        }
+        this.closing.emit(true);
+        if (res.features.length === 1) {
             this.flurstueckChange.next(res);
             this.alkisWfsService.updateFeatures(res);
         } else {
@@ -122,6 +135,7 @@ export class FlurstueckSearchComponent {
      * @param err error
      */
     public handleHttpError(err: HttpErrorResponse): void {
+        this.closing.emit(true);
         this.alerts.NewAlert(
             'danger',
             $localize`Laden fehlgeschlagen`,
@@ -152,6 +166,23 @@ export class FlurstueckSearchComponent {
                 return result['features'];
             })
         );
+
+    /**
+     * onSelectFlurstueck select an item from the fuzzy result list
+     * @param index index of selected Flurstueck
+     */
+    public onSelectFlurstueck(index: number): void {
+        this.resFuzzy?.features.forEach((ft: Feature, i) => {
+            if (i !== index) {
+                this.resFuzzy?.features.splice(i, 1);
+            }
+        });
+        if (this.resFuzzy) {
+            this.flurstueckChange.next(this.resFuzzy);
+            this.alkisWfsService.updateFeatures(this.resFuzzy);
+        }
+        this.closing.emit(true);
+    }
 
     /**
      * Select an item from the search result list
