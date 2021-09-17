@@ -31,16 +31,20 @@
 
             <p class="lead"
                i18n="@@feedback_steps">Geben Sie bitte eine genaue Beschreibung des Problems oder Ihres Vorschlages an,
-                welche Schritte haben zu diesem Problem geführt? Wenn möglich senden Sie bitte ein Bildschirmfoto und
-                die Adresszeile der Seite mit.</p>
+                welche Schritte haben zu diesem Problem geführt? Wenn möglich, senden Sie bitte ein Bildschirmfoto und
+                die Adresszeile der Seite mit. Wir bitten Sie, bei der Einsendung eines Fehlerberichts darauf zu achten,
+                den Inhalt des Fehlerberichts als Text und nicht als Bildschirmfoto in ihre Nachricht aufzunehmen.</p>
 
             <p class="lead"
-               i18n="@@feedback_activation">Ihr Feedback wird manuell freigeschaltet, bevor es in der Feedbackübersicht
-                angezeigt wird.</p>
+               i18n="@@feedback_activation">Mit der Nutzung dieser Funktion erklären Sie sich einverstanden, dass ihre
+                Nachricht in der Feedbackübersicht auf dieser Seite veröffentlicht werden darf. Wenn Sie hiermit nicht
+                einverstanden sind, so schreiben Sie dies bitte direkt in ihre Nachricht.</p>
 
             <p class="lead"
-               i18n="@@feedback_signature">Bitte denken Sie daran, Ihre Mailsignatur zu entfernen, wenn Sie nicht
-                wünschen, dass diese in der Feedbackübersicht rechts angezeigt werden soll.</p>
+               i18n="@@feedback_signature">Wenn Sie eine anonyme Veröffentlichung in der Feedbackübersicht wünschen, so
+                denken Sie bitte daran, personenbezogene Informationen (z.B. Telefonnummern) aus ihrer Nachricht inkl.
+                der Signatur vor dem Absenden zu entfernen. Ihre Nachricht wird manuell freigeschaltet, bevor Sie auf
+                dieser Seite in der Feedbackübersicht angezeigt wird.</p>
 
             <div class="text-center">
                 <a class="btn btn-primary btn-lg"
@@ -133,14 +137,16 @@
                            [(ngModel)]="search"
                            (change)="doSearch()"
                            i18n-placeholder
-                           placeholder="Suche">
+                           placeholder="Suche"
+                           aria-controls="feedback-list">
 
                     <button type="submit"
                             class="btn btn-success ml-1"
                             style="vertical-align: 0;"
                             i18n-title
                             title="Suchen"
-                            (click)="doSearch()">
+                            (click)="doSearch()"
+                            aria-controls="feedback-list">
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"
@@ -168,7 +174,8 @@
                             id="search-filter"
                             style="max-width: 250px;"
                             [(ngModel)]="stateFilter"
-                            (change)="doSearch()">
+                            (change)="doSearch()"
+                            aria-controls="feedback-list">
                         <option value="all"
                                 i18n>Alle Tickets</option>
                         <option value="opened"
@@ -182,8 +189,13 @@
 
             <hr class="my-4">
 
-            <ng-container *ngFor="let ticket of this.rss; let i = index;">
-                <div class="card w-100 mb-2 bg-light">
+            <div role="region"
+                 id="feedback-list"
+                 aria-live="polite"
+                 i18n-aria-label
+                 aria-label="Liste mit bekanntem Feedback">
+                <div class="card w-100 mb-2 bg-light"
+                     *ngFor="let ticket of rss; let i = index;">
                     <div class="card-body">
                         <h3 class="card-title h5 d-inline">
                             {{ filterTitle(ticket.getElementsByTagName('summary').item(0)?.textContent) }}
@@ -197,13 +209,12 @@
                         </p>
                     </div>
                 </div>
-            </ng-container>
 
-            <div *ngIf="rss.length === 0">
-                <div class="text-center">
+                <h3 class="h5 d-inline"
+                    *ngIf="rss.length === 0">
                     <span i18n>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne
                         kontaktieren.</span>
-                </div>
+                </h3>
             </div>
         </div>
     </section>
