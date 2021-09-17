@@ -3,7 +3,7 @@
         <h1 class="display-3 m-0"
             i18n>Feedback</h1>
 
-        <p class="lead mb-3"
+        <p class="lead mb-3 hyphen-auto"
            i18n="@@feedback_header">Bitte schauen Sie in der Feedbackübersicht, ob Ihr Anliegen uns bereits geschickt
             wurde. Sollte dies nicht der Fall sein nutzen Sie bitte die Kontaktfunktion.</p>
     </div>
@@ -29,18 +29,18 @@
                       i18n>Feedback geben</span>
             </h2>
 
-            <p class="lead"
+            <p class="lead hyphen-auto"
                i18n="@@feedback_steps">Geben Sie bitte eine genaue Beschreibung des Problems oder Ihres Vorschlages an,
                 welche Schritte haben zu diesem Problem geführt? Wenn möglich, senden Sie bitte ein Bildschirmfoto und
                 die Adresszeile der Seite mit. Wir bitten Sie, bei der Einsendung eines Fehlerberichts darauf zu achten,
                 den Inhalt des Fehlerberichts als Text und nicht als Bildschirmfoto in ihre Nachricht aufzunehmen.</p>
 
-            <p class="lead"
+            <p class="lead hyphen-auto"
                i18n="@@feedback_activation">Mit der Nutzung dieser Funktion erklären Sie sich einverstanden, dass ihre
                 Nachricht in der Feedbackübersicht auf dieser Seite veröffentlicht werden darf. Wenn Sie hiermit nicht
                 einverstanden sind, so schreiben Sie dies bitte direkt in ihre Nachricht.</p>
 
-            <p class="lead"
+            <p class="lead hyphen-auto"
                i18n="@@feedback_signature">Wenn Sie eine anonyme Veröffentlichung in der Feedbackübersicht wünschen, so
                 denken Sie bitte daran, personenbezogene Informationen (z.B. Telefonnummern) aus ihrer Nachricht inkl.
                 der Signatur vor dem Absenden zu entfernen. Ihre Nachricht wird manuell freigeschaltet, bevor Sie auf
@@ -72,7 +72,7 @@
 
             <hr class="my-4">
 
-            <p class="text-center"
+            <p class="text-center hyphen-auto"
                i18n-title
                title="Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an nachfolgenden E-Mail Adresse."
                i18n>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
@@ -204,13 +204,13 @@
                         <h4 class="card-subtitle h6 mb-2 text-muted d-inline">
                             {{ ticket.getElementsByTagName('updated').item(0)?.textContent | date:'short' }}
                         </h4>
-                        <p class="card-text lineb">
+                        <p class="card-text white-space hyphen-auto">
                             {{ filterBody(ticket.getElementsByTagName('description').item(0)?.textContent) }}
                         </p>
                     </div>
                 </div>
 
-                <h3 class="h5 d-inline"
+                <h3 class="h5 d-inline hyphen-auto"
                     *ngIf="rss.length === 0">
                     <span i18n>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne
                         kontaktieren.</span>

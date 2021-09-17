@@ -43,6 +43,15 @@ code {
     color: #c4153a;
 }
 
+.hyphen-auto {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
 $font-family-sans-serif: // Safari for macOS and iOS (San Francisco)
     -apple-system,
     // Chrome < 56 for macOS (San Francisco)
