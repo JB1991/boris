@@ -131,7 +131,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
 
     /** @inheritdoc */
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['features']) {
+        if (changes['features'] && !changes['features'].firstChange) {
             this.clearChart();
             if (this.features) {
                 this.features.features = this.filterByStichtag(this.features.features);
@@ -301,7 +301,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
         for (const [key, value] of groupedByProperty.entries()) {
             const seriesArray = new Array<SeriesItem[]>();
             features = Array.from(value);
-
             seriesArray[0] = this.getSeriesData(features);
             this.getVergOfSeries(seriesArray[0]).forEach((element) => {
                 seriesArray.push(element);
@@ -448,15 +447,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      */
     public copySeriesData(series: SeriesItem[],
         seriesVergValues: SeriesItem[], idx: number): SeriesItem[] {
-        // series changes from a verg to normal
-        if (idx < (series.length - 1) && series[idx + 1].brw !== null &&
-            (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
-            seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
-            seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
-            // seriesVergValues = seriesVergValues.slice(0, idx + 2);
-
-        }
-
         if (seriesVergValues[idx]) {
             seriesVergValues[idx].brw = series[idx].brw;
             seriesVergValues[idx].nutzung = series[idx].nutzung;
@@ -521,30 +511,22 @@ export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit,
      * @returns returns the series without verfahrensgrund items
      */
     public deleteSeriesVergItems(series: SeriesItem[]): SeriesItem[] {
-        let i = 0;
-        if (series.find((element: any, index: number): boolean => {
-            // find first series element with no verg and brw
-            if (!element.verg && element.brw) {
-                i = index;
-                return true;
+        const i: number[] = [];
+        series.forEach((seriesItem, index) => {
+            if (!seriesItem.verg && seriesItem.brw) {
+                i.push(index);
             }
-            return false;
-        })) {
-            // from no Verfahrensgrund set to a set Verfahrensgrund
-            for (i; i < series.length; i++) {
-                if (series[i].verg) {
-                    series[i].verg = '';
-                    series[i].verf = '';
-                    series[i].nutzung = '';
-                    // if series gets interrupted cause of a verg the two graphs should be connected
-                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                    series[i - 1].brw ? series[i].brw = (series[i].brw).toString() : series[i].brw = '';
-                    series = series.slice(0, i + 1);
-                    break;
-                }
-            }
+        });
+        const idx = i.pop();
+        if (i.length && i[i.length] !== 8 && idx) {
+            series[idx + 1].verg = '';
+            series[idx + 1].verf = '';
+            series[idx + 1].nutzung = '';
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            series[idx].brw ? series[idx + 1].brw = (series[idx + 1].brw).toString() : series[idx + 1].brw = '';
+            series = series.slice(0, idx + 2);
         }
-        // if Verfahrensgrund is in the past
+
         series.forEach((element) => (element.verg ? [element.nutzung, element.brw, element.verg, element.verf] = ['', '', '', ''] : ''));
         return series;
     }
