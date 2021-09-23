@@ -183,12 +183,12 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(deletedSeries[2].verf).toBeNull();
 
         expect(deletedSeries[3].stag).toEqual('2015');
-        expect(deletedSeries[3].brw).toEqual('4');
+        expect(deletedSeries[3].brw).toEqual('');
         expect(typeof (deletedSeries[3].brw)).toEqual('string');
         expect(deletedSeries[3].nutzung).toEqual('');
         expect(deletedSeries[3].verg).toEqual('');
 
-        expect(deletedSeries.length).toEqual(4);
+        expect(deletedSeries.length).toEqual(9);
 
     });
 
