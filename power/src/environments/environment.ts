@@ -11,10 +11,10 @@ export const environment = {
     alkisOws: '/geoserver/alkis/ows?',
     basemap: '/assets/boden/basemap.json',
     baviStyles: [
-        'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',
-        'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-color.json',
-        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-light.json',
-        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-grayscale.json'
+        'https://staging.basisvisualisierung.niedersachsen.de/services/basiskarte_ni/styles/vt-style-classic.json',
+        'https://staging.basisvisualisierung.niedersachsen.de/services/basiskarte_ni/styles/vt-style-color.json',
+        'https://staging.basisvisualisierung.niedersachsen.de/services/basiskarte_ni/styles/vt-style-light.json',
+        'https://staging.basisvisualisierung.niedersachsen.de/services/basiskarte_ni/styles/vt-style-grayscale.json'
     ],
     formAPI: 'http://localhost:8080/formapi/',
     auth: {
