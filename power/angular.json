@@ -146,6 +146,38 @@
                             "serviceWorker": true,
                             "ngswConfigPath": "ngsw-config.json"
                         },
+                        "dev": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "1mb",
+                                    "maximumError": "2mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "10kb",
+                                    "maximumError": "50kb"
+                                }
+                            ],
+                            "optimization": {
+                                "scripts": true,
+                                "styles": {
+                                    "minify": true,
+                                    "inlineCritical": false
+                                },
+                                "fonts": true
+                            },
+                            "outputHashing": "all",
+                            "subresourceIntegrity": false,
+                            "crossOrigin": "anonymous",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "serviceWorker": true,
+                            "ngswConfigPath": "ngsw-config.json"
+                        },
                         "de": {
                             "localize": [
                                 "de"
@@ -181,6 +213,9 @@
                         },
                         "staging": {
                             "browserTarget": "power:build:staging,de"
+                        },
+                        "dev": {
+                            "browserTarget": "power:build:dev,de"
                         },
                         "de": {
                             "browserTarget": "power:build:de"
@@ -266,6 +301,12 @@
                             "optimization": true,
                             "localize": true
                         },
+                        "dev": {
+                            "outputHashing": "media",
+                            "sourceMap": false,
+                            "optimization": true,
+                            "localize": true
+                        },
                         "de": {
                             "localize": [
                                 "de"
@@ -298,6 +339,10 @@
                         "staging": {
                             "browserTarget": "power:build:staging,de",
                             "serverTarget": "power:server:staging"
+                        },
+                        "dev": {
+                            "browserTarget": "power:build:dev,de",
+                            "serverTarget": "power:server:dev"
                         }
                     },
                     "defaultConfiguration": "staging"
@@ -335,6 +380,10 @@
                             "browserTarget": "power:build:staging",
                             "serverTarget": "power:server:staging"
                         },
+                        "dev": {
+                            "browserTarget": "power:build:dev",
+                            "serverTarget": "power:server:dev"
+                        },
                         "de": {
                             "browserTarget": "power:build:production,de",
                             "serverTarget": "power:server:production,de"
@@ -368,6 +417,9 @@
                         },
                         "staging": {
                             "devServerTarget": "power:serve:staging"
+                        },
+                        "dev": {
+                            "devServerTarget": "power:serve:dev"
                         }
                     }
                 },

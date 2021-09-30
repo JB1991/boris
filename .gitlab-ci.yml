@@ -241,8 +241,30 @@ build-test:
   only:
     - merge_requests
     - tags
-    - dev
     - staging
+
+build-dev:
+  stage: build
+  image: node:lts-alpine
+  interruptible: true
+  needs:
+    - job: npm-install
+      artifacts: false
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - cd power
+    - node_modules/@angular/cli/bin/ng run power:prerender:dev
+  artifacts:
+    name: "compiled dist"
+    expire_in: 2 hours
+    public: false
+    paths:
+      - power/dist/power/browser
+  only:
+    - dev
     - /^demo-.*/
 
 build-prod:
@@ -275,6 +297,7 @@ kaniko-build:
     entrypoint: [""]
   dependencies:
     - build-test
+    - build-dev
     - build-prod
   cache: {}
   script:
