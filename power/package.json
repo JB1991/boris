@@ -12,7 +12,6 @@
         "lint": "ng lint",
         "lint:html": "npx html-validate src/app/**/*.html",
         "lint:styles": "npx stylelint \"src/app/**/*.{css,html,scss}\"",
-        "e2e": "ng e2e",
         "dev:ssr": "ng run power:serve-ssr",
         "serve:ssr": "node dist/power/server/de/main.js",
         "build:ssr": "ng build -c production && ng run power:server:production",
