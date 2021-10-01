@@ -3,7 +3,7 @@ import { PlaywrightTestConfig, devices } from '@playwright/test';
 // List of all devices: https://github.com/microsoft/playwright/blob/master/src/server/deviceDescriptorsSource.json
 const config: PlaywrightTestConfig = {
     testDir: 'src',
-    testMatch: '*playwright.e2e-spec.ts',
+    testMatch: '*.e2e-spec.ts',
     retries: 0,
     use: {
         baseURL: 'http://localhost:4200',
