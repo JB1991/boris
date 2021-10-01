@@ -68,7 +68,7 @@ test-karma:
 
 test-e2e:
   stage: test
-  image: trion/ng-cli-e2e:latest
+  image: mcr.microsoft.com/playwright:focal
   interruptible: true
   needs:
     - job: npm-install
@@ -77,25 +77,26 @@ test-e2e:
   cache:
     <<: *global_cache
     policy: pull
-  script:
+  before_script:
     - cd power
-    - node_modules/protractor/bin/webdriver-manager update --versions.chrome 91.0.4472.77 --gecko false --standalone false
-    - node_modules/@angular/cli/bin/ng e2e -c staging --webdriver-update=false
+    - nohup node_modules/@angular/cli/bin/ng serve &
+    - npx playwright install
+    - npx wait-on http://localhost:4200
+  script:
+    - npx playwright test --config=e2e/playwright.conf.ts --output ./e2e/output
   artifacts:
+    name: 'playwright'
+    when: on_failure
     expire_in: 2 days
     public: false
-    reports:
-      junit: power/output/junit_e2e.xml
     paths:
-      - power/output/junit_e2e.xml
+      - power/e2e/output
   only:
     - merge_requests
     - tags
     - dev
-    - staging
     - prod
     - /^demo-.*/
-  when: manual
 
 npm-audit:
   stage: test

@@ -12,11 +12,11 @@
 /power/documentation
 /power/output
 /power/debug.log
-/chart/power/charts
+/power/e2e/output/
 *.lock
 
 # dependencies
-/power/node_modules
+node_modules
 
 # profiling files
 chrome-profiler-events*.json
