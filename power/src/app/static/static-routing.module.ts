@@ -11,6 +11,7 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { AccessibilityComponent } from './accessibility/accessibility.component';
+import { OpenSourceLibrariesComponent } from './open-source-libraries/open-source-libraries.component';
 
 import { ModuleGuard } from '@app/module.guard';
 
@@ -54,6 +55,10 @@ const routes: Routes = [
     {
         path: 'barrierefreiheit',
         component: AccessibilityComponent
+    },
+    {
+        path: 'open-source-bibliotheken',
+        component: OpenSourceLibrariesComponent
     },
     {
         path: 'notfound',
