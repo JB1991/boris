@@ -16,6 +16,7 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { AccessibilityComponent } from './accessibility/accessibility.component';
+import { OpenSourceLibrariesComponent } from './open-source-libraries/open-source-libraries.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { AccessibilityComponent } from './accessibility/accessibility.component'
         ImprintComponent,
         PrivacyComponent,
         TermsOfServiceComponent,
-        AccessibilityComponent
+        AccessibilityComponent,
+        OpenSourceLibrariesComponent
     ],
     imports: [
         StaticRoutingModule,

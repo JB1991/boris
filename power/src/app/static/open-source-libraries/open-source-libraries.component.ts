@@ -1,7 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-// import { Observable } from 'rxjs';
+
+export interface ILib {
+    name: string;
+    license: string
+}
 
 @Component({
     selector: 'power-open-source-libraries',
@@ -10,15 +14,32 @@ import { Subscription } from 'rxjs';
 })
 
 export class OpenSourceLibrariesComponent implements OnDestroy {
-    public licenses: string;
+
+    public libs: ILib[];
 
     private licenseSubscribtion: Subscription;
 
     constructor(http: HttpClient) {
-        this.licenses = '';
+        this.libs = [];
         this.licenseSubscribtion = http.get('/3rdpartylicenses.txt', { responseType: 'text' }).subscribe((response) => {
-            this.licenses = response;
+            this.libs = OpenSourceLibrariesComponent.findLibs(response.toString());
         });
+    }
+
+    public static findLibs(licenses: string): ILib[] {
+        const res = [];
+        const array = licenses.split('\n');
+        const pattern = new RegExp(/^[\w/.\d@]+[\w -/.\d@]*/);
+        for (let i = 0; i < array.length; i++) {
+            if ((array[i].startsWith('@')
+                || (i > 1 && array[i - 1].length === 0)
+                && !array[i].includes(' ')
+                && pattern.exec(array[i]))) {
+                res.push({ name: array[i], license: array[++i] });
+            }
+        }
+
+        return res;
     }
 
     /** @inheritdoc */
