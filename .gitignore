@@ -54,4 +54,5 @@ testem.log
 .DS_Store
 Thumbs.db
 desktop.ini
+/package.json
 /package-lock.json

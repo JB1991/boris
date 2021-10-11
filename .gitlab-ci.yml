@@ -115,6 +115,7 @@ npm-audit:
     - staging
     - prod
     - /^demo-.*/
+  allow_failure: true
 
 lint-ts:
   stage: test
