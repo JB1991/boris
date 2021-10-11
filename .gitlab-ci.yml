@@ -98,6 +98,33 @@ test-e2e:
     - prod
     - /^demo-.*/
 
+test-e2e:staging:
+  stage: test
+  image: mcr.microsoft.com/playwright:focal
+  interruptible: true
+  needs:
+    - job: npm-install
+      artifacts: false
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  before_script:
+    - cd power
+    - npx playwright install
+  script:
+    - npx playwright test --config=e2e/playwright-online.conf.ts --output ./e2e/output
+  artifacts:
+    name: 'playwright'
+    when: on_failure
+    expire_in: 2 days
+    public: false
+    paths:
+      - power/e2e/output
+  only:
+    - staging
+  allow_failure: true
+
 npm-audit:
   stage: test
   image: node:lts-alpine
