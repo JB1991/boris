@@ -41,3 +41,25 @@ Eine statische Informationsseite über die OGC Datendienste des LGLN.
 ## Start
 
 Die statische Startseite / Landingpage vom Frontend.
+
+
+## Open-Source-Libraries
+
+Auflistung der verwendeten Open Source Libraries. Die Tabelle wird durch das Parsen der Datei 3rdpartylicenses.txt realisiert. Die Datei existiert nur bei einem Build, als nicht durch
+   ```
+   ng serve
+   ```
+Um die Tabelle in der Entwicklungsumgebung zu sehen, wird wie folgt umgegangen:
+
+1. Build erstellen
+   ```
+   npm build
+   ```
+2. HTTP Server installieren
+   ```
+   npm install -g http-server
+   ```
+3. HTTP Server starten
+   ```
+   http-server ./dist/power/browser/de
+   ```
