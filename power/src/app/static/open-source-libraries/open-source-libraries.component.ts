@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 export interface ILib {
@@ -17,13 +18,19 @@ export class OpenSourceLibrariesComponent implements OnDestroy {
 
     public libs: ILib[];
 
-    private licenseSubscribtion: Subscription;
+    private licenseSubscribtion: Subscription = new Subscription;
 
-    constructor(http: HttpClient) {
+    constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
+        http: HttpClient) {
         this.libs = [];
-        this.licenseSubscribtion = http.get('/3rdpartylicenses.txt', { responseType: 'text' }).subscribe((response) => {
-            this.libs = OpenSourceLibrariesComponent.findLibs(response.toString());
-        });
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.licenseSubscribtion = http.get('/3rdpartylicenses.txt', { responseType: 'text' }).subscribe((response) => {
+                this.libs = OpenSourceLibrariesComponent.findLibs(response.toString());
+            });
+        }
     }
 
     public static findLibs(licenses: string): ILib[] {
