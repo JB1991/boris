@@ -28,23 +28,29 @@ describe('OpenSourceLibrariesComponent', () => {
     });
 
     it('should find @', () => {
-        const libs = OpenSourceLibrariesComponent.findLibs('@lib\nMIT');
+        const libs = OpenSourceLibrariesComponent.findLibs('\n@lib\nMIT');
         expect(libs.length).toEqual(1);
     });
 
     it('should not find --', () => {
-        const libs = OpenSourceLibrariesComponent.findLibs('----\n-----');
+        const libs = OpenSourceLibrariesComponent.findLibs('\n----\n-----');
         expect(libs.length).toEqual(0);
     });
 
     it('should not find white char', () => {
-        const libs = OpenSourceLibrariesComponent.findLibs(' asd\nMIT');
+        const libs = OpenSourceLibrariesComponent.findLibs('\n asd\nMIT');
         expect(libs.length).toEqual(0);
     });
 
     it('should not find without license', () => {
-        const libs = OpenSourceLibrariesComponent.findLibs(' asd');
+        const libs = OpenSourceLibrariesComponent.findLibs('\n asd');
         expect(libs.length).toEqual(0);
+    });
+
+    it('should have MIT', () => {
+        const libs = OpenSourceLibrariesComponent.findLibs('\nngx-bootstrap/accordion\n');
+        expect(libs.length).toEqual(1);
+        expect(libs[0].license).toEqual('MIT');
     });
 
 });

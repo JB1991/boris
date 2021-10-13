@@ -44,10 +44,15 @@ export class OpenSourceLibrariesComponent implements OnDestroy {
         const pattern = new RegExp(/^[\w/.\d@]+[\w -/.\d@]*/);
         for (let line = 0; line < array.length; line++) {
             if (array[line].startsWith('@')
-                || ((line > 1 && array[line - 1].length === 0)
+                || ((line > 0 && array[line - 1].length === 0)
                     && !array[line].includes(' ')
                     && pattern.exec(array[line]))) {
-                res.push({ name: array[line], license: array[++line] });
+                if (array[line].startsWith('ngx-bootstrap/')) {
+                    res.push({ name: array[line], license: 'MIT' }); // libs like ngx-bootstrap/accordion do not contain a license
+                }
+                else {
+                    res.push({ name: array[line], license: array[++line] });
+                }
             }
         }
 
