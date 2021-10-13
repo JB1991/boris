@@ -1,0 +1,21 @@
+<div class="container">
+    <h1 i18n>Verwendete Open Source Bibliotheken</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered .table-responsive">
+            <caption class="sr-only"
+                     i18n>Auflistung der verwendeten Open Source Bibliotheken</caption>
+            <thead>
+                <tr>
+                    <th scope="col"><span i18n>Name</span></th>
+                    <th scope="col"><span i18n>Lizenz</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lib of libs">
+                    <td>{{ lib.name }}</td>
+                    <td>{{ lib.license }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
