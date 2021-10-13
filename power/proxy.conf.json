@@ -51,6 +51,7 @@
 	},
         "changeOrigin": true,
         "secure": false,
-        "debugLevel": "debug"
+        "debugLevel": "debug",
+        "headers": {"Authorization": "Basic aW1tb21hcmt0OnlxJH5kIk4oWDJkTFI7WU94fisuRDRcJDQ="}
     }
 }
