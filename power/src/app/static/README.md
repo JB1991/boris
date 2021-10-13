@@ -51,15 +51,19 @@ Auflistung der verwendeten Open Source Libraries. Die Tabelle wird durch das Par
    ```
 Um die Tabelle in der Entwicklungsumgebung zu sehen, wird wie folgt umgegangen:
 
-1. Build erstellen
+1. In das Verzeichnis wechseln   
    ```
-   npm build
+   cd power
+   ```   
+2. Build erstellen
    ```
-2. HTTP Server installieren
+   ng build
+   ```
+3. HTTP Server installieren, falls noch nicht vorhanden
    ```
    npm install -g http-server
    ```
-3. HTTP Server starten
+4. HTTP Server starten
    ```
    http-server ./dist/power/browser/de
    ```
