@@ -17,6 +17,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { AccessibilityComponent } from './accessibility/accessibility.component';
 import { FeedbackFilterPipe } from './feedback/feedbackFilter.pipe';
+import { OpenSourceLibrariesComponent } from './open-source-libraries/open-source-libraries.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { FeedbackFilterPipe } from './feedback/feedbackFilter.pipe';
         PrivacyComponent,
         TermsOfServiceComponent,
         AccessibilityComponent,
-        FeedbackFilterPipe
+        FeedbackFilterPipe,
+        OpenSourceLibrariesComponent
     ],
     imports: [
         StaticRoutingModule,
