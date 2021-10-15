@@ -135,37 +135,10 @@
                            class="form-control d-inline w-75"
                            style="max-width: 500px;"
                            [(ngModel)]="search"
-                           (change)="doSearch()"
                            i18n-placeholder
                            placeholder="Suche"
                            aria-controls="feedback-list">
-
-                    <button type="submit"
-                            class="btn btn-success ml-1"
-                            style="vertical-align: 0;"
-                            i18n-title
-                            title="Suchen"
-                            (click)="doSearch()"
-                            aria-controls="feedback-list">
-                        <svg width="1em"
-                             height="1em"
-                             viewBox="0 0 16 16"
-                             class="bi bi-search"
-                             fill="currentColor"
-                             xmlns="http://www.w3.org/2000/svg"
-                             role="img"
-                             focusable="false"
-                             aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-                            <path fill-rule="evenodd"
-                                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-                        </svg>
-                        <span class="sr-only"
-                              i18n>Suche ausführen</span>
-                    </button>
                 </div>
-
                 <div class="col-12 p-0">
                     <label class="sr-only"
                            for="search-filter"
@@ -174,7 +147,7 @@
                             id="search-filter"
                             style="max-width: 250px;"
                             [(ngModel)]="stateFilter"
-                            (change)="doSearch()"
+                            (change)="loadRSSFeed()"
                             aria-controls="feedback-list">
                         <option value="all"
                                 i18n>Alle Tickets</option>
@@ -195,17 +168,17 @@
                  i18n-aria-label
                  aria-label="Liste mit bekanntem Feedback">
                 <div class="card w-100 mb-2 bg-light"
-                     *ngFor="let ticket of rss; let i = index;">
+                     *ngFor="let ticket of rss | feedbackFilter:search; let i = index;">
                     <div class="card-body">
                         <h3 class="card-title h5 d-inline">
-                            {{ filterTitle(ticket.getElementsByTagName('summary').item(0)?.textContent) }}
+                            {{ ticket.title }}
                         </h3>
                         &nbsp;
                         <h4 class="card-subtitle h6 mb-2 text-muted d-inline">
-                            {{ ticket.getElementsByTagName('updated').item(0)?.textContent | date:'short' }}
+                            {{ ticket.date| date:'short' }}
                         </h4>
                         <p class="card-text white-space hyphen-auto">
-                            {{ filterBody(ticket.getElementsByTagName('description').item(0)?.textContent) }}
+                            {{ ticket.description }}
                         </p>
                     </div>
                 </div>

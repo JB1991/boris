@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { FeedbackComponent } from './feedback.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { FeedbackFilterPipe } from './feedbackFilter.pipe';
 
 describe('Static.Feedback.FeedbackComponent', () => {
     let component: FeedbackComponent;
@@ -21,7 +22,8 @@ describe('Static.Feedback.FeedbackComponent', () => {
                 AlertsService
             ],
             declarations: [
-                FeedbackComponent
+                FeedbackComponent,
+                FeedbackFilterPipe
             ]
         }).compileComponents();
 
@@ -40,18 +42,6 @@ describe('Static.Feedback.FeedbackComponent', () => {
     it('should show the mail address', () => {
         expect(document.body.innerHTML)
             .toContain('incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com');
-    });
-
-    it('should search without email', () => {
-        /* eslint-disable-next-line scanjs-rules/assign_to_search */
-        component.search = 'BORIS';
-        void component.doSearch();
-        expect(component.search).toEqual('BORIS');
-
-        /* eslint-disable-next-line scanjs-rules/assign_to_search */
-        component.search = 'dagobert@duck.net';
-        void component.doSearch();
-        expect(component.search).toEqual('');
     });
 
     it('should remove sensitive informations', () => {

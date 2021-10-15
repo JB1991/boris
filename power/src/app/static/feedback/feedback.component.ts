@@ -5,6 +5,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { SEOService } from '@app/shared/seo/seo.service';
 
+/**
+ * type for the rss feed ticktes
+ */
+export type rssTicket = {
+    title: string;
+    description: string;
+    date: string | null | undefined
+};
+
 @Component({
     selector: 'power-feedback',
     templateUrl: './feedback.component.html',
@@ -17,7 +26,9 @@ export class FeedbackComponent implements OnInit {
 
     public search = '';
 
-    public rss = new Array<Element>();
+    public rss: rssTicket[] = [];
+
+    public filteredRss: rssTicket[] = [];
 
     // eslint-disable-next-line max-len, no-control-regex
     private readonly reg_email = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/gm;
@@ -53,10 +64,7 @@ export class FeedbackComponent implements OnInit {
      */
     public async loadRSSFeed(): Promise<void> {
         // craft uri
-        let uri = '/feedback-rss/?state=' + encodeURIComponent(this.stateFilter);
-        if (this.search) {
-            uri += '&search=' + encodeURIComponent(this.search);
-        }
+        const uri = '/feedback-rss/?state=' + encodeURIComponent(this.stateFilter);
 
         try {
             // get rss feed
@@ -71,25 +79,19 @@ export class FeedbackComponent implements OnInit {
             /* eslint-disable-next-line scanjs-rules/call_parseFromString */
             const di = parser.parseFromString(tmp.toString(), 'application/xml');
             const childs = di.getElementsByTagName('entry');
-
-            this.rss = new Array<Element>();
+            this.rss = [];
             for (let i = 0; i < childs.length; i++) {
-                this.rss.push(childs[i]);
+                const ticket: rssTicket = {
+                    title: this.filterTitle(childs[i].getElementsByTagName('summary').item(0)?.textContent),
+                    description: this.filterBody(childs[i].getElementsByTagName('description').item(0)?.textContent),
+                    date: childs[i].getElementsByTagName('updated').item(0)?.textContent
+                };
+                this.rss.push(ticket);
             }
         } catch (error) {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, $localize`Es konnte kein Feedback geladen werden.`);
         }
-    }
-
-    /**
-     * Searches for keywords in rss feed from github
-     * @returns Promise
-     */
-    public async doSearch(): Promise<void> {
-        /* eslint-disable-next-line scanjs-rules/assign_to_search */
-        this.search = this.search.replace(this.reg_email, '');
-        await this.loadRSSFeed();
     }
 
     /**
