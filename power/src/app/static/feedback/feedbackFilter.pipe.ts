@@ -17,10 +17,9 @@ export class FeedbackFilterPipe implements PipeTransform {
         if (!rssTickets || !searchTerm) {
             return rssTickets;
         }
-        const rssFiltered = rssTickets.filter((ticket) =>
+        return rssTickets.filter((ticket) =>
             ticket.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
             ticket.description.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
         );
-        return rssFiltered;
     }
 }
