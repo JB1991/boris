@@ -51,7 +51,7 @@
                     ]
                 ]
             },
-            "geometry_name": "wkb_geometry",
+            "geometry_name": "position",
             "properties": {
                 "gml_id": "DENIAL350000733t",
                 "identifier": "urn:adv:oid:DENIAL350000733t",
