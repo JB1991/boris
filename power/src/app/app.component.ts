@@ -138,7 +138,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             });
 
             // load dynamic incidents
-            this.httpClient.get<any>('/status/incidents?status=0',
+            this.httpClient.get<any>('/status/schedules?status=0',
                 { headers: header, responseType: 'json' }
             ).subscribe((data) => {
                 const incidents = data['data'];
