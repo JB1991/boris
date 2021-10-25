@@ -409,7 +409,7 @@ helm-deploy:branches:
     action: start
     url: "https://$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
     on_stop: helm-delete:branches
-    auto_stop_in: 7 days
+    auto_stop_in: 2 weeks
   before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
