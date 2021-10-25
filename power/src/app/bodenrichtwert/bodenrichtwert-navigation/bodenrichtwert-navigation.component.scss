@@ -1,4 +1,4 @@
-@import '~bootstrap/scss/bootstrap-grid.scss';
+@import '~bootstrap/scss/bootstrap-grid';
 
 .max-search-width {
     max-width: 500px;
@@ -37,7 +37,6 @@ $grid-breakpoints: (
     xl: 1200px,
     xxl: 1700px,
 );
-
 $container-max-widths: (
     sm: 540px,
     md: 720px,
