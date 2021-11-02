@@ -71,11 +71,19 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     @Input() public standardLandZoom?: number;
 
-    public searchActive = false;
-
     public filterActive = false;
 
     public functionsActive = false;
+
+    /**
+     * geoSearchCollapsed
+     */
+    public geoSearchCollapsed = true;
+
+    /**
+     * furtherFunCollapsed
+     */
+    public furtherFunCollapsed = true;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,

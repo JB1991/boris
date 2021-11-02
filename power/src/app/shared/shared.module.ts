@@ -21,6 +21,7 @@ import { FlurstueckSearchComponent } from './advanced-search/flurstueck-search/f
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichwertnummer-search/bodenrichwertnummer-search.component';
+import { HideDropdownMenuDirective } from './directives/hide-dropdown-menu.directive';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichw
         ModalminiFooterDirective,
         FlurstueckSearchComponent,
         AdvancedSearchComponent,
-        BodenrichwertnummerSearchComponent
+        BodenrichwertnummerSearchComponent,
+        HideDropdownMenuDirective
     ],
     exports: [
         GeosearchComponent,
@@ -51,7 +53,8 @@ import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichw
         HyphenatePipe,
         ModalminiFooterDirective,
         FlurstueckSearchComponent,
-        AdvancedSearchComponent
+        AdvancedSearchComponent,
+        HideDropdownMenuDirective
     ],
     imports: [
         CommonModule,
