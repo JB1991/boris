@@ -1,23 +1,47 @@
 @import '~bootstrap/scss/bootstrap-grid';
 
-.max-search-width {
-    max-width: 500px;
+button {
+    border: 1px solid lightgray;
+    border-radius: 0.75em;
+    padding: 5px 0.75rem !important;
+    line-height: 1.5 !important;
+    font-size: 1rem;
+}
+
+button:hover {
+    color: #c4153a;
+    background-color: lightgray;
+}
+
+a:hover {
+    color: #c4153a;
+    background-color: lightgray;
+    border-radius: 0.75em;
+}
+
+.dropdown-menu {
+    min-width: 90% !important;
+}
+
+.no-transition {
+    transition: none;
+}
+
+.max-width-600 {
+    max-width: 600px;
 }
 
 .active {
     color: #c4153a !important;
-}
-
-.nav-link:hover {
-    color: #c4153a;
-}
-
-.dropdown-menu {
-    min-width: 100% !important;
+    background: none;
 }
 
 .z-index {
     z-index: 1000;
+}
+
+.nav-height {
+    height: 46px;
 }
 
 @media (max-width: 460px) {
@@ -26,6 +50,12 @@
         word-wrap: break-word;
         text-align: start;
         width: calc(100vw - 85px);
+    }
+}
+
+@media (max-width: 991px) {
+    .mobileBtn {
+        border: none;
     }
 }
 

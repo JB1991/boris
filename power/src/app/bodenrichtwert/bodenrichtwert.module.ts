@@ -3,6 +3,7 @@ import { AsyncPipe, CommonModule, DatePipe, DecimalPipe } from '@angular/common'
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
@@ -60,6 +61,7 @@ import { GemarkungPipe } from '@app/shared/pipes/gemarkung.pipe';
         BodenrichtwertRoutingModule,
         CommonModule,
         SharedModule,
+        NgbModule,
         BsDropdownModule.forRoot(),
         CollapseModule.forRoot()
     ],

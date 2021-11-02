@@ -8,6 +8,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SimpleChange } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // eslint-disable-next-line
 // @ts-ignore
 import { LngLat } from 'maplibre-gl';
@@ -31,6 +32,7 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
                 CommonModule,
                 HttpClientTestingModule,
                 SharedModule,
+                NgbModule,
                 RouterModule.forRoot([])
             ],
             providers: [
